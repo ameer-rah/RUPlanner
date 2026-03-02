@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # RUPlanner
 
 RUPlanner is a Rutgers–New Brunswick degree planning engine. This repo starts
@@ -75,10 +74,3 @@ Open `http://localhost:3000`.
 ## API
 
 - `POST /plan` generates a plan from user inputs.
-
-## Notes
-
-- The current planner uses sample data and a basic heuristic to schedule
-  courses. It is structured to be replaced with a full requirements engine,
-  prerequisite graph, and constraint solver (NetworkX / OR-Tools).
->>>>>>> b594a3e (finished SAS and SOE)
