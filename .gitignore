@@ -1,7 +1,27 @@
+# Secrets
 .env
 .env.*
-.next/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Local / generated
+*.db
+
+# Node / Next
 node_modules/
+.next/
 dist/
+build/
+out/
 coverage/
+*.tsbuildinfo
+
+# Logs
 *.log
+
+# OS
+.DS_Store

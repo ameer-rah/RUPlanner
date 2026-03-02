@@ -1,0 +1,7105 @@
+[
+  {
+    "code": "AFRS101",
+    "title": "Introduction to Africana Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AFRS200",
+    "title": "African Diaspora in the Americas",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AFRS210",
+    "title": "African American Literature",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AFRS220",
+    "title": "African Civilizations",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AFRS301",
+    "title": "Seminar in Africana Studies",
+    "credits": 3,
+    "prerequisites": [
+      "AFRS101"
+    ]
+  },
+  {
+    "code": "AFRS310",
+    "title": "Black Feminist Thought",
+    "credits": 3,
+    "prerequisites": [
+      "AFRS101"
+    ]
+  },
+  {
+    "code": "AFRS315",
+    "title": "The Civil Rights Movement",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AFRS320",
+    "title": "African Politics",
+    "credits": 3,
+    "prerequisites": [
+      "AFRS101"
+    ]
+  },
+  {
+    "code": "AFRS330",
+    "title": "Race, Class, and Gender",
+    "credits": 3,
+    "prerequisites": [
+      "AFRS101"
+    ]
+  },
+  {
+    "code": "AFRS401",
+    "title": "Senior Capstone Seminar",
+    "credits": 3,
+    "prerequisites": [
+      "AFRS101"
+    ]
+  },
+  {
+    "code": "AMST101",
+    "title": "Introduction to American Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST102",
+    "title": "American Cultures",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST120",
+    "title": "American Dream: Myth and Reality",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST200",
+    "title": "Methods in American Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST210",
+    "title": "Race and Ethnicity in America",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST301",
+    "title": "Seminar in American Studies I",
+    "credits": 3,
+    "prerequisites": [
+      "AMST101"
+    ]
+  },
+  {
+    "code": "AMST302",
+    "title": "Seminar in American Studies II",
+    "credits": 3,
+    "prerequisites": [
+      "AMST101"
+    ]
+  },
+  {
+    "code": "AMST310",
+    "title": "American Popular Culture",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST320",
+    "title": "U.S. Imperialism and Foreign Policy",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST330",
+    "title": "The American West",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST401",
+    "title": "Capstone Seminar in American Studies",
+    "credits": 3,
+    "prerequisites": [
+      "AMST200"
+    ]
+  },
+  {
+    "code": "ANTH101",
+    "title": "Introduction to Cultural Anthropology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ANTH102",
+    "title": "Introduction to Biological Anthropology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ANTH105",
+    "title": "Introduction to Linguistic Anthropology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ANTH108",
+    "title": "Introduction to Archaeology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ANTH302",
+    "title": "Cultural Theory",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH303",
+    "title": "Ethnographic Methods",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH304",
+    "title": "Medical Anthropology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH305",
+    "title": "Urban Anthropology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH307",
+    "title": "Economic Anthropology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH308",
+    "title": "Political Anthropology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH309",
+    "title": "Environmental Anthropology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH310",
+    "title": "Biological Anthropology: Evolution",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH102"
+    ]
+  },
+  {
+    "code": "ANTH312",
+    "title": "Language and Culture",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH105"
+    ]
+  },
+  {
+    "code": "ANTH314",
+    "title": "Archaeology of North America",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH108"
+    ]
+  },
+  {
+    "code": "ANTH317",
+    "title": "Anthropology of Gender",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH318",
+    "title": "Anthropology of Race and Racism",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH320",
+    "title": "Anthropology of Religion",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH325",
+    "title": "Human Evolution",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH102"
+    ]
+  },
+  {
+    "code": "ANTH326",
+    "title": "Old World Archaeology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH108"
+    ]
+  },
+  {
+    "code": "ANTH328",
+    "title": "Primate Behavior",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH102"
+    ]
+  },
+  {
+    "code": "ANTH336",
+    "title": "Forensic Anthropology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH102"
+    ]
+  },
+  {
+    "code": "ANTH338",
+    "title": "Human Osteology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH102"
+    ]
+  },
+  {
+    "code": "ANTH341",
+    "title": "Globalization and Culture",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH101"
+    ]
+  },
+  {
+    "code": "ANTH350",
+    "title": "Paleoanthropology",
+    "credits": 3,
+    "prerequisites": [
+      "ANTH102",
+      "ANTH325"
+    ]
+  },
+  {
+    "code": "ARTH106",
+    "title": "Art History Post-1400",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ARTH204",
+    "title": "Art and Power",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH205",
+    "title": "Introduction to Asian Art",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH230",
+    "title": "Latinx Art",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH276",
+    "title": "Radical Modernism",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH291",
+    "title": "Topics in Art History",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH328",
+    "title": "Modern Islamic Art",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH332",
+    "title": "African American Art",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH366",
+    "title": "Spanish Painting",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH373",
+    "title": "Early Medieval Art",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH383",
+    "title": "20th Century Photography",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH391",
+    "title": "19th Century Architecture in the US",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH444",
+    "title": "Studies in Architectural Preservation",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "ARTH492",
+    "title": "Capstone: Art History",
+    "credits": 3,
+    "prerequisites": [
+      "ARTH106"
+    ]
+  },
+  {
+    "code": "BIO101",
+    "title": "General Biology I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "BIO102",
+    "title": "General Biology II",
+    "credits": 3,
+    "prerequisites": [
+      "BIO101"
+    ]
+  },
+  {
+    "code": "BIO103",
+    "title": "General Biology I Laboratory",
+    "credits": 1,
+    "prerequisites": []
+  },
+  {
+    "code": "BIO104",
+    "title": "General Biology II Laboratory",
+    "credits": 1,
+    "prerequisites": [
+      "BIO103"
+    ]
+  },
+  {
+    "code": "CBN245",
+    "title": "Cell Biology",
+    "credits": 3,
+    "prerequisites": [
+      "BIO101",
+      "BIO102",
+      "CHEM161"
+    ]
+  },
+  {
+    "code": "CBN270",
+    "title": "Introduction to Neuroscience",
+    "credits": 3,
+    "prerequisites": [
+      "BIO101",
+      "BIO102"
+    ]
+  },
+  {
+    "code": "CBN322",
+    "title": "Molecular Cell Biology",
+    "credits": 3,
+    "prerequisites": [
+      "CBN245"
+    ]
+  },
+  {
+    "code": "CBN328",
+    "title": "Developmental Biology",
+    "credits": 3,
+    "prerequisites": [
+      "CBN245"
+    ]
+  },
+  {
+    "code": "CBN340",
+    "title": "Cell Signaling",
+    "credits": 3,
+    "prerequisites": [
+      "CBN245"
+    ]
+  },
+  {
+    "code": "CBN356",
+    "title": "Cancer Biology",
+    "credits": 3,
+    "prerequisites": [
+      "CBN245"
+    ]
+  },
+  {
+    "code": "CBN445",
+    "title": "Molecular Neurobiology",
+    "credits": 3,
+    "prerequisites": [
+      "CBN270",
+      "CBN245"
+    ]
+  },
+  {
+    "code": "CBN447",
+    "title": "Systems Neuroscience",
+    "credits": 3,
+    "prerequisites": [
+      "CBN270"
+    ]
+  },
+  {
+    "code": "CBN456",
+    "title": "Cognitive Neuroscience",
+    "credits": 3,
+    "prerequisites": [
+      "CBN270"
+    ]
+  },
+  {
+    "code": "CBN464",
+    "title": "Behavioral Neuroscience",
+    "credits": 3,
+    "prerequisites": [
+      "CBN270"
+    ]
+  },
+  {
+    "code": "CBN470",
+    "title": "Neuropharmacology",
+    "credits": 3,
+    "prerequisites": [
+      "CBN270"
+    ]
+  },
+  {
+    "code": "CBN472",
+    "title": "Developmental Neuroscience",
+    "credits": 3,
+    "prerequisites": [
+      "CBN270",
+      "CBN245"
+    ]
+  },
+  {
+    "code": "CBN476",
+    "title": "Cellular Neurophysiology",
+    "credits": 3,
+    "prerequisites": [
+      "CBN270",
+      "PHYS203"
+    ]
+  },
+  {
+    "code": "CBN480",
+    "title": "Sensory Systems Neuroscience",
+    "credits": 3,
+    "prerequisites": [
+      "CBN270"
+    ]
+  },
+  {
+    "code": "CHEM161",
+    "title": "General Chemistry I",
+    "credits": 4,
+    "prerequisites": [],
+    "corequisites": [
+      "CHEM171"
+    ]
+  },
+  {
+    "code": "CHEM162",
+    "title": "General Chemistry II",
+    "credits": 4,
+    "prerequisites": [
+      "CHEM161"
+    ],
+    "corequisites": [
+      "CHEM172"
+    ]
+  },
+  {
+    "code": "CHEM171",
+    "title": "Introductory Chemistry Lab I",
+    "credits": 1,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM172",
+    "title": "General Chemistry Lab II",
+    "credits": 1,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM251",
+    "title": "Analytical Chemistry",
+    "credits": 3,
+    "prerequisites": [
+      "CHEM162"
+    ]
+  },
+  {
+    "code": "CHEM307",
+    "title": "Organic Chemistry I",
+    "credits": 4,
+    "prerequisites": [
+      "CHEM162"
+    ]
+  },
+  {
+    "code": "CHEM308",
+    "title": "Organic Chemistry II",
+    "credits": 4,
+    "prerequisites": [
+      "CHEM307"
+    ]
+  },
+  {
+    "code": "CHEM309",
+    "title": "Organic Chemistry Lab I",
+    "credits": 3,
+    "prerequisites": [
+      "CHEM171"
+    ]
+  },
+  {
+    "code": "CHEM311",
+    "title": "Organic Chemistry Lab II",
+    "credits": 2,
+    "prerequisites": [
+      "CHEM309"
+    ]
+  },
+  {
+    "code": "CHEM328",
+    "title": "Physical Chemistry II",
+    "credits": 4,
+    "prerequisites": [
+      "CHEM162",
+      "PHYS204",
+      "MATH251"
+    ]
+  },
+  {
+    "code": "CHEM329",
+    "title": "Experimental Physical Chemistry",
+    "credits": 3,
+    "prerequisites": [
+      "CHEM328"
+    ]
+  },
+  {
+    "code": "CHEM341",
+    "title": "Physical Chemistry for Biochemical Systems",
+    "credits": 3,
+    "prerequisites": [
+      "CHEM162",
+      "PHYS203"
+    ]
+  },
+  {
+    "code": "CHEM348",
+    "title": "Instrumental Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "CHEM307"
+    ]
+  },
+  {
+    "code": "CHEM351",
+    "title": "Inorganic Chemistry I",
+    "credits": 3,
+    "prerequisites": [
+      "CHEM308"
+    ]
+  },
+  {
+    "code": "CHEM496",
+    "title": "Senior Research Project",
+    "credits": 3,
+    "prerequisites": [
+      "CHEM308"
+    ]
+  },
+  {
+    "code": "COGS201",
+    "title": "Introduction to Cognitive Science",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "COGS253",
+    "title": "Minds, Machines, and Knowledge",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS301",
+    "title": "Bayesian Reasoning",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201",
+      "STAT291"
+    ]
+  },
+  {
+    "code": "COGS310",
+    "title": "Computation and Cognition",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201",
+      "CS205"
+    ]
+  },
+  {
+    "code": "COGS320",
+    "title": "Research Methods in Cognitive Science",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS330",
+    "title": "Language and the Mind",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS335",
+    "title": "Developmental Cognitive Science",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS340",
+    "title": "Cognitive Neuroscience",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS345",
+    "title": "Perception and Cognition",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS350",
+    "title": "Cognitive Aging",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS395",
+    "title": "Research in Cognitive Science",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS401",
+    "title": "Seminar: Perception and Action",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS411",
+    "title": "Senior Seminar in Cognitive Science",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS412",
+    "title": "Seminar: Cognitive Neuroscience",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201",
+      "COGS340"
+    ]
+  },
+  {
+    "code": "COGS413",
+    "title": "Seminar: Language and Cognition",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS414",
+    "title": "Seminar: Decision Making",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS415",
+    "title": "Seminar: Psycholinguistics",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS416",
+    "title": "Seminar: Computational Models",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201",
+      "CS205"
+    ]
+  },
+  {
+    "code": "COGS417",
+    "title": "Seminar: Sensory Processing",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS430",
+    "title": "Cognitive Science of Emotion",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COGS495",
+    "title": "Honors Research in Cognitive Science",
+    "credits": 3,
+    "prerequisites": [
+      "COGS201"
+    ]
+  },
+  {
+    "code": "COMMUN101",
+    "title": "Introduction to Communication",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "COMMUN200",
+    "title": "Communication Theory",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "COMMUN201",
+    "title": "Research Methods in Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN200"
+    ]
+  },
+  {
+    "code": "COMMUN300",
+    "title": "Communication and Society",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN200"
+    ]
+  },
+  {
+    "code": "COMMUN354",
+    "title": "Health Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN200"
+    ]
+  },
+  {
+    "code": "COMMUN355",
+    "title": "Organizational Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN200"
+    ]
+  },
+  {
+    "code": "COMMUN356",
+    "title": "Interpersonal Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN200"
+    ]
+  },
+  {
+    "code": "COMMUN357",
+    "title": "Family Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN200"
+    ]
+  },
+  {
+    "code": "COMMUN359",
+    "title": "Communication Technology",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN200"
+    ]
+  },
+  {
+    "code": "COMMUN380",
+    "title": "Communication Capstone Seminar",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN300"
+    ]
+  },
+  {
+    "code": "COMMUN400",
+    "title": "Advanced Topics in Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN300"
+    ]
+  },
+  {
+    "code": "COMMUN401",
+    "title": "Strategic Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN300"
+    ]
+  },
+  {
+    "code": "COMMUN402",
+    "title": "Communication and Technology",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN300"
+    ]
+  },
+  {
+    "code": "COMMUN403",
+    "title": "Health and Wellness Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN354"
+    ]
+  },
+  {
+    "code": "COMMUN404",
+    "title": "Leadership Communication",
+    "credits": 3,
+    "prerequisites": [
+      "COMMUN355"
+    ]
+  },
+  {
+    "code": "CRIM201",
+    "title": "Introduction to Criminal Justice",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CRIM202",
+    "title": "Police",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM203",
+    "title": "Prisons and Prisoners",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM204",
+    "title": "Crime and Public Policy",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM205",
+    "title": "Criminal Procedure",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM301",
+    "title": "Human Rights and Legal Remedies",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM307",
+    "title": "Criminal Justice Research Methods",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM309",
+    "title": "Criminal Law: Theory and Practice",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM315",
+    "title": "Race and Empire",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM316",
+    "title": "Crime Analytics",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM307"
+    ]
+  },
+  {
+    "code": "CRIM352",
+    "title": "Forensic Science",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM360",
+    "title": "Ideas in Justice",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM201"
+    ]
+  },
+  {
+    "code": "CRIM388",
+    "title": "Criminal Justice Seminar",
+    "credits": 3,
+    "prerequisites": [
+      "CRIM307"
+    ]
+  },
+  {
+    "code": "CS103",
+    "title": "Introduction to Computer Skills",
+    "credits": 1,
+    "prerequisites": []
+  },
+  {
+    "code": "CS105",
+    "title": "Great Insights in Computer Science",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS107",
+    "title": "Computing for Math and the Sciences",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "CS110",
+    "title": "Principles of Computer Science",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS111",
+    "title": "Introduction to Computer Science",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "CS112",
+    "title": "Data Structures",
+    "credits": 4,
+    "prerequisites": [
+      "CS111"
+    ]
+  },
+  {
+    "code": "CS142",
+    "title": "Data 101: Data Literacy",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "CS143",
+    "title": "Data 101: Data Literacy (Hybrid)",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS170",
+    "title": "Computer Applications for Business",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS195",
+    "title": "Honors Seminar in Computer Science",
+    "credits": 1,
+    "prerequisites": []
+  },
+  {
+    "code": "CS205",
+    "title": "Introduction to Discrete Structures I",
+    "credits": 4,
+    "prerequisites": [
+      "CS111"
+    ]
+  },
+  {
+    "code": "CS206",
+    "title": "Introduction to Discrete Structures II",
+    "credits": 4,
+    "prerequisites": [
+      "CS205"
+    ]
+  },
+  {
+    "code": "CS210",
+    "title": "Data Management for Data Science",
+    "credits": 4,
+    "prerequisites": [
+      "CS112"
+    ]
+  },
+  {
+    "code": "CS211",
+    "title": "Computer Architecture",
+    "credits": 4,
+    "prerequisites": [
+      "CS112",
+      "CS205"
+    ]
+  },
+  {
+    "code": "CS213",
+    "title": "Software Methodology",
+    "credits": 4,
+    "prerequisites": [
+      "CS112"
+    ]
+  },
+  {
+    "code": "CS214",
+    "title": "Systems Programming",
+    "credits": 4,
+    "prerequisites": [
+      "CS211",
+      "CS213"
+    ]
+  },
+  {
+    "code": "CS314",
+    "title": "Principles of Programming Languages",
+    "credits": 4,
+    "prerequisites": [
+      "CS112",
+      "CS206"
+    ]
+  },
+  {
+    "code": "CS323",
+    "title": "Numerical Analysis and Computing",
+    "credits": 4,
+    "prerequisites": [
+      "CS112",
+      "MATH152"
+    ]
+  },
+  {
+    "code": "CS324",
+    "title": "Numerical Methods",
+    "credits": 4,
+    "prerequisites": [
+      "MATH152"
+    ]
+  },
+  {
+    "code": "CS334",
+    "title": "Introduction to Imaging and Multimedia",
+    "credits": 4,
+    "prerequisites": [
+      "CS112"
+    ]
+  },
+  {
+    "code": "CS336",
+    "title": "Principles of Information and Data Management",
+    "credits": 3,
+    "prerequisites": [
+      "CS112",
+      "CS206"
+    ]
+  },
+  {
+    "code": "CS344",
+    "title": "Design and Analysis of Computer Algorithms",
+    "credits": 4,
+    "prerequisites": [
+      "CS112",
+      "CS205",
+      "CS206"
+    ]
+  },
+  {
+    "code": "CS352",
+    "title": "Internet Technology",
+    "credits": 3,
+    "prerequisites": [
+      "CS214"
+    ]
+  },
+  {
+    "code": "CS416",
+    "title": "Operating Systems Design",
+    "credits": 4,
+    "prerequisites": [
+      "CS214"
+    ]
+  },
+  {
+    "code": "CS417",
+    "title": "Computational Methods for Data Science",
+    "credits": 4,
+    "prerequisites": [
+      "CS112",
+      "MATH152"
+    ]
+  },
+  {
+    "code": "CS431",
+    "title": "Introduction to Computer Networking",
+    "credits": 4,
+    "prerequisites": [
+      "CS214"
+    ]
+  },
+  {
+    "code": "CS440",
+    "title": "Introduction to Artificial Intelligence",
+    "credits": 4,
+    "prerequisites": [
+      "CS112",
+      "CS206"
+    ]
+  },
+  {
+    "code": "CS444",
+    "title": "Introduction to Machine Learning",
+    "credits": 4,
+    "prerequisites": [
+      "CS112",
+      "MATH250"
+    ]
+  },
+  {
+    "code": "CS446",
+    "title": "Compiler Design",
+    "credits": 4,
+    "prerequisites": [
+      "CS112",
+      "CS206",
+      "CS211"
+    ]
+  },
+  {
+    "code": "CS451",
+    "title": "Software Engineering",
+    "credits": 4,
+    "prerequisites": [
+      "CS213",
+      "CS214"
+    ]
+  },
+  {
+    "code": "CS452",
+    "title": "Database Systems Implementation",
+    "credits": 4,
+    "prerequisites": [
+      "CS214",
+      "CS336"
+    ]
+  },
+  {
+    "code": "CS460",
+    "title": "Introduction to Theory of Computing",
+    "credits": 4,
+    "prerequisites": [
+      "CS206",
+      "CS344"
+    ]
+  },
+  {
+    "code": "ECON102",
+    "title": "Introduction to Microeconomics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ECON103",
+    "title": "Introduction to Macroeconomics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ECON212",
+    "title": "Economic Data Analytics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ECON300",
+    "title": "International Economics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON102"
+    ]
+  },
+  {
+    "code": "ECON301",
+    "title": "Money, Banking and Finance",
+    "credits": 3,
+    "prerequisites": [
+      "ECON103"
+    ]
+  },
+  {
+    "code": "ECON320",
+    "title": "Intermediate Microeconomic Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "ECON102",
+      "MATH151"
+    ]
+  },
+  {
+    "code": "ECON321",
+    "title": "Intermediate Macroeconomic Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "ECON103",
+      "MATH151"
+    ]
+  },
+  {
+    "code": "ECON322",
+    "title": "Econometrics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON320",
+      "STAT291"
+    ]
+  },
+  {
+    "code": "ECON390",
+    "title": "Choice, Strategy and Politics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON102"
+    ]
+  },
+  {
+    "code": "ECON395",
+    "title": "Law and Economics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON102"
+    ]
+  },
+  {
+    "code": "ECON402",
+    "title": "Labor Economics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON320"
+    ]
+  },
+  {
+    "code": "ECON410",
+    "title": "Advanced Macroeconomics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON321"
+    ]
+  },
+  {
+    "code": "ECON413",
+    "title": "Financial Economics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON320"
+    ]
+  },
+  {
+    "code": "ECON421",
+    "title": "Forecasting and Big Data",
+    "credits": 3,
+    "prerequisites": [
+      "ECON322"
+    ]
+  },
+  {
+    "code": "ECON432",
+    "title": "Environmental Economics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON320"
+    ]
+  },
+  {
+    "code": "ECON433",
+    "title": "Health Economics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON320"
+    ]
+  },
+  {
+    "code": "ECON436",
+    "title": "International Finance and Macroeconomics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON321"
+    ]
+  },
+  {
+    "code": "ECON439",
+    "title": "Economic Development",
+    "credits": 3,
+    "prerequisites": [
+      "ECON320"
+    ]
+  },
+  {
+    "code": "ECON440",
+    "title": "Economics of Income Inequality",
+    "credits": 3,
+    "prerequisites": [
+      "ECON320"
+    ]
+  },
+  {
+    "code": "ECON441",
+    "title": "Industrial Organization",
+    "credits": 3,
+    "prerequisites": [
+      "ECON320"
+    ]
+  },
+  {
+    "code": "ENGL201",
+    "title": "Principles of Literary Study",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL211",
+    "title": "Medieval Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL212",
+    "title": "Renaissance Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL213",
+    "title": "Restoration and Eighteenth-Century Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL214",
+    "title": "Nineteenth-Century British Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL215",
+    "title": "Twentieth-Century Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL216",
+    "title": "Contemporary American Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL218",
+    "title": "Introduction to African-American Literature",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL219",
+    "title": "Literatures of the Global South",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL220",
+    "title": "Introduction to Creative Writing",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL301",
+    "title": "Studies in Medieval Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL302",
+    "title": "Studies in Renaissance Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL303",
+    "title": "Studies in Eighteenth-Century Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL304",
+    "title": "Studies in Nineteenth-Century Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL305",
+    "title": "Studies in Twentieth-Century Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL310",
+    "title": "African-American Literature Since 1900",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL311",
+    "title": "African-American Literature to 1900",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL315",
+    "title": "Postcolonial Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL320",
+    "title": "Literary Theory and Criticism",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL330",
+    "title": "American Literature to 1865",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL331",
+    "title": "American Literature 1865\u20131945",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL332",
+    "title": "American Literature Since 1945",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL350",
+    "title": "Shakespeare",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL360",
+    "title": "Women's Literature",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL401",
+    "title": "Advanced Seminar in Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL402",
+    "title": "Advanced Seminar in Theory",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201",
+      "ENGL320"
+    ]
+  },
+  {
+    "code": "ENGL410",
+    "title": "Senior Seminar in African-American Literature",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL201"
+    ]
+  },
+  {
+    "code": "ENGL420",
+    "title": "Advanced Fiction Writing",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL220"
+    ]
+  },
+  {
+    "code": "ENGL430",
+    "title": "Advanced Poetry Writing",
+    "credits": 3,
+    "prerequisites": [
+      "ENGL220"
+    ]
+  },
+  {
+    "code": "ENVST101",
+    "title": "Introduction to Environmental Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENVST200",
+    "title": "Environmental Science and Society",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "ENVST300",
+    "title": "Environmental Policy and Law",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "ENVST301",
+    "title": "Environmental Ethics",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "ENVST302",
+    "title": "Political Ecology",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "ENVST310",
+    "title": "Urban Ecology",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "ENVST320",
+    "title": "Climate Change Policy",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "ENVST325",
+    "title": "Environmental Justice",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "ENVST330",
+    "title": "Environmental Economics",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101",
+      "ECON102"
+    ]
+  },
+  {
+    "code": "ENVST400",
+    "title": "Environmental Studies Capstone Seminar",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "ENVST485",
+    "title": "Environmental Studies Internship",
+    "credits": 3,
+    "prerequisites": [
+      "ENVST101"
+    ]
+  },
+  {
+    "code": "GENET302",
+    "title": "Microbial Genetics",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380"
+    ]
+  },
+  {
+    "code": "GENET352",
+    "title": "Molecular Genetics",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380"
+    ]
+  },
+  {
+    "code": "GENET354",
+    "title": "Population Genetics",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380",
+      "STAT291"
+    ]
+  },
+  {
+    "code": "GENET356",
+    "title": "Human Genetics and Genomics",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380"
+    ]
+  },
+  {
+    "code": "GENET370",
+    "title": "Genomics and Bioinformatics",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380",
+      "CS111"
+    ]
+  },
+  {
+    "code": "GENET380",
+    "title": "Genetics",
+    "credits": 3,
+    "prerequisites": [
+      "BIO101",
+      "BIO102",
+      "CHEM161"
+    ]
+  },
+  {
+    "code": "GENET390",
+    "title": "Epigenetics",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380"
+    ]
+  },
+  {
+    "code": "GENET430",
+    "title": "Advanced Topics in Genetics",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380"
+    ]
+  },
+  {
+    "code": "GENET460",
+    "title": "Genetic Engineering",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380"
+    ]
+  },
+  {
+    "code": "GENET484",
+    "title": "Research in Genetics",
+    "credits": 3,
+    "prerequisites": [
+      "GENET380"
+    ]
+  },
+  {
+    "code": "GEOG101",
+    "title": "Earth Systems",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOG102",
+    "title": "Global Environment",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOG103",
+    "title": "Space, Place and Location",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOG205",
+    "title": "World Cultural Regions",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOG211",
+    "title": "Environment, Society and Justice",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOG214",
+    "title": "Conservation",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOG272",
+    "title": "Topics in Geography",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOG309",
+    "title": "Economic Geography",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOG311",
+    "title": "Natural Hazards",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOG320",
+    "title": "Spatial Data Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOG322",
+    "title": "Remote Sensing",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOG356",
+    "title": "Advanced Cartography",
+    "credits": 4,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOG363",
+    "title": "Geography of Development",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG103"
+    ]
+  },
+  {
+    "code": "GEOG365",
+    "title": "Geography of Race and Ethnicity in the US",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG103"
+    ]
+  },
+  {
+    "code": "GEOG366",
+    "title": "Chocolate Cities",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG103"
+    ]
+  },
+  {
+    "code": "GEOG370",
+    "title": "Climate Change and Society",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOG402",
+    "title": "Field Geography",
+    "credits": 4,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOG417",
+    "title": "Coastal Geomorphology",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOG470",
+    "title": "History and Theory of Geography",
+    "credits": 3,
+    "prerequisites": [
+      "GEOG101"
+    ]
+  },
+  {
+    "code": "GEOSC100",
+    "title": "Planet Earth",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC101",
+    "title": "Introductory Geology",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC120",
+    "title": "Introduction to Oceanography",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC201",
+    "title": "Earthquakes and Volcanoes",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC101"
+    ]
+  },
+  {
+    "code": "GEOSC202",
+    "title": "Environmental Geology",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC101"
+    ]
+  },
+  {
+    "code": "GEOSC206",
+    "title": "Dinosaurs",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC212",
+    "title": "Earth and Life",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC101"
+    ]
+  },
+  {
+    "code": "GEOSC224",
+    "title": "Geology of the Moon and Planets",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC101"
+    ]
+  },
+  {
+    "code": "GEOSC225",
+    "title": "Astrobiology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC301",
+    "title": "Mineralogy",
+    "credits": 4,
+    "prerequisites": [
+      "GEOSC101",
+      "CHEM161"
+    ]
+  },
+  {
+    "code": "GEOSC303",
+    "title": "Paleontology",
+    "credits": 4,
+    "prerequisites": [
+      "GEOSC101"
+    ]
+  },
+  {
+    "code": "GEOSC407",
+    "title": "Structural Geology and Maps",
+    "credits": 4,
+    "prerequisites": [
+      "GEOSC301"
+    ]
+  },
+  {
+    "code": "GEOSC411",
+    "title": "Geological Field Methods",
+    "credits": 2,
+    "prerequisites": [
+      "GEOSC301"
+    ]
+  },
+  {
+    "code": "GEOSC414",
+    "title": "Hydrologic Processes",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC101"
+    ]
+  },
+  {
+    "code": "GEOSC442",
+    "title": "Planet Interiors",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS203",
+      "MATH151"
+    ]
+  },
+  {
+    "code": "GEOSC480",
+    "title": "Major Events in Earth History",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC303"
+    ]
+  },
+  {
+    "code": "HIST101",
+    "title": "Ancient and Medieval Europe",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST102",
+    "title": "Early Modern Europe",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST103",
+    "title": "Histories of the Pacific",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST201",
+    "title": "The United States to 1877",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST202",
+    "title": "The United States Since 1877",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST203",
+    "title": "Modern Europe 1789\u2013Present",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST204",
+    "title": "Europe and the World Since 1914",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST221",
+    "title": "Modern Africa",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST222",
+    "title": "Africa to 1800",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST231",
+    "title": "History of East Asia to 1800",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST232",
+    "title": "History of Modern East Asia",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST241",
+    "title": "Latin American Civilization I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST242",
+    "title": "Latin American Civilization II",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST251",
+    "title": "Survey of Middle Eastern History",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST263",
+    "title": "History of South Asia",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST264",
+    "title": "History of Modern South Asia",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST271",
+    "title": "Introduction to Asian-American History",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST275",
+    "title": "World War II",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST280",
+    "title": "History of Science and Technology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST299",
+    "title": "The Historian's Craft",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST301",
+    "title": "Colonial and Revolutionary America",
+    "credits": 3,
+    "prerequisites": [
+      "HIST201",
+      "HIST202"
+    ]
+  },
+  {
+    "code": "HIST302",
+    "title": "Antebellum America",
+    "credits": 3,
+    "prerequisites": [
+      "HIST201"
+    ]
+  },
+  {
+    "code": "HIST303",
+    "title": "Civil War and Reconstruction",
+    "credits": 3,
+    "prerequisites": [
+      "HIST201"
+    ]
+  },
+  {
+    "code": "HIST310",
+    "title": "Medieval England",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST315",
+    "title": "Renaissance and Reformation",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST320",
+    "title": "The French Revolution",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST322",
+    "title": "Modern Germany",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST330",
+    "title": "African-American History to 1877",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST331",
+    "title": "African-American History Since 1877",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST340",
+    "title": "Women in American History",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST350",
+    "title": "History of the Cold War",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST360",
+    "title": "History of Modern China",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST380",
+    "title": "Immigration and Ethnicity in America",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST401",
+    "title": "Seminar in History I",
+    "credits": 3,
+    "prerequisites": [
+      "HIST299"
+    ]
+  },
+  {
+    "code": "HIST402",
+    "title": "Seminar in History II",
+    "credits": 3,
+    "prerequisites": [
+      "HIST299"
+    ]
+  },
+  {
+    "code": "HIST451",
+    "title": "Public History Internship",
+    "credits": 3,
+    "prerequisites": [
+      "HIST299"
+    ]
+  },
+  {
+    "code": "HIST495",
+    "title": "Honors Thesis in History I",
+    "credits": 3,
+    "prerequisites": [
+      "HIST299"
+    ]
+  },
+  {
+    "code": "HIST496",
+    "title": "Honors Thesis in History II",
+    "credits": 3,
+    "prerequisites": [
+      "HIST495"
+    ]
+  },
+  {
+    "code": "LING101",
+    "title": "Exploring Language",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LING190",
+    "title": "Linguistic Perspectives on Language",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LING191",
+    "title": "Linguistics, Internet and Social Media",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LING201",
+    "title": "Introduction to Linguistic Theory",
+    "credits": 3,
+    "prerequisites": [
+      "LING101"
+    ]
+  },
+  {
+    "code": "LING215",
+    "title": "Language of Advertising",
+    "credits": 3,
+    "prerequisites": [
+      "LING101"
+    ]
+  },
+  {
+    "code": "LING305",
+    "title": "Syntax",
+    "credits": 3,
+    "prerequisites": [
+      "LING201"
+    ]
+  },
+  {
+    "code": "LING315",
+    "title": "Phonology",
+    "credits": 3,
+    "prerequisites": [
+      "LING201"
+    ]
+  },
+  {
+    "code": "LING325",
+    "title": "Semantics",
+    "credits": 3,
+    "prerequisites": [
+      "LING201"
+    ]
+  },
+  {
+    "code": "LING350",
+    "title": "Pragmatics",
+    "credits": 3,
+    "prerequisites": [
+      "LING201"
+    ]
+  },
+  {
+    "code": "LING381",
+    "title": "Sociolinguistics",
+    "credits": 3,
+    "prerequisites": [
+      "LING201"
+    ]
+  },
+  {
+    "code": "LING425",
+    "title": "Romance Linguistics",
+    "credits": 3,
+    "prerequisites": [
+      "LING305"
+    ]
+  },
+  {
+    "code": "MATH135",
+    "title": "Calculus I (Business and Economics)",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MATH151",
+    "title": "Calculus I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "MATH152",
+    "title": "Calculus II",
+    "credits": 4,
+    "prerequisites": [
+      "MATH151"
+    ]
+  },
+  {
+    "code": "MATH244",
+    "title": "Differential Equations for Physics",
+    "credits": 3,
+    "prerequisites": [
+      "MATH152",
+      "MATH250"
+    ]
+  },
+  {
+    "code": "MATH250",
+    "title": "Linear Algebra",
+    "credits": 3,
+    "prerequisites": [
+      "MATH152"
+    ]
+  },
+  {
+    "code": "MATH251",
+    "title": "Multivariable Calculus",
+    "credits": 4,
+    "prerequisites": [
+      "MATH152"
+    ]
+  },
+  {
+    "code": "MATH300",
+    "title": "Introduction to Mathematical Reasoning",
+    "credits": 3,
+    "prerequisites": [
+      "MATH152"
+    ]
+  },
+  {
+    "code": "MATH311",
+    "title": "Introduction to Real Analysis I",
+    "credits": 3,
+    "prerequisites": [
+      "MATH300"
+    ]
+  },
+  {
+    "code": "MATH312",
+    "title": "Introduction to Real Analysis II",
+    "credits": 3,
+    "prerequisites": [
+      "MATH311"
+    ]
+  },
+  {
+    "code": "MATH351",
+    "title": "Introduction to Abstract Algebra I",
+    "credits": 3,
+    "prerequisites": [
+      "MATH300"
+    ]
+  },
+  {
+    "code": "MATH352",
+    "title": "Introduction to Abstract Algebra II",
+    "credits": 3,
+    "prerequisites": [
+      "MATH351"
+    ]
+  },
+  {
+    "code": "MATH356",
+    "title": "Theory of Numbers",
+    "credits": 3,
+    "prerequisites": [
+      "MATH300"
+    ]
+  },
+  {
+    "code": "MATH361",
+    "title": "Set Theory",
+    "credits": 3,
+    "prerequisites": [
+      "MATH300"
+    ]
+  },
+  {
+    "code": "MATH373",
+    "title": "Numerical Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "MATH250",
+      "CS111"
+    ]
+  },
+  {
+    "code": "MATH421",
+    "title": "Advanced Calculus for Engineering",
+    "credits": 3,
+    "prerequisites": [
+      "MATH251"
+    ]
+  },
+  {
+    "code": "MATH423",
+    "title": "Complex Variables",
+    "credits": 3,
+    "prerequisites": [
+      "MATH251"
+    ]
+  },
+  {
+    "code": "MATH461",
+    "title": "Mathematical Logic",
+    "credits": 3,
+    "prerequisites": [
+      "MATH300"
+    ]
+  },
+  {
+    "code": "MCB301",
+    "title": "Biochemistry",
+    "credits": 3,
+    "prerequisites": [
+      "CHEM161",
+      "CHEM162",
+      "BIO101",
+      "BIO102"
+    ]
+  },
+  {
+    "code": "MCB407",
+    "title": "Protein Biochemistry",
+    "credits": 3,
+    "prerequisites": [
+      "MCB301"
+    ]
+  },
+  {
+    "code": "MCB408",
+    "title": "Molecular Biology",
+    "credits": 3,
+    "prerequisites": [
+      "MCB301",
+      "GENET380"
+    ]
+  },
+  {
+    "code": "MCB411",
+    "title": "Nucleic Acid Biochemistry",
+    "credits": 3,
+    "prerequisites": [
+      "MCB301"
+    ]
+  },
+  {
+    "code": "MCB412",
+    "title": "Membrane Biochemistry",
+    "credits": 3,
+    "prerequisites": [
+      "MCB301"
+    ]
+  },
+  {
+    "code": "MCB413",
+    "title": "Metabolic Biochemistry",
+    "credits": 3,
+    "prerequisites": [
+      "MCB301"
+    ]
+  },
+  {
+    "code": "MCB420",
+    "title": "Computational Biology",
+    "credits": 3,
+    "prerequisites": [
+      "MCB301",
+      "CS111"
+    ]
+  },
+  {
+    "code": "MCB421",
+    "title": "Structural Biology",
+    "credits": 3,
+    "prerequisites": [
+      "MCB301"
+    ]
+  },
+  {
+    "code": "PHIL101",
+    "title": "Logic, Reasoning and Persuasion",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL103",
+    "title": "Introduction to Philosophy",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL105",
+    "title": "Current Moral and Social Issues",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL107",
+    "title": "Introduction to Ethics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL109",
+    "title": "Introduction to Formal Reasoning",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL140",
+    "title": "Chinese Philosophy",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL201",
+    "title": "Introduction to Logic",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL210",
+    "title": "Philosophy of Language",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL220",
+    "title": "Theory of Knowledge",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL225",
+    "title": "Introduction to Philosophy of Science",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL249",
+    "title": "Bioethics",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL253",
+    "title": "Human Nature and Diversity",
+    "credits": 4,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL263",
+    "title": "Philosophy and the Arts",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL268",
+    "title": "Introduction to Existentialism",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL302",
+    "title": "Plato and Aristotle",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL307",
+    "title": "Descartes, Locke and 17th Century Philosophy",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL308",
+    "title": "Hume, Kant and 18th Century Philosophy",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL315",
+    "title": "Applied Symbolic Logic",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL101"
+    ]
+  },
+  {
+    "code": "PHIL329",
+    "title": "Minds, Machines and Persons",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL341",
+    "title": "Ethics Through History",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL345",
+    "title": "Philosophy and the Law",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL347",
+    "title": "Philosophical Issues in Feminism",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL348",
+    "title": "Topics in Medical Ethics",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL367",
+    "title": "American Philosophy",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL372",
+    "title": "The God Debate",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL405",
+    "title": "Kant",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL307"
+    ]
+  },
+  {
+    "code": "PHIL413",
+    "title": "Social Epistemology",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL220"
+    ]
+  },
+  {
+    "code": "PHIL415",
+    "title": "Metaphysics",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL418",
+    "title": "Philosophy of Mind",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHIL426",
+    "title": "Philosophy of Physics",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL225"
+    ]
+  },
+  {
+    "code": "PHIL445",
+    "title": "Topics in Social and Political Philosophy",
+    "credits": 3,
+    "prerequisites": [
+      "PHIL103"
+    ]
+  },
+  {
+    "code": "PHYS123",
+    "title": "Analytical Physics IA",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS124",
+    "title": "Analytical Physics IB",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS123"
+    ]
+  },
+  {
+    "code": "PHYS203",
+    "title": "General Physics",
+    "credits": 3,
+    "prerequisites": [
+      "MATH151"
+    ],
+    "corequisites": [
+      "PHYS205"
+    ]
+  },
+  {
+    "code": "PHYS204",
+    "title": "General Physics II",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS203",
+      "MATH151"
+    ],
+    "corequisites": [
+      "PHYS206"
+    ]
+  },
+  {
+    "code": "PHYS205",
+    "title": "General Physics Lab",
+    "credits": 1,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS206",
+    "title": "General Physics Lab II",
+    "credits": 1,
+    "prerequisites": [
+      "PHYS205"
+    ]
+  },
+  {
+    "code": "PHYS227",
+    "title": "Analytic Physics II",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS203",
+      "MATH152"
+    ],
+    "corequisites": [
+      "PHYS229"
+    ]
+  },
+  {
+    "code": "PHYS228",
+    "title": "Analytical Physics IIB",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS227"
+    ]
+  },
+  {
+    "code": "PHYS229",
+    "title": "Analytic Physics II Lab",
+    "credits": 1,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS230",
+    "title": "Analytical Physics IID",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS228"
+    ]
+  },
+  {
+    "code": "PHYS271",
+    "title": "Honors Physics I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS272",
+    "title": "Honors Physics II",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS271"
+    ]
+  },
+  {
+    "code": "PHYS273",
+    "title": "Honors Physics III",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS272"
+    ]
+  },
+  {
+    "code": "PHYS275",
+    "title": "Honors Physics Lab I",
+    "credits": 1,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS276",
+    "title": "Honors Physics Lab II",
+    "credits": 1,
+    "prerequisites": [
+      "PHYS275"
+    ]
+  },
+  {
+    "code": "PHYS341",
+    "title": "Thermal Physics I",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS203",
+      "MATH251"
+    ]
+  },
+  {
+    "code": "PHYS342",
+    "title": "Principles of Astrophysics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS204",
+      "MATH152"
+    ]
+  },
+  {
+    "code": "PHYS345",
+    "title": "Astrophysics I: Stars and the Interstellar Medium",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS203",
+      "MATH152"
+    ]
+  },
+  {
+    "code": "PHYS346",
+    "title": "Astrophysics II: Galaxies and Cosmology",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS345"
+    ]
+  },
+  {
+    "code": "PHYS351",
+    "title": "Thermal Physics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS204",
+      "MATH251"
+    ]
+  },
+  {
+    "code": "PHYS361",
+    "title": "Quantum Mechanics III",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS351",
+      "MATH251"
+    ]
+  },
+  {
+    "code": "PHYS382",
+    "title": "Mechanics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS204",
+      "MATH251"
+    ]
+  },
+  {
+    "code": "PHYS385",
+    "title": "Advanced Laboratory I",
+    "credits": 2,
+    "prerequisites": [
+      "PHYS382"
+    ]
+  },
+  {
+    "code": "PHYS386",
+    "title": "Electromagnetism",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS204",
+      "MATH251"
+    ]
+  },
+  {
+    "code": "PHYS388",
+    "title": "Experimental Modern Physics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS204"
+    ]
+  },
+  {
+    "code": "PHYS406",
+    "title": "Introduction to Solid State Physics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS386"
+    ]
+  },
+  {
+    "code": "PHYS417",
+    "title": "Intermediate Quantum Mechanics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS382",
+      "PHYS386"
+    ]
+  },
+  {
+    "code": "PHYS421",
+    "title": "Introduction to Quantum Computing",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS382"
+    ]
+  },
+  {
+    "code": "PHYS441",
+    "title": "Stars and Star Formation",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS204",
+      "MATH152"
+    ]
+  },
+  {
+    "code": "PHYS442",
+    "title": "High Energy Astrophysics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS345"
+    ]
+  },
+  {
+    "code": "PHYS443",
+    "title": "Galaxies and the Milky Way",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS346"
+    ]
+  },
+  {
+    "code": "PHYS444",
+    "title": "Introduction to Cosmology",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS346",
+      "MATH250"
+    ]
+  },
+  {
+    "code": "POLS101",
+    "title": "Nature of Politics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS102",
+    "title": "Introduction to International Relations",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS103",
+    "title": "Comparative Politics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS104",
+    "title": "American Government",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS106",
+    "title": "Law and Politics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS300",
+    "title": "Introduction to Political Science Methods",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS302",
+    "title": "American Party Politics",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS304",
+    "title": "Congressional Politics",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS305",
+    "title": "Public Policy Formation",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS306",
+    "title": "American Presidency",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS307",
+    "title": "Survey Research",
+    "credits": 3,
+    "prerequisites": [
+      "POLS300"
+    ]
+  },
+  {
+    "code": "POLS308",
+    "title": "New Jersey Politics",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS311",
+    "title": "European Politics",
+    "credits": 3,
+    "prerequisites": [
+      "POLS103"
+    ]
+  },
+  {
+    "code": "POLS313",
+    "title": "Political Economy of East Asia",
+    "credits": 3,
+    "prerequisites": [
+      "POLS103"
+    ]
+  },
+  {
+    "code": "POLS317",
+    "title": "Globalization and the Non-Western World",
+    "credits": 3,
+    "prerequisites": [
+      "POLS103"
+    ]
+  },
+  {
+    "code": "POLS319",
+    "title": "American Foreign Policy",
+    "credits": 3,
+    "prerequisites": [
+      "POLS102"
+    ]
+  },
+  {
+    "code": "POLS322",
+    "title": "Strategies in International Relations",
+    "credits": 3,
+    "prerequisites": [
+      "POLS102"
+    ]
+  },
+  {
+    "code": "POLS323",
+    "title": "Defense Policy",
+    "credits": 3,
+    "prerequisites": [
+      "POLS102"
+    ]
+  },
+  {
+    "code": "POLS324",
+    "title": "Causes of War",
+    "credits": 3,
+    "prerequisites": [
+      "POLS102"
+    ]
+  },
+  {
+    "code": "POLS327",
+    "title": "International Political Economy",
+    "credits": 3,
+    "prerequisites": [
+      "POLS102"
+    ]
+  },
+  {
+    "code": "POLS329",
+    "title": "Latino Politics in the United States",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS331",
+    "title": "Urban Politics",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS332",
+    "title": "Money and Modern America",
+    "credits": 3,
+    "prerequisites": [
+      "POLS104"
+    ]
+  },
+  {
+    "code": "POLS333",
+    "title": "Race, Ethnicity and Politics",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS335",
+    "title": "Women and American Politics",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS338",
+    "title": "Government and Business",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS340",
+    "title": "Law and Society",
+    "credits": 3,
+    "prerequisites": [
+      "POLS106"
+    ]
+  },
+  {
+    "code": "POLS342",
+    "title": "Political Authoritarianism",
+    "credits": 3,
+    "prerequisites": [
+      "POLS103"
+    ]
+  },
+  {
+    "code": "POLS343",
+    "title": "Terrorism and Counterterrorism",
+    "credits": 3,
+    "prerequisites": [
+      "POLS102"
+    ]
+  },
+  {
+    "code": "POLS347",
+    "title": "Political Representation",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS360",
+    "title": "Gender and Politics in Global Perspective",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS362",
+    "title": "International Law",
+    "credits": 3,
+    "prerequisites": [
+      "POLS102"
+    ]
+  },
+  {
+    "code": "POLS363",
+    "title": "Conflict Resolution in World Politics",
+    "credits": 3,
+    "prerequisites": [
+      "POLS102"
+    ]
+  },
+  {
+    "code": "POLS372",
+    "title": "Western Tradition: Hobbes to Mill",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS373",
+    "title": "Legal Philosophy: Rights and Justice",
+    "credits": 3,
+    "prerequisites": [
+      "POLS106"
+    ]
+  },
+  {
+    "code": "POLS392",
+    "title": "Qualitative Methods in Political Science",
+    "credits": 3,
+    "prerequisites": [
+      "POLS300"
+    ]
+  },
+  {
+    "code": "POLS406",
+    "title": "Civil Liberties and Civil Rights",
+    "credits": 3,
+    "prerequisites": [
+      "POLS106"
+    ]
+  },
+  {
+    "code": "POLS426",
+    "title": "Gender, Public Policy and Law",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "POLS477",
+    "title": "Critical Theory",
+    "credits": 3,
+    "prerequisites": [
+      "POLS101"
+    ]
+  },
+  {
+    "code": "PSYC101",
+    "title": "General Psychology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PSYC200",
+    "title": "Quantitative Methods in Psychology",
+    "credits": 4,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC271",
+    "title": "Principles of Developmental Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC300",
+    "title": "Introduction to Clinical and School Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC301",
+    "title": "Sensation and Perception",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC200"
+    ]
+  },
+  {
+    "code": "PSYC302",
+    "title": "Sensation and Perception Lab",
+    "credits": 1,
+    "prerequisites": [
+      "PSYC101"
+    ],
+    "corequisites": [
+      "PSYC301"
+    ]
+  },
+  {
+    "code": "PSYC303",
+    "title": "Memory",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC200"
+    ]
+  },
+  {
+    "code": "PSYC305",
+    "title": "Cognition",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC200"
+    ]
+  },
+  {
+    "code": "PSYC310",
+    "title": "Neuropsychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC311",
+    "title": "Learning Processes",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC200"
+    ]
+  },
+  {
+    "code": "PSYC313",
+    "title": "Physiological Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC320",
+    "title": "Forensic Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC321",
+    "title": "Social Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC200"
+    ]
+  },
+  {
+    "code": "PSYC331",
+    "title": "Infant and Child Development",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC271"
+    ]
+  },
+  {
+    "code": "PSYC333",
+    "title": "Adolescent Development",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC271"
+    ]
+  },
+  {
+    "code": "PSYC338",
+    "title": "Personality Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC200"
+    ]
+  },
+  {
+    "code": "PSYC339",
+    "title": "Self and Identity",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC340",
+    "title": "Psychopathology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC200"
+    ]
+  },
+  {
+    "code": "PSYC360",
+    "title": "Drugs and Human Behavior",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC362",
+    "title": "Psychology of Sex and Gender",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC373",
+    "title": "Organizational and Personnel Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC375",
+    "title": "Stereotyping and Prejudice",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101",
+      "PSYC200"
+    ]
+  },
+  {
+    "code": "PSYC377",
+    "title": "Health Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC379",
+    "title": "Psychology of Stress and Coping",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "PSYC470",
+    "title": "History of Psychology",
+    "credits": 3,
+    "prerequisites": [
+      "PSYC101"
+    ]
+  },
+  {
+    "code": "SOC101",
+    "title": "Introduction to Sociology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SOC103",
+    "title": "Sociological Analysis of Social Problems",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SOC108",
+    "title": "Minority Groups in American Society",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SOC210",
+    "title": "Sociology of Medicine and Health Care",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC220",
+    "title": "Sociology of Culture",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC222",
+    "title": "Criminology",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC225",
+    "title": "Introduction to Immigration",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC227",
+    "title": "Population and Society",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC232",
+    "title": "Sociology of Food and Eating",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC241",
+    "title": "Technology and Society",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC248",
+    "title": "Sociology of Sport",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC272",
+    "title": "Sociology of the Family",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC303",
+    "title": "Social Gerontology",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC304",
+    "title": "Sociology of Deviant Behavior",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC306",
+    "title": "Race Relations",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC307",
+    "title": "Sociology of Mental Illness",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC311",
+    "title": "Sociological Research",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC312",
+    "title": "Introduction to Statistics in Sociology",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC315",
+    "title": "Work and Organizations",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC316",
+    "title": "Sociological Theory",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC324",
+    "title": "Sociology of Gender",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC335",
+    "title": "Health and Inequality",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC349",
+    "title": "Law and Society",
+    "credits": 3,
+    "prerequisites": [
+      "SOC101"
+    ]
+  },
+  {
+    "code": "SOC395",
+    "title": "Research in Sociology",
+    "credits": 3,
+    "prerequisites": [
+      "SOC311"
+    ]
+  },
+  {
+    "code": "SOC492",
+    "title": "Advanced Seminar in Sociology",
+    "credits": 3,
+    "prerequisites": [
+      "SOC316"
+    ]
+  },
+  {
+    "code": "SPAN101",
+    "title": "Elementary Spanish I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "SPAN102",
+    "title": "Elementary Spanish II",
+    "credits": 4,
+    "prerequisites": [
+      "SPAN101"
+    ]
+  },
+  {
+    "code": "SPAN201",
+    "title": "Intermediate Spanish I",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN102"
+    ]
+  },
+  {
+    "code": "SPAN202",
+    "title": "Intermediate Spanish II",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN201"
+    ]
+  },
+  {
+    "code": "SPAN301",
+    "title": "Advanced Spanish Conversation and Composition",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN202"
+    ]
+  },
+  {
+    "code": "SPAN302",
+    "title": "Introduction to Spanish Literature",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN202"
+    ]
+  },
+  {
+    "code": "SPAN303",
+    "title": "Introduction to Latin American Literature",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN202"
+    ]
+  },
+  {
+    "code": "SPAN304",
+    "title": "Spanish for Heritage Speakers",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SPAN305",
+    "title": "Survey of Spanish Literature I",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN302"
+    ]
+  },
+  {
+    "code": "SPAN306",
+    "title": "Survey of Spanish Literature II",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN302"
+    ]
+  },
+  {
+    "code": "SPAN310",
+    "title": "Latin American Literature I",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN303"
+    ]
+  },
+  {
+    "code": "SPAN311",
+    "title": "Latin American Literature II",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN303"
+    ]
+  },
+  {
+    "code": "SPAN320",
+    "title": "Spanish Linguistics",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN202"
+    ]
+  },
+  {
+    "code": "SPAN330",
+    "title": "Caribbean Literature",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN302"
+    ]
+  },
+  {
+    "code": "SPAN340",
+    "title": "Chicano/Latino Literature",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN302"
+    ]
+  },
+  {
+    "code": "SPAN350",
+    "title": "Women Writers in Spanish",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN302"
+    ]
+  },
+  {
+    "code": "SPAN401",
+    "title": "Senior Seminar in Spanish Literature",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN302"
+    ]
+  },
+  {
+    "code": "SPAN410",
+    "title": "Senior Seminar in Latin American Literature",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN303"
+    ]
+  },
+  {
+    "code": "SPAN420",
+    "title": "Translation Workshop",
+    "credits": 3,
+    "prerequisites": [
+      "SPAN301"
+    ]
+  },
+  {
+    "code": "STAT211",
+    "title": "Statistics I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "STAT212",
+    "title": "Statistics II",
+    "credits": 3,
+    "prerequisites": [
+      "STAT211"
+    ]
+  },
+  {
+    "code": "STAT291",
+    "title": "Statistical Inference",
+    "credits": 3,
+    "prerequisites": [
+      "MATH152"
+    ]
+  },
+  {
+    "code": "STAT381",
+    "title": "Probability and Statistical Inference I",
+    "credits": 3,
+    "prerequisites": [
+      "MATH152"
+    ]
+  },
+  {
+    "code": "STAT382",
+    "title": "Probability and Statistical Inference II",
+    "credits": 3,
+    "prerequisites": [
+      "STAT381"
+    ]
+  },
+  {
+    "code": "STAT384",
+    "title": "Intermediate Statistical Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "STAT381"
+    ]
+  },
+  {
+    "code": "STAT463",
+    "title": "Regression Methods",
+    "credits": 3,
+    "prerequisites": [
+      "STAT382"
+    ]
+  },
+  {
+    "code": "STAT467",
+    "title": "Applied Multivariate Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "STAT382"
+    ]
+  },
+  {
+    "code": "STAT476",
+    "title": "Introduction to Sampling",
+    "credits": 3,
+    "prerequisites": [
+      "STAT381"
+    ]
+  },
+  {
+    "code": "STAT486",
+    "title": "Statistical Learning",
+    "credits": 3,
+    "prerequisites": [
+      "STAT382"
+    ]
+  },
+  {
+    "code": "STAT490",
+    "title": "Introduction to Experimental Design",
+    "credits": 3,
+    "prerequisites": [
+      "STAT381"
+    ]
+  },
+  {
+    "code": "WGSS101",
+    "title": "Introduction to Gender, Race and Sexuality",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "WGSS130",
+    "title": "Issues in Women's Leadership",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "WGSS200",
+    "title": "Gender, Digital Media and Social Culture",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS202",
+    "title": "Gender, Culture and Representation",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS206",
+    "title": "The Black Woman",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS232",
+    "title": "Women Writers of South Asia",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS235",
+    "title": "Dynamics of Class, Race and Sex",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS240",
+    "title": "Gender and Science",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS255",
+    "title": "Gender, Art and Society",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS257",
+    "title": "Gender and the Body",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS258",
+    "title": "Gender, Race and Contemporary Art",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS259",
+    "title": "Queer Visual Culture",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS294",
+    "title": "Topics in Women's and Gender Studies",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS313",
+    "title": "Advanced Topics in Gender Studies",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "WGSS325",
+    "title": "Feminist Theory",
+    "credits": 3,
+    "prerequisites": [
+      "WGSS101"
+    ]
+  },
+  {
+    "code": "CS439",
+    "title": "Introduction to Data Science",
+    "credits": 3,
+    "prerequisites": [
+      "CS142",
+      "STAT291"
+    ]
+  },
+  {
+    "code": "CS461",
+    "title": "Machine Learning: Principles and Practice",
+    "credits": 3,
+    "prerequisites": [
+      "MATH250",
+      "CS112"
+    ]
+  },
+  {
+    "code": "CS462",
+    "title": "Deep Learning",
+    "credits": 3,
+    "prerequisites": [
+      "CS461"
+    ]
+  },
+  {
+    "code": "STAT295",
+    "title": "Data Wrangling and Management with R",
+    "credits": 3,
+    "prerequisites": [
+      "STAT291"
+    ]
+  },
+  {
+    "code": "STAT365",
+    "title": "Bayesian Data Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "STAT291"
+    ]
+  },
+  {
+    "code": "MATH252",
+    "title": "Elementary Differential Equations",
+    "credits": 3,
+    "prerequisites": [
+      "MATH152"
+    ]
+  },
+  {
+    "code": "MATH285",
+    "title": "Introduction to Interest Theory for Actuarial Science",
+    "credits": 3,
+    "prerequisites": [
+      "MATH152"
+    ]
+  },
+  {
+    "code": "MATH336",
+    "title": "Dynamical Models in Biology",
+    "credits": 3,
+    "prerequisites": [
+      "MATH252",
+      "BIO101"
+    ]
+  },
+  {
+    "code": "MATH338",
+    "title": "Discrete and Probabilistic Models in Biology",
+    "credits": 3,
+    "prerequisites": [
+      "MATH250",
+      "BIO101"
+    ]
+  },
+  {
+    "code": "MATH477",
+    "title": "Mathematical Theory of Probability",
+    "credits": 3,
+    "prerequisites": [
+      "MATH251"
+    ]
+  },
+  {
+    "code": "MATH481",
+    "title": "Mathematical Theory of Statistics",
+    "credits": 3,
+    "prerequisites": [
+      "MATH477"
+    ]
+  },
+  {
+    "code": "ECON422",
+    "title": "Advanced Econometrics I",
+    "credits": 3,
+    "prerequisites": [
+      "ECON322"
+    ]
+  },
+  {
+    "code": "ECON424",
+    "title": "Machine Learning for Economics",
+    "credits": 3,
+    "prerequisites": [
+      "ECON322"
+    ]
+  },
+  {
+    "code": "ITI103",
+    "title": "IT and Informatics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ITI201",
+    "title": "Information Technology Fundamentals",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ITI321",
+    "title": "Information Visualization",
+    "credits": 3,
+    "prerequisites": [
+      "CS142"
+    ]
+  },
+  {
+    "code": "ITI301",
+    "title": "Web Design and Development",
+    "credits": 3,
+    "prerequisites": [
+      "ITI201"
+    ]
+  },
+  {
+    "code": "ITI302",
+    "title": "Database Design",
+    "credits": 3,
+    "prerequisites": [
+      "ITI201"
+    ]
+  },
+  {
+    "code": "ITI401",
+    "title": "Advanced Topics in IT",
+    "credits": 3,
+    "prerequisites": [
+      "ITI301"
+    ]
+  },
+  {
+    "code": "GEOSC300",
+    "title": "Introduction to Sedimentary Geology",
+    "credits": 4,
+    "prerequisites": [
+      "GEOSC101"
+    ]
+  },
+  {
+    "code": "GEOSC302",
+    "title": "Petrology",
+    "credits": 4,
+    "prerequisites": [
+      "GEOSC301"
+    ]
+  },
+  {
+    "code": "GEOSC304",
+    "title": "Introduction to Geochemistry",
+    "credits": 4,
+    "prerequisites": [
+      "GEOSC301",
+      "CHEM161"
+    ]
+  },
+  {
+    "code": "GEOSC306",
+    "title": "Introduction to Geophysics",
+    "credits": 4,
+    "prerequisites": [
+      "GEOSC101",
+      "PHYS203",
+      "MATH152"
+    ]
+  },
+  {
+    "code": "GEOSC410",
+    "title": "Field Geology",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC301"
+    ]
+  },
+  {
+    "code": "GEOSC413",
+    "title": "Environmental Geochemistry",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC304"
+    ]
+  },
+  {
+    "code": "GEOSC428",
+    "title": "Hydrogeology",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC306"
+    ]
+  },
+  {
+    "code": "GEOSC222",
+    "title": "Planet Mars",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC101"
+    ]
+  },
+  {
+    "code": "GEOSC441",
+    "title": "Structure and Formation of Terrestrial Planets",
+    "credits": 3,
+    "prerequisites": [
+      "GEOSC301",
+      "PHYS203"
+    ]
+  },
+  {
+    "code": "PHYS313",
+    "title": "Mathematical Methods in Physics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS227",
+      "MATH251"
+    ]
+  },
+  {
+    "code": "PHYS323",
+    "title": "Advanced Mechanics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS227",
+      "MATH152"
+    ]
+  },
+  {
+    "code": "PHYS324",
+    "title": "Electrodynamics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS323",
+      "MATH251"
+    ]
+  },
+  {
+    "code": "FREN101",
+    "title": "Elementary French I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "FREN102",
+    "title": "Elementary French II",
+    "credits": 4,
+    "prerequisites": [
+      "FREN101"
+    ]
+  },
+  {
+    "code": "FREN131",
+    "title": "Intensive Intermediate French",
+    "credits": 4,
+    "prerequisites": [
+      "FREN102"
+    ]
+  },
+  {
+    "code": "FREN213",
+    "title": "Advanced French I",
+    "credits": 3,
+    "prerequisites": [
+      "FREN131"
+    ]
+  },
+  {
+    "code": "FREN214",
+    "title": "Advanced French II",
+    "credits": 3,
+    "prerequisites": [
+      "FREN213"
+    ]
+  },
+  {
+    "code": "FREN215",
+    "title": "Introduction to French Literature I",
+    "credits": 3,
+    "prerequisites": [
+      "FREN213"
+    ]
+  },
+  {
+    "code": "FREN216",
+    "title": "Introduction to French Literature II",
+    "credits": 3,
+    "prerequisites": [
+      "FREN213"
+    ]
+  },
+  {
+    "code": "FREN301",
+    "title": "Topics in French Literature",
+    "credits": 3,
+    "prerequisites": [
+      "FREN214"
+    ]
+  },
+  {
+    "code": "FREN302",
+    "title": "Topics in French Culture",
+    "credits": 3,
+    "prerequisites": [
+      "FREN214"
+    ]
+  },
+  {
+    "code": "FREN303",
+    "title": "French Film and Media",
+    "credits": 3,
+    "prerequisites": [
+      "FREN214"
+    ]
+  },
+  {
+    "code": "FREN401",
+    "title": "Advanced Topics in French Studies",
+    "credits": 3,
+    "prerequisites": [
+      "FREN301"
+    ]
+  },
+  {
+    "code": "FREN402",
+    "title": "Francophone Literatures",
+    "credits": 3,
+    "prerequisites": [
+      "FREN301"
+    ]
+  },
+  {
+    "code": "FREN480",
+    "title": "Senior Seminar in French",
+    "credits": 3,
+    "prerequisites": [
+      "FREN301"
+    ]
+  },
+  {
+    "code": "GERM101",
+    "title": "Elementary German I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "GERM102",
+    "title": "Elementary German II",
+    "credits": 4,
+    "prerequisites": [
+      "GERM101"
+    ]
+  },
+  {
+    "code": "GERM201",
+    "title": "Intermediate German I",
+    "credits": 3,
+    "prerequisites": [
+      "GERM102"
+    ]
+  },
+  {
+    "code": "GERM202",
+    "title": "Intermediate German II",
+    "credits": 3,
+    "prerequisites": [
+      "GERM201"
+    ]
+  },
+  {
+    "code": "GERM232",
+    "title": "Advanced German",
+    "credits": 3,
+    "prerequisites": [
+      "GERM202"
+    ]
+  },
+  {
+    "code": "GERM301",
+    "title": "Topics in German Literature",
+    "credits": 3,
+    "prerequisites": [
+      "GERM232"
+    ]
+  },
+  {
+    "code": "GERM302",
+    "title": "Topics in German Culture",
+    "credits": 3,
+    "prerequisites": [
+      "GERM232"
+    ]
+  },
+  {
+    "code": "GERM303",
+    "title": "German Film and Media",
+    "credits": 3,
+    "prerequisites": [
+      "GERM232"
+    ]
+  },
+  {
+    "code": "GERM401",
+    "title": "Advanced Topics in German Studies",
+    "credits": 3,
+    "prerequisites": [
+      "GERM301"
+    ]
+  },
+  {
+    "code": "GERM402",
+    "title": "German Intellectual History",
+    "credits": 3,
+    "prerequisites": [
+      "GERM301"
+    ]
+  },
+  {
+    "code": "ITAL101",
+    "title": "Elementary Italian I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ITAL102",
+    "title": "Elementary Italian II",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL101"
+    ]
+  },
+  {
+    "code": "ITAL121",
+    "title": "Intensive Intermediate Italian",
+    "credits": 4,
+    "prerequisites": [
+      "ITAL101"
+    ]
+  },
+  {
+    "code": "ITAL131",
+    "title": "Intermediate Italian",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL102"
+    ]
+  },
+  {
+    "code": "ITAL201",
+    "title": "Advanced Italian I",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL131"
+    ]
+  },
+  {
+    "code": "ITAL202",
+    "title": "Advanced Italian II",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL201"
+    ]
+  },
+  {
+    "code": "ITAL231",
+    "title": "Italian Culture I",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL201"
+    ]
+  },
+  {
+    "code": "ITAL232",
+    "title": "Italian Culture II",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL201"
+    ]
+  },
+  {
+    "code": "ITAL321",
+    "title": "Advanced Conversation in Italian",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL201"
+    ]
+  },
+  {
+    "code": "ITAL322",
+    "title": "Advanced Conversation through Italian Cinema",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL201"
+    ]
+  },
+  {
+    "code": "ITAL301",
+    "title": "Introduction to Italian Literature I",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL201"
+    ]
+  },
+  {
+    "code": "ITAL302",
+    "title": "Introduction to Italian Literature II",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL201"
+    ]
+  },
+  {
+    "code": "ITAL401",
+    "title": "Advanced Topics in Italian Studies",
+    "credits": 3,
+    "prerequisites": [
+      "ITAL301"
+    ]
+  },
+  {
+    "code": "JPN101",
+    "title": "Elementary Japanese I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "JPN102",
+    "title": "Elementary Japanese II",
+    "credits": 4,
+    "prerequisites": [
+      "JPN101"
+    ]
+  },
+  {
+    "code": "JPN201",
+    "title": "Intermediate Japanese I",
+    "credits": 4,
+    "prerequisites": [
+      "JPN102"
+    ]
+  },
+  {
+    "code": "JPN202",
+    "title": "Intermediate Japanese II",
+    "credits": 4,
+    "prerequisites": [
+      "JPN201"
+    ]
+  },
+  {
+    "code": "JPN301",
+    "title": "Advanced Japanese I",
+    "credits": 3,
+    "prerequisites": [
+      "JPN202"
+    ]
+  },
+  {
+    "code": "JPN302",
+    "title": "Advanced Japanese II",
+    "credits": 3,
+    "prerequisites": [
+      "JPN301"
+    ]
+  },
+  {
+    "code": "JPN401",
+    "title": "Topics in Japanese Culture",
+    "credits": 3,
+    "prerequisites": [
+      "JPN301"
+    ]
+  },
+  {
+    "code": "JPN402",
+    "title": "Topics in Japanese Literature",
+    "credits": 3,
+    "prerequisites": [
+      "JPN301"
+    ]
+  },
+  {
+    "code": "CHN101",
+    "title": "Elementary Chinese I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "CHN102",
+    "title": "Elementary Chinese II",
+    "credits": 4,
+    "prerequisites": [
+      "CHN101"
+    ]
+  },
+  {
+    "code": "CHN201",
+    "title": "Intermediate Chinese I",
+    "credits": 4,
+    "prerequisites": [
+      "CHN102"
+    ]
+  },
+  {
+    "code": "CHN202",
+    "title": "Intermediate Chinese II",
+    "credits": 4,
+    "prerequisites": [
+      "CHN201"
+    ]
+  },
+  {
+    "code": "CHN301",
+    "title": "Advanced Chinese I",
+    "credits": 3,
+    "prerequisites": [
+      "CHN202"
+    ]
+  },
+  {
+    "code": "CHN302",
+    "title": "Advanced Chinese II",
+    "credits": 3,
+    "prerequisites": [
+      "CHN301"
+    ]
+  },
+  {
+    "code": "CHN401",
+    "title": "Topics in Chinese Culture and Literature",
+    "credits": 3,
+    "prerequisites": [
+      "CHN301"
+    ]
+  },
+  {
+    "code": "CHN402",
+    "title": "Topics in Chinese Civilization",
+    "credits": 3,
+    "prerequisites": [
+      "CHN301"
+    ]
+  },
+  {
+    "code": "KOR101",
+    "title": "Elementary Korean I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "KOR102",
+    "title": "Elementary Korean II",
+    "credits": 4,
+    "prerequisites": [
+      "KOR101"
+    ]
+  },
+  {
+    "code": "KOR201",
+    "title": "Intermediate Korean I",
+    "credits": 4,
+    "prerequisites": [
+      "KOR102"
+    ]
+  },
+  {
+    "code": "KOR202",
+    "title": "Intermediate Korean II",
+    "credits": 4,
+    "prerequisites": [
+      "KOR201"
+    ]
+  },
+  {
+    "code": "KOR301",
+    "title": "Advanced Korean I",
+    "credits": 3,
+    "prerequisites": [
+      "KOR202"
+    ]
+  },
+  {
+    "code": "KOR302",
+    "title": "Advanced Korean II",
+    "credits": 3,
+    "prerequisites": [
+      "KOR301"
+    ]
+  },
+  {
+    "code": "KOR401",
+    "title": "Topics in Korean Language and Culture",
+    "credits": 3,
+    "prerequisites": [
+      "KOR301"
+    ]
+  },
+  {
+    "code": "RUSS101",
+    "title": "Elementary Russian I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "RUSS102",
+    "title": "Elementary Russian II",
+    "credits": 4,
+    "prerequisites": [
+      "RUSS101"
+    ]
+  },
+  {
+    "code": "RUSS201",
+    "title": "Intermediate Russian I",
+    "credits": 3,
+    "prerequisites": [
+      "RUSS102"
+    ]
+  },
+  {
+    "code": "RUSS202",
+    "title": "Intermediate Russian II",
+    "credits": 3,
+    "prerequisites": [
+      "RUSS201"
+    ]
+  },
+  {
+    "code": "RUSS301",
+    "title": "Advanced Russian",
+    "credits": 3,
+    "prerequisites": [
+      "RUSS202"
+    ]
+  },
+  {
+    "code": "RUSS302",
+    "title": "Russian Literature in Translation",
+    "credits": 3,
+    "prerequisites": [
+      "RUSS202"
+    ]
+  },
+  {
+    "code": "RUSS401",
+    "title": "Topics in Russian Literature and Culture",
+    "credits": 3,
+    "prerequisites": [
+      "RUSS301"
+    ]
+  },
+  {
+    "code": "RUSS402",
+    "title": "Topics in Russian Civilization",
+    "credits": 3,
+    "prerequisites": [
+      "RUSS301"
+    ]
+  },
+  {
+    "code": "PORT101",
+    "title": "Elementary Portuguese I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "PORT102",
+    "title": "Elementary Portuguese II",
+    "credits": 4,
+    "prerequisites": [
+      "PORT101"
+    ]
+  },
+  {
+    "code": "PORT201",
+    "title": "Intermediate Portuguese I",
+    "credits": 3,
+    "prerequisites": [
+      "PORT102"
+    ]
+  },
+  {
+    "code": "PORT202",
+    "title": "Intermediate Portuguese II",
+    "credits": 3,
+    "prerequisites": [
+      "PORT201"
+    ]
+  },
+  {
+    "code": "PORT301",
+    "title": "Advanced Portuguese",
+    "credits": 3,
+    "prerequisites": [
+      "PORT202"
+    ]
+  },
+  {
+    "code": "PORT302",
+    "title": "Portuguese Literature and Culture",
+    "credits": 3,
+    "prerequisites": [
+      "PORT202"
+    ]
+  },
+  {
+    "code": "PORT401",
+    "title": "Topics in Lusophone Literature and Culture",
+    "credits": 3,
+    "prerequisites": [
+      "PORT301"
+    ]
+  },
+  {
+    "code": "PORT402",
+    "title": "Topics in Brazilian Literature",
+    "credits": 3,
+    "prerequisites": [
+      "PORT301"
+    ]
+  },
+  {
+    "code": "MUS101",
+    "title": "Introduction to Music Theory",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MUS102",
+    "title": "Music Theory II",
+    "credits": 3,
+    "prerequisites": [
+      "MUS101"
+    ]
+  },
+  {
+    "code": "MUS105",
+    "title": "Introduction to Music and its Literature",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MUS202",
+    "title": "Music History I: Ancient to Baroque",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MUS203",
+    "title": "Music History II: Classical and Romantic",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MUS204",
+    "title": "Music History III: 20th Century to Present",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MUS207",
+    "title": "Music Theory III",
+    "credits": 3,
+    "prerequisites": [
+      "MUS102"
+    ]
+  },
+  {
+    "code": "MUS208",
+    "title": "Music Theory IV: Form and Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "MUS207"
+    ]
+  },
+  {
+    "code": "MUS301",
+    "title": "Music Composition",
+    "credits": 3,
+    "prerequisites": [
+      "MUS207"
+    ]
+  },
+  {
+    "code": "MUS302",
+    "title": "Topics in Music Studies",
+    "credits": 3,
+    "prerequisites": [
+      "MUS207"
+    ]
+  },
+  {
+    "code": "MUS303",
+    "title": "Ethnomusicology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MUS400",
+    "title": "Advanced Seminar in Music",
+    "credits": 3,
+    "prerequisites": [
+      "MUS301"
+    ]
+  },
+  {
+    "code": "THEA101",
+    "title": "Introduction to Theater Arts",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "THEA102",
+    "title": "Acting I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "THEA103",
+    "title": "Technical Theater",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "THEA200",
+    "title": "History of Theater I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "THEA201",
+    "title": "Acting II",
+    "credits": 3,
+    "prerequisites": [
+      "THEA102"
+    ]
+  },
+  {
+    "code": "THEA202",
+    "title": "Directing",
+    "credits": 3,
+    "prerequisites": [
+      "THEA101"
+    ]
+  },
+  {
+    "code": "THEA203",
+    "title": "Stagecraft and Design",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "THEA204",
+    "title": "History of Theater II",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "THEA301",
+    "title": "Advanced Acting",
+    "credits": 3,
+    "prerequisites": [
+      "THEA201"
+    ]
+  },
+  {
+    "code": "THEA302",
+    "title": "Dramatic Literature",
+    "credits": 3,
+    "prerequisites": [
+      "THEA101"
+    ]
+  },
+  {
+    "code": "THEA303",
+    "title": "Playwriting",
+    "credits": 3,
+    "prerequisites": [
+      "THEA101"
+    ]
+  },
+  {
+    "code": "THEA400",
+    "title": "Senior Seminar in Theater",
+    "credits": 3,
+    "prerequisites": [
+      "THEA301"
+    ]
+  },
+  {
+    "code": "DANC101",
+    "title": "Introduction to Dance",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "DANC102",
+    "title": "Dance Technique I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "DANC200",
+    "title": "History of Dance",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "DANC201",
+    "title": "Dance Technique II",
+    "credits": 3,
+    "prerequisites": [
+      "DANC102"
+    ]
+  },
+  {
+    "code": "DANC202",
+    "title": "Dance Composition I",
+    "credits": 3,
+    "prerequisites": [
+      "DANC101"
+    ]
+  },
+  {
+    "code": "DANC203",
+    "title": "Dance and Culture",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "DANC301",
+    "title": "Advanced Dance Technique",
+    "credits": 3,
+    "prerequisites": [
+      "DANC201"
+    ]
+  },
+  {
+    "code": "DANC302",
+    "title": "Dance Composition II",
+    "credits": 3,
+    "prerequisites": [
+      "DANC202"
+    ]
+  },
+  {
+    "code": "DANC303",
+    "title": "Choreography",
+    "credits": 3,
+    "prerequisites": [
+      "DANC202"
+    ]
+  },
+  {
+    "code": "DANC400",
+    "title": "Senior Seminar in Dance",
+    "credits": 3,
+    "prerequisites": [
+      "DANC301"
+    ]
+  },
+  {
+    "code": "CINE201",
+    "title": "Introduction to Cinema Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CINE202",
+    "title": "Film History I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CINE203",
+    "title": "Film History II",
+    "credits": 3,
+    "prerequisites": [
+      "CINE202"
+    ]
+  },
+  {
+    "code": "CINE301",
+    "title": "Film Theory",
+    "credits": 3,
+    "prerequisites": [
+      "CINE201"
+    ]
+  },
+  {
+    "code": "CINE302",
+    "title": "Topics in World Cinema",
+    "credits": 3,
+    "prerequisites": [
+      "CINE201"
+    ]
+  },
+  {
+    "code": "CINE303",
+    "title": "Documentary Film",
+    "credits": 3,
+    "prerequisites": [
+      "CINE201"
+    ]
+  },
+  {
+    "code": "CINE401",
+    "title": "Advanced Topics in Cinema Studies",
+    "credits": 3,
+    "prerequisites": [
+      "CINE301"
+    ]
+  },
+  {
+    "code": "CINE402",
+    "title": "Senior Seminar in Cinema",
+    "credits": 3,
+    "prerequisites": [
+      "CINE301"
+    ]
+  },
+  {
+    "code": "RELGS101",
+    "title": "Introduction to Religion",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "RELGS200",
+    "title": "World Religions",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "RELGS201",
+    "title": "Religion and Society",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "RELGS301",
+    "title": "Topics in Religious Studies",
+    "credits": 3,
+    "prerequisites": [
+      "RELGS101"
+    ]
+  },
+  {
+    "code": "RELGS302",
+    "title": "Religion and Culture",
+    "credits": 3,
+    "prerequisites": [
+      "RELGS101"
+    ]
+  },
+  {
+    "code": "RELGS303",
+    "title": "Religion in America",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "RELGS401",
+    "title": "Advanced Topics in Religion",
+    "credits": 3,
+    "prerequisites": [
+      "RELGS301"
+    ]
+  },
+  {
+    "code": "CLASS101",
+    "title": "Introduction to Classical Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CLASS102",
+    "title": "Greek Civilization",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CLASS103",
+    "title": "Roman Civilization",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CLASS201",
+    "title": "Classical Mythology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CLASS202",
+    "title": "Classical Literature in Translation",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CLASS301",
+    "title": "Topics in Greek Literature",
+    "credits": 3,
+    "prerequisites": [
+      "CLASS201"
+    ]
+  },
+  {
+    "code": "CLASS302",
+    "title": "Topics in Roman Literature",
+    "credits": 3,
+    "prerequisites": [
+      "CLASS201"
+    ]
+  },
+  {
+    "code": "CLASS401",
+    "title": "Advanced Topics in Classics",
+    "credits": 3,
+    "prerequisites": [
+      "CLASS301"
+    ]
+  },
+  {
+    "code": "GREK101",
+    "title": "Elementary Ancient Greek I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "GREK102",
+    "title": "Elementary Ancient Greek II",
+    "credits": 4,
+    "prerequisites": [
+      "GREK101"
+    ]
+  },
+  {
+    "code": "GREK201",
+    "title": "Intermediate Ancient Greek",
+    "credits": 3,
+    "prerequisites": [
+      "GREK102"
+    ]
+  },
+  {
+    "code": "GREK301",
+    "title": "Advanced Greek Readings",
+    "credits": 3,
+    "prerequisites": [
+      "GREK201"
+    ]
+  },
+  {
+    "code": "LAT101",
+    "title": "Elementary Latin I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "LAT102",
+    "title": "Elementary Latin II",
+    "credits": 4,
+    "prerequisites": [
+      "LAT101"
+    ]
+  },
+  {
+    "code": "LAT201",
+    "title": "Intermediate Latin",
+    "credits": 3,
+    "prerequisites": [
+      "LAT102"
+    ]
+  },
+  {
+    "code": "LAT301",
+    "title": "Advanced Latin Readings",
+    "credits": 3,
+    "prerequisites": [
+      "LAT201"
+    ]
+  },
+  {
+    "code": "COMPLIT201",
+    "title": "Introduction to Comparative Literature",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "COMPLIT202",
+    "title": "World Literature",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "COMPLIT301",
+    "title": "Topics in Comparative Literature",
+    "credits": 3,
+    "prerequisites": [
+      "COMPLIT201"
+    ]
+  },
+  {
+    "code": "COMPLIT302",
+    "title": "Literature and Theory",
+    "credits": 3,
+    "prerequisites": [
+      "COMPLIT201"
+    ]
+  },
+  {
+    "code": "COMPLIT401",
+    "title": "Advanced Topics in Comparative Literature",
+    "credits": 3,
+    "prerequisites": [
+      "COMPLIT301"
+    ]
+  },
+  {
+    "code": "COMPLIT402",
+    "title": "Senior Seminar in Comparative Literature",
+    "credits": 3,
+    "prerequisites": [
+      "COMPLIT301"
+    ]
+  },
+  {
+    "code": "JOUR101",
+    "title": "Introduction to Journalism and Media Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "JOUR201",
+    "title": "News Writing and Reporting",
+    "credits": 3,
+    "prerequisites": [
+      "JOUR101"
+    ]
+  },
+  {
+    "code": "JOUR202",
+    "title": "Media and Society",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "JOUR203",
+    "title": "Digital Media Production",
+    "credits": 3,
+    "prerequisites": [
+      "JOUR101"
+    ]
+  },
+  {
+    "code": "JOUR301",
+    "title": "Advanced Reporting",
+    "credits": 3,
+    "prerequisites": [
+      "JOUR201"
+    ]
+  },
+  {
+    "code": "JOUR302",
+    "title": "Broadcast Journalism",
+    "credits": 3,
+    "prerequisites": [
+      "JOUR201"
+    ]
+  },
+  {
+    "code": "JOUR303",
+    "title": "Sports Journalism",
+    "credits": 3,
+    "prerequisites": [
+      "JOUR201"
+    ]
+  },
+  {
+    "code": "JOUR401",
+    "title": "Media Law and Ethics",
+    "credits": 3,
+    "prerequisites": [
+      "JOUR201"
+    ]
+  },
+  {
+    "code": "JOUR402",
+    "title": "Senior Seminar in Journalism",
+    "credits": 3,
+    "prerequisites": [
+      "JOUR301"
+    ]
+  },
+  {
+    "code": "ART101",
+    "title": "Foundation Drawing",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ART102",
+    "title": "Foundation 2D Design",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ART103",
+    "title": "Foundation 3D Design",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ART201",
+    "title": "Intermediate Drawing",
+    "credits": 3,
+    "prerequisites": [
+      "ART101"
+    ]
+  },
+  {
+    "code": "ART202",
+    "title": "Painting I",
+    "credits": 3,
+    "prerequisites": [
+      "ART101"
+    ]
+  },
+  {
+    "code": "ART203",
+    "title": "Sculpture I",
+    "credits": 3,
+    "prerequisites": [
+      "ART103"
+    ]
+  },
+  {
+    "code": "ART204",
+    "title": "Printmaking I",
+    "credits": 3,
+    "prerequisites": [
+      "ART101"
+    ]
+  },
+  {
+    "code": "ART205",
+    "title": "Photography I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ART301",
+    "title": "Advanced Drawing",
+    "credits": 3,
+    "prerequisites": [
+      "ART201"
+    ]
+  },
+  {
+    "code": "ART302",
+    "title": "Painting II",
+    "credits": 3,
+    "prerequisites": [
+      "ART202"
+    ]
+  },
+  {
+    "code": "ART303",
+    "title": "Sculpture II",
+    "credits": 3,
+    "prerequisites": [
+      "ART203"
+    ]
+  },
+  {
+    "code": "ART401",
+    "title": "Senior Studio",
+    "credits": 3,
+    "prerequisites": [
+      "ART301"
+    ]
+  },
+  {
+    "code": "ART402",
+    "title": "Senior Seminar in Art",
+    "credits": 3,
+    "prerequisites": [
+      "ART301"
+    ]
+  },
+  {
+    "code": "EXSC140",
+    "title": "Foundations of Kinesiology and Health",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "EXSC200",
+    "title": "Principles of a Healthy Lifestyle",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "EXSC225",
+    "title": "Human Anatomy",
+    "credits": 3,
+    "prerequisites": [
+      "BIO101"
+    ]
+  },
+  {
+    "code": "EXSC226",
+    "title": "Human Physiology",
+    "credits": 3,
+    "prerequisites": [
+      "EXSC225"
+    ]
+  },
+  {
+    "code": "EXSC227",
+    "title": "Anatomy and Physiology Lab",
+    "credits": 1,
+    "prerequisites": [
+      "EXSC225"
+    ]
+  },
+  {
+    "code": "EXSC301",
+    "title": "Exercise Physiology",
+    "credits": 3,
+    "prerequisites": [
+      "EXSC226"
+    ]
+  },
+  {
+    "code": "EXSC302",
+    "title": "Biomechanics",
+    "credits": 3,
+    "prerequisites": [
+      "PHYS203"
+    ]
+  },
+  {
+    "code": "EXSC303",
+    "title": "Motor Behavior",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "EXSC304",
+    "title": "Exercise Testing and Prescription",
+    "credits": 3,
+    "prerequisites": [
+      "EXSC301"
+    ]
+  },
+  {
+    "code": "EXSC305",
+    "title": "Sport Nutrition",
+    "credits": 3,
+    "prerequisites": [
+      "EXSC226"
+    ]
+  },
+  {
+    "code": "EXSC400",
+    "title": "Advanced Exercise Physiology",
+    "credits": 3,
+    "prerequisites": [
+      "EXSC301"
+    ]
+  },
+  {
+    "code": "EXSC401",
+    "title": "Clinical Exercise Physiology",
+    "credits": 3,
+    "prerequisites": [
+      "EXSC304"
+    ]
+  },
+  {
+    "code": "EXSC490",
+    "title": "Internship in Exercise Science",
+    "credits": 6,
+    "prerequisites": [
+      "EXSC304"
+    ]
+  },
+  {
+    "code": "SPMD101",
+    "title": "Introduction to Sport Management",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SPMD201",
+    "title": "Sport Marketing",
+    "credits": 3,
+    "prerequisites": [
+      "SPMD101"
+    ]
+  },
+  {
+    "code": "SPMD202",
+    "title": "Sport Finance",
+    "credits": 3,
+    "prerequisites": [
+      "SPMD101"
+    ]
+  },
+  {
+    "code": "SPMD203",
+    "title": "Sport Communication",
+    "credits": 3,
+    "prerequisites": [
+      "SPMD101"
+    ]
+  },
+  {
+    "code": "SPMD301",
+    "title": "Sport Law",
+    "credits": 3,
+    "prerequisites": [
+      "SPMD101"
+    ]
+  },
+  {
+    "code": "SPMD302",
+    "title": "Sport Event Management",
+    "credits": 3,
+    "prerequisites": [
+      "SPMD201"
+    ]
+  },
+  {
+    "code": "SPMD401",
+    "title": "Sport Management Capstone",
+    "credits": 3,
+    "prerequisites": [
+      "SPMD302"
+    ]
+  },
+  {
+    "code": "SPMD490",
+    "title": "Sport Management Internship",
+    "credits": 3,
+    "prerequisites": [
+      "SPMD201"
+    ]
+  },
+  {
+    "code": "PUBH201",
+    "title": "Principles of Public Health",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PUBH212",
+    "title": "Introduction to Health Disparities",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PUBH240",
+    "title": "Global Health Perspectives",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PUBH335",
+    "title": "Epidemiology",
+    "credits": 3,
+    "prerequisites": [
+      "STAT211",
+      "PUBH201"
+    ]
+  },
+  {
+    "code": "PUBH356",
+    "title": "Public Health Law and Ethics",
+    "credits": 3,
+    "prerequisites": [
+      "PUBH201"
+    ]
+  },
+  {
+    "code": "PUBH395",
+    "title": "Research Methods in Public Health",
+    "credits": 4,
+    "prerequisites": [
+      "STAT211"
+    ]
+  },
+  {
+    "code": "PUBH450",
+    "title": "Leadership Seminar in Public Health",
+    "credits": 3,
+    "prerequisites": [
+      "PUBH335"
+    ]
+  },
+  {
+    "code": "PUBH499",
+    "title": "Professional Practice Internship in Public Health",
+    "credits": 6,
+    "prerequisites": [
+      "PUBH335"
+    ]
+  },
+  {
+    "code": "PUBP201",
+    "title": "Introduction to Public Policy",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PUBP301",
+    "title": "Policy Analysis",
+    "credits": 3,
+    "prerequisites": [
+      "PUBP201"
+    ]
+  },
+  {
+    "code": "PUBP302",
+    "title": "Public Finance",
+    "credits": 3,
+    "prerequisites": [
+      "PUBP201",
+      "ECON102"
+    ]
+  },
+  {
+    "code": "PUBP303",
+    "title": "Public Administration",
+    "credits": 3,
+    "prerequisites": [
+      "PUBP201"
+    ]
+  },
+  {
+    "code": "PUBP401",
+    "title": "Advanced Policy Seminar",
+    "credits": 3,
+    "prerequisites": [
+      "PUBP301"
+    ]
+  },
+  {
+    "code": "PUBP402",
+    "title": "Policy Capstone",
+    "credits": 3,
+    "prerequisites": [
+      "PUBP301"
+    ]
+  },
+  {
+    "code": "HLAD201",
+    "title": "Introduction to Health Administration",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HLAD202",
+    "title": "Health Care Organization and Delivery",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HLAD301",
+    "title": "Health Care Systems",
+    "credits": 3,
+    "prerequisites": [
+      "HLAD201"
+    ]
+  },
+  {
+    "code": "HLAD302",
+    "title": "Health Policy",
+    "credits": 3,
+    "prerequisites": [
+      "HLAD201"
+    ]
+  },
+  {
+    "code": "HLAD303",
+    "title": "Health Care Finance",
+    "credits": 3,
+    "prerequisites": [
+      "HLAD201"
+    ]
+  },
+  {
+    "code": "HLAD401",
+    "title": "Health Administration Internship",
+    "credits": 6,
+    "prerequisites": [
+      "HLAD301"
+    ]
+  },
+  {
+    "code": "LER101",
+    "title": "Introduction to Labor Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LER102",
+    "title": "Work, Labor, and Society",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LER201",
+    "title": "Employment Relations",
+    "credits": 3,
+    "prerequisites": [
+      "LER101"
+    ]
+  },
+  {
+    "code": "LER202",
+    "title": "Labor History",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LER301",
+    "title": "Labor Law",
+    "credits": 3,
+    "prerequisites": [
+      "LER101"
+    ]
+  },
+  {
+    "code": "LER302",
+    "title": "Collective Bargaining",
+    "credits": 3,
+    "prerequisites": [
+      "LER201"
+    ]
+  },
+  {
+    "code": "LER401",
+    "title": "Advanced Topics in Labor Studies",
+    "credits": 3,
+    "prerequisites": [
+      "LER301"
+    ]
+  },
+  {
+    "code": "LER490",
+    "title": "Internship in Labor Studies",
+    "credits": 3,
+    "prerequisites": [
+      "LER201"
+    ]
+  },
+  {
+    "code": "HRM201",
+    "title": "Human Resource Management",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HRM202",
+    "title": "Organizational Behavior",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HRM301",
+    "title": "Staffing and Recruitment",
+    "credits": 3,
+    "prerequisites": [
+      "HRM201"
+    ]
+  },
+  {
+    "code": "HRM302",
+    "title": "Compensation and Benefits",
+    "credits": 3,
+    "prerequisites": [
+      "HRM201"
+    ]
+  },
+  {
+    "code": "HRM303",
+    "title": "Training and Development",
+    "credits": 3,
+    "prerequisites": [
+      "HRM201"
+    ]
+  },
+  {
+    "code": "HRM401",
+    "title": "Strategic Human Resource Management",
+    "credits": 3,
+    "prerequisites": [
+      "HRM301"
+    ]
+  },
+  {
+    "code": "SOCW101",
+    "title": "Introduction to Social Work",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SOCW201",
+    "title": "Social Welfare Policy",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SOCW202",
+    "title": "Human Behavior and the Social Environment",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SOCW301",
+    "title": "Social Work Practice I",
+    "credits": 3,
+    "prerequisites": [
+      "SOCW101"
+    ]
+  },
+  {
+    "code": "SOCW302",
+    "title": "Social Work Practice II",
+    "credits": 3,
+    "prerequisites": [
+      "SOCW301"
+    ]
+  },
+  {
+    "code": "SOCW401",
+    "title": "Social Work Field Practicum",
+    "credits": 6,
+    "prerequisites": [
+      "SOCW302"
+    ]
+  },
+  {
+    "code": "UPD101",
+    "title": "Introduction to Urban Planning",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "UPD201",
+    "title": "Urban Planning History and Theory",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "UPD202",
+    "title": "Planning Methods",
+    "credits": 3,
+    "prerequisites": [
+      "UPD201"
+    ]
+  },
+  {
+    "code": "UPD301",
+    "title": "Land Use Planning",
+    "credits": 3,
+    "prerequisites": [
+      "UPD201"
+    ]
+  },
+  {
+    "code": "UPD302",
+    "title": "Transportation Planning",
+    "credits": 3,
+    "prerequisites": [
+      "UPD201"
+    ]
+  },
+  {
+    "code": "UPD303",
+    "title": "Environmental Planning",
+    "credits": 3,
+    "prerequisites": [
+      "UPD201"
+    ]
+  },
+  {
+    "code": "UPD401",
+    "title": "Advanced Planning Studio",
+    "credits": 3,
+    "prerequisites": [
+      "UPD301"
+    ]
+  },
+  {
+    "code": "UPD402",
+    "title": "Planning Capstone",
+    "credits": 3,
+    "prerequisites": [
+      "UPD301"
+    ]
+  },
+  {
+    "code": "JWST101",
+    "title": "Introduction to Jewish Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "JWST201",
+    "title": "Jewish History I: Ancient to Medieval",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "JWST202",
+    "title": "Jewish History II: Modern",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "JWST301",
+    "title": "Topics in Jewish Culture and Thought",
+    "credits": 3,
+    "prerequisites": [
+      "JWST101"
+    ]
+  },
+  {
+    "code": "JWST302",
+    "title": "Topics in Jewish Literature",
+    "credits": 3,
+    "prerequisites": [
+      "JWST101"
+    ]
+  },
+  {
+    "code": "JWST401",
+    "title": "Advanced Topics in Jewish Studies",
+    "credits": 3,
+    "prerequisites": [
+      "JWST301"
+    ]
+  },
+  {
+    "code": "AMES101",
+    "title": "Introduction to Asian Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMES201",
+    "title": "Asian History and Culture",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMES202",
+    "title": "Contemporary Asia",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMES301",
+    "title": "Topics in Asian Studies",
+    "credits": 3,
+    "prerequisites": [
+      "AMES101"
+    ]
+  },
+  {
+    "code": "AMES401",
+    "title": "Advanced Topics in Asian Studies",
+    "credits": 3,
+    "prerequisites": [
+      "AMES301"
+    ]
+  },
+  {
+    "code": "LAS101",
+    "title": "Introduction to Latin American Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LAS201",
+    "title": "Latin American History",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LAS202",
+    "title": "Latin American Culture and Society",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LAS301",
+    "title": "Topics in Latin American Studies",
+    "credits": 3,
+    "prerequisites": [
+      "LAS101"
+    ]
+  },
+  {
+    "code": "LAS401",
+    "title": "Advanced Topics in Latin American Studies",
+    "credits": 3,
+    "prerequisites": [
+      "LAS301"
+    ]
+  },
+  {
+    "code": "LCS101",
+    "title": "Introduction to Latino and Caribbean Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LCS201",
+    "title": "Latinos in the United States",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LCS202",
+    "title": "Caribbean History and Culture",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "LCS301",
+    "title": "Topics in Latino and Caribbean Studies",
+    "credits": 3,
+    "prerequisites": [
+      "LCS101"
+    ]
+  },
+  {
+    "code": "LCS401",
+    "title": "Advanced Topics in Latino and Caribbean Studies",
+    "credits": 3,
+    "prerequisites": [
+      "LCS301"
+    ]
+  },
+  {
+    "code": "EURO101",
+    "title": "Introduction to European Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "EURO201",
+    "title": "European History and Culture",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "EURO202",
+    "title": "Contemporary European Politics",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "EURO301",
+    "title": "Topics in European Studies",
+    "credits": 3,
+    "prerequisites": [
+      "EURO101"
+    ]
+  },
+  {
+    "code": "EURO401",
+    "title": "Advanced Topics in European Studies",
+    "credits": 3,
+    "prerequisites": [
+      "EURO301"
+    ]
+  },
+  {
+    "code": "MES101",
+    "title": "Introduction to Middle Eastern Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MES201",
+    "title": "Middle Eastern History",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MES202",
+    "title": "Islam: History and Civilization",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MES301",
+    "title": "Topics in Middle Eastern Studies",
+    "credits": 3,
+    "prerequisites": [
+      "MES101"
+    ]
+  },
+  {
+    "code": "MES401",
+    "title": "Advanced Topics in Middle Eastern Studies",
+    "credits": 3,
+    "prerequisites": [
+      "MES301"
+    ]
+  },
+  {
+    "code": "AMESALL101",
+    "title": "Introduction to African and Asian Languages and Literatures",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMESALL201",
+    "title": "Literatures of the Middle East",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMESALL202",
+    "title": "Literatures of South Asia",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMESALL301",
+    "title": "Advanced Topics in African and Asian Studies",
+    "credits": 3,
+    "prerequisites": [
+      "AMESALL101"
+    ]
+  },
+  {
+    "code": "AMESALL401",
+    "title": "Senior Seminar in AMESALL",
+    "credits": 3,
+    "prerequisites": [
+      "AMESALL301"
+    ]
+  },
+  {
+    "code": "GLHUM101",
+    "title": "Introduction to Global Humanities",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GLHUM201",
+    "title": "Global Cultures and Texts",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GLHUM301",
+    "title": "Topics in Global Humanities",
+    "credits": 3,
+    "prerequisites": [
+      "GLHUM201"
+    ]
+  },
+  {
+    "code": "GLHUM401",
+    "title": "Senior Seminar in Global Humanities",
+    "credits": 3,
+    "prerequisites": [
+      "GLHUM301"
+    ]
+  },
+  {
+    "code": "MEDST201",
+    "title": "Introduction to Medieval Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MEDST202",
+    "title": "Medieval Literature",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MEDST203",
+    "title": "Medieval History and Culture",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MEDST301",
+    "title": "Topics in Medieval Studies",
+    "credits": 3,
+    "prerequisites": [
+      "MEDST201"
+    ]
+  },
+  {
+    "code": "MEDST401",
+    "title": "Advanced Topics in Medieval Studies",
+    "credits": 3,
+    "prerequisites": [
+      "MEDST301"
+    ]
+  },
+  {
+    "code": "HEBR101",
+    "title": "Elementary Hebrew I",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HEBR102",
+    "title": "Elementary Hebrew II",
+    "credits": 3,
+    "prerequisites": [
+      "HEBR101"
+    ]
+  },
+  {
+    "code": "HEBR201",
+    "title": "Intermediate Hebrew I",
+    "credits": 3,
+    "prerequisites": [
+      "HEBR102"
+    ]
+  },
+  {
+    "code": "HEBR301",
+    "title": "Advanced Hebrew",
+    "credits": 3,
+    "prerequisites": [
+      "HEBR201"
+    ]
+  },
+  {
+    "code": "CDSP101",
+    "title": "Introduction to Communication Disorders",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CDSP201",
+    "title": "Speech and Hearing Science",
+    "credits": 3,
+    "prerequisites": [
+      "CDSP101"
+    ]
+  },
+  {
+    "code": "CDSP301",
+    "title": "Articulation and Phonological Disorders",
+    "credits": 3,
+    "prerequisites": [
+      "CDSP201"
+    ]
+  },
+  {
+    "code": "CDSP302",
+    "title": "Language Disorders across the Lifespan",
+    "credits": 3,
+    "prerequisites": [
+      "CDSP201"
+    ]
+  },
+  {
+    "code": "CDSP401",
+    "title": "Audiology and Hearing Science",
+    "credits": 3,
+    "prerequisites": [
+      "CDSP201"
+    ]
+  },
+  {
+    "code": "JOUR304",
+    "title": "International and Global Media",
+    "credits": 3,
+    "prerequisites": [
+      "JOUR201"
+    ]
+  },
+  {
+    "code": "COMPLIT403",
+    "title": "Advanced Seminar in Comparative Literature",
+    "credits": 3,
+    "prerequisites": [
+      "COMPLIT302"
+    ]
+  },
+  {
+    "code": "ASTRO101",
+    "title": "Introduction to Astronomy",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ASTRO201",
+    "title": "Stars, Galaxies, and the Universe",
+    "credits": 3,
+    "prerequisites": [
+      "ASTRO101"
+    ]
+  },
+  {
+    "code": "ASTRO301",
+    "title": "Observational Astronomy",
+    "credits": 3,
+    "prerequisites": [
+      "ASTRO201"
+    ]
+  },
+  {
+    "code": "LATIN101",
+    "title": "Introductory Latin I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "LATIN102",
+    "title": "Introductory Latin II",
+    "credits": 4,
+    "prerequisites": [
+      "LATIN101"
+    ]
+  },
+  {
+    "code": "LATIN201",
+    "title": "Intermediate Latin I",
+    "credits": 3,
+    "prerequisites": [
+      "LATIN102"
+    ]
+  },
+  {
+    "code": "LATIN202",
+    "title": "Intermediate Latin II",
+    "credits": 3,
+    "prerequisites": [
+      "LATIN201"
+    ]
+  },
+  {
+    "code": "LATIN301",
+    "title": "Latin Prose Authors",
+    "credits": 3,
+    "prerequisites": [
+      "LATIN202"
+    ]
+  },
+  {
+    "code": "ARAB101",
+    "title": "Elementary Arabic I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "ARAB102",
+    "title": "Elementary Arabic II",
+    "credits": 4,
+    "prerequisites": [
+      "ARAB101"
+    ]
+  },
+  {
+    "code": "ARAB201",
+    "title": "Intermediate Arabic I",
+    "credits": 3,
+    "prerequisites": [
+      "ARAB102"
+    ]
+  },
+  {
+    "code": "ARAB202",
+    "title": "Intermediate Arabic II",
+    "credits": 3,
+    "prerequisites": [
+      "ARAB201"
+    ]
+  },
+  {
+    "code": "ARAB301",
+    "title": "Advanced Arabic I",
+    "credits": 3,
+    "prerequisites": [
+      "ARAB202"
+    ]
+  },
+  {
+    "code": "ARAB302",
+    "title": "Advanced Arabic II",
+    "credits": 3,
+    "prerequisites": [
+      "ARAB301"
+    ]
+  },
+  {
+    "code": "HINDI101",
+    "title": "Elementary Hindi I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "HINDI102",
+    "title": "Elementary Hindi II",
+    "credits": 4,
+    "prerequisites": [
+      "HINDI101"
+    ]
+  },
+  {
+    "code": "HINDI201",
+    "title": "Intermediate Hindi I",
+    "credits": 3,
+    "prerequisites": [
+      "HINDI102"
+    ]
+  },
+  {
+    "code": "HINDI202",
+    "title": "Intermediate Hindi II",
+    "credits": 3,
+    "prerequisites": [
+      "HINDI201"
+    ]
+  },
+  {
+    "code": "HINDI301",
+    "title": "Advanced Hindi",
+    "credits": 3,
+    "prerequisites": [
+      "HINDI202"
+    ]
+  },
+  {
+    "code": "PERS101",
+    "title": "Elementary Persian I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "PERS102",
+    "title": "Elementary Persian II",
+    "credits": 4,
+    "prerequisites": [
+      "PERS101"
+    ]
+  },
+  {
+    "code": "PERS201",
+    "title": "Intermediate Persian I",
+    "credits": 3,
+    "prerequisites": [
+      "PERS102"
+    ]
+  },
+  {
+    "code": "PERS202",
+    "title": "Intermediate Persian II",
+    "credits": 3,
+    "prerequisites": [
+      "PERS201"
+    ]
+  },
+  {
+    "code": "PERS301",
+    "title": "Advanced Persian",
+    "credits": 3,
+    "prerequisites": [
+      "PERS202"
+    ]
+  },
+  {
+    "code": "TURK101",
+    "title": "Elementary Turkish I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "TURK102",
+    "title": "Elementary Turkish II",
+    "credits": 4,
+    "prerequisites": [
+      "TURK101"
+    ]
+  },
+  {
+    "code": "TURK201",
+    "title": "Intermediate Turkish I",
+    "credits": 3,
+    "prerequisites": [
+      "TURK102"
+    ]
+  },
+  {
+    "code": "TURK202",
+    "title": "Intermediate Turkish II",
+    "credits": 3,
+    "prerequisites": [
+      "TURK201"
+    ]
+  },
+  {
+    "code": "SWAH101",
+    "title": "Elementary Swahili I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "SWAH102",
+    "title": "Elementary Swahili II",
+    "credits": 4,
+    "prerequisites": [
+      "SWAH101"
+    ]
+  },
+  {
+    "code": "SWAH201",
+    "title": "Intermediate Swahili",
+    "credits": 3,
+    "prerequisites": [
+      "SWAH102"
+    ]
+  },
+  {
+    "code": "SWAH301",
+    "title": "Advanced Swahili",
+    "credits": 3,
+    "prerequisites": [
+      "SWAH201"
+    ]
+  },
+  {
+    "code": "CLAS101",
+    "title": "Introduction to the Classical World",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CLAS201",
+    "title": "Greek and Roman Mythology",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CLAS301",
+    "title": "Classical Civilization",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CLAS302",
+    "title": "Ancient Philosophy and Religion",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ARCH201",
+    "title": "Architectural History I: Antiquity to the Renaissance",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ARCH202",
+    "title": "Architectural History II: Baroque to Modernism",
+    "credits": 3,
+    "prerequisites": [
+      "ARCH201"
+    ]
+  },
+  {
+    "code": "ARCH301",
+    "title": "Theories of Architecture",
+    "credits": 3,
+    "prerequisites": [
+      "ARCH201"
+    ]
+  },
+  {
+    "code": "ARCH302",
+    "title": "Architecture and Urban Space",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "DISAB201",
+    "title": "Introduction to Disability Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "DISAB202",
+    "title": "Disability, Culture, and Society",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "DISAB301",
+    "title": "Critical Disability Theory",
+    "credits": 3,
+    "prerequisites": [
+      "DISAB201"
+    ]
+  },
+  {
+    "code": "DISAB302",
+    "title": "Disability and Public Policy",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MODGK101",
+    "title": "Elementary Modern Greek I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "MODGK102",
+    "title": "Elementary Modern Greek II",
+    "credits": 4,
+    "prerequisites": [
+      "MODGK101"
+    ]
+  },
+  {
+    "code": "MODGK201",
+    "title": "Intermediate Modern Greek",
+    "credits": 3,
+    "prerequisites": [
+      "MODGK102"
+    ]
+  },
+  {
+    "code": "MODGK202",
+    "title": "Advanced Modern Greek",
+    "credits": 3,
+    "prerequisites": [
+      "MODGK201"
+    ]
+  },
+  {
+    "code": "HUNG101",
+    "title": "Elementary Hungarian I",
+    "credits": 4,
+    "prerequisites": []
+  },
+  {
+    "code": "HUNG102",
+    "title": "Elementary Hungarian II",
+    "credits": 4,
+    "prerequisites": [
+      "HUNG101"
+    ]
+  },
+  {
+    "code": "HUNG201",
+    "title": "Intermediate Hungarian",
+    "credits": 3,
+    "prerequisites": [
+      "HUNG102"
+    ]
+  },
+  {
+    "code": "HUNG301",
+    "title": "Advanced Hungarian",
+    "credits": 3,
+    "prerequisites": [
+      "HUNG201"
+    ]
+  },
+  {
+    "code": "SLAV201",
+    "title": "Introduction to Slavic Cultures",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SLAV301",
+    "title": "Eastern European Literature in Translation",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SLAV302",
+    "title": "Slavic Film and Media",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "EDUC201",
+    "title": "Foundations of Education",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "EDUC301",
+    "title": "Education and Society",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SAAS201",
+    "title": "Introduction to South Asian Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SAAS301",
+    "title": "South Asian History and Politics",
+    "credits": 3,
+    "prerequisites": [
+      "SAAS201"
+    ]
+  },
+  {
+    "code": "SAAS302",
+    "title": "South Asian Literature and Culture",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "IGS101",
+    "title": "Introduction to International and Global Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "IGS301",
+    "title": "Global Issues Seminar",
+    "credits": 3,
+    "prerequisites": [
+      "IGS101"
+    ]
+  }
+]

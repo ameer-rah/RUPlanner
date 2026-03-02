@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # RUPlanner
 
 RUPlanner is a Rutgers–New Brunswick degree planning engine. This repo starts
@@ -25,3 +26,59 @@ semester planning) so it can power a web app later.
 - Wire this into a Next.js app
 - Persist data in Postgres (Prisma)
 - Add Rutgers SSO and a student-facing UI
+=======
+# RU Planner
+
+RU Planner is a web-based academic planning tool that generates a personalized
+semester-by-semester schedule based on degree level, majors/minors, completed
+courses, and target graduation term.
+
+This repo is rebuilt from the spec in `RU Planner.md` and follows a
+three-tier architecture:
+
+- **Frontend**: Next.js (TypeScript)
+- **Backend API**: FastAPI (Python)
+- **Data layer**: PostgreSQL
+
+## Project Structure
+
+```
+RUPlanner/
+├── frontend/          # Next.js UI
+├── backend/           # FastAPI API + planning logic
+├── data/              # Sample data (JSON/CSV)
+└── docker-compose.yml # Local dev stack
+```
+
+## Quick Start (Local)
+
+### Backend
+
+```
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
+
+### Frontend
+
+```
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`.
+
+## API
+
+- `POST /plan` generates a plan from user inputs.
+
+## Notes
+
+- The current planner uses sample data and a basic heuristic to schedule
+  courses. It is structured to be replaced with a full requirements engine,
+  prerequisite graph, and constraint solver (NetworkX / OR-Tools).
+>>>>>>> b594a3e (finished SAS and SOE)

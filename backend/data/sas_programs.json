@@ -1,0 +1,7484 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+    "computer_science_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Computer Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CS111",
+        "CS112",
+        "CS205",
+        "CS206",
+        "CS211",
+        "CS213",
+        "CS214",
+        "CS344",
+        "MATH151",
+        "MATH152",
+        "MATH250"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "CS210",
+          "CS314",
+          "CS323",
+          "CS324",
+          "CS334",
+          "CS336",
+          "CS352",
+          "CS416",
+          "CS417",
+          "CS431",
+          "CS440",
+          "CS444",
+          "CS446",
+          "CS451",
+          "CS452",
+          "CS460"
+        ],
+        "any_from_catalog": false
+      },
+      "science_requirement": {
+        "description": "Complete one full science sequence (all courses in one option)",
+        "options": [
+          [
+            "PHYS203",
+            "PHYS205",
+            "PHYS204",
+            "PHYS206"
+          ],
+          [
+            "CHEM161",
+            "CHEM171",
+            "CHEM162",
+            "CHEM172"
+          ]
+        ]
+      },
+      "statistics_requirement": {
+        "description": "One statistics course",
+        "options": [
+          "STAT291"
+        ]
+      },
+      "constraints": [
+        "At least five electives must be 01:198:xxx (CS department courses).",
+        "At least two electives must be at the 300 level or above.",
+        "Residency: at least seven CS courses (01:198:xxx) across required + electives.",
+        "No more than one grade of D can be applied."
+      ],
+      "notes": []
+    },
+    "computer_science_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Computer Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CS111",
+        "CS112",
+        "CS205",
+        "CS206",
+        "CS211",
+        "CS213",
+        "CS214",
+        "CS344",
+        "MATH151",
+        "MATH152",
+        "MATH250"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "CS210",
+          "CS314",
+          "CS323",
+          "CS324",
+          "CS334",
+          "CS336",
+          "CS352",
+          "CS416",
+          "CS417",
+          "CS431",
+          "CS440",
+          "CS444",
+          "CS446",
+          "CS451",
+          "CS452",
+          "CS460"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least three electives must be 01:198:xxx (CS department courses).",
+        "At least two electives must be at the 300 level or above.",
+        "Residency: at least seven CS courses (01:198:xxx) across required + electives.",
+        "No more than one grade of D can be applied."
+      ],
+      "notes": []
+    },
+    "computer_science_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Computer Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "electives": {
+        "count": 6,
+        "min_level_300_plus": 2,
+        "options": [
+          "CS111",
+          "CS112",
+          "CS205",
+          "CS206",
+          "CS210",
+          "CS211",
+          "CS213",
+          "CS214",
+          "CS314",
+          "CS334",
+          "CS336",
+          "CS344",
+          "CS352",
+          "CS416",
+          "CS417",
+          "CS431",
+          "CS440",
+          "CS444",
+          "CS446",
+          "CS451",
+          "CS452",
+          "CS460"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least two courses must be at the 300 or 400 level.",
+        "Courses must be from the CS minor approved list (01:198:xxx)."
+      ],
+      "notes": []
+    },
+    "mathematics_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Mathematics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH250",
+        "MATH300",
+        "MATH311",
+        "MATH351",
+        "CS111"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 4,
+        "options": [
+          "MATH312",
+          "MATH352",
+          "MATH356",
+          "MATH361",
+          "MATH373",
+          "STAT381",
+          "STAT382",
+          "CS112",
+          "CS211"
+        ],
+        "any_from_catalog": false
+      },
+      "statistics_requirement": {
+        "description": "One statistics course",
+        "options": [
+          "STAT291",
+          "STAT381"
+        ]
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Residency: at least 12 Rutgers-taken credits in MATH."
+      ],
+      "notes": []
+    },
+    "mathematics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Mathematics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH250",
+        "MATH300"
+      ],
+      "electives": {
+        "count": 6,
+        "min_level_300_plus": 4,
+        "options": [
+          "MATH311",
+          "MATH312",
+          "MATH351",
+          "MATH352",
+          "MATH356",
+          "MATH361",
+          "MATH373",
+          "STAT381",
+          "STAT382",
+          "CS112",
+          "CS211"
+        ],
+        "any_from_catalog": false
+      },
+      "statistics_requirement": {
+        "description": "One statistics course",
+        "options": [
+          "STAT291",
+          "STAT381"
+        ]
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Residency: at least 12 Rutgers-taken credits in MATH."
+      ],
+      "notes": []
+    },
+    "economics_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Economics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ECON102",
+        "ECON103",
+        "ECON320",
+        "ECON321",
+        "ECON322",
+        "MATH151",
+        "MATH152"
+      ],
+      "statistics_requirement": {
+        "description": "One statistics course",
+        "options": [
+          "STAT291",
+          "STAT381"
+        ]
+      },
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 4,
+        "options": [
+          "ECON300",
+          "ECON301",
+          "ECON390",
+          "ECON395",
+          "ECON402",
+          "ECON410",
+          "ECON413",
+          "ECON421",
+          "ECON432",
+          "ECON433",
+          "ECON436",
+          "ECON439",
+          "ECON440",
+          "ECON441"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Residency: at least 12 ECON credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "economics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Economics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ECON102",
+        "ECON103",
+        "ECON320",
+        "ECON321",
+        "MATH151"
+      ],
+      "statistics_requirement": {
+        "description": "One statistics course",
+        "options": [
+          "STAT211",
+          "STAT291",
+          "STAT381"
+        ]
+      },
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "ECON300",
+          "ECON301",
+          "ECON390",
+          "ECON395",
+          "ECON402",
+          "ECON410",
+          "ECON413",
+          "ECON421",
+          "ECON432",
+          "ECON433",
+          "ECON436",
+          "ECON439",
+          "ECON440",
+          "ECON441"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Residency: at least 12 ECON credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "statistics_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Statistics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH250",
+        "STAT381",
+        "STAT382",
+        "STAT384"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "STAT463",
+          "STAT467",
+          "STAT476",
+          "STAT486",
+          "STAT490",
+          "CS111",
+          "CS112"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least three electives must be at the 300 level or above.",
+        "Residency: at least 12 STAT credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "statistics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Statistics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152",
+        "STAT381",
+        "STAT382"
+      ],
+      "statistics_requirement": {
+        "description": "One additional statistics course at or above 200 level",
+        "options": [
+          "STAT291",
+          "STAT384"
+        ]
+      },
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "STAT384",
+          "STAT463",
+          "STAT467",
+          "STAT476",
+          "STAT486",
+          "STAT490",
+          "MATH251",
+          "MATH250",
+          "CS111",
+          "CS112"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least two electives must be at the 300 level or above.",
+        "Residency: at least 12 STAT credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "physics_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Physics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH250",
+        "PHYS203",
+        "PHYS204",
+        "PHYS205",
+        "PHYS206",
+        "PHYS351",
+        "PHYS382",
+        "PHYS386",
+        "PHYS388"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "PHYS417",
+          "PHYS342",
+          "PHYS406",
+          "PHYS421",
+          "PHYS441"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least three electives must be at the 300 level or above.",
+        "Residency: at least 12 PHYS credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "physics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Physics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "PHYS203",
+        "PHYS204",
+        "PHYS205",
+        "PHYS206",
+        "PHYS382"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "PHYS351",
+          "PHYS386",
+          "PHYS388",
+          "PHYS417",
+          "PHYS342",
+          "PHYS406",
+          "PHYS421",
+          "PHYS441"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least three electives must be at the 300 level or above.",
+        "Residency: at least 12 PHYS credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "chemistry_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Chemistry",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172",
+        "CHEM307",
+        "CHEM309",
+        "CHEM308",
+        "CHEM311",
+        "CHEM251",
+        "CHEM328",
+        "CHEM329",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "CHEM348",
+          "CHEM351",
+          "CHEM341",
+          "CHEM496"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least three electives must be at the 300 level or above.",
+        "Residency: at least 12 CHEM credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "political_science_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Political Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "POLS101",
+        "POLS300"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 6,
+        "options": [
+          "POLS102",
+          "POLS103",
+          "POLS104",
+          "POLS106",
+          "POLS302",
+          "POLS304",
+          "POLS305",
+          "POLS306",
+          "POLS307",
+          "POLS308",
+          "POLS311",
+          "POLS313",
+          "POLS317",
+          "POLS319",
+          "POLS322",
+          "POLS323",
+          "POLS324",
+          "POLS327",
+          "POLS329",
+          "POLS331",
+          "POLS332",
+          "POLS333",
+          "POLS335",
+          "POLS338",
+          "POLS340",
+          "POLS342",
+          "POLS343",
+          "POLS347",
+          "POLS360",
+          "POLS362",
+          "POLS363",
+          "POLS372",
+          "POLS373",
+          "POLS392",
+          "POLS406",
+          "POLS426",
+          "POLS477"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least six electives must be at the 300 level or above.",
+        "Courses must span at least two of the four subfields: American Government, Comparative Politics, International Relations, Political Theory.",
+        "Residency: at least 12 POLS credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "philosophy_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Philosophy",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHIL101",
+        "PHIL103"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 4,
+        "options": [
+          "PHIL105",
+          "PHIL107",
+          "PHIL109",
+          "PHIL140",
+          "PHIL201",
+          "PHIL210",
+          "PHIL220",
+          "PHIL225",
+          "PHIL249",
+          "PHIL253",
+          "PHIL263",
+          "PHIL268",
+          "PHIL302",
+          "PHIL307",
+          "PHIL308",
+          "PHIL315",
+          "PHIL329",
+          "PHIL341",
+          "PHIL345",
+          "PHIL347",
+          "PHIL348",
+          "PHIL367",
+          "PHIL372",
+          "PHIL405",
+          "PHIL413",
+          "PHIL415",
+          "PHIL418",
+          "PHIL426",
+          "PHIL445"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Must include at least one course in history of philosophy (302, 307, or 308).",
+        "Residency: at least 12 PHIL credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "geography_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Geography",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GEOG101",
+        "GEOG320"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 5,
+        "options": [
+          "GEOG102",
+          "GEOG103",
+          "GEOG205",
+          "GEOG211",
+          "GEOG214",
+          "GEOG272",
+          "GEOG309",
+          "GEOG311",
+          "GEOG322",
+          "GEOG356",
+          "GEOG363",
+          "GEOG365",
+          "GEOG366",
+          "GEOG370",
+          "GEOG402",
+          "GEOG417",
+          "GEOG470"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least five electives must be at the 300 level or above.",
+        "Residency: at least 12 GEOG credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "geological_sciences_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Geological Sciences",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GEOSC101",
+        "GEOSC201",
+        "GEOSC202",
+        "GEOSC301",
+        "GEOSC303",
+        "GEOSC407",
+        "GEOSC411",
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "MATH151",
+        "MATH152"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "GEOSC212",
+          "GEOSC414",
+          "GEOSC442",
+          "GEOSC480"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least three electives must be at the 300 level or above.",
+        "Residency: at least 12 GEOSC credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "sociology_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Sociology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SOC101",
+        "SOC311",
+        "SOC312",
+        "SOC316"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "SOC103",
+          "SOC108",
+          "SOC210",
+          "SOC220",
+          "SOC222",
+          "SOC225",
+          "SOC227",
+          "SOC232",
+          "SOC241",
+          "SOC248",
+          "SOC272",
+          "SOC303",
+          "SOC304",
+          "SOC306",
+          "SOC307",
+          "SOC315",
+          "SOC324",
+          "SOC335",
+          "SOC349",
+          "SOC395",
+          "SOC492"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Residency: at least 12 SOC credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "psychology_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Psychology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PSYC101",
+        "PSYC200"
+      ],
+      "statistics_requirement": {
+        "description": "One statistics course",
+        "options": [
+          "STAT211",
+          "STAT291",
+          "STAT381"
+        ]
+      },
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "PSYC271",
+          "PSYC300",
+          "PSYC301",
+          "PSYC303",
+          "PSYC305",
+          "PSYC310",
+          "PSYC311",
+          "PSYC313",
+          "PSYC320",
+          "PSYC321",
+          "PSYC331",
+          "PSYC333",
+          "PSYC338",
+          "PSYC339",
+          "PSYC340",
+          "PSYC360",
+          "PSYC362",
+          "PSYC373",
+          "PSYC375",
+          "PSYC377",
+          "PSYC379",
+          "PSYC470"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Must include courses from at least two content areas (biological, cognitive, social, developmental, clinical).",
+        "Residency: at least 12 PSYC credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "criminal_justice_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Criminal Justice",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CRIM201",
+        "CRIM307"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 5,
+        "options": [
+          "CRIM202",
+          "CRIM203",
+          "CRIM204",
+          "CRIM205",
+          "CRIM301",
+          "CRIM309",
+          "CRIM315",
+          "CRIM316",
+          "CRIM352",
+          "CRIM360",
+          "CRIM388"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least five electives must be at the 300 level or above.",
+        "Residency: at least 12 CRIM credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "art_history_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Art History",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ARTH106"
+      ],
+      "electives": {
+        "count": 9,
+        "min_level_300_plus": 5,
+        "options": [
+          "ARTH204",
+          "ARTH205",
+          "ARTH230",
+          "ARTH276",
+          "ARTH291",
+          "ARTH328",
+          "ARTH332",
+          "ARTH366",
+          "ARTH373",
+          "ARTH383",
+          "ARTH391",
+          "ARTH444",
+          "ARTH492"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least five electives must be at the 300 level or above.",
+        "Courses must cover at least three chronological or geographical areas.",
+        "Residency: at least 12 ARTH credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "womens_gender_sexuality_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Women's, Gender, and Sexuality Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "WGSS101",
+        "WGSS325"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 4,
+        "options": [
+          "WGSS130",
+          "WGSS200",
+          "WGSS202",
+          "WGSS206",
+          "WGSS232",
+          "WGSS235",
+          "WGSS240",
+          "WGSS255",
+          "WGSS257",
+          "WGSS258",
+          "WGSS259",
+          "WGSS294",
+          "WGSS313"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Residency: at least 12 WGSS credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "linguistics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Linguistics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LING101",
+        "LING201",
+        "LING305",
+        "LING315"
+      ],
+      "electives": {
+        "count": 6,
+        "min_level_300_plus": 4,
+        "options": [
+          "LING190",
+          "LING191",
+          "LING215",
+          "LING325",
+          "LING350",
+          "LING381",
+          "LING425"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least four electives must be at the 300 level or above.",
+        "Residency: at least 12 LING credits taken at Rutgers."
+      ],
+      "notes": []
+    },
+    "history_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "History",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HIST299"
+      ],
+      "electives": {
+        "count": 11,
+        "min_level_300_plus": 5,
+        "options": [
+          "HIST201",
+          "HIST202",
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "HIST330",
+          "HIST331",
+          "HIST340",
+          "HIST350",
+          "HIST380",
+          "HIST101",
+          "HIST102",
+          "HIST203",
+          "HIST204",
+          "HIST301",
+          "HIST315",
+          "HIST320",
+          "HIST322",
+          "HIST103",
+          "HIST221",
+          "HIST222",
+          "HIST231",
+          "HIST232",
+          "HIST241",
+          "HIST242",
+          "HIST251",
+          "HIST263",
+          "HIST264",
+          "HIST271",
+          "HIST275",
+          "HIST280",
+          "HIST360"
+        ],
+        "any_from_catalog": false
+      },
+      "capstone_options": [
+        "HIST401",
+        "HIST402",
+        "HIST451",
+        "HIST495"
+      ],
+      "constraints": [
+        "12 courses total, minimum grade C in each.",
+        "At least 2 courses from Global/Non-Western history.",
+        "At least 2 courses from European history.",
+        "At least 2 courses from U.S. history.",
+        "At least 5 of 12 courses at 300\u2013400 level.",
+        "At least 8 courses at Rutgers New Brunswick.",
+        "Capstone: HIST401, HIST402, HIST451, or HIST495+HIST496."
+      ],
+      "notes": []
+    },
+    "english_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "English",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENGL201"
+      ],
+      "electives": {
+        "count": 11,
+        "min_level_300_plus": 6,
+        "options": [
+          "ENGL301",
+          "ENGL302",
+          "ENGL303",
+          "ENGL304",
+          "ENGL305",
+          "ENGL218",
+          "ENGL219",
+          "ENGL310",
+          "ENGL311",
+          "ENGL315",
+          "ENGL320",
+          "ENGL401",
+          "ENGL402",
+          "ENGL410",
+          "ENGL211",
+          "ENGL212",
+          "ENGL213",
+          "ENGL214",
+          "ENGL215",
+          "ENGL216",
+          "ENGL330",
+          "ENGL331",
+          "ENGL332",
+          "ENGL350",
+          "ENGL360",
+          "ENGL420",
+          "ENGL430"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "12 courses total, minimum grade C in each.",
+        "At least one course from 4 of 5 historical periods (Medieval, Renaissance, 18th C, 19th C, 20th C+).",
+        "At least one course in African-American Literature at 300\u2013400 level.",
+        "At least one course in Literatures of the Global South at 300\u2013400 level.",
+        "At least one course in Literary Theory.",
+        "At least one 400-level seminar.",
+        "At least 6 courses at 300\u2013400 level.",
+        "Max 2 creative writing courses as electives."
+      ],
+      "notes": []
+    },
+    "cell_biology_neuroscience_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Cell Biology and Neuroscience",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "BIO102",
+        "CBN245",
+        "CBN270",
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "CHEM311",
+        "MATH151",
+        "MATH152",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "GENET380",
+        "MCB301"
+      ],
+      "statistics_requirement": {
+        "description": "One statistics course",
+        "options": [
+          "STAT291",
+          "STAT211",
+          "STAT381"
+        ]
+      },
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 4,
+        "options": [
+          "CBN322",
+          "CBN328",
+          "CBN340",
+          "CBN356",
+          "CBN445",
+          "CBN447",
+          "CBN456",
+          "CBN464",
+          "CBN470",
+          "CBN472",
+          "CBN476",
+          "CBN480",
+          "GENET302",
+          "GENET352",
+          "GENET354",
+          "GENET356",
+          "MCB407",
+          "MCB408",
+          "MCB411",
+          "MCB412"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "3 advanced CBN lecture courses required from elective list.",
+        "1 upper-level life science elective (300+ level) from approved list.",
+        "Minimum grade C in all major courses."
+      ],
+      "notes": []
+    },
+    "cognitive_science_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Cognitive Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COGS201",
+        "COGS411"
+      ],
+      "electives": {
+        "count": 9,
+        "min_level_300_plus": 6,
+        "options": [
+          "PHIL101",
+          "CS205",
+          "CS206",
+          "MATH300",
+          "STAT211",
+          "STAT291",
+          "COGS253",
+          "COGS301",
+          "COGS310",
+          "COGS320",
+          "COGS330",
+          "COGS335",
+          "COGS340",
+          "COGS345",
+          "COGS350",
+          "COGS395",
+          "COGS412",
+          "COGS413",
+          "COGS414",
+          "COGS415",
+          "COGS416",
+          "COGS417",
+          "COGS430",
+          "COGS495",
+          "PSYC200",
+          "PSYC305",
+          "PSYC310",
+          "PSYC313",
+          "PSYC333",
+          "PSYC375",
+          "PHIL201",
+          "LING305",
+          "LING315",
+          "LING325",
+          "CS344",
+          "CS440"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 4 courses must be from COGS (01:185) prefix.",
+        "Two-thirds of 36 credits must be at 300-level or above.",
+        "Two-thirds of 36 credits must be from SAS.",
+        "Choose one of 5 tracks: Cognitive Neuroscience, Decision Making, Language, Mind/Machines, Perception.",
+        "Capstone required: COGS411, COGS395, or COGS495.",
+        "Minimum grade C in all courses."
+      ],
+      "notes": []
+    },
+    "anthropology_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Anthropology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ANTH101",
+        "ANTH102",
+        "ANTH105",
+        "ANTH108"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 5,
+        "options": [
+          "ANTH302",
+          "ANTH303",
+          "ANTH304",
+          "ANTH305",
+          "ANTH307",
+          "ANTH308",
+          "ANTH309",
+          "ANTH310",
+          "ANTH312",
+          "ANTH314",
+          "ANTH317",
+          "ANTH318",
+          "ANTH320",
+          "ANTH325",
+          "ANTH326",
+          "ANTH328",
+          "ANTH336",
+          "ANTH338",
+          "ANTH341",
+          "ANTH350"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "1 course from each of 3 of the 4 subdisciplines at 300+ level (Cultural, Linguistic, Biological, Archaeology).",
+        "Total 38 credits for the major.",
+        "At least 18 credits at 300/400 level.",
+        "Minimum grade C in all courses."
+      ],
+      "notes": []
+    },
+    "environmental_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Environmental Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENVST101",
+        "ENVST400"
+      ],
+      "electives": {
+        "count": 9,
+        "min_level_300_plus": 3,
+        "options": [
+          "GEOG103",
+          "GEOSC100",
+          "GEOSC120",
+          "GEOG365",
+          "GEOG366",
+          "POLS308",
+          "SOC227",
+          "ECON300",
+          "ENVST300",
+          "ENVST301",
+          "ENVST302",
+          "ENVST310",
+          "ENVST320",
+          "ENVST325",
+          "ENVST330",
+          "GEOG311",
+          "GEOG322",
+          "ENVST200",
+          "ENVST485"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Second major only \u2014 must complement a primary SAS major.",
+        "At least 18 credits of 36 must be at 300-level or above.",
+        "Max 12 credits double-counted toward another major.",
+        "No more than one D grade accepted."
+      ],
+      "notes": []
+    },
+    "astrophysics_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Astrophysics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS123",
+        "PHYS124",
+        "PHYS227",
+        "PHYS228",
+        "PHYS229",
+        "PHYS230",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH244",
+        "PHYS341",
+        "PHYS342",
+        "PHYS345",
+        "PHYS346",
+        "PHYS351",
+        "PHYS361",
+        "PHYS385",
+        "PHYS386",
+        "PHYS388"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "PHYS441",
+          "PHYS442",
+          "PHYS443",
+          "PHYS444",
+          "MATH421",
+          "MATH423"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Minimum 2 courses from PHYS441/442/443/444 required.",
+        "Choose MATH421 or MATH423 for math elective.",
+        "At least 15 credits of 300/400-level physics at Rutgers New Brunswick.",
+        "Cannot minor in Physics or Astronomy."
+      ],
+      "notes": []
+    },
+    "american_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "American Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AMST101",
+        "AMST200"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 5,
+        "options": [
+          "AMST102",
+          "AMST120",
+          "AMST210",
+          "AMST301",
+          "AMST302",
+          "AMST310",
+          "AMST320",
+          "AMST330",
+          "AMST401",
+          "HIST201",
+          "HIST202",
+          "HIST330",
+          "HIST331",
+          "HIST340",
+          "HIST380",
+          "ENGL218",
+          "ENGL310",
+          "ENGL330",
+          "ENGL331",
+          "ENGL332",
+          "SOC222",
+          "SOC225",
+          "SOC232"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 5 electives at 300-level or above.",
+        "Interdisciplinary \u2014 courses may come from multiple departments.",
+        "Capstone seminar (AMST401) required.",
+        "Minimum grade C in all courses."
+      ],
+      "notes": []
+    },
+    "africana_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Africana Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AFRS101"
+      ],
+      "electives": {
+        "count": 9,
+        "min_level_300_plus": 5,
+        "options": [
+          "AFRS200",
+          "AFRS210",
+          "AFRS220",
+          "AFRS301",
+          "AFRS310",
+          "AFRS315",
+          "AFRS320",
+          "AFRS330",
+          "AFRS401",
+          "HIST221",
+          "HIST222",
+          "HIST330",
+          "HIST331",
+          "ENGL218",
+          "ENGL310",
+          "ENGL311",
+          "SOC225",
+          "SOC227",
+          "SOC232",
+          "POLS324",
+          "POLS329"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 5 electives at 300-level or above.",
+        "Capstone seminar (AFRS401) required.",
+        "Minimum grade C in all courses."
+      ],
+      "notes": []
+    },
+    "spanish_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Spanish",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SPAN301",
+        "SPAN302",
+        "SPAN303"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 5,
+        "options": [
+          "SPAN304",
+          "SPAN305",
+          "SPAN306",
+          "SPAN310",
+          "SPAN311",
+          "SPAN320",
+          "SPAN330",
+          "SPAN340",
+          "SPAN350",
+          "SPAN401",
+          "SPAN410",
+          "SPAN420"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 5 electives at 300-level or above.",
+        "SPAN301 (Advanced Conversation & Composition) required as gateway.",
+        "Students choose Spanish Literature or Latin American Literature track.",
+        "Minimum grade C in all courses."
+      ],
+      "notes": []
+    },
+    "communication_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Communication",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMMUN200",
+        "COMMUN201",
+        "COMMUN300",
+        "COMMUN380"
+      ],
+      "electives": {
+        "count": 6,
+        "min_level_300_plus": 4,
+        "options": [
+          "COMMUN354",
+          "COMMUN355",
+          "COMMUN356",
+          "COMMUN357",
+          "COMMUN359",
+          "COMMUN400",
+          "COMMUN401",
+          "COMMUN402",
+          "COMMUN403",
+          "COMMUN404"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "36 total credits.",
+        "At least 2 electives at 400-level.",
+        "5 upper-level electives, all COMMUN 300/400-level.",
+        "Minimum grade C in all COMMUN courses."
+      ],
+      "notes": []
+    },
+    "genetics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Genetics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "BIO102",
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172",
+        "MATH151",
+        "MATH152",
+        "GENET380",
+        "MCB301"
+      ],
+      "statistics_requirement": {
+        "description": "One statistics course",
+        "options": [
+          "STAT291",
+          "STAT381"
+        ]
+      },
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 5,
+        "options": [
+          "GENET302",
+          "GENET352",
+          "GENET354",
+          "GENET356",
+          "GENET370",
+          "GENET390",
+          "GENET430",
+          "GENET460",
+          "GENET484",
+          "MCB407",
+          "MCB408",
+          "MCB411",
+          "MCB420"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 5 electives at 300-level or above.",
+        "Minimum grade C in all courses."
+      ],
+      "notes": []
+    },
+    "molecular_biology_biochemistry_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Molecular Biology and Biochemistry",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "BIO102",
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "CHEM311",
+        "MATH151",
+        "MATH152",
+        "GENET380",
+        "MCB301",
+        "MCB408"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 4,
+        "options": [
+          "MCB407",
+          "MCB411",
+          "MCB412",
+          "MCB413",
+          "MCB420",
+          "MCB421",
+          "CBN322",
+          "CBN445",
+          "GENET352",
+          "GENET356",
+          "GENET370",
+          "GENET390"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 4 electives at 300-level or above.",
+        "Minimum grade C in all courses."
+      ],
+      "notes": []
+    },
+    "biological_sciences_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Biological Sciences",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "BIO102",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM307",
+        "CHEM308",
+        "CHEM309",
+        "CHEM311",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "MATH151",
+        "GENET380"
+      ],
+      "electives": {
+        "count": 6,
+        "min_level_300_plus": 4,
+        "options": [
+          "CBN245",
+          "CBN270",
+          "CBN322",
+          "CBN328",
+          "CBN340",
+          "CBN356",
+          "GENET302",
+          "GENET352",
+          "GENET354",
+          "GENET356",
+          "GENET370",
+          "MCB301",
+          "MCB407",
+          "MCB408",
+          "MCB411",
+          "MCB413",
+          "MCB420",
+          "BIO307",
+          "BIO308"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "biomathematics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Biomathematics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "BIO102",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH250",
+        "MATH252",
+        "MATH336",
+        "MATH338",
+        "MATH477",
+        "MATH481"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 1,
+        "options": [
+          "MATH350",
+          "MATH373",
+          "MATH423",
+          "MATH461",
+          "MATH477",
+          "MATH481"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "mathematics_actuarial_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Mathematics (Actuarial)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH250",
+        "MATH252",
+        "MATH285",
+        "MATH477",
+        "MATH481",
+        "STAT381",
+        "STAT382",
+        "ECON102",
+        "ECON103"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "MATH311",
+          "MATH312",
+          "MATH351",
+          "MATH352",
+          "STAT384",
+          "STAT463",
+          "STAT476",
+          "STAT486",
+          "ECON320",
+          "ECON321",
+          "ECON322"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "statistics_mathematics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Statistics/Mathematics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH250",
+        "MATH300",
+        "STAT381",
+        "STAT382",
+        "STAT384"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "MATH311",
+          "MATH312",
+          "MATH351",
+          "MATH352",
+          "MATH373",
+          "MATH423",
+          "MATH461",
+          "STAT463",
+          "STAT467",
+          "STAT476",
+          "STAT486",
+          "STAT490"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "data_science_cs_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Data Science (Computer Science Track)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CS142",
+        "STAT291",
+        "CS210",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "MATH250",
+        "ITI321",
+        "CS111",
+        "CS112",
+        "CS205",
+        "CS206",
+        "CS336",
+        "CS439",
+        "STAT463",
+        "STAT486"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 1,
+        "options": [
+          "CS461",
+          "CS462"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "data_science_statistics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Data Science (Statistics Track)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CS142",
+        "STAT291",
+        "STAT295",
+        "MATH151",
+        "MATH152",
+        "MATH250",
+        "CS111",
+        "CS112",
+        "STAT463",
+        "STAT486"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 1,
+        "options": [
+          "STAT365",
+          "STAT467",
+          "STAT490"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "data_science_economics_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Data Science (Economics Track)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CS142",
+        "STAT291",
+        "CS210",
+        "MATH151",
+        "MATH152",
+        "MATH250",
+        "ITI321",
+        "ECON102",
+        "ECON103",
+        "ECON320",
+        "ECON321",
+        "ECON322",
+        "ECON421"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 1,
+        "options": [
+          "ECON422",
+          "ECON424"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "data_science_societal_impact_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Data Science (Societal Impact Track)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CS142",
+        "STAT291",
+        "STAT295",
+        "MATH151",
+        "MATH250",
+        "ITI103",
+        "ITI201",
+        "ITI321",
+        "STAT463",
+        "STAT486"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 1,
+        "options": [
+          "STAT365",
+          "STAT467",
+          "STAT490"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "data_science_chemical_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Data Science (Chemical Data Science Track)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CS142",
+        "STAT291",
+        "CS210",
+        "MATH151",
+        "MATH152",
+        "MATH250",
+        "CS111",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "STAT463"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "CHEM251",
+          "CHEM309",
+          "CHEM311",
+          "CHEM328",
+          "CHEM341",
+          "CHEM348",
+          "CHEM351"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "anthropology_evolutionary_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Anthropology (Evolutionary)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ANTH102",
+        "ANTH310",
+        "ANTH325",
+        "ANTH328",
+        "ANTH336",
+        "ANTH338",
+        "ANTH350",
+        "BIO101",
+        "BIO102",
+        "STAT211"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "ANTH302",
+          "ANTH303",
+          "ANTH304",
+          "ANTH305",
+          "ANTH307",
+          "ANTH308",
+          "ANTH309",
+          "ANTH312",
+          "ANTH314",
+          "ANTH317",
+          "ANTH318",
+          "ANTH320",
+          "ANTH326",
+          "ANTH341"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "physics_applied_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Physics (Applied Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "PHYS227",
+        "PHYS228",
+        "PHYS323",
+        "PHYS324",
+        "PHYS345",
+        "PHYS341",
+        "PHYS342",
+        "PHYS351",
+        "PHYS361",
+        "PHYS382",
+        "PHYS385",
+        "PHYS388",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "CS111"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "PHYS406",
+          "PHYS417",
+          "PHYS421",
+          "PHYS441",
+          "PHYS442",
+          "PHYS443",
+          "PHYS444"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "physics_planetary_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Physics (Planetary Physics Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "PHYS227",
+        "PHYS228",
+        "PHYS323",
+        "PHYS324",
+        "PHYS345",
+        "PHYS346",
+        "PHYS342",
+        "PHYS351",
+        "PHYS382",
+        "PHYS385",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "GEOSC442"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "PHYS406",
+          "PHYS417",
+          "PHYS441",
+          "PHYS442",
+          "PHYS443",
+          "PHYS444",
+          "GEOSC224",
+          "GEOSC303",
+          "GEOSC441",
+          "GEOSC480"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "physics_professional_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Physics (Professional Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "PHYS227",
+        "PHYS228",
+        "PHYS323",
+        "PHYS324",
+        "PHYS345",
+        "PHYS341",
+        "PHYS351",
+        "PHYS361",
+        "PHYS386",
+        "PHYS382",
+        "PHYS385",
+        "PHYS388",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "CS111"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "PHYS406",
+          "PHYS417",
+          "PHYS421",
+          "PHYS441",
+          "PHYS442",
+          "PHYS443",
+          "PHYS444"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Professional option prepares students for careers in industry and engineering graduate programs.",
+        "PHYS386 (Advanced Experimental Physics II) required in addition to PHYS361 lab.",
+        "At least two electives must be at the 300 level or above.",
+        "Residency: at least 12 PHYS credits taken at Rutgers."
+      ]
+    },
+    "earth_planetary_sciences_general_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Earth and Planetary Sciences (General Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GEOSC101",
+        "CHEM161",
+        "MATH151",
+        "GEOSC300",
+        "GEOSC301",
+        "GEOSC302",
+        "GEOSC303",
+        "GEOSC407",
+        "GEOSC411"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "GEOSC201",
+          "GEOSC202",
+          "GEOSC212",
+          "GEOSC224",
+          "GEOSC225",
+          "GEOSC304",
+          "GEOSC306",
+          "GEOSC410",
+          "GEOSC414",
+          "GEOSC442",
+          "GEOSC480"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "earth_planetary_sciences_environmental_geology_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Earth and Planetary Sciences (Environmental Geology)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "MATH151",
+        "MATH152",
+        "PHYS203",
+        "GEOSC101",
+        "GEOSC202",
+        "GEOSC300",
+        "GEOSC301",
+        "GEOSC302",
+        "GEOSC306",
+        "GEOSC407",
+        "GEOSC410",
+        "GEOSC413",
+        "GEOSC428"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "GEOSC303",
+          "GEOSC304",
+          "GEOSC414",
+          "GEOSC442",
+          "GEOSC480"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "earth_planetary_sciences_planetary_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Earth and Planetary Sciences (Planetary Science)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM162",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "GEOSC101",
+        "GEOSC222",
+        "GEOSC301",
+        "GEOSC302",
+        "GEOSC304",
+        "GEOSC442",
+        "GEOSC480"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "GEOSC224",
+          "GEOSC225",
+          "GEOSC303",
+          "GEOSC306",
+          "GEOSC413",
+          "GEOSC441"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "exercise_science_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Exercise Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EXSC140",
+        "EXSC200",
+        "BIO101",
+        "BIO102",
+        "EXSC225",
+        "EXSC226",
+        "EXSC227",
+        "EXSC301",
+        "EXSC302",
+        "EXSC303",
+        "EXSC304",
+        "EXSC305",
+        "STAT211",
+        "PSYC101"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "EXSC400",
+          "EXSC401",
+          "CBN245",
+          "CBN270",
+          "PSYC301",
+          "PSYC302"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "sport_management_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Sport Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SPMD101",
+        "SPMD201",
+        "SPMD202",
+        "SPMD203",
+        "SPMD301",
+        "SPMD302",
+        "SPMD401",
+        "EXSC140",
+        "STAT211",
+        "PSYC101"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "SPMD490",
+          "ECON102",
+          "ECON103",
+          "SOC101",
+          "SOC311"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "public_health_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Public Health",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PUBH201",
+        "PUBH212",
+        "PUBH240",
+        "PUBH335",
+        "PUBH356",
+        "PUBH395",
+        "PUBH450",
+        "PUBH499",
+        "STAT211",
+        "CHEM161"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "SOC101",
+          "SOC210",
+          "PSYC101",
+          "ECON102",
+          "POLS101"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "public_policy_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Public Policy",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PUBP201",
+        "PUBP301",
+        "PUBP302",
+        "PUBP303",
+        "PUBP401",
+        "PUBP402",
+        "ECON102",
+        "ECON103",
+        "STAT211",
+        "POLS101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "ECON320",
+          "ECON321",
+          "ECON322",
+          "POLS301",
+          "POLS302",
+          "SOC210",
+          "SOC311"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "health_administration_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Health Administration",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HLAD201",
+        "HLAD202",
+        "HLAD301",
+        "HLAD302",
+        "HLAD303",
+        "HLAD401",
+        "PUBH201",
+        "STAT211",
+        "ECON102"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "PUBH212",
+          "PUBH240",
+          "PUBH356",
+          "SOC210",
+          "PSYC101"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "chemistry_core_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Chemistry (Core Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "CHEM309",
+        "CHEM311",
+        "CHEM341",
+        "MATH151",
+        "MATH152",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "CHEM251",
+          "CHEM328",
+          "CHEM329",
+          "CHEM348",
+          "CHEM351",
+          "CHEM496"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "chemistry_chemical_biology_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Chemistry (Chemical Biology Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "CHEM309",
+        "CHEM311",
+        "CHEM341",
+        "BIO101",
+        "BIO102",
+        "MATH151",
+        "MATH152",
+        "PHYS203",
+        "PHYS205"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "CBN245",
+          "MCB301",
+          "MCB407",
+          "MCB408",
+          "GENET380",
+          "CHEM348",
+          "CHEM351"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "chemistry_environmental_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Chemistry (Environmental Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "CHEM309",
+        "CHEM311",
+        "CHEM341",
+        "MATH151",
+        "MATH152",
+        "PHYS203",
+        "PHYS205",
+        "GEOSC101"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "CHEM251",
+          "CHEM348",
+          "CHEM351",
+          "GEOSC202",
+          "GEOSC304",
+          "GEOSC413"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "chemistry_forensic_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Chemistry (Forensic Chemistry Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "CHEM309",
+        "CHEM311",
+        "CHEM251",
+        "CHEM341",
+        "CHEM348",
+        "MATH151",
+        "MATH152",
+        "PHYS203",
+        "PHYS205"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "CRIM201",
+          "CRIM202",
+          "CRIM301",
+          "MCB301",
+          "CBN245",
+          "CHEM351"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "chemistry_business_law_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Chemistry (Business/Law Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "CHEM309",
+        "CHEM311",
+        "CHEM341",
+        "MATH151",
+        "ECON102",
+        "ECON103"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "CHEM251",
+          "CHEM348",
+          "CHEM351",
+          "ECON320",
+          "ECON390",
+          "ECON395"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "french_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "French",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "FREN101",
+        "FREN102",
+        "FREN131",
+        "FREN213",
+        "FREN214",
+        "FREN215",
+        "FREN216",
+        "FREN480"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 5,
+        "options": [
+          "FREN301",
+          "FREN302",
+          "FREN303",
+          "FREN401",
+          "FREN402"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "german_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "German",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GERM101",
+        "GERM102",
+        "GERM201",
+        "GERM202",
+        "GERM232"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 5,
+        "options": [
+          "GERM301",
+          "GERM302",
+          "GERM303",
+          "GERM401",
+          "GERM402"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "italian_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Italian",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ITAL101",
+        "ITAL102",
+        "ITAL131",
+        "ITAL201",
+        "ITAL202",
+        "ITAL321"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "ITAL231",
+          "ITAL232",
+          "ITAL301",
+          "ITAL302",
+          "ITAL401"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "japanese_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Japanese",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JPN101",
+        "JPN102",
+        "JPN201",
+        "JPN202",
+        "JPN301",
+        "JPN302"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 4,
+        "options": [
+          "JPN401",
+          "JPN402"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "chinese_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Chinese",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHN101",
+        "CHN102",
+        "CHN201",
+        "CHN202",
+        "CHN301",
+        "CHN302"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 4,
+        "options": [
+          "CHN401",
+          "CHN402"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "korean_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Korean",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "KOR101",
+        "KOR102",
+        "KOR201",
+        "KOR202",
+        "KOR301",
+        "KOR302"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 4,
+        "options": [
+          "KOR401"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "russian_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Russian",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "RUSS101",
+        "RUSS102",
+        "RUSS201",
+        "RUSS202",
+        "RUSS301",
+        "RUSS302"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "RUSS401",
+          "RUSS402"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "portuguese_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Portuguese",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PORT101",
+        "PORT102",
+        "PORT201",
+        "PORT202",
+        "PORT301",
+        "PORT302"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "PORT401",
+          "PORT402"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "spanish_intensive_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Spanish (Spanish Intensive)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SPAN101",
+        "SPAN102",
+        "SPAN201",
+        "SPAN202",
+        "SPAN301",
+        "SPAN302",
+        "SPAN303",
+        "SPAN320"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 5,
+        "options": [
+          "SPAN304",
+          "SPAN305",
+          "SPAN306",
+          "SPAN310",
+          "SPAN311",
+          "SPAN330",
+          "SPAN340",
+          "SPAN350",
+          "SPAN401",
+          "SPAN410",
+          "SPAN420"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "art_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Art",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ART101",
+        "ART102",
+        "ART103",
+        "ART201",
+        "ART401",
+        "ART402",
+        "ARTH106"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "ART202",
+          "ART203",
+          "ART204",
+          "ART205",
+          "ART301",
+          "ART302",
+          "ART303"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "music_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Music",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MUS101",
+        "MUS102",
+        "MUS207",
+        "MUS208",
+        "MUS202",
+        "MUS203",
+        "MUS204",
+        "MUS400"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "MUS301",
+          "MUS302",
+          "MUS303"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "theater_arts_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Theater Arts",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "THEA101",
+        "THEA102",
+        "THEA103",
+        "THEA200",
+        "THEA201",
+        "THEA204",
+        "THEA301",
+        "THEA400"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "THEA202",
+          "THEA203",
+          "THEA302",
+          "THEA303"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "dance_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Dance",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "DANC101",
+        "DANC102",
+        "DANC200",
+        "DANC201",
+        "DANC202",
+        "DANC203",
+        "DANC301",
+        "DANC400"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "DANC302",
+          "DANC303"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "cinema_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Cinema Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CINE201",
+        "CINE202",
+        "CINE203",
+        "CINE301",
+        "CINE402"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "CINE302",
+          "CINE303",
+          "CINE401"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "journalism_media_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Journalism and Media Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JOUR101",
+        "JOUR201",
+        "JOUR202",
+        "JOUR203",
+        "JOUR401",
+        "JOUR402"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "JOUR301",
+          "JOUR302",
+          "JOUR303"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "religion_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Religion",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "RELGS101",
+        "RELGS200",
+        "RELGS201"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "RELGS301",
+          "RELGS302",
+          "RELGS303",
+          "RELGS401"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "classics_classical_humanities_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Classics (Classical Humanities)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CLASS101",
+        "CLASS102",
+        "CLASS103",
+        "CLASS201",
+        "CLASS202"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "CLASS301",
+          "CLASS302",
+          "CLASS401",
+          "HIST301",
+          "HIST301",
+          "PHIL201",
+          "PHIL210"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "classics_greek_latin_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Classics (Greek and Latin)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GREK101",
+        "GREK102",
+        "GREK201",
+        "GREK301",
+        "LAT101",
+        "LAT102",
+        "LAT201",
+        "LAT301",
+        "CLASS201"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "CLASS301",
+          "CLASS302",
+          "CLASS401"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "comparative_literature_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Comparative Literature",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMPLIT201",
+        "COMPLIT202",
+        "COMPLIT301",
+        "COMPLIT302",
+        "COMPLIT402"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "COMPLIT401",
+          "ENGL201",
+          "ENGL211",
+          "ENGL212",
+          "FREN215",
+          "FREN216",
+          "SPAN302",
+          "SPAN303"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "medieval_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Medieval Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MEDST201",
+        "MEDST202",
+        "MEDST203"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "MEDST301",
+          "MEDST401",
+          "HIST301",
+          "HIST301",
+          "ENGL201",
+          "ENGL211",
+          "CLASS301",
+          "CLASS302",
+          "RELGS301"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "global_humanities_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Global Humanities",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GLHUM101",
+        "GLHUM201",
+        "GLHUM301",
+        "GLHUM401"
+      ],
+      "electives": {
+        "count": 6,
+        "min_level_300_plus": 4,
+        "options": [
+          "ENGL201",
+          "ENGL211",
+          "HIST201",
+          "HIST202",
+          "PHIL201",
+          "PHIL210",
+          "COMPLIT201",
+          "COMPLIT202",
+          "RELGS200",
+          "RELGS201"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "jewish_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Jewish Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JWST101",
+        "JWST201",
+        "JWST202"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "JWST301",
+          "JWST302",
+          "JWST401",
+          "HIST301",
+          "HIST301",
+          "RELGS301",
+          "RELGS302"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "asian_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Asian Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AMES101",
+        "AMES201",
+        "AMES202"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "AMES301",
+          "AMES401",
+          "JPN101",
+          "CHN101",
+          "KOR101",
+          "HIST201",
+          "HIST202",
+          "RELGS200"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "latin_american_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Latin American Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LAS101",
+        "LAS201",
+        "LAS202"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "LAS301",
+          "LAS401",
+          "SPAN302",
+          "SPAN303",
+          "SPAN310",
+          "SPAN311",
+          "SPAN330",
+          "PORT301",
+          "PORT302",
+          "HIST201",
+          "HIST202",
+          "SOC210",
+          "POLS300"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "latino_caribbean_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Latino and Caribbean Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LCS101",
+        "LCS201",
+        "LCS202"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "LCS301",
+          "LCS401",
+          "SPAN302",
+          "SPAN303",
+          "SPAN330",
+          "SPAN340",
+          "HIST201",
+          "HIST202",
+          "SOC210"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "european_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "European Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EURO101",
+        "EURO201",
+        "EURO202"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "EURO301",
+          "EURO401",
+          "HIST201",
+          "HIST202",
+          "FREN215",
+          "FREN216",
+          "GERM301",
+          "GERM302",
+          "ITAL301",
+          "ITAL302",
+          "POLS300",
+          "POLS301"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "middle_eastern_studies_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Middle Eastern Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MES101",
+        "MES201",
+        "MES202"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "MES301",
+          "MES401",
+          "RELGS200",
+          "RELGS201",
+          "RELGS301",
+          "HIST201",
+          "HIST202",
+          "POLS300"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "amesall_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "African, Middle Eastern and South Asian Languages and Literatures",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AMESALL101",
+        "AMESALL201",
+        "AMESALL202",
+        "AMESALL301",
+        "AMESALL401"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "MES201",
+          "MES202",
+          "MES301",
+          "RELGS200",
+          "RELGS201",
+          "HIST201",
+          "HIST202"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "information_technology_informatics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Information Technology and Informatics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ITI103",
+        "ITI201",
+        "ITI301",
+        "ITI302",
+        "ITI321",
+        "ITI401",
+        "CS111",
+        "STAT211"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "CS112",
+          "CS205",
+          "CS210",
+          "CS336",
+          "CS344",
+          "STAT291"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "human_resource_management_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Human Resource Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HRM201",
+        "HRM202",
+        "HRM301",
+        "HRM302",
+        "HRM303",
+        "HRM401",
+        "ECON102",
+        "STAT211"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "LER101",
+          "LER201",
+          "LER301",
+          "SOC210",
+          "SOC311",
+          "PSYC301"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "labor_studies_employment_relations_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Labor Studies and Employment Relations",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LER101",
+        "LER102",
+        "LER201",
+        "LER202",
+        "LER301",
+        "LER302",
+        "LER401"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "LER490",
+          "ECON102",
+          "ECON103",
+          "SOC210",
+          "SOC311",
+          "POLS300",
+          "POLS301"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "social_work_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Social Work",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SOCW101",
+        "SOCW201",
+        "SOCW202",
+        "SOCW301",
+        "SOCW302",
+        "SOCW401",
+        "PSYC101",
+        "STAT211"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "SOC210",
+          "SOC311",
+          "PSYC301",
+          "PSYC302",
+          "ECON102"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "urban_planning_design_bs": {
+      "school": "SAS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Urban Planning and Design",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "UPD101",
+        "UPD201",
+        "UPD202",
+        "UPD301",
+        "UPD302",
+        "UPD303",
+        "UPD401",
+        "UPD402",
+        "STAT211",
+        "ECON102"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "GEOG309",
+          "GEOG311",
+          "GEOG320",
+          "ENVST301",
+          "SOC311"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "city_regional_planning_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "City and Regional Planning",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "UPD101",
+        "UPD201",
+        "UPD202",
+        "UPD301",
+        "UPD302",
+        "UPD401",
+        "STAT211"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "GEOG309",
+          "GEOG311",
+          "GEOG320",
+          "ENVST301",
+          "ECON320",
+          "POLS301"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "communication_technology_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Communication (Communication and Technology)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMMUN101",
+        "COMMUN200",
+        "COMMUN201",
+        "COMMUN359",
+        "COMMUN402",
+        "COMMUN380"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "COMMUN300",
+          "COMMUN354",
+          "COMMUN355",
+          "COMMUN356",
+          "COMMUN357",
+          "COMMUN400",
+          "COMMUN401",
+          "COMMUN403",
+          "COMMUN404"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "communication_health_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Communication (Health and Wellness)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMMUN101",
+        "COMMUN200",
+        "COMMUN201",
+        "COMMUN354",
+        "COMMUN403",
+        "COMMUN380"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "COMMUN300",
+          "COMMUN355",
+          "COMMUN356",
+          "COMMUN357",
+          "COMMUN359",
+          "COMMUN400",
+          "COMMUN401",
+          "COMMUN402",
+          "COMMUN404"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "communication_leadership_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Communication (Leadership in Organizations and Community)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMMUN101",
+        "COMMUN200",
+        "COMMUN201",
+        "COMMUN355",
+        "COMMUN404",
+        "COMMUN380"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "COMMUN300",
+          "COMMUN354",
+          "COMMUN356",
+          "COMMUN357",
+          "COMMUN359",
+          "COMMUN400",
+          "COMMUN401",
+          "COMMUN402",
+          "COMMUN403"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "communication_relationships_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Communication (Relationships and Family)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMMUN101",
+        "COMMUN200",
+        "COMMUN201",
+        "COMMUN356",
+        "COMMUN357",
+        "COMMUN380"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "COMMUN300",
+          "COMMUN354",
+          "COMMUN355",
+          "COMMUN359",
+          "COMMUN400",
+          "COMMUN401",
+          "COMMUN402",
+          "COMMUN403",
+          "COMMUN404"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "communication_strategic_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Communication (Strategic Public Communication)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMMUN101",
+        "COMMUN200",
+        "COMMUN201",
+        "COMMUN401",
+        "COMMUN380"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "COMMUN300",
+          "COMMUN354",
+          "COMMUN355",
+          "COMMUN356",
+          "COMMUN357",
+          "COMMUN359",
+          "COMMUN400",
+          "COMMUN402",
+          "COMMUN403",
+          "COMMUN404"
+        ],
+        "any_from_catalog": false
+      }
+    },
+    "anthropology_cultural_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Anthropology (Cultural)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ANTH101",
+        "ANTH105",
+        "ANTH108"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 5,
+        "options": [
+          "ANTH302",
+          "ANTH303",
+          "ANTH304",
+          "ANTH305",
+          "ANTH307",
+          "ANTH308",
+          "ANTH309",
+          "ANTH312",
+          "ANTH314",
+          "ANTH317",
+          "ANTH318",
+          "ANTH320",
+          "ANTH325",
+          "ANTH326"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Focus on cultural and social anthropology subdiscipline.",
+        "Total 38 credits for the major.",
+        "At least 18 credits at 300/400 level.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "chemistry_chemical_physics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Chemistry (Chemical Physics Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172",
+        "CHEM307",
+        "CHEM309",
+        "CHEM308",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "PHYS313"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "CHEM311",
+          "CHEM328",
+          "CHEM329",
+          "CHEM341",
+          "PHYS323",
+          "PHYS324"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Joint chemistry-physics curriculum; ACS-eligible.",
+        "At least 12 CHEM credits at Rutgers (residency)."
+      ]
+    },
+    "chemistry_acs_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Chemistry (ACS Certified Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172",
+        "CHEM307",
+        "CHEM308",
+        "CHEM309",
+        "CHEM311",
+        "CHEM251",
+        "CHEM328",
+        "CHEM329",
+        "CHEM341",
+        "MATH151",
+        "MATH152",
+        "MATH251",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "CHEM348",
+          "CHEM351",
+          "CHEM496"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "American Chemical Society certified program.",
+        "At least 12 CHEM credits at Rutgers (residency)."
+      ]
+    },
+    "classics_greek_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Classics (Greek Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GREK101",
+        "GREK102",
+        "GREK201",
+        "GREK301",
+        "CLASS201",
+        "CLASS202"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "CLASS301",
+          "CLASS302",
+          "CLASS401",
+          "HIST301",
+          "PHIL201",
+          "PHIL210"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Emphasis on ancient Greek language and literature.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "classics_latin_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Classics (Latin Option)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LAT101",
+        "LAT102",
+        "LAT201",
+        "LAT301",
+        "CLASS201",
+        "CLASS202"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "CLASS301",
+          "CLASS302",
+          "CLASS401",
+          "HIST301",
+          "PHIL201",
+          "PHIL210"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Emphasis on Latin language and Roman literature.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "history_ancient_classics_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "History (Ancient History and Classics)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HIST299",
+        "HIST101",
+        "HIST102",
+        "CLASS101",
+        "CLASS201"
+      ],
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "HIST380",
+          "CLASS202",
+          "CLASS301",
+          "CLASS302",
+          "CLASS401",
+          "PHIL201",
+          "PHIL210"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary program combining ancient history and classical studies.",
+        "At least 4 electives at 300+ level.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "history_french_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "History/French",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HIST299",
+        "FREN213",
+        "FREN214",
+        "FREN215",
+        "FREN216",
+        "FREN480"
+      ],
+      "electives": {
+        "count": 8,
+        "min_level_300_plus": 5,
+        "options": [
+          "HIST201",
+          "HIST202",
+          "HIST203",
+          "HIST204",
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "HIST330",
+          "HIST331",
+          "FREN301",
+          "FREN302",
+          "FREN303",
+          "FREN401",
+          "FREN402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Dual major combining History and French.",
+        "At least 4 electives from History and 4 from French.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "history_political_science_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "History/Political Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HIST299",
+        "POLS101",
+        "POLS300"
+      ],
+      "electives": {
+        "count": 10,
+        "min_level_300_plus": 6,
+        "options": [
+          "HIST201",
+          "HIST202",
+          "HIST203",
+          "HIST204",
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "HIST330",
+          "HIST331",
+          "POLS102",
+          "POLS103",
+          "POLS104",
+          "POLS302",
+          "POLS304",
+          "POLS305",
+          "POLS306",
+          "POLS307",
+          "POLS308",
+          "POLS311",
+          "POLS313",
+          "POLS317",
+          "POLS319",
+          "POLS322",
+          "POLS323"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Dual major combining History and Political Science.",
+        "At least 5 electives from History and 5 from Political Science.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "jewish_studies_advanced_language_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Jewish Studies (Advanced Language)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JWST101",
+        "JWST201",
+        "JWST202",
+        "HEBR101",
+        "HEBR102",
+        "HEBR201",
+        "HEBR301"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "JWST301",
+          "JWST302",
+          "JWST401",
+          "HIST301",
+          "RELGS301",
+          "RELGS302"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Hebrew-intensive track of the Jewish Studies major.",
+        "Hebrew proficiency through HEBR301 required.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "journalism_global_media_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Journalism (Global Media)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JOUR101",
+        "JOUR201",
+        "JOUR202",
+        "JOUR203",
+        "JOUR401",
+        "JOUR402",
+        "JOUR304"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "JOUR301",
+          "JOUR302",
+          "JOUR303",
+          "POLS360",
+          "POLS363"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Global and international media focus.",
+        "At least 2 electives related to international or cross-cultural coverage.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "journalism_sports_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Journalism (Sports)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JOUR101",
+        "JOUR201",
+        "JOUR202",
+        "JOUR203",
+        "JOUR401",
+        "JOUR402",
+        "JOUR303"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "JOUR301",
+          "JOUR302",
+          "JOUR304",
+          "SPMD201",
+          "SPMD202"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Sports journalism emphasis; covers reporting, media production, and industry context.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "linguistics_speech_hearing_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Speech and Hearing Sciences in Linguistics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LING101",
+        "LING201",
+        "LING305",
+        "LING315",
+        "CDSP101",
+        "CDSP201"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "CDSP301",
+          "CDSP302",
+          "CDSP401",
+          "LING325",
+          "LING350",
+          "LING381",
+          "LING425"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Combines linguistics with communication disorders and speech/hearing science.",
+        "Preparation for graduate work in speech-language pathology or audiology.",
+        "Residency: at least 12 LING credits at Rutgers.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "comparative_literature_advanced_ba": {
+      "school": "SAS",
+      "degree_level": "bachelor_ba",
+      "major_name": "Comparative Literature (Advanced Studies)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMPLIT201",
+        "COMPLIT202",
+        "COMPLIT301",
+        "COMPLIT302",
+        "COMPLIT401",
+        "COMPLIT402",
+        "COMPLIT403"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "ENGL301",
+          "ENGL302",
+          "FREN301",
+          "FREN401",
+          "SPAN302",
+          "SPAN303",
+          "GERM301",
+          "GERM302"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Advanced track requiring deeper engagement in primary-language literary research.",
+        "Proficiency in at least one foreign language at 300+ level required.",
+        "Minimum grade C in all courses."
+      ]
+    },
+    "mathematics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Mathematics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MATH151",
+        "MATH152"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "MATH244",
+          "MATH250",
+          "MATH251",
+          "MATH285",
+          "MATH300",
+          "MATH311",
+          "MATH312",
+          "MATH336",
+          "MATH338",
+          "MATH351",
+          "MATH352",
+          "MATH356",
+          "MATH361",
+          "MATH373"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "4 additional courses; at least 2 at 300-level or above."
+      ]
+    },
+    "statistics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Statistics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "STAT211",
+        "STAT381",
+        "STAT382"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "STAT295",
+          "STAT365",
+          "STAT384",
+          "STAT463",
+          "STAT467",
+          "STAT476",
+          "STAT486",
+          "STAT490"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "3 additional courses all at 300+ level."
+      ]
+    },
+    "physics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Physics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS203",
+        "PHYS205",
+        "MATH151"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "PHYS204",
+          "PHYS206",
+          "PHYS271",
+          "PHYS272",
+          "PHYS313",
+          "PHYS323",
+          "PHYS324",
+          "PHYS341",
+          "PHYS342",
+          "PHYS345",
+          "PHYS346",
+          "PHYS351",
+          "PHYS361",
+          "PHYS382",
+          "PHYS385"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "3 additional courses; at least 2 at 300+ level."
+      ]
+    },
+    "chemistry_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Chemistry",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 2,
+        "options": [
+          "CHEM251",
+          "CHEM307",
+          "CHEM308",
+          "CHEM309",
+          "CHEM311",
+          "CHEM341",
+          "CHEM348",
+          "CHEM351"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level.",
+        "Residency: 4 CHEM courses at Rutgers."
+      ]
+    },
+    "biology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Biology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "BIO102"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "BIO103",
+          "BIO104",
+          "MCB301",
+          "MCB407",
+          "MCB408",
+          "GENET352",
+          "GENET380",
+          "CBN245",
+          "CBN270",
+          "CBN322",
+          "CBN340"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "4 electives; at least 2 at 300+ level."
+      ]
+    },
+    "data_science_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Data Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CS111",
+        "MATH135",
+        "STAT211"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "CS205",
+          "CS206",
+          "CS314",
+          "STAT291",
+          "STAT365",
+          "STAT382",
+          "STAT384"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "3 additional courses; at least 2 at 300+ level."
+      ]
+    },
+    "astrobiology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Astrobiology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "CHEM161",
+        "ASTRO101"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "BIO102",
+          "CHEM162",
+          "GEOSC101",
+          "PHYS123",
+          "ASTRO201",
+          "ASTRO301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor spanning biology, chemistry, geology, and astronomy.",
+        "Preparation for graduate study in astrobiology or space sciences."
+      ]
+    },
+    "astrophysics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Astrophysics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS203",
+        "PHYS205",
+        "MATH151",
+        "MATH152"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "PHYS204",
+          "PHYS206",
+          "PHYS271",
+          "PHYS272",
+          "PHYS341",
+          "PHYS342",
+          "PHYS345",
+          "PHYS346",
+          "PHYS351",
+          "PHYS361",
+          "PHYS385",
+          "PHYS386",
+          "PHYS388"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level.",
+        "Calculus-based physics sequence required."
+      ]
+    },
+    "geoscience_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Geological Sciences",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GEOSC100",
+        "GEOSC101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "GEOSC120",
+          "GEOSC201",
+          "GEOSC202",
+          "GEOSC206",
+          "GEOSC212",
+          "GEOSC222",
+          "GEOSC224",
+          "GEOSC225",
+          "GEOSC300",
+          "GEOSC301",
+          "GEOSC302",
+          "GEOSC303",
+          "GEOSC304",
+          "GEOSC306",
+          "GEOSC407",
+          "GEOSC410",
+          "GEOSC411",
+          "GEOSC413",
+          "GEOSC414",
+          "GEOSC428",
+          "GEOSC441",
+          "GEOSC442",
+          "GEOSC480"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "molecular_biology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Molecular Biology and Biochemistry",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "BIO102",
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "MCB301",
+          "MCB407",
+          "MCB408",
+          "MCB411",
+          "MCB412",
+          "MCB413",
+          "MCB420",
+          "MCB421",
+          "CBN245",
+          "CBN270"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "genetics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Genetics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "BIO102",
+        "GENET380"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "GENET302",
+          "GENET352",
+          "GENET354",
+          "GENET356",
+          "GENET370",
+          "GENET390",
+          "GENET430",
+          "GENET460",
+          "GENET484"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "3 electives all at 300+ level."
+      ]
+    },
+    "neuroscience_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Neuroscience",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BIO101",
+        "CBN245"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "BIO102",
+          "CBN270",
+          "CBN322",
+          "CBN328",
+          "CBN340",
+          "CBN356",
+          "CBN445",
+          "CBN447",
+          "CBN456",
+          "CBN464",
+          "CBN470",
+          "CBN472",
+          "CBN476",
+          "CBN480"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "economics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Economics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ECON102",
+        "ECON103"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "ECON212",
+          "ECON300",
+          "ECON301",
+          "ECON320",
+          "ECON321",
+          "ECON322",
+          "ECON390",
+          "ECON395",
+          "ECON402",
+          "ECON410",
+          "ECON413",
+          "ECON421",
+          "ECON432",
+          "ECON433",
+          "ECON436",
+          "ECON439",
+          "ECON440",
+          "ECON441"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "political_science_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Political Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "POLS101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "POLS102",
+          "POLS103",
+          "POLS104",
+          "POLS106",
+          "POLS300",
+          "POLS302",
+          "POLS304",
+          "POLS305",
+          "POLS306",
+          "POLS307",
+          "POLS308",
+          "POLS311",
+          "POLS313",
+          "POLS317",
+          "POLS319",
+          "POLS322",
+          "POLS323",
+          "POLS324",
+          "POLS327",
+          "POLS329",
+          "POLS331",
+          "POLS332",
+          "POLS333",
+          "POLS335",
+          "POLS338",
+          "POLS340",
+          "POLS342",
+          "POLS343",
+          "POLS347",
+          "POLS360",
+          "POLS362",
+          "POLS363",
+          "POLS372",
+          "POLS373",
+          "POLS392"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "5 courses including at least 3 at 300+ level."
+      ]
+    },
+    "sociology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Sociology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SOC101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "SOC103",
+          "SOC108",
+          "SOC210",
+          "SOC220",
+          "SOC222",
+          "SOC225",
+          "SOC227",
+          "SOC232",
+          "SOC241",
+          "SOC248",
+          "SOC272",
+          "SOC303",
+          "SOC304",
+          "SOC306",
+          "SOC307",
+          "SOC311",
+          "SOC312",
+          "SOC315",
+          "SOC316",
+          "SOC324",
+          "SOC335",
+          "SOC349",
+          "SOC395",
+          "SOC492"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "psychology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Psychology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PSYC101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "PSYC200",
+          "PSYC271",
+          "PSYC300",
+          "PSYC301",
+          "PSYC302",
+          "PSYC303",
+          "PSYC305",
+          "PSYC310",
+          "PSYC311",
+          "PSYC313",
+          "PSYC320",
+          "PSYC321",
+          "PSYC331",
+          "PSYC333",
+          "PSYC338",
+          "PSYC339",
+          "PSYC340",
+          "PSYC360",
+          "PSYC362",
+          "PSYC373",
+          "PSYC375",
+          "PSYC377",
+          "PSYC379",
+          "PSYC470"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "criminology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Criminology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CRIM201",
+        "CRIM202"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "CRIM203",
+          "CRIM204",
+          "CRIM205",
+          "CRIM301",
+          "CRIM307",
+          "CRIM309",
+          "CRIM315",
+          "CRIM316",
+          "CRIM352",
+          "CRIM360",
+          "CRIM388"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "geography_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Geography",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GEOG101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "GEOG102",
+          "GEOG103",
+          "GEOG205",
+          "GEOG211",
+          "GEOG214",
+          "GEOG272",
+          "GEOG309",
+          "GEOG311",
+          "GEOG320",
+          "GEOG322",
+          "GEOG356",
+          "GEOG363",
+          "GEOG365",
+          "GEOG366",
+          "GEOG370",
+          "GEOG402",
+          "GEOG417",
+          "GEOG470"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "cognitive_science_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Cognitive Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COGS201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "COGS253",
+          "COGS301",
+          "COGS310",
+          "COGS320",
+          "COGS330",
+          "COGS335",
+          "COGS340",
+          "COGS345",
+          "COGS350",
+          "COGS395",
+          "COGS401",
+          "COGS411",
+          "COGS412",
+          "COGS413",
+          "COGS414",
+          "COGS415",
+          "COGS416",
+          "COGS417",
+          "COGS430",
+          "COGS495"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "5 electives; at least 3 at 300+ level."
+      ]
+    },
+    "communication_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Communication",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMMUN101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "COMMUN200",
+          "COMMUN201",
+          "COMMUN300",
+          "COMMUN354",
+          "COMMUN355",
+          "COMMUN356",
+          "COMMUN357",
+          "COMMUN359",
+          "COMMUN380",
+          "COMMUN400",
+          "COMMUN401",
+          "COMMUN402",
+          "COMMUN403",
+          "COMMUN404"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "urban_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Urban Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "UPD101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "UPD201",
+          "UPD202",
+          "UPD301",
+          "UPD302",
+          "UPD303",
+          "UPD401",
+          "UPD402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "anthropology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Anthropology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ANTH101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "ANTH102",
+          "ANTH105",
+          "ANTH108",
+          "ANTH302",
+          "ANTH303",
+          "ANTH304",
+          "ANTH305",
+          "ANTH307",
+          "ANTH308",
+          "ANTH309",
+          "ANTH310",
+          "ANTH312",
+          "ANTH314",
+          "ANTH317",
+          "ANTH318",
+          "ANTH320",
+          "ANTH325",
+          "ANTH326",
+          "ANTH328",
+          "ANTH336",
+          "ANTH338",
+          "ANTH341",
+          "ANTH350"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "social_work_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Social Work",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SOCW101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "SOCW201",
+          "SOCW202",
+          "SOCW301",
+          "SOCW302",
+          "SOCW401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "public_health_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Public Health",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PUBH201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "PUBH212",
+          "PUBH240",
+          "PUBH335",
+          "PUBH356",
+          "PUBH395",
+          "PUBH450",
+          "PUBH499"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "global_health_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Global Health",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PUBH201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "PUBH212",
+          "PUBH240",
+          "PUBH335",
+          "PUBH356",
+          "PUBH395",
+          "PUBH450",
+          "PUBH499",
+          "ENVST300"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "International and global health systems focus.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "environmental_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Environmental Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENVST101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "ENVST200",
+          "ENVST300",
+          "ENVST301",
+          "ENVST302",
+          "ENVST310",
+          "ENVST320",
+          "ENVST325",
+          "ENVST330",
+          "ENVST400",
+          "ENVST485"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "labor_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Labor Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LER101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "LER102",
+          "LER201",
+          "LER202",
+          "LER301",
+          "LER302",
+          "LER401",
+          "LER490"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "hrm_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Human Resource Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HRM201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "HRM202",
+          "HRM301",
+          "HRM302",
+          "HRM303",
+          "HRM401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "sport_management_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Sport Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SPMD101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "SPMD201",
+          "SPMD202",
+          "SPMD203",
+          "SPMD301",
+          "SPMD302",
+          "SPMD401",
+          "SPMD490"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "exercise_science_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Exercise Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EXSC140"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "EXSC200",
+          "EXSC225",
+          "EXSC226",
+          "EXSC227",
+          "EXSC301",
+          "EXSC302",
+          "EXSC303",
+          "EXSC304",
+          "EXSC305",
+          "EXSC400",
+          "EXSC401",
+          "EXSC490"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "public_policy_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Public Policy",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PUBP201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "PUBP301",
+          "PUBP302",
+          "PUBP303",
+          "PUBP401",
+          "PUBP402",
+          "ECON301",
+          "POLS306",
+          "POLS307"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "information_technology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Information Technology and Informatics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ITI103"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "ITI201",
+          "ITI301",
+          "ITI302",
+          "ITI321",
+          "ITI401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "english_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "English",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENGL201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "ENGL211",
+          "ENGL212",
+          "ENGL213",
+          "ENGL214",
+          "ENGL215",
+          "ENGL216",
+          "ENGL218",
+          "ENGL219",
+          "ENGL220",
+          "ENGL301",
+          "ENGL302",
+          "ENGL303",
+          "ENGL304",
+          "ENGL305",
+          "ENGL310",
+          "ENGL311",
+          "ENGL315",
+          "ENGL320",
+          "ENGL330",
+          "ENGL331",
+          "ENGL332",
+          "ENGL350",
+          "ENGL360",
+          "ENGL401",
+          "ENGL402",
+          "ENGL410",
+          "ENGL420",
+          "ENGL430"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 3 electives at 300+ level."
+      ]
+    },
+    "creative_writing_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Creative Writing",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENGL201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "ENGL215",
+          "ENGL216",
+          "ENGL315",
+          "ENGL320",
+          "ENGL330",
+          "ENGL331",
+          "ENGL332",
+          "ENGL401",
+          "ENGL410",
+          "ENGL420"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Focus on creative writing workshops and seminars.",
+        "At least 3 electives at 300+ level."
+      ]
+    },
+    "history_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "History",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HIST299"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "HIST101",
+          "HIST102",
+          "HIST103",
+          "HIST201",
+          "HIST202",
+          "HIST203",
+          "HIST204",
+          "HIST221",
+          "HIST222",
+          "HIST231",
+          "HIST232",
+          "HIST241",
+          "HIST242",
+          "HIST251",
+          "HIST263",
+          "HIST264",
+          "HIST271",
+          "HIST275",
+          "HIST280",
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "HIST310",
+          "HIST315",
+          "HIST320",
+          "HIST322",
+          "HIST330",
+          "HIST331",
+          "HIST340",
+          "HIST350",
+          "HIST360",
+          "HIST380",
+          "HIST401",
+          "HIST402",
+          "HIST451"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "philosophy_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Philosophy",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHIL101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "PHIL103",
+          "PHIL105",
+          "PHIL107",
+          "PHIL109",
+          "PHIL140",
+          "PHIL201",
+          "PHIL210",
+          "PHIL220",
+          "PHIL225",
+          "PHIL249",
+          "PHIL253",
+          "PHIL263",
+          "PHIL268",
+          "PHIL302",
+          "PHIL307",
+          "PHIL308",
+          "PHIL315",
+          "PHIL329",
+          "PHIL341",
+          "PHIL345",
+          "PHIL347",
+          "PHIL348",
+          "PHIL367",
+          "PHIL372",
+          "PHIL405",
+          "PHIL413",
+          "PHIL415",
+          "PHIL418",
+          "PHIL426",
+          "PHIL445"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 3 electives at 300+ level."
+      ]
+    },
+    "classics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Classics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CLASS101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "CLASS102",
+          "CLASS103",
+          "CLASS201",
+          "CLASS202",
+          "CLASS301",
+          "CLASS302",
+          "CLASS401",
+          "GREK101",
+          "GREK102",
+          "GREK201",
+          "GREK301",
+          "LAT101",
+          "LAT102",
+          "LAT201",
+          "LAT301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "art_history_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Art History",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ARTH106"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "ARTH204",
+          "ARTH205",
+          "ARTH230",
+          "ARTH276",
+          "ARTH291",
+          "ARTH328",
+          "ARTH332",
+          "ARTH366",
+          "ARTH373",
+          "ARTH383",
+          "ARTH391",
+          "ARTH444",
+          "ARTH492"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 3 electives at 300+ level."
+      ]
+    },
+    "art_studio_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Art",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ART101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "ART102",
+          "ART103",
+          "ART201",
+          "ART202",
+          "ART203",
+          "ART204",
+          "ART205",
+          "ART301",
+          "ART302",
+          "ART303",
+          "ART401",
+          "ART402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Studio art focus (hands-on practice).",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "music_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Music",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MUS101",
+        "MUS102"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "MUS105",
+          "MUS202",
+          "MUS203",
+          "MUS204",
+          "MUS207",
+          "MUS208",
+          "MUS301",
+          "MUS302",
+          "MUS303",
+          "MUS400"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "theater_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Theater Arts",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "THEA101",
+        "THEA102"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "THEA103",
+          "THEA200",
+          "THEA201",
+          "THEA202",
+          "THEA203",
+          "THEA204",
+          "THEA301",
+          "THEA302",
+          "THEA303",
+          "THEA400"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "dance_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Dance",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "DANC101",
+        "DANC102"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "DANC200",
+          "DANC201",
+          "DANC202",
+          "DANC203",
+          "DANC301",
+          "DANC302",
+          "DANC303",
+          "DANC400"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "cinema_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Cinema Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CINE201",
+        "CINE202"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "CINE203",
+          "CINE301",
+          "CINE302",
+          "CINE303",
+          "CINE401",
+          "CINE402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "religion_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Religion",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "RELGS101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "RELGS200",
+          "RELGS201",
+          "RELGS301",
+          "RELGS302",
+          "RELGS303",
+          "RELGS401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "journalism_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Journalism",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JOUR101",
+        "JOUR201"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "JOUR202",
+          "JOUR203",
+          "JOUR301",
+          "JOUR302",
+          "JOUR303",
+          "JOUR304",
+          "JOUR401",
+          "JOUR402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "medieval_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Medieval Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MEDST201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "MEDST202",
+          "MEDST203",
+          "MEDST301",
+          "MEDST401",
+          "HIST221",
+          "HIST222",
+          "CLASS201",
+          "CLASS301",
+          "RELGS201"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "global_humanities_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Global Humanities",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GLHUM101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "GLHUM201",
+          "GLHUM301",
+          "GLHUM401",
+          "HIST201",
+          "HIST202",
+          "COMPLIT201",
+          "COMPLIT202",
+          "COMPLIT301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "wgss_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Women's, Gender, and Sexuality Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "WGSS101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "WGSS130",
+          "WGSS200",
+          "WGSS202",
+          "WGSS206",
+          "WGSS232",
+          "WGSS235",
+          "WGSS240",
+          "WGSS255",
+          "WGSS257",
+          "WGSS258",
+          "WGSS259",
+          "WGSS294",
+          "WGSS313",
+          "WGSS325"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "africana_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Africana Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AFRS101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "AFRS200",
+          "AFRS210",
+          "AFRS220",
+          "AFRS301",
+          "AFRS310",
+          "AFRS315",
+          "AFRS320",
+          "AFRS330",
+          "AFRS401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "asian_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Asian Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AMES101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "AMES201",
+          "AMES202",
+          "AMES301",
+          "AMES401",
+          "JPN101",
+          "JPN201",
+          "CHN101",
+          "CHN201",
+          "KOR101"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "latin_american_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Latin American Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LAS101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "LAS201",
+          "LAS202",
+          "LAS301",
+          "LAS401",
+          "SPAN201",
+          "SPAN202",
+          "SPAN301",
+          "SPAN302",
+          "HIST241",
+          "HIST242"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "middle_eastern_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Middle Eastern Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MES101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "MES201",
+          "MES202",
+          "MES301",
+          "MES401",
+          "RELGS200",
+          "RELGS201",
+          "HIST201",
+          "HIST202",
+          "AMESALL101"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "european_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "European Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EURO101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "EURO201",
+          "EURO202",
+          "EURO301",
+          "EURO401",
+          "HIST201",
+          "HIST231",
+          "HIST232",
+          "HIST301",
+          "FREN213",
+          "GERM201"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "jewish_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Jewish Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JWST101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "JWST201",
+          "JWST202",
+          "JWST301",
+          "JWST302",
+          "JWST401",
+          "HIST301",
+          "RELGS301",
+          "RELGS302"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "holocaust_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Holocaust and Genocide Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JWST201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "JWST202",
+          "JWST301",
+          "JWST302",
+          "JWST401",
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "RELGS301",
+          "HIST330"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Focus on Holocaust history, testimony, and memory.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "american_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "American Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AMST101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "AMST102",
+          "AMST120",
+          "AMST200",
+          "AMST210",
+          "AMST301",
+          "AMST302",
+          "AMST310",
+          "AMST320",
+          "AMST330",
+          "AMST401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "latino_caribbean_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Latino and Caribbean Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LCS101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "LCS201",
+          "LCS202",
+          "LCS301",
+          "LCS401",
+          "SPAN201",
+          "SPAN202",
+          "HIST241",
+          "HIST242"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "amesall_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "African, Middle Eastern and South Asian Languages and Literatures",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AMESALL101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "AMESALL201",
+          "AMESALL202",
+          "AMESALL301",
+          "AMESALL401",
+          "MES201",
+          "RELGS200",
+          "RELGS201"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "french_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "French",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "FREN101",
+        "FREN102",
+        "FREN213",
+        "FREN214"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "FREN215",
+          "FREN216",
+          "FREN301",
+          "FREN302",
+          "FREN303",
+          "FREN401",
+          "FREN402",
+          "FREN480"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "spanish_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Spanish",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SPAN101",
+        "SPAN102",
+        "SPAN201",
+        "SPAN202"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "SPAN301",
+          "SPAN302",
+          "SPAN303",
+          "SPAN304",
+          "SPAN305",
+          "SPAN306",
+          "SPAN310",
+          "SPAN311",
+          "SPAN320",
+          "SPAN330",
+          "SPAN340",
+          "SPAN350",
+          "SPAN401",
+          "SPAN410",
+          "SPAN420"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "german_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "German",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GERM101",
+        "GERM102",
+        "GERM201",
+        "GERM202"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "GERM232",
+          "GERM301",
+          "GERM302",
+          "GERM303",
+          "GERM401",
+          "GERM402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "italian_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Italian",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ITAL101",
+        "ITAL102",
+        "ITAL201",
+        "ITAL202"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "ITAL231",
+          "ITAL232",
+          "ITAL301",
+          "ITAL302",
+          "ITAL321",
+          "ITAL322",
+          "ITAL401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "japanese_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Japanese",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JPN101",
+        "JPN102",
+        "JPN201",
+        "JPN202"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "JPN301",
+          "JPN302",
+          "JPN401",
+          "JPN402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "chinese_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Chinese",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHN101",
+        "CHN102",
+        "CHN201",
+        "CHN202"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "CHN301",
+          "CHN302",
+          "CHN401",
+          "CHN402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "korean_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Korean",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "KOR101",
+        "KOR102",
+        "KOR201",
+        "KOR202"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "KOR301",
+          "KOR302",
+          "KOR401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "russian_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Russian",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "RUSS101",
+        "RUSS102",
+        "RUSS201",
+        "RUSS202"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "RUSS301",
+          "RUSS302",
+          "RUSS401",
+          "RUSS402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "portuguese_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Portuguese",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PORT101",
+        "PORT102",
+        "PORT201",
+        "PORT202"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "PORT301",
+          "PORT302",
+          "PORT401",
+          "PORT402"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "linguistics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Linguistics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LING101",
+        "LING201"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "LING190",
+          "LING191",
+          "LING215",
+          "LING305",
+          "LING315",
+          "LING325",
+          "LING350",
+          "LING381",
+          "LING425"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level.",
+        "Residency: at least 12 LING credits at Rutgers."
+      ]
+    },
+    "hebrew_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Hebrew",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HEBR101",
+        "HEBR102",
+        "HEBR201"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "HEBR301",
+          "JWST201",
+          "JWST202",
+          "RELGS200",
+          "RELGS201"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Hebrew proficiency through intermediate level required.",
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "african_area_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "African Area Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AFRS101",
+        "AFRS220"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "AFRS200",
+          "AFRS210",
+          "AFRS301",
+          "AFRS315",
+          "AFRS320",
+          "AFRS330",
+          "AFRS401",
+          "HIST231",
+          "HIST232",
+          "POLS308"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives must be at the 300+ level.",
+        "Focus on African history, politics, and cultures."
+      ]
+    },
+    "african_languages_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "African Languages",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SWAH101",
+        "SWAH102"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "SWAH201",
+          "SWAH301",
+          "AFRS101",
+          "AFRS220",
+          "AFRS301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Proficiency in at least one African language required.",
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "arabic_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Arabic",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ARAB101",
+        "ARAB102",
+        "ARAB201"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "ARAB202",
+          "ARAB301",
+          "ARAB302"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level.",
+        "Residency: at least 12 ARAB credits at Rutgers."
+      ]
+    },
+    "hindi_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Hindi",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HINDI101",
+        "HINDI102",
+        "HINDI201"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "HINDI202",
+          "HINDI301",
+          "SAAS201",
+          "SAAS301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level.",
+        "Residency: at least 12 HINDI credits at Rutgers."
+      ]
+    },
+    "persian_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Persian",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PERS101",
+        "PERS102",
+        "PERS201"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "PERS202",
+          "PERS301",
+          "RELGS200"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level.",
+        "Residency: at least 12 PERS credits at Rutgers."
+      ]
+    },
+    "turkish_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Turkish",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "TURK101",
+        "TURK102",
+        "TURK201"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 0,
+        "options": [
+          "TURK202",
+          "PERS101",
+          "ARAB101",
+          "RELGS200"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Residency: at least 9 TURK credits at Rutgers."
+      ]
+    },
+    "south_asian_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "South Asian Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SAAS201"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "SAAS301",
+          "SAAS302",
+          "HINDI101",
+          "HINDI201",
+          "HIST280",
+          "RELGS200",
+          "ANTH102",
+          "POLS308"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor on South Asian history, culture, and politics.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "international_global_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "International and Global Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "IGS101",
+        "POLS104"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "POLS302",
+          "POLS304",
+          "POLS305",
+          "POLS308",
+          "POLS313",
+          "POLS327",
+          "POLS362",
+          "SOC241",
+          "HIST271",
+          "IGS301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor drawing from political science, history, sociology, and area studies.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "archaeology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Archaeology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ANTH105",
+        "ANTH302"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "ANTH303",
+          "ANTH304",
+          "ANTH307",
+          "ANTH308",
+          "ANTH310",
+          "ANTH314",
+          "ANTH317",
+          "ANTH320",
+          "GEOSC101",
+          "GEOSC202"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "3 electives, at least 2 at 300+ level.",
+        "Fieldwork strongly recommended."
+      ]
+    },
+    "architectural_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Architectural Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ARCH201",
+        "ARCH202"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "ARCH301",
+          "ARCH302",
+          "ARTH204",
+          "ARTH205",
+          "ARTH332",
+          "ART201",
+          "ART202"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Combines architectural history, theory, and design practice.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "arts_management_leadership_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Arts Management and Leadership",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ART101",
+        "ART201"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "ART202",
+          "ART203",
+          "ART301",
+          "ART302",
+          "ART401",
+          "ART402",
+          "MUS303",
+          "THEA301",
+          "SOC225",
+          "ECON102"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor combining arts practice with leadership and organizational skills.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "astronomy_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Astronomy",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ASTRO101",
+        "ASTRO201"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "ASTRO301",
+          "PHYS123",
+          "PHYS124",
+          "PHYS271",
+          "PHYS272",
+          "GEOSC224"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Distinct from the Astrophysics minor; no calculus-based physics prerequisite required.",
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "chemistry_education_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Chemistry Education",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CHEM161",
+        "CHEM171",
+        "CHEM162",
+        "CHEM172",
+        "EDUC201"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "CHEM251",
+          "CHEM307",
+          "CHEM308",
+          "CHEM341",
+          "EDUC301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Designed for students pursuing secondary education certification in chemistry.",
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "classical_humanities_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Classical Humanities",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CLAS101"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 2,
+        "options": [
+          "CLAS201",
+          "CLAS301",
+          "CLAS302",
+          "GREK101",
+          "GREK201",
+          "LATIN101",
+          "LATIN201",
+          "HIST101",
+          "HIST102",
+          "ARTH204",
+          "ARTH205",
+          "RELGS200",
+          "PHIL103"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary study of ancient Greece and Rome.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "greek_ancient_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Greek (Ancient)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GREK101",
+        "GREK102",
+        "GREK201"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "GREK301",
+          "CLAS201",
+          "CLAS301",
+          "LATIN201"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Reading proficiency in Ancient Greek required.",
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "latin_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Latin",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LATIN101",
+        "LATIN102",
+        "LATIN201"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "LATIN202",
+          "LATIN301",
+          "CLAS201",
+          "CLAS301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Reading proficiency in Latin required.",
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "ancient_israel_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Language and Culture of Ancient Israel",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HEBR101",
+        "HEBR102",
+        "JWST101"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "HEBR201",
+          "HEBR301",
+          "JWST201",
+          "JWST202",
+          "JWST301",
+          "RELGS200",
+          "RELGS201",
+          "HIST241"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Combines biblical Hebrew with Jewish history and culture.",
+        "At least 1 elective at 300+ level."
+      ]
+    },
+    "comparative_literature_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Comparative Literature",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "COMPLIT201",
+        "COMPLIT202"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "COMPLIT301",
+          "COMPLIT302",
+          "COMPLIT401",
+          "COMPLIT402",
+          "COMPLIT403",
+          "ENGL301",
+          "ENGL302",
+          "ENGL310"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 electives at 300+ level.",
+        "Reading in at least one language other than English encouraged."
+      ]
+    },
+    "critical_race_ethnic_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Comparative and Critical Race and Ethnic Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AFRS101",
+        "SOC101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "AFRS200",
+          "AFRS210",
+          "AFRS301",
+          "AFRS310",
+          "AFRS320",
+          "AFRS330",
+          "AFRS401",
+          "SOC210",
+          "SOC220",
+          "SOC241",
+          "SOC303",
+          "SOC304",
+          "WGSS101",
+          "WGSS200",
+          "WGSS202",
+          "WGSS313",
+          "POLS308"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor examining race, ethnicity, and systemic inequality.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "disabilities_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Disabilities Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "DISAB201",
+        "DISAB202"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "DISAB301",
+          "DISAB302",
+          "SOC303",
+          "SOC312",
+          "PSYC313",
+          "PSYC340",
+          "WGSS200",
+          "POLS340"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary study of disability from social, cultural, and policy perspectives.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "organizational_leadership_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Organizational Leadership",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SOC101",
+        "POLS101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "SOC225",
+          "SOC303",
+          "SOC304",
+          "SOC306",
+          "SOC311",
+          "SOC315",
+          "SOC316",
+          "POLS306",
+          "POLS307",
+          "POLS340",
+          "PSYC300",
+          "PSYC313"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor focusing on leadership, governance, and organizational behavior.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "sexualities_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Sexualities Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "WGSS101",
+        "WGSS200"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "WGSS202",
+          "WGSS206",
+          "WGSS232",
+          "WGSS235",
+          "WGSS240",
+          "WGSS257",
+          "WGSS258",
+          "WGSS259",
+          "WGSS313",
+          "WGSS325",
+          "SOC222",
+          "SOC248",
+          "PSYC339",
+          "PSYC377"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Critical study of sexuality, gender, and identity.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "social_justice_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Social Justice",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "AFRS101",
+        "SOC101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "AFRS200",
+          "AFRS301",
+          "AFRS310",
+          "AFRS330",
+          "SOC210",
+          "SOC220",
+          "SOC303",
+          "SOC306",
+          "SOC311",
+          "WGSS101",
+          "WGSS202",
+          "WGSS313",
+          "POLS308",
+          "POLS340"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor examining structures of oppression and pathways to equity.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "quantitative_economics_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Quantitative Economics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ECON102",
+        "ECON103",
+        "MATH151",
+        "STAT211"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "ECON300",
+          "ECON301",
+          "ECON390",
+          "ECON395",
+          "ECON402",
+          "ECON410",
+          "ECON413",
+          "ECON421",
+          "ECON432",
+          "ECON436",
+          "ECON440",
+          "ECON441"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Emphasizes mathematical and statistical approaches to economics.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "education_social_science_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Education as a Social Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EDUC201",
+        "SOC101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "EDUC301",
+          "SOC225",
+          "SOC303",
+          "SOC304",
+          "SOC311",
+          "SOC316",
+          "PSYC313",
+          "PSYC320",
+          "POLS340",
+          "AFRS301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Examines education systems through sociological, psychological, and policy lenses.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "business_technical_writing_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Business and Technical Writing",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENGL201",
+        "ENGL301"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "ENGL302",
+          "ENGL303",
+          "ENGL304",
+          "ENGL305",
+          "ENGL310",
+          "ENGL315",
+          "ENGL330",
+          "ENGL350",
+          "ENGL360",
+          "JOUR201",
+          "JOUR301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Develops professional writing skills for business, scientific, and technical contexts.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "government_business_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Government and Business",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "POLS101",
+        "ECON102"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "POLS300",
+          "POLS302",
+          "POLS304",
+          "POLS306",
+          "POLS307",
+          "POLS311",
+          "POLS338",
+          "POLS340",
+          "ECON300",
+          "ECON301",
+          "ECON320",
+          "ECON321",
+          "ECON390",
+          "ECON410"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Examines interactions between government policy, regulation, and business.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "critical_intelligence_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Critical Intelligence Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "POLS101",
+        "POLS302"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "POLS304",
+          "POLS305",
+          "POLS306",
+          "POLS308",
+          "POLS313",
+          "POLS317",
+          "POLS319",
+          "POLS327",
+          "POLS329",
+          "POLS331",
+          "POLS338",
+          "POLS362",
+          "POLS363",
+          "POLS406",
+          "POLS426",
+          "POLS477",
+          "HIST271",
+          "HIST275",
+          "SOC241"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Examines intelligence agencies, national security, and surveillance through a critical lens.",
+        "At least 3 electives at 300+ level."
+      ]
+    },
+    "ppe_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Philosophy, Politics, and Economics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHIL101",
+        "POLS101",
+        "ECON102"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "PHIL253",
+          "PHIL263",
+          "PHIL308",
+          "PHIL345",
+          "PHIL347",
+          "PHIL367",
+          "PHIL405",
+          "PHIL415",
+          "POLS300",
+          "POLS302",
+          "POLS304",
+          "POLS306",
+          "POLS311",
+          "POLS329",
+          "POLS333",
+          "ECON300",
+          "ECON301",
+          "ECON320",
+          "ECON390"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor integrating ethics, political theory, and economic reasoning.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "health_society_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Health and Society",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PUBH201",
+        "SOC101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "PUBH212",
+          "PUBH240",
+          "PUBH335",
+          "PUBH356",
+          "PUBH395",
+          "PUBH450",
+          "SOC303",
+          "SOC304",
+          "SOC311",
+          "SOC315",
+          "SOC316",
+          "PSYC301",
+          "PSYC305",
+          "PSYC313"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Examines the social determinants of health and healthcare systems.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "history_law_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "History — Law and History",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HIST101",
+        "POLS101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "HIST301",
+          "HIST302",
+          "HIST303",
+          "HIST310",
+          "HIST315",
+          "HIST320",
+          "HIST322",
+          "HIST330",
+          "HIST331",
+          "HIST340",
+          "HIST350",
+          "HIST401",
+          "HIST451",
+          "POLS304",
+          "POLS311",
+          "POLS329",
+          "POLS333",
+          "POLS338"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Track of the History minor focusing on legal history and law in social context.",
+        "At least 3 electives at 300+ level."
+      ]
+    },
+    "history_stem_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "History — STEM in Society",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HIST101",
+        "HIST263"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "HIST264",
+          "HIST271",
+          "HIST275",
+          "HIST280",
+          "HIST301",
+          "HIST302",
+          "HIST310",
+          "HIST315",
+          "HIST320",
+          "HIST340",
+          "HIST360",
+          "HIST380",
+          "HIST401",
+          "HIST451"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Track of the History minor examining science, technology, and medicine in historical context.",
+        "At least 3 electives at 300+ level."
+      ]
+    },
+    "digital_communication_media_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Digital Communication, Information, and Media",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JOUR101",
+        "COMMUN101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "JOUR201",
+          "JOUR202",
+          "JOUR203",
+          "JOUR301",
+          "JOUR302",
+          "JOUR303",
+          "JOUR304",
+          "JOUR401",
+          "JOUR402",
+          "COMMUN200",
+          "COMMUN300",
+          "COMMUN354",
+          "COMMUN355",
+          "COMMUN356",
+          "COMMUN380",
+          "COMMUN400"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor combining journalism, communication, and digital media studies.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "gender_media_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Gender and Media",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "WGSS101",
+        "JOUR101"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "WGSS200",
+          "WGSS202",
+          "WGSS232",
+          "WGSS235",
+          "WGSS240",
+          "WGSS255",
+          "WGSS258",
+          "WGSS313",
+          "WGSS325",
+          "JOUR201",
+          "JOUR202",
+          "JOUR301",
+          "JOUR302",
+          "JOUR303",
+          "COMMUN300",
+          "COMMUN354",
+          "COMMUN355",
+          "COMMUN380"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Examines representation, gender, and media production through a feminist lens.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "developmental_psychology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Developmental Psychology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PSYC101",
+        "PSYC271"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "PSYC300",
+          "PSYC301",
+          "PSYC302",
+          "PSYC303",
+          "PSYC305",
+          "PSYC310",
+          "PSYC311",
+          "PSYC313",
+          "PSYC320",
+          "PSYC321",
+          "PSYC331",
+          "PSYC333",
+          "PSYC338",
+          "PSYC339",
+          "PSYC340",
+          "PSYC375",
+          "PSYC377",
+          "PSYC470"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Track of the Psychology minor focusing on lifespan development.",
+        "At least 3 electives at 300+ level."
+      ]
+    },
+    "music_technology_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Music Technology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MUS101",
+        "MUS207"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "MUS208",
+          "MUS202",
+          "MUS203",
+          "MUS204",
+          "MUS301",
+          "MUS302",
+          "MUS303",
+          "CS111",
+          "CS205",
+          "CS206"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Combines music theory and practice with digital audio and music production technology.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "modern_greek_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Greek (Modern)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MODGK101",
+        "MODGK102",
+        "MODGK201"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 0,
+        "options": [
+          "MODGK202",
+          "GREK101",
+          "CLAS201",
+          "HIST241"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Residency: at least 9 MODGK credits at Rutgers."
+      ]
+    },
+    "hungarian_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Hungarian",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HUNG101",
+        "HUNG102",
+        "HUNG201"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "HUNG301",
+          "SLAV201",
+          "RUSS101",
+          "HIST241"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 elective at 300+ level.",
+        "Residency: at least 9 HUNG credits at Rutgers."
+      ]
+    },
+    "translation_studies_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Translation Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LING101",
+        "LING201"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "LING305",
+          "LING315",
+          "LING325",
+          "LING350",
+          "LING381",
+          "LING425",
+          "SPAN201",
+          "FREN131",
+          "GERM201",
+          "PORT201",
+          "ITAL201"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Requires proficiency in at least one language other than English.",
+        "Interdisciplinary minor combining linguistics and language study.",
+        "At least 2 electives at 300+ level."
+      ]
+    },
+    "slavic_eastern_european_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Slavic and Eastern European Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SLAV201",
+        "RUSS101"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "RUSS102",
+          "RUSS201",
+          "RUSS301",
+          "RUSS302",
+          "RUSS303",
+          "RUSS401",
+          "RUSS402",
+          "SLAV301",
+          "SLAV302",
+          "HIST241",
+          "HIST242",
+          "POLS311",
+          "POLS333"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Interdisciplinary minor on the cultures, languages, and politics of Slavic and Eastern European regions.",
+        "At least 2 electives at 300+ level."
+      ]
+    }
+  }
+}

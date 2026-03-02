@@ -1,0 +1,9 @@
+fastapi==0.133.0
+uvicorn==0.29.0
+pydantic==2.12.5
+networkx==3.4.2
+ortools==9.15.6755
+sqlalchemy==2.0.48
+psycopg2-binary==2.9.11
+requests==2.32.3
+beautifulsoup4==4.12.3
