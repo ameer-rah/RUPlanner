@@ -24,6 +24,10 @@ DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 REGISTRY_FILES = [
     "sas_programs.json",
     "soe_programs.json",
+    "sppp_programs.json",
+    "mgsa_programs.json",
+    "rbs_programs.json",
+    "sci_programs.json",
 ]
 
 

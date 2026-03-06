@@ -1,0 +1,414 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+
+    "accounting_bsba": {
+      "school": "RBS",
+      "degree_level": "bachelor_bsba",
+      "major_name": "Accounting",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
+        "ACCT272", "ACCT275",
+        "PROF301", "PROF302", "PROF303",
+        "ACCT458",
+        "BAIT385", "BAIT386",
+        "BLAW320",
+        "FIN300",
+        "MGMT301", "MGMT302", "MGMT492",
+        "MKTG301",
+        "SCM301",
+        "ACCT325", "ACCT326",
+        "ACCT451",
+        "ACCT415", "ACCT421",
+        "ACCT401",
+        "ACCT416", "ACCT422"
+      ],
+      "electives": {
+        "count": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "ACCT458 (Accounting Information Systems) counts toward both the Business Core and Accounting major requirements.",
+        "Business Core total: 39 credits. Accounting major requirements: 24 credits.",
+        "Minimum grade of C required in all Business Core and major courses.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "finance_bsba": {
+      "school": "RBS",
+      "degree_level": "bachelor_bsba",
+      "major_name": "Finance",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
+        "ACCT272", "ACCT275",
+        "PROF301", "PROF302", "PROF303",
+        "BAIT370", "BAIT385", "BAIT386",
+        "BLAW320",
+        "FIN300",
+        "MGMT301", "MGMT302", "MGMT492",
+        "MKTG301",
+        "SCM301",
+        "FIN380", "FIN420", "FIN400"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "FIN440", "ACCT472", "FIN410", "FIN460", "FIN331",
+          "FIN450", "FIN490", "FIN320", "FIN415", "FIN375",
+          "FIN385", "FIN465", "FIN435", "FIN480", "FIN430",
+          "FIN491", "FIN445", "ACCT325"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "A grade of B or higher in FIN300 (Financial Management) is required to declare the Finance major.",
+        "Business Core total: 39 credits. Finance major requirements: 9 required + 12 elective credits = 21 credits.",
+        "Minimum grade of C required in all Business Core and major courses.",
+        "MGMT492 (Business Policy and Strategy) must be taken in the senior year.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "marketing_bsba": {
+      "school": "RBS",
+      "degree_level": "bachelor_bsba",
+      "major_name": "Marketing",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
+        "ACCT272", "ACCT275",
+        "PROF301", "PROF302", "PROF303",
+        "BAIT370", "BAIT385", "BAIT386",
+        "BLAW320",
+        "FIN300",
+        "MGMT301", "MGMT302", "MGMT492",
+        "MKTG301",
+        "SCM301",
+        "MKTG374", "MKTG385", "MKTG452"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "MKTG482", "MKTG498", "MKTG370", "MKTG497", "MKTG371",
+          "MKTG363", "MKTG489", "MKTG428", "MKTG499", "MKTG369",
+          "MKTG368", "MKTG401", "MKTG372", "MKTG488", "MKTG481",
+          "MKTG480", "MKTG485"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "MKTG452 (Marketing Strategy and Decision Making) is a senior-year capstone; must be taken in the final year.",
+        "Business Core total: 39 credits. Marketing major requirements: 9 required + 12 elective credits = 21 credits.",
+        "Minimum grade of C required in all Business Core and major courses.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "leadership_management_bsba": {
+      "school": "RBS",
+      "degree_level": "bachelor_bsba",
+      "major_name": "Leadership and Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
+        "ACCT272", "ACCT275",
+        "PROF301", "PROF302", "PROF303",
+        "BAIT370", "BAIT385", "BAIT386",
+        "BLAW320",
+        "FIN300",
+        "MGMT301", "MGMT302", "MGMT492",
+        "MKTG301",
+        "SCM301",
+        "MGMT369", "MGMT410"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "MGMT362", "MGMT330", "MGMT320", "MGMT350",
+          "MGMT370", "MGMT430", "MGMT471"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 2 of the 4 electives must be chosen from the approved Leadership and Management elective list.",
+        "Business Core total: 39 credits. L&M major requirements: 6 required + 12 elective credits = 18 credits.",
+        "BLAW320 or BUSS334 (Business Ethics) satisfies the Business Law/Ethics core requirement.",
+        "Minimum grade of C required in all Business Core and major courses.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "supply_chain_management_bsba": {
+      "school": "RBS",
+      "degree_level": "bachelor_bsba",
+      "major_name": "Supply Chain Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
+        "ACCT272", "ACCT275",
+        "PROF301", "PROF302", "PROF303",
+        "BAIT370", "BAIT385", "BAIT386",
+        "BLAW320",
+        "FIN300",
+        "MGMT301", "MGMT302", "MGMT492",
+        "MKTG301",
+        "SCM301",
+        "SCM305", "SCM330", "SCM310", "SCM380", "SCM420"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "SCM430", "SCM440", "SCM460", "SCM410", "SCM455",
+          "SCM465", "SCM450", "SCM470", "SCM475", "SCM491",
+          "SCM340", "MKTG370", "MGMT350", "MKTG369", "MKTG368",
+          "MKTG385", "MKTG401"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "SCM420 (SCM Industry Client Projects) is the capstone and requires senior standing.",
+        "Students may substitute SCM420 with one experiential learning course (SCM493 Internship or SCM421 Co-op).",
+        "At least 2 of the 3 electives must come from SCM (33:799) courses.",
+        "Business Core total: 39 credits. SCM major requirements: 15 required + 9 elective credits = 24 credits.",
+        "Minimum grade of C required in all Business Core and major courses.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "business_analytics_it_bsba": {
+      "school": "RBS",
+      "degree_level": "bachelor_bsba",
+      "major_name": "Business Analytics and Information Technology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
+        "ACCT272", "ACCT275",
+        "PROF301", "PROF302", "PROF303",
+        "BAIT370", "BAIT385", "BAIT386",
+        "BLAW320",
+        "FIN300",
+        "MGMT301", "MGMT302", "MGMT492",
+        "MKTG301",
+        "SCM301",
+        "BAIT388", "BAIT485", "BAIT470", "BAIT400"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "BAIT494", "BAIT465", "BAIT471", "BAIT487", "BAIT486",
+          "BAIT440", "BAIT405", "BAIT455", "BAIT450"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 of the 3 electives must be from the primary BAIT elective list.",
+        "Up to 2 supplementary electives may come from Statistics (STAT), Computer Science (CS), Economics (ECON), or Supply Chain (SCM) departments.",
+        "Business Core total: 39 credits. BAIT major requirements: 12 required + 9 elective credits = 21 credits.",
+        "BAIT370 (Management Information Systems) satisfies the MIS/AIS core requirement for BAIT majors.",
+        "Minimum grade of C required in all Business Core and major courses.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "business_analytics_concentration": {
+      "school": "RBS",
+      "degree_level": "concentration",
+      "major_name": "Business Analytics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BAIT400", "BAIT485"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 1,
+        "options": [
+          "BAIT494", "BAIT450", "BAIT487", "BAIT486", "BAIT405"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Concentration adds 9 credits on top of the BSBA degree.",
+        "Total concentration credits: 9 (2 required + 1 elective)."
+      ],
+      "notes": []
+    },
+
+    "entrepreneurship_concentration": {
+      "school": "RBS",
+      "degree_level": "concentration",
+      "major_name": "Entrepreneurship",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENT302", "ENT303"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 0,
+        "options": [
+          "ENT340", "ENT496", "ENT355", "ENT352", "ENT486",
+          "MKTG369", "ENT310", "ENT360", "ENT342"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Concentration adds 9 credits on top of the BSBA degree.",
+        "Total concentration credits: 9 (2 required + 1 elective)."
+      ],
+      "notes": []
+    },
+
+    "finance_concentration": {
+      "school": "RBS",
+      "degree_level": "concentration",
+      "major_name": "Finance",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "FIN380", "FIN400", "FIN420"
+      ],
+      "electives": {
+        "count": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "A grade of B or higher in FIN300 (Financial Management) is required before taking any Finance concentration courses.",
+        "Concentration adds 9 credits on top of the BSBA degree.",
+        "Total concentration credits: 9 (3 required, no electives)."
+      ],
+      "notes": []
+    },
+
+    "global_business_concentration": {
+      "school": "RBS",
+      "degree_level": "concentration",
+      "major_name": "Global Business",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MGMT402", "MGMT369"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 1,
+        "options": [
+          "MGMT320", "MGMT479", "MGMT410", "FIN320", "FIN375",
+          "MKTG371", "MGMT370", "MGMT350", "SCM305"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Concentration adds 9 credits on top of the BSBA degree.",
+        "Total concentration credits: 9 (2 required + 1 elective)."
+      ],
+      "notes": []
+    },
+
+    "leadership_skills_concentration": {
+      "school": "RBS",
+      "degree_level": "concentration",
+      "major_name": "Leadership Skills",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MGMT410"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 2,
+        "options": [
+          "MGMT362", "MGMT350", "MGMT320", "MGMT370", "MGMT430", "MGMT330"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "At least 1 of the 2 electives must be MGMT362 (Effective Leadership Communications) or MGMT350 (Negotiations).",
+        "Concentration adds 9 credits on top of the BSBA degree.",
+        "Total concentration credits: 9 (1 required + 2 electives)."
+      ],
+      "notes": []
+    },
+
+    "management_information_systems_concentration": {
+      "school": "RBS",
+      "degree_level": "concentration",
+      "major_name": "Management Information Systems",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "BAIT470", "BAIT388"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 1,
+        "options": [
+          "BAIT494", "BAIT465", "BAIT471", "BAIT450"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Concentration adds 9 credits on top of the BSBA degree.",
+        "Total concentration credits: 9 (2 required + 1 elective)."
+      ],
+      "notes": []
+    },
+
+    "real_estate_concentration": {
+      "school": "RBS",
+      "degree_level": "concentration",
+      "major_name": "Real Estate",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "RE350", "RE380", "RE470", "RE432"
+      ],
+      "electives": {
+        "count": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Finance majors substitute RE380 (Essentials of Real Estate Finance) with FIN435 (Real Estate Finance and Mortgage-Backed Securities).",
+        "RE350 and RE380 should be completed no later than the fall semester of junior year to access internship and mentoring opportunities.",
+        "Concentration adds 12 credits on top of the BSBA degree.",
+        "Total concentration credits: 12 (4 required, no electives)."
+      ],
+      "notes": []
+    },
+
+    "professional_selling_concentration": {
+      "school": "RBS",
+      "degree_level": "concentration",
+      "major_name": "Professional Selling",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MKTG485", "MKTG401"
+      ],
+      "electives": {
+        "count": 1,
+        "min_level_300_plus": 0,
+        "options": [
+          "MGMT350", "MKTG368", "MKTG369", "MKTG370"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Completion of this concentration earns a Professional Selling Certification noted on the transcript.",
+        "Concentration adds 9 credits on top of the BSBA degree.",
+        "Total concentration credits: 9 (2 required + 1 elective)."
+      ],
+      "notes": []
+    }
+
+  }
+}

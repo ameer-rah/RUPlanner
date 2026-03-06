@@ -417,6 +417,57 @@
         "Total credits: ~128."
       ],
       "notes": []
+    },
+    "applied_sciences_engineering_bs": {
+      "school": "SOE",
+      "degree_level": "bachelor_bs",
+      "major_name": "Applied Sciences in Engineering",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENG101", "ENG102",
+        "CHEM159", "CHEM171", "EXPOS101", "MATH151", "PHYS123",
+        "CHEM160", "MATH152", "PHYS124", "ENG221",
+        "MATH251", "PHYS227", "PHYS229",
+        "MATH244", "PHYS228", "PHYS230",
+        "ISE343"
+      ],
+      "electives": {
+        "count": 12,
+        "min_level_300_plus": 5,
+        "options": [
+          "ISE201", "ISE210", "ISE303", "ISE311", "ISE320", "ISE338",
+          "ISE382", "ISE384", "ISE399", "ISE400", "ISE433", "ISE453",
+          "ISE462", "ISE487",
+          "MAE210", "MAE291", "MAE312", "MAE342", "MAE351", "MAE361",
+          "MAE401", "MAE439", "MAE449", "MAE457", "MAE458", "MAE460",
+          "MAE474", "MAE481",
+          "CEE243", "CEE305", "CEE320", "CEE364", "CEE372", "CEE387",
+          "CEE411", "CEE429", "CEE430", "CEE448",
+          "CHE201", "CHE208", "CHE210", "CHE303", "CHE304", "CHE307",
+          "CHE309", "CHE324", "CHE341", "CHE411", "CHE422", "CHE427",
+          "MSE203", "MSE204", "MSE205", "MSE206", "MSE212", "MSE305",
+          "MSE307", "MSE309", "MSE314", "MSE316", "MSE407",
+          "ECE221", "ECE231", "ECE252", "ECE312", "ECE331", "ECE345",
+          "ECE361", "ECE434", "ECE437", "ECE452",
+          "BME201", "BME255", "BME303", "BME304", "BME305", "BME306",
+          "BME308", "BME309", "BME401", "BME403", "BME411", "BME417",
+          "BME431",
+          "MATH421"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "No fixed upper-division curriculum — junior/senior courses are developed with a faculty adviser.",
+        "10 engineering electives required (3+ credits each, from approved engineering/technical list).",
+        "36 credits of technical electives required (can include CS, math, science, other engineering).",
+        "4 H/SS electives required (12 credits); at least one must be economics.",
+        "3 credits of general electives required.",
+        "Total credits: ~129."
+      ],
+      "notes": [
+        "Flexible program suited for packaging engineering, construction management, operations research, pre-med, or IT concentrations.",
+        "Courses are NOT offered specifically for this curriculum (except Packaging Engineering); students select from existing departmental offerings."
+      ]
     }
   }
 }

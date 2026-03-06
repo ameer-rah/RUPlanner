@@ -1,0 +1,507 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+    "dance_bfa": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bfa",
+      "major_name": "Dance",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "DANC100",
+        "DSTU115",
+        "DANC126",
+        "DANC138", "DANC139",
+        "DANC142",
+        "DANC145",
+        "DANC161",
+        "DANC235",
+        "DANC237",
+        "DANC240", "DANC241",
+        "DANC243",
+        "DANC248",
+        "DANC251", "DANC252",
+        "DANC276",
+        "DANC311",
+        "DANC315",
+        "DANC325",
+        "DANC334", "DANC335",
+        "DANC342", "DANC343",
+        "DANC345",
+        "DANC402",
+        "DANC434",
+        "DANC441", "DANC442",
+        "DANC444", "DANC445"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "DANC137", "DANC153", "DANC274", "DANC277",
+          "DANC327", "DANC340", "DANC344", "DANC352",
+          "DANC360", "DANC363"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "8 credits of dance electives required from at least 3 curriculum areas.",
+        "33 credits minimum of liberal arts courses required.",
+        "Total credits: 120."
+      ],
+      "notes": []
+    },
+
+    "music_bm_performance": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bm",
+      "major_name": "Music (Performance)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MUSA100",
+        "MUSC121", "MUSC122",
+        "MUSC123", "MUSC124",
+        "MUSC127",
+        "MUSC221", "MUSC222",
+        "MUSC223", "MUSC224",
+        "MUSC323",
+        "MUSC329",
+        "MUSC301", "MUSC302",
+        "MUSC303",
+        "MUSC419",
+        "MUSA407", "MUSA408"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "MUSC321", "MUSC322", "MUSC341", "MUSC342",
+          "MUSC330", "MUSC420", "MUSC310",
+          "MUSC284", "MUSC469", "MUSC485"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Piano proficiency exam required before graduation.",
+        "Applied major lessons: 24 credits (scheduled with applied faculty, not listed individually).",
+        "Chamber music: 4 credits; Large ensemble: 8 credits; Pedagogy: 2 credits.",
+        "Vocal Performance track additionally requires MUSA201, MUSA202, MUSA357, MUSA358.",
+        "33 credits of liberal arts required.",
+        "Senior recital required.",
+        "Total credits: ~120."
+      ],
+      "notes": [
+        "Applied lessons and ensemble credits are arranged with the department and not in this course list."
+      ]
+    },
+
+    "music_bm_jazz": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bm",
+      "major_name": "Music (Jazz Studies)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MUSA100",
+        "MUSC102",
+        "MUSC121", "MUSC122",
+        "MUSC123", "MUSC124",
+        "MUSC125",
+        "MUSC127",
+        "MUSC223", "MUSC224",
+        "MUSC247", "MUSC248",
+        "MUSC251", "MUSC252",
+        "MUSC303",
+        "MUSC305", "MUSC306",
+        "MUSC329",
+        "MUSC347", "MUSC348",
+        "MUSC371", "MUSC372",
+        "MUSC471", "MUSC472"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Piano proficiency exam required before graduation.",
+        "Applied major lessons: 16 credits (arranged with faculty).",
+        "Ensemble courses: 12 credits (jazz combos and large jazz ensemble).",
+        "33 credits of liberal arts required.",
+        "Senior recital required.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "music_bm_composition": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bm",
+      "major_name": "Music (Composition)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MUSA100",
+        "MUSC121", "MUSC122",
+        "MUSC123", "MUSC124",
+        "MUSC127",
+        "MUSC129",
+        "MUSC221", "MUSC222",
+        "MUSC223", "MUSC224",
+        "MUSC321",
+        "MUSC322",
+        "MUSC323",
+        "MUSC329", "MUSC330",
+        "MUSC341", "MUSC342",
+        "MUSC301", "MUSC302",
+        "MUSC303",
+        "MUSC419",
+        "MUSC284",
+        "MUSC469",
+        "MUSC375",
+        "MUSA301"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Piano proficiency exam required before graduation.",
+        "Composition lessons: 16 credits (arranged with faculty).",
+        "Large ensemble: 6 credits; Secondary instrument lessons: 4 credits.",
+        "MUSC375 Composition Practicum taken 8 semesters (listed once here).",
+        "MUSA301 Helix ensemble taken 4 semesters (listed once here).",
+        "33 credits of liberal arts required.",
+        "Senior recital required.",
+        "Total credits: ~123."
+      ],
+      "notes": []
+    },
+
+    "music_bm_education": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bm",
+      "major_name": "Music (Music Education)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MUSA100",
+        "MUSC121", "MUSC122",
+        "MUSC123", "MUSC124",
+        "MUSC127",
+        "MUSC221", "MUSC222",
+        "MUSC223", "MUSC224",
+        "MUSC323",
+        "MUSC329", "MUSC330",
+        "MUSC341",
+        "MUSC301", "MUSC302",
+        "MUSC303",
+        "MUSC419",
+        "MUSC261",
+        "MUSC263",
+        "MUSC265",
+        "MUSC267",
+        "MUSC269",
+        "MUSC381",
+        "MUSC382",
+        "MUSC384",
+        "MUSC480",
+        "MUSC487"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Piano proficiency exam required before graduation.",
+        "Applied performance study: 15 credits; Ensemble: 8 credits.",
+        "National Teachers Examination required.",
+        "30 credits of liberal arts required.",
+        "Senior 30-minute recital required.",
+        "Total credits: ~122-123."
+      ],
+      "notes": []
+    },
+
+    "theater_bfa_acting": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bfa",
+      "major_name": "Theater (Acting)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "THTA103",
+        "THTR281", "THTR282",
+        "THTR370", "THTR371",
+        "THTR473",
+        "THTA496",
+        "THTA271", "THTA272",
+        "THTA225", "THTA226",
+        "THTA227", "THTA228",
+        "THTA230", "THTA231",
+        "THTA275", "THTA276",
+        "THTA319", "THTA320",
+        "THTA321", "THTA322",
+        "THTA325", "THTA326",
+        "THTA327", "THTA328",
+        "THTA333", "THTA334",
+        "THTA371", "THTA372",
+        "THTA437", "THTA438",
+        "THTA439", "THTA440",
+        "THTA425",
+        "THTA476",
+        "THTA480"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "THTR271", "THTR272", "THTR325", "THTR326",
+          "THTR401", "THTR410", "THTR421", "THTR422",
+          "THTA427", "THTA428"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Theater Homeroom taken 4 semesters (THTA103 listed once here).",
+        "Total theater-specific credits: 84-100.",
+        "33 credits of liberal arts required.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "theater_bfa_design": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bfa",
+      "major_name": "Theater (Design)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "THTA103",
+        "THTR281", "THTR282",
+        "THTR370", "THTR371",
+        "THTA496",
+        "THTA105",
+        "THTA123",
+        "THTA271", "THTA272",
+        "THTA242",
+        "THTA243", "THTA244",
+        "THTA245", "THTA246",
+        "THTA247", "THTA248",
+        "THTA251", "THTA252",
+        "THTA300", "THTA301",
+        "THTA345", "THTA346",
+        "THTA358",
+        "THTA313", "THTA314",
+        "THTA335", "THTA336",
+        "THTA343", "THTA344",
+        "THTA415", "THTA416",
+        "THTA460",
+        "THTA462",
+        "THTA464", "THTA465",
+        "THTA468", "THTA469"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "THTA311", "THTA312",
+          "THTA350", "THTA351",
+          "THTA455", "THTA456",
+          "THTA447", "THTA451",
+          "THTR310", "THTR401", "THTR410"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Theater Homeroom taken 4 semesters.",
+        "Students specialize in scenic, costume, or lighting design in upper years.",
+        "Total theater-specific credits: 84-100.",
+        "33 credits of liberal arts required.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "theater_bfa_production": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bfa",
+      "major_name": "Theater (Production)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "THTA103",
+        "THTR281", "THTR282",
+        "THTR370", "THTR371",
+        "THTA496",
+        "THTA123",
+        "THTA219",
+        "THTA215", "THTA216",
+        "THTA242",
+        "THTA249", "THTA250",
+        "THTA251", "THTA252",
+        "THTA271", "THTA272",
+        "THTA277",
+        "THTA305",
+        "THTA315",
+        "THTA316",
+        "THTA339", "THTA340",
+        "THTA361", "THTA362",
+        "THTA407",
+        "THTA411",
+        "THTA415", "THTA416",
+        "THTA423",
+        "THTA443", "THTA444",
+        "THTA468", "THTA469"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 0,
+        "options": [
+          "THTA311", "THTA312",
+          "THTA350", "THTA351",
+          "THTA274",
+          "THTA447", "THTA451",
+          "THTR364", "THTR365"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Theater Homeroom taken 4 semesters.",
+        "Total theater-specific credits: 84-100.",
+        "33 credits of liberal arts required.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "visual_arts_bfa": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bfa",
+      "major_name": "Visual Arts",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ARTH105", "ARTH106",
+        "ART107",
+        "ART121", "ART122",
+        "ART200", "ART201",
+        "ART227", "ART228",
+        "ART497", "ART498"
+      ],
+      "electives": {
+        "count": 10,
+        "min_level_300_plus": 4,
+        "options": [
+          "ART221", "ART222", "ART321", "ART322", "ART421", "ART422", "ART455", "ART456",
+          "ART231", "ART232", "ART331", "ART332", "ART431", "ART432", "ART433", "ART434",
+          "ART243", "ART244", "ART343", "ART344", "ART441", "ART442", "ART446", "ART447",
+          "ART251", "ART252", "ART351", "ART352", "ART451", "ART452", "ART453", "ART454",
+          "ART261", "ART262", "ART361", "ART362", "ART461", "ART462", "ART463", "ART464",
+          "ART271", "ART272", "ART371", "ART372", "ART471", "ART472", "ART473", "ART474",
+          "ART281", "ART282", "ART381", "ART382", "ART481", "ART482", "ART483", "ART484",
+          "ART305", "ART303", "ART306", "ART308", "ART310", "ART317", "ART329", "ART356",
+          "ART383", "ART396", "ART420"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Studio concentration (27 credits) in one area: design, drawing, media, painting, photography, print, or sculpture.",
+        "Concentration declared at start of sophomore year with adviser.",
+        "16 credits of studio electives in areas outside concentration.",
+        "6 credits of Art History electives.",
+        "4 credits of Visual Arts Practice (ART105, pass/fail).",
+        "33 credits of liberal arts required.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "design_bfa": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bfa",
+      "major_name": "Design",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ARTH105",
+        "ART121", "ART122",
+        "ART200", "ART201",
+        "ART227", "ART228",
+        "ART231", "ART232",
+        "ART308", "ART383",
+        "ART331", "ART332",
+        "ART431", "ART432",
+        "ART433", "ART434",
+        "ART497", "ART498"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "ART221", "ART222", "ART321", "ART322",
+          "ART243", "ART244", "ART343", "ART344", "ART441", "ART442",
+          "ART251", "ART252",
+          "ART261", "ART262", "ART361", "ART362",
+          "ART305", "ART396", "ART420",
+          "ARTH106",
+          "CINE201", "CINE202"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Program available to incoming students starting fall 2015.",
+        "Studio electives: multiple courses from non-design areas.",
+        "Art History or Cinema elective required.",
+        "Thesis and Exhibition A and B required in senior year.",
+        "33 credits of liberal arts required.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    },
+
+    "digital_filmmaking_bfa": {
+      "school": "MGSA",
+      "degree_level": "bachelor_bfa",
+      "major_name": "Digital Filmmaking",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "FILM100",
+        "FILM102",
+        "FILM120",
+        "FILM191",
+        "FILM192",
+        "FILM205",
+        "CINE201", "CINE202",
+        "FILM200",
+        "FILM212",
+        "FILM220",
+        "FILM230",
+        "FILM291", "FILM292",
+        "FILM305",
+        "FILM306",
+        "FILM330",
+        "FILM391", "FILM392",
+        "FILM393",
+        "FILM400",
+        "FILM406",
+        "FILM410", "FILM411"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "CINE201", "CINE202",
+          "ART243", "ART244", "ART343", "ART344",
+          "ART441", "ART442"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "2 Cinema Studies electives required (CINE courses).",
+        "2 critical thinking/society electives required (general education).",
+        "1 visual arts/media elective required.",
+        "Total program credits: 88 film-specific.",
+        "33 credits of liberal arts required.",
+        "Total credits: ~120."
+      ],
+      "notes": []
+    }
+  }
+}

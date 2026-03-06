@@ -1,0 +1,743 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+
+    "city_and_regional_planning_ba": {
+      "school": "SPPP",
+      "degree_level": "bachelor_ba",
+      "major_name": "City and Regional Planning",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EJBSC205",
+        "CRP200",
+        "CRP302",
+        "CRP314",
+        "CRP400"
+      ],
+      "writing_requirement": {
+        "description": "One intensive writing course",
+        "options": [
+          "EJBSC300",
+          "PUBH339",
+          "EXPOS302",
+          "EXPOS303",
+          "EXPOS315"
+        ]
+      },
+      "planning_specialization": {
+        "description": "Three planning specialization electives; at least two at 300-level or above",
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "CRP233",
+          "CRP235",
+          "CRP307",
+          "CRP310",
+          "CRP311",
+          "CRP430",
+          "CRP448",
+          "CRP464",
+          "CRP465",
+          "CRP472",
+          "PPP307",
+          "PPP310"
+        ]
+      },
+      "electives": {
+        "description": "Four additional electives from CRP/PPP/UPD course offerings",
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "CRP233",
+          "CRP235",
+          "CRP302",
+          "CRP307",
+          "CRP310",
+          "CRP311",
+          "CRP430",
+          "CRP448",
+          "CRP464",
+          "CRP465",
+          "CRP472",
+          "UPD201",
+          "UPD202",
+          "UPD250",
+          "UPD302",
+          "UPD315",
+          "UPD316",
+          "UPD318",
+          "UPD395",
+          "UPD463",
+          "PPOL210",
+          "PPOL220"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "EXPOS101 or equivalent writing placement required as a prerequisite.",
+        "EJBSC205 or an approved statistics equivalent satisfies the statistics prerequisite.",
+        "CRP400 internship requires 64+ earned credits and CRP200.",
+        "At least 18 credits must be at the 300-level or above."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/city-and-regional-planning/"]
+    },
+
+    "health_administration_bs": {
+      "school": "SPPP",
+      "degree_level": "bachelor_bs",
+      "major_name": "Health Administration",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EJBSC205",
+        "HA203",
+        "HA207",
+        "HA260",
+        "HA310",
+        "HA332",
+        "HA333",
+        "HA335",
+        "HA354",
+        "HA356",
+        "HA363",
+        "HA395",
+        "HA410",
+        "HA425",
+        "EJBSC450",
+        "EJBSC499"
+      ],
+      "writing_requirement": {
+        "description": "One writing course",
+        "options": [
+          "EJBSC300",
+          "EXPOS302",
+          "EXPOS303",
+          "EXPOS315"
+        ]
+      },
+      "electives": {
+        "description": "Two additional Health Administration electives at 300-level or above",
+        "count": 2,
+        "min_level_300_plus": 2,
+        "options": [
+          "HA483"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "EXPOS101 or equivalent required as a prerequisite.",
+        "EJBSC205 or equivalent statistics course required.",
+        "EJBSC499 internship requires completion of EJBSC395 or PUBH395 and EJBSC450 and 100+ credits.",
+        "Total major credits: approximately 55."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/healthadministration/"]
+    },
+
+    "public_health_bs": {
+      "school": "SPPP",
+      "degree_level": "bachelor_bs",
+      "major_name": "Public Health",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PUBH201",
+        "PUBH212",
+        "PUBH240",
+        "PUBH335",
+        "PUBH356",
+        "PUBH395",
+        "PUBH450",
+        "PUBH499"
+      ],
+      "prerequisites": {
+        "description": "Required prerequisites (not counted toward major credits)",
+        "courses": [
+          "EXPOS101",
+          "EJBSC205"
+        ],
+        "notes": [
+          "One human biology course (3-4 cr): e.g. BIO115 or equivalent.",
+          "One chemistry course (3-4 cr): CHEM127, CHEM128, CHEM161, or CHEM162."
+        ]
+      },
+      "writing_requirement": {
+        "description": "One intensive writing course (majors only)",
+        "options": [
+          "EJBSC300",
+          "PUBH339",
+          "EXPOS302",
+          "EXPOS303",
+          "EXPOS315"
+        ]
+      },
+      "electives": {
+        "description": "15 credits of PUBH electives; at least 9 credits at 300-level or above",
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "PUBH252",
+          "PUBH260",
+          "PUBH302",
+          "PUBH338",
+          "PUBH339",
+          "PUBH414",
+          "PUBH462"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "PUBH212 is required for majors; may be waived for transfer students with equivalent course.",
+        "PUBH395 requires EJBSC205 or equivalent.",
+        "PUBH450 requires 85+ earned credits and co-registration with PUBH395.",
+        "PUBH499 requires PUBH395, PUBH450, and 100+ earned credits.",
+        "Total major credits: 46-47."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publichealth/"]
+    },
+
+    "public_policy_bs": {
+      "school": "SPPP",
+      "degree_level": "bachelor_bs",
+      "major_name": "Public Policy",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EJBSC205",
+        "PPOL210",
+        "PPOL215",
+        "PPOL220",
+        "EJBSC395",
+        "EJBSC450",
+        "EJBSC499"
+      ],
+      "management_requirement": {
+        "description": "One management course",
+        "options": [
+          "PADM360",
+          "PPOL361",
+          "PPOL362"
+        ]
+      },
+      "electives": {
+        "description": "12 credits of PPOL electives, up to 6 credits from other Bloustein courses, up to 6 credits from outside Bloustein",
+        "count": 8,
+        "min_level_300_plus": 4,
+        "options": [
+          "PPOL325",
+          "PPOL338",
+          "PPOL353",
+          "PPOL361",
+          "PPOL362",
+          "PPOL365",
+          "PPOL495",
+          "PPOL496",
+          "PUBH338",
+          "PUBH356",
+          "HA356",
+          "CRP307",
+          "CRP310",
+          "PADM209",
+          "PADM313",
+          "PADM360"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "EXPOS101 or equivalent required as a prerequisite.",
+        "EJBSC499 internship requires EJBSC395, EJBSC450, and 100+ credits.",
+        "At least 12 elective credits must be from PPOL-coded courses.",
+        "Total major credits: approximately 40-46."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publicpolicy/"]
+    },
+
+    "urban_planning_design_bs": {
+      "school": "SPPP",
+      "degree_level": "bachelor_bs",
+      "major_name": "Urban Planning and Design",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "EJBSC205",
+        "UPD201",
+        "UPD202",
+        "UPD250",
+        "UPD314",
+        "UPD315",
+        "UPD316",
+        "UPD318",
+        "UPD395",
+        "UPD403",
+        "UPD404",
+        "UPD405",
+        "UPD463"
+      ],
+      "writing_requirement": {
+        "description": "One writing course",
+        "options": [
+          "EJBSC300",
+          "EXPOS302",
+          "EXPOS303",
+          "EXPOS315"
+        ]
+      },
+      "electives": {
+        "description": "Five upper-level electives (15 credits) from approved UPD/CRP/PPP list",
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "UPD302",
+          "CRP307",
+          "CRP310",
+          "CRP311",
+          "CRP430",
+          "CRP448",
+          "CRP464",
+          "CRP465",
+          "CRP472",
+          "PPP307",
+          "PPP310",
+          "PPOL220",
+          "PPOL361"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "EXPOS101 or equivalent required as a prerequisite.",
+        "UPD404 (Studio I) requires UPD315 and UPD316.",
+        "UPD405 (Studio II) requires UPD404.",
+        "Total major credits: approximately 55."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/urbanplanninganddesign/"]
+    },
+
+    "city_and_regional_planning_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "City and Regional Planning",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "CRP200"
+      ],
+      "electives": {
+        "description": "Five additional CRP/PPP elective courses (15 credits); four must be at 300-level or above",
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "CRP233",
+          "CRP235",
+          "CRP302",
+          "CRP307",
+          "CRP310",
+          "CRP311",
+          "CRP314",
+          "CRP400",
+          "CRP430",
+          "CRP448",
+          "CRP464",
+          "CRP465",
+          "CRP472",
+          "PPP302",
+          "PPP307",
+          "PPP310"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "18 total credits required.",
+        "CRP200 (or PPP200) is the gateway course.",
+        "At least 12 credits must be at the 300-level or above."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/city-and-regional-planning/"]
+    },
+
+    "health_administration_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Health Administration",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HA203",
+        "HA207",
+        "HA260"
+      ],
+      "electives": {
+        "description": "Three upper-level HA courses (300-level or above)",
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "HA310",
+          "HA332",
+          "HA333",
+          "HA335",
+          "HA354",
+          "HA356",
+          "HA363",
+          "HA395",
+          "HA410",
+          "HA425",
+          "HA483"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "18 total credits required.",
+        "Students majoring in Health Administration may not also pursue this minor."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/healthadministration/"]
+    },
+
+    "public_health_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Public Health",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PUBH201",
+        "PUBH335"
+      ],
+      "distribution_requirement": {
+        "description": "One of the following (3 credits)",
+        "options": [
+          "PUBH212",
+          "PUBH240"
+        ]
+      },
+      "electives": {
+        "description": "Five PUBH elective courses (15 credits); at least three at 300-level or 400-level",
+        "count": 5,
+        "min_level_300_plus": 3,
+        "options": [
+          "PUBH252",
+          "PUBH260",
+          "PUBH302",
+          "PUBH338",
+          "PUBH339",
+          "PUBH356",
+          "PUBH414",
+          "PUBH462"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "24 total credits required.",
+        "Courses designated for majors only (PUBH212, PUBH395, PUBH450, PUBH499) are excluded from the minor.",
+        "Students majoring in Public Health may not also pursue this minor."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publichealth/"]
+    },
+
+    "public_policy_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Public Policy",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "gateway_requirement": {
+        "description": "One gateway course",
+        "options": [
+          "PPOL102",
+          "PPOL210"
+        ]
+      },
+      "electives": {
+        "description": "Five Bloustein elective courses (15 credits); at least four at 300-level or above",
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "PPOL215",
+          "PPOL220",
+          "PPOL325",
+          "PPOL338",
+          "PPOL353",
+          "PPOL361",
+          "PPOL362",
+          "PPOL365",
+          "PUBH338",
+          "PUBH356",
+          "HA356",
+          "CRP307",
+          "PADM360"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "18 total credits required.",
+        "Students majoring in Public Policy may not also pursue this minor."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publicpolicy/"]
+    },
+
+    "urban_planning_design_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Urban Planning and Design",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "UPD201",
+        "UPD202",
+        "UPD314",
+        "UPD315"
+      ],
+      "electives": {
+        "description": "Three upper-level UPD/CRP/PPP elective courses (9 credits) at 300-level or above",
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "UPD250",
+          "UPD302",
+          "UPD316",
+          "UPD318",
+          "UPD395",
+          "UPD403",
+          "UPD404",
+          "UPD405",
+          "UPD463",
+          "CRP302",
+          "CRP307",
+          "CRP310",
+          "CRP448",
+          "CRP464",
+          "CRP465",
+          "CRP472"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "21 total credits required.",
+        "Students majoring in Urban Planning and Design may not also pursue this minor."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/urbanplanninganddesign/"]
+    },
+
+    "disability_studies_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Disability Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "DISA265",
+        "PPOL353"
+      ],
+      "field_experience_requirement": {
+        "description": "One field experience or practicum course (3 credits)",
+        "notes": ["Contact Bloustein undergraduate office for approved field experience options."]
+      },
+      "electives": {
+        "description": "Three approved elective courses (9 credits)",
+        "count": 3,
+        "min_level_300_plus": 1,
+        "options": [
+          "PPOL325",
+          "PPOL361",
+          "PUBH252",
+          "PUBH356",
+          "HA356",
+          "PADM360"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "18 total credits required.",
+        "DISA265 is the gateway course (37:575:265 Disability Studies: Intro to the Field).",
+        "Students complete a field experience component in addition to coursework."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/disabilitystudies/"]
+    },
+
+    "health_equity_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Health Equity",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "core_requirement": {
+        "description": "Two core health equity courses (6 credits)",
+        "options": [
+          "PUBH201",
+          "PUBH212",
+          "PUBH252"
+        ]
+      },
+      "track_requirement": {
+        "description": "Two courses from one approved track: Food Justice, Housing Justice, or Education Justice (6 credits)",
+        "options": [
+          "CRP307",
+          "CRP310",
+          "CRP311",
+          "CRP464",
+          "PPOL325",
+          "PPOL353",
+          "PUBH338",
+          "PUBH462"
+        ]
+      },
+      "electives": {
+        "description": "Two additional elective courses from either core or track lists (6 credits)",
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "PUBH240",
+          "PUBH252",
+          "PUBH302",
+          "PUBH338",
+          "PUBH356",
+          "PUBH414",
+          "PUBH462",
+          "CRP233",
+          "CRP235",
+          "CRP307",
+          "CRP310",
+          "PPOL325",
+          "PPOL353"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "18 total credits required.",
+        "At least 9 credits must be at the 300-level or above."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/health-equity/"]
+    },
+
+    "medical_ethics_health_policy_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Medical Ethics and Health Policy",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "MEHE201",
+        "MEHE400"
+      ],
+      "sas_electives": {
+        "description": "6 credits of SAS philosophy or biology electives",
+        "count": 2,
+        "options": [
+          "PHIL105",
+          "PHIL107",
+          "PHIL242",
+          "PHIL249",
+          "PHIL250",
+          "PHIL330",
+          "PHIL371",
+          "PHIL442",
+          "HIST229",
+          "BIO150",
+          "BIO154",
+          "GENET354"
+        ],
+        "any_from_catalog": false
+      },
+      "bloustein_electives": {
+        "description": "6 credits of Bloustein electives",
+        "count": 2,
+        "options": [
+          "MEHE301",
+          "MEHE309",
+          "HA260",
+          "HA356",
+          "PUBH252",
+          "PUBH302",
+          "PUBH338",
+          "PUBH356",
+          "PUBH414",
+          "PUBH462"
+        ],
+        "any_from_catalog": false
+      },
+      "additional_requirement": {
+        "description": "3 additional credits from either SAS or Bloustein elective lists above",
+        "count": 1
+      },
+      "constraints": [
+        "21 total credits required.",
+        "MEHE400 (Research Ethics) requires MEHE201 as a prerequisite.",
+        "Students may not double-count more than one course with their major."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/healthpolicy/"]
+    },
+
+    "public_administration_management_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Public Administration and Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PADM209",
+        "PADM210",
+        "PADM313",
+        "PADM360"
+      ],
+      "electives": {
+        "description": "Two Bloustein elective courses (6 credits); at least one at 300-level or above",
+        "count": 2,
+        "min_level_300_plus": 1,
+        "options": [
+          "PPOL325",
+          "PPOL353",
+          "PPOL361",
+          "PPOL362",
+          "PPOL365",
+          "PUBH356",
+          "CRP307",
+          "CRP310",
+          "HA332",
+          "HA354"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "18 total credits required.",
+        "PADM209 is the gateway course.",
+        "Open to students in any Rutgers school."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publicadministration/"]
+    },
+
+    "urban_studies_minor": {
+      "school": "SPPP",
+      "degree_level": "minor",
+      "major_name": "Urban Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "URST101"
+      ],
+      "electives": {
+        "description": "Five elective courses (15 credits); at least four at 300-level or above. Courses may be drawn from Bloustein, SAS Sociology, Economics, Political Science, or other approved departments.",
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "CRP233",
+          "CRP235",
+          "CRP307",
+          "CRP310",
+          "CRP311",
+          "CRP430",
+          "CRP448",
+          "CRP464",
+          "CRP465",
+          "CRP472",
+          "UPD201",
+          "UPD202",
+          "UPD250",
+          "UPD315",
+          "UPD316",
+          "UPD318",
+          "UPD463",
+          "PPOL210",
+          "PPOL220",
+          "PPOL325",
+          "PPOL353",
+          "PPOL361",
+          "PPOL362",
+          "PPOL365",
+          "PUBH252",
+          "PUBH338"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "18 total credits required.",
+        "URST101 is the required gateway course.",
+        "Consult Bloustein undergraduate advising for the full list of approved electives across departments."
+      ],
+      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/urbanstudies/"]
+    }
+  }
+}

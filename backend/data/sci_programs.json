@@ -1,0 +1,193 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+
+    "communication_ba": {
+      "school": "SCI",
+      "degree_level": "bachelor_ba",
+      "major_name": "Communication",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SCI101",
+        "COMM200",
+        "COMM201",
+        "COMM300",
+        "COMM380"
+      ],
+      "sci_intro_requirement": {
+        "description": "One additional SC&I interdisciplinary course (choose one)",
+        "options": ["SCI102", "SCI103"]
+      },
+      "advanced_core_requirement": {
+        "description": "One advanced core course in a Communication area (choose one); prerequisite: COMM200",
+        "options": ["COMM354", "COMM355", "COMM357", "COMM359"]
+      },
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 3,
+        "min_level_400_plus": 2,
+        "options": [
+          "COMM301", "COMM305", "COMM306", "COMM307", "COMM313",
+          "COMM315", "COMM333", "COMM344", "COMM346", "COMM347",
+          "COMM350", "COMM354", "COMM355", "COMM356", "COMM357",
+          "COMM359", "COMM360", "COMM365", "COMM366", "COMM369",
+          "COMM372", "COMM373", "COMM374", "COMM375", "COMM381",
+          "COMM382", "COMM390", "COMM403", "COMM404", "COMM405",
+          "COMM406", "COMM407", "COMM408", "COMM409", "COMM410",
+          "COMM411", "COMM412", "COMM422", "COMM432", "COMM442",
+          "COMM443", "COMM444", "COMM446", "COMM447", "COMM450",
+          "COMM451", "COMM458", "COMM459", "COMM460", "COMM466",
+          "COMM470", "COMM476", "COMM478", "COMM481"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: 36.",
+        "Seven required courses (21 credits): SCI101, one of SCI102/SCI103, COMM200, COMM201, COMM300, COMM380, one of COMM354/355/357/359.",
+        "Five upper-level electives (15 credits): at least three at the 300-level or above, at least two at the 400-level.",
+        "Minimum GPA of 2.0 required to complete the major.",
+        "Students must complete at least 15 Rutgers credits (including SCI101 or SCI103 with a C or better) before declaring the major.",
+        "A minor is required unless pursuing a double major; approved minors include DCIM, Gender and Media, Data Science, and others."
+      ],
+      "notes": [
+        "Five specializations available: Health and Wellness Communication, Leadership in Organizations and Community, Relationship and Family Communication, Strategic Public Communication and Public Relations, Communication and Technology.",
+        "Students may combine multiple specializations."
+      ]
+    },
+
+    "information_technology_informatics_ba": {
+      "school": "SCI",
+      "degree_level": "bachelor_ba",
+      "major_name": "Information Technology and Informatics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SCI103",
+        "ITI200",
+        "ITI201",
+        "ITI202",
+        "ITI210"
+      ],
+      "sci_intro_requirement": {
+        "description": "One SC&I interdisciplinary course (choose one)",
+        "options": ["SCI101", "SCI102"]
+      },
+      "electives": {
+        "count": 7,
+        "min_level_300_plus": 4,
+        "options": [
+          "ITI220", "ITI221", "ITI225", "ITI230", "ITI240",
+          "ITI300", "ITI310", "ITI311", "ITI315", "ITI320",
+          "ITI321", "ITI330", "ITI331", "ITI332", "ITI333",
+          "ITI340", "ITI400", "ITI410", "ITI415", "ITI420",
+          "ITI421", "ITI440", "ITI450", "ITI455"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: 39.",
+        "Foundation (3 credits): SCI103.",
+        "SC&I Interdisciplinary requirement (3 credits): one of SCI101 or SCI102.",
+        "Core courses (12 credits): ITI200, ITI201, ITI202, ITI210.",
+        "Seven ITI electives (21 credits) chosen from approved ITI course list; at least four at the 300-level or above.",
+        "Minimum GPA of 2.0 required for the major.",
+        "Students must complete at least 15 Rutgers credits, including SCI103 with a grade of C or better, before declaring.",
+        "A minor is required unless pursuing a double major."
+      ],
+      "notes": [
+        "Dual-degree pathway available: complete a Bachelor's in ITI alongside the Master of Information (MI).",
+        "Capstone options include ITI455 (Capstone in ITI) or a senior thesis."
+      ]
+    },
+
+    "journalism_media_studies_ba": {
+      "school": "SCI",
+      "degree_level": "bachelor_ba",
+      "major_name": "Journalism and Media Studies",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "JMS200",
+        "JMS201"
+      ],
+      "sci_intro_requirement": {
+        "description": "One SC&I interdisciplinary course (choose one)",
+        "options": ["SCI101", "SCI103"]
+      },
+      "foundation_requirement": {
+        "description": "One foundation course that establishes a practice or conceptual area (choose one)",
+        "options": [
+          "JMS205", "JMS206", "JMS207", "JMS210", "JMS211",
+          "JMS212", "JMS215", "JMS216", "JMS217"
+        ]
+      },
+      "practice_electives": {
+        "description": "Two practice-based courses emphasizing skills such as reporting and production",
+        "count": 2,
+        "options": [
+          "JMS205", "JMS206", "JMS302", "JMS314", "JMS319",
+          "JMS328", "JMS329", "JMS374", "JMS375", "JMS376",
+          "JMS405", "JMS410", "JMS413", "JMS430", "JMS431",
+          "JMS432", "JMS454", "JMS465", "JMS495"
+        ]
+      },
+      "concept_electives": {
+        "description": "Two concept-based courses emphasizing theory and analysis; at least one must be at the 400-level",
+        "count": 2,
+        "min_level_400_plus": 1,
+        "options": [
+          "JMS211", "JMS215", "JMS216", "JMS217", "JMS250",
+          "JMS274", "JMS275", "JMS276", "JMS278", "JMS333",
+          "JMS340", "JMS350", "JMS365", "JMS379", "JMS380",
+          "JMS384", "JMS385", "JMS415", "JMS420", "JMS423",
+          "JMS425", "JMS434", "JMS438", "JMS439", "JMS445",
+          "JMS450", "JMS457", "JMS458", "JMS460", "JMS470",
+          "JMS475"
+        ]
+      },
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 2,
+        "options": [
+          "JMS202", "JMS203", "JMS205", "JMS206", "JMS207",
+          "JMS210", "JMS211", "JMS212", "JMS215", "JMS216",
+          "JMS217", "JMS250", "JMS274", "JMS275", "JMS276",
+          "JMS278", "JMS302", "JMS314", "JMS317", "JMS318",
+          "JMS319", "JMS327", "JMS328", "JMS329", "JMS331",
+          "JMS333", "JMS340", "JMS345", "JMS347", "JMS350",
+          "JMS365", "JMS374", "JMS375", "JMS376", "JMS379",
+          "JMS380", "JMS384", "JMS385", "JMS393", "JMS405",
+          "JMS410", "JMS413", "JMS415", "JMS420", "JMS423",
+          "JMS425", "JMS430", "JMS431", "JMS432", "JMS434",
+          "JMS438", "JMS439", "JMS445", "JMS450", "JMS454",
+          "JMS457", "JMS458", "JMS460", "JMS465", "JMS470",
+          "JMS475", "JMS490", "JMS495"
+        ],
+        "any_from_catalog": false
+      },
+      "diversity_requirement": {
+        "description": "At least one course addressing diversity, difference, and social justice (may overlap with other elective categories)",
+        "options": [
+          "JMS215", "JMS216", "JMS274", "JMS333", "JMS365",
+          "JMS380", "JMS384", "JMS385", "JMS420", "JMS457", "JMS475"
+        ]
+      },
+      "constraints": [
+        "Total major credits: 36 (33 JMS credits + 3 SC&I interdisciplinary).",
+        "SC&I interdisciplinary requirement (3 credits): one of SCI101 or SCI103.",
+        "Core courses (6 credits): JMS200 and JMS201.",
+        "One foundation course (3 credits) chosen from the approved foundation list.",
+        "Two practice courses (6 credits) from the practice course list.",
+        "Two concept courses (6 credits) from the concept list; at least one must be at the 400-level.",
+        "Four upper-level electives (12 credits) from any JMS offerings; at least two at the 300-level.",
+        "At least one diversity, difference, and social justice course required (may be counted in another elective category).",
+        "All JMS courses require a grade of C or better.",
+        "Students must complete at least 15 Rutgers credits including one of SCI101/SCI103 and Expository Writing before declaring.",
+        "A minor is required unless pursuing a double major."
+      ],
+      "notes": [
+        "Optional specializations (each 18 credits): Global Media, Sports Journalism, Media Production.",
+        "Dual-degree pathway available: combine BA with Master of Communication and Media (MCM)."
+      ]
+    }
+
+  }
+}

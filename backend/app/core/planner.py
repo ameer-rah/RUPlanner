@@ -14,16 +14,24 @@ DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 _SCHOOL_CATALOG: Dict[str, str] = {
     "SAS": "sas_catalog.json",
     "SOE": "soe_catalog.json",
+    "SPPP": "sppp_catalog.json",
+    "MGSA": "mgsa_catalog.json",
+    "RBS": "rbs_catalog.json",
+    "SCI": "sci_catalog.json",
 }
 
 # Maps (request degree_level, hint found in major string) → DB degree_level value
 _DEGREE_LEVEL_MAP: Dict[Tuple[str, Optional[str]], str] = {
     ("bachelor", "ba"):  "bachelor_ba",
     ("bachelor", "bs"):  "bachelor_bs",
-    ("bachelor", None):  "bachelor_bs",   # default when no BA/BS hint
-    ("minor",    None):  "minor",
-    ("master",   None):  "master",
-    ("associate", None): "associate",
+    ("bachelor", "bfa"):  "bachelor_bfa",
+    ("bachelor", "bm"):   "bachelor_bm",
+    ("bachelor", "bsba"): "bachelor_bsba",
+    ("bachelor", None):   "bachelor_bs",   # default when no BA/BS hint
+    ("minor",         None):  "minor",
+    ("master",        None):  "master",
+    ("associate",     None):  "associate",
+    ("concentration", None):  "concentration",
 }
 
 CATALOG_YEAR = "2025-2026"
@@ -194,12 +202,15 @@ def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], 
     major_name = m.group(1).strip()
     tokens = [t.strip().upper() for t in m.group(2).split(",")]
 
-    school = next((t for t in tokens if t in {"SAS", "SOE", "RBS"}), "SAS")
-    level_token = next((t for t in tokens if t not in {"SAS", "SOE", "RBS"}), "")
+    _SCHOOLS = {"SAS", "SOE", "RBS", "SPPP", "MGSA", "SCI"}
+    school = next((t for t in tokens if t in _SCHOOLS), "SAS")
+    level_token = next((t for t in tokens if t not in _SCHOOLS), "")
 
     db_level: Optional[str] = {
         "BS":    "bachelor_bs",
         "BA":    "bachelor_ba",
+        "BFA":   "bachelor_bfa",
+        "BM":    "bachelor_bm",
         "MINOR": "minor",
         "MS":    "master",
         "AS":    "associate",
@@ -254,6 +265,17 @@ def _merge_requirements(programs: List[Dict]) -> Dict:
     )
     if stats:
         result["statistics_requirement"] = stats
+
+    # Pass through SCI-specific choice and pool requirements from whichever
+    # program defines them (only one program in a dual-major typically has these).
+    for key in (
+        "sci_intro_requirement", "advanced_core_requirement",
+        "foundation_requirement", "practice_electives", "concept_electives",
+        "diversity_requirement",
+    ):
+        val = next((p[key] for p in programs if p.get(key)), None)
+        if val:
+            result[key] = val
 
     return result
 
@@ -312,6 +334,25 @@ def resolve_program(request: PlanRequest) -> Dict:
 # Requirement helpers
 # ---------------------------------------------------------------------------
 
+def _resolve_choice_requirement(req: Dict, completed: Set[str], catalog: Dict) -> Optional[str]:
+    """
+    For a 'choose one of these options' requirement (e.g. sci_intro_requirement),
+    return the best option: the first already-completed one (already satisfied),
+    or else the first available option in the catalog.
+    Returns None if the requirement is missing or already satisfied.
+    """
+    if not req:
+        return None
+    options: List[str] = req.get("options", [])
+    if not options:
+        return None
+    # Already satisfied?
+    if any(o in completed for o in options):
+        return None
+    # Return first catalog-available option.
+    return next((o for o in options if o in catalog), None)
+
+
 def _resolve_science_courses(requirements: Dict, completed: Set[str]) -> List[str]:
     """
     Return the courses needed to satisfy the science sequence requirement.
@@ -365,27 +406,44 @@ def _select_electives(
     min_level_300_plus: int,
     required: List[str],
     completed: Set[str],
+    min_level_400_plus: int = 0,
 ) -> Tuple[List[str], List[str]]:
     """
-    Pick electives satisfying the min-300-level constraint.
+    Pick electives satisfying min-300-level and optional min-400-level constraints.
     Returns (chosen_electives, warnings).
     """
     available = [c for c in elective_options if c not in required and c not in completed]
-    high = [c for c in available if _get_course_level(c) >= 300]
+    high400 = [c for c in available if _get_course_level(c) >= 400]
+    high300 = [c for c in available if _get_course_level(c) >= 300]
 
     chosen: List[str] = []
     warnings_out: List[str] = []
 
-    # Fill required high-level slots first (preserving option-list order)
-    for c in high:
-        if len(chosen) >= min_level_300_plus:
+    # Fill required 400-level slots first
+    for c in high400:
+        if len(chosen) >= min_level_400_plus:
             break
         chosen.append(c)
 
-    if len(chosen) < min_level_300_plus:
+    if len(chosen) < min_level_400_plus:
         warnings_out.append(
-            f"Only {len(chosen)} elective(s) at 300+ level available "
-            f"(need {min_level_300_plus}). Consider different elective options."
+            f"Only {len(chosen)} elective(s) at 400+ level available "
+            f"(need {min_level_400_plus}). Consider different elective options."
+        )
+
+    # Fill remaining 300-level slots (400-level counts toward 300-level)
+    slots_300_needed = max(0, min_level_300_plus - len([c for c in chosen if _get_course_level(c) >= 300]))
+    for c in high300:
+        if slots_300_needed <= 0:
+            break
+        if c not in chosen:
+            chosen.append(c)
+            slots_300_needed -= 1
+
+    if slots_300_needed > 0:
+        warnings_out.append(
+            f"Insufficient elective(s) at 300+ level to meet requirement. "
+            "Consider different elective options."
         )
 
     # Fill remaining slots with any available option
@@ -470,8 +528,14 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     elective_count = max(0, elective_count - len(completed_elec))
     min_level_300_plus = max(0, min_level_300_plus - len(completed_elec_high))
 
+    elective_400_plus: int = electives.get("min_level_400_plus", 0)
+    # Reduce 400-level quota by already-completed high-level electives
+    completed_elec_400 = [c for c in completed_elec if _get_course_level(c) >= 400]
+    elective_400_plus = max(0, elective_400_plus - len(completed_elec_400))
+
     chosen_electives, elective_warnings = _select_electives(
-        elective_options, elective_count, min_level_300_plus, required, completed
+        elective_options, elective_count, min_level_300_plus, required, completed,
+        min_level_400_plus=elective_400_plus,
     )
     warnings.extend(elective_warnings)
     required += chosen_electives
@@ -482,6 +546,41 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     full_elective_pool: List[str] = [
         c for c in elective_options if c not in completed
     ]
+
+    # --- SCI-specific requirements ---
+    # "Choose one" requirements (sci_intro_requirement, advanced_core_requirement,
+    # foundation_requirement): pick the first catalog-available option not yet completed.
+    for req_key in ("sci_intro_requirement", "advanced_core_requirement", "foundation_requirement"):
+        opt = _resolve_choice_requirement(requirements.get(req_key, {}), completed, catalog)
+        if opt and opt not in required:
+            required.append(opt)
+
+    # Multi-course elective pools specific to SCI (practice_electives, concept_electives).
+    for pool_key in ("practice_electives", "concept_electives"):
+        pool_req = requirements.get(pool_key, {})
+        if not pool_req:
+            continue
+        pool_opts = [c for c in pool_req.get("options", []) if c in catalog]
+        pool_count = pool_req.get("count", 0)
+        pool_300 = pool_req.get("min_level_300_plus", 0)
+        pool_400 = pool_req.get("min_level_400_plus", 0)
+
+        completed_pool = [c for c in pool_opts if c in completed]
+        pool_count = max(0, pool_count - len(completed_pool))
+        pool_300 = max(0, pool_300 - len([c for c in completed_pool if _get_course_level(c) >= 300]))
+        pool_400 = max(0, pool_400 - len([c for c in completed_pool if _get_course_level(c) >= 400]))
+
+        chosen_pool, pool_warnings = _select_electives(
+            pool_opts, pool_count, pool_300, required, completed, pool_400
+        )
+        warnings.extend(pool_warnings)
+        for c in chosen_pool:
+            if c not in required:
+                required.append(c)
+                elective_set.add(c)
+        for c in pool_opts:
+            if c not in completed and c not in full_elective_pool:
+                full_elective_pool.append(c)
 
     # Remove already-completed courses
     remaining = [c for c in required if c not in completed]

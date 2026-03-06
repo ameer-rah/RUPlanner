@@ -52,8 +52,16 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "460": "GEOSC",     # Earth and Planetary Sciences
     "447": "GENET",     # Genetics
     "377": "EXSC",      # Exercise Science / Kinesiology & Health
+    "762": "PPP",       # Planning and Public Policy (Bloustein — cross-listed)
+    "775": "EJBSC",     # Bloustein School shared core (stats, methods, internship)
     "832": "PUBH",      # Public Health (Bloustein)
-    "762": "UPD",       # Urban Planning & Design (Bloustein)
+    "833": "PPOL",      # Public Policy (Bloustein)
+    "170": "CRP",       # City and Regional Planning (Bloustein)
+    "501": "HA",        # Health Administration (Bloustein)
+    "971": "UPD",       # Urban Planning and Design (Bloustein)
+    "843": "PADM",      # Public Administration and Management (Bloustein)
+    "652": "MEHE",      # Medical Ethics and Health Policy (Bloustein)
+    "975": "URST",      # Urban Studies (Bloustein)
     # SAS — Humanities & Social Sciences
     "730": "PHIL",
     "920": "SOC",       # Sociology (was wrongly PSYC)
@@ -74,8 +82,12 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "840": "RELGS",     # Religion
     "070": "ANTH",      # Anthropology
     "195": "COMPLIT",   # Comparative Literature
-    "350": "JOUR",      # Journalism & Media Studies
-    "547": "ITI",       # Information Technology & Informatics (SC&I)
+    "350": "JOUR",      # Journalism & Media Studies (old subject code)
+    # SC&I — School of Communication and Information (school code 04)
+    "189": "SCI",       # SC&I interdisciplinary / shared courses (04:189)
+    "192": "COMM",      # Communication (04:192)
+    "547": "ITI",       # Information Technology & Informatics (SC&I, 04:547)
+    "567": "JMS",       # Journalism and Media Studies (04:567)
     "420": "FREN",      # French
     "470": "GERM",      # German
     "560": "ITAL",      # Italian
@@ -103,12 +115,36 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "375": "ENVSCI",    # Environmental Science (11:375)
     # Writing / Composition
     "355": "EXPOS",     # Expository Writing / Technical Writing
-    # Business
-    "010": "ACCT",
+    # Business — Rutgers Business School (RBS, school 33)
+    "010": "ACCT",      # Accounting (33:010)
+    "011": "PROF",      # Professional Development / Career Management (33:011)
+    "136": "BAIT",      # Business Analytics and Information Technology (33:136)
+    "140": "BLAW",      # Business Law (33:140)
+    "382": "ENT",       # Entrepreneurship (33:382)
+    "390": "FIN",       # Finance (33:390)
+    "522": "BUSS",      # Business Ethics / General Business (33:522)
+    "620": "MGMT",      # Management and Global Business (33:620)
+    "630": "MKTG",      # Marketing (33:630)
     "799": "SCM",       # Supply Chain Management (33:799)
-    "390": "FIN",
-    "620": "MKTG",
-    "136": "BAIT",
+    "851": "RE",        # Real Estate (33:851)
+    # Mason Gross School of the Arts (MGSA — school code 07)
+    "203": "DSTU",      # Dance Studies (07:203)
+    "211": "FILM",      # Filmmaking (07:211)
+    "700": "MUSC",      # Music — academic/theory/history (07:700)
+    "701": "MUSA",      # Music Applied — ensembles/private instruction (07:701)
+    "966": "THTA",      # Theater Arts BFA — applied/studio courses (07:966)
+    # SPPP / Bloustein — additional subjects
+    "575": "DISA",      # Disability Studies (37:575, cross-listed SPPP minor)
+}
+
+# Subject codes shared between multiple schools that need offering-unit disambiguation.
+# When the SIS API returns offeringUnitCode == key and subject == inner key,
+# override the SUBJECT_TO_PREFIX lookup with the mapped prefix.
+# Format: { offeringUnitCode: { subject: prefix } }
+_UNIT_SUBJECT_OVERRIDE: dict[str, dict[str, str]] = {
+    "07": {
+        "965": "THTR",   # Mason Gross Theater BA (07:965) — SAS uses same subject → THEA
+    },
 }
 
 
@@ -150,7 +186,10 @@ def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
     seen_this_batch: dict[str, dict] = {}
     for raw in raw_courses:
         subject = raw.get("subject", "")
-        prefix = SUBJECT_TO_PREFIX.get(subject)
+        offering_unit = raw.get("offeringUnitCode", "")
+        # Check unit-level override first (e.g. Mason Gross Theater vs SAS Theater)
+        unit_overrides = _UNIT_SUBJECT_OVERRIDE.get(offering_unit, {})
+        prefix = unit_overrides.get(subject) or SUBJECT_TO_PREFIX.get(subject)
         if not prefix:
             continue
 
