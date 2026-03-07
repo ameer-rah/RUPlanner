@@ -502,6 +502,498 @@
         "Total credits: ~120."
       ],
       "notes": []
+    },
+
+    "dance_mfa": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Dance (MFA)",
+      "catalog_year": "2025-2026",
+      "program_years": 3,
+      "total_credits": 60,
+      "required_courses": [
+        "DANC501",
+        "DANC503",
+        "DANC505",
+        "DANC507",
+        "DANC509", "DANC511",
+        "DANC513",
+        "DANC515",
+        "DANC517",
+        "DANC519",
+        "DANC590"
+      ],
+      "electives": {
+        "count": 5,
+        "description": "15 additional credits from graduate dance studio, technique, or approved cross-disciplinary courses.",
+        "options": [
+          "DANC501", "DANC503", "DANC505", "DANC507",
+          "DANC509", "DANC511", "DANC513", "DANC515", "DANC517"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["DANC501", "DANC509", "DANC513"],
+        "year_1_spring": ["DANC503", "DANC511", "DANC515"],
+        "year_2_fall":   ["DANC505", "DANC517", "elective_1"],
+        "year_2_spring": ["DANC507", "DANC519", "elective_2"],
+        "year_3_fall":   ["elective_3", "elective_4", "DANC590"],
+        "year_3_spring": ["elective_5", "DANC590"]
+      },
+      "constraints": [
+        "60 total credits required.",
+        "Minimum of 33 studio/applied dance credits.",
+        "MFA Thesis (DANC590, 6 credits) consists of a full-length concert production and written exegesis.",
+        "Second-year review required before thesis registration.",
+        "Students must demonstrate proficiency in multiple dance techniques.",
+        "Full-time enrollment expected for first two years.",
+        "GPA of 3.0 or higher required for continuation."
+      ],
+      "notes": [
+        "Three-year terminal degree in dance.",
+        "Curriculum integrates performance, choreography, history, pedagogy, and technology.",
+        "Graduate assistantships (teaching or administrative) available; carry service obligations.",
+        "Source: https://www.masongross.rutgers.edu/graduate/dance/"
+      ]
+    },
+
+    "music_mm_performance": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Music, Classical Performance (MM)",
+      "catalog_year": "2025-2026",
+      "program_years": 2,
+      "total_credits": 32,
+      "required_courses": [
+        "MUSA501", "MUSA502", "MUSA503", "MUSA504",
+        "MUSA505", "MUSA506",
+        "MUSA507", "MUSA508",
+        "MUSC504", "MUSC505",
+        "MUSC521",
+        "MUSC580"
+      ],
+      "electives": {
+        "count": 2,
+        "description": "6 credits of graduate music electives chosen in consultation with the applied faculty adviser.",
+        "options": [
+          "MUSC501", "MUSC503",
+          "MUSC506", "MUSC507",
+          "MUSC511", "MUSC512",
+          "MUSC513", "MUSC515", "MUSC516"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["MUSA501", "MUSA505", "MUSA507", "MUSC504", "elective_1"],
+        "year_1_spring": ["MUSA502", "MUSA506", "MUSA508", "MUSC505", "elective_2"],
+        "year_2_fall":   ["MUSA503", "MUSC521"],
+        "year_2_spring": ["MUSA504", "MUSC580"]
+      },
+      "constraints": [
+        "32 total credits required.",
+        "Applied lessons (MUSA501-504): 8 credits across 4 semesters.",
+        "Chamber music (MUSA505-506): 2 credits across 2 semesters.",
+        "Large ensemble (MUSA507-508): 2 credits across 2 semesters.",
+        "Graduate recital required (evaluated separately from MUSC580 paper).",
+        "Piano proficiency exam required if piano is not the primary instrument.",
+        "GPA of 3.0 or higher required.",
+        "Vocal Performance track additionally requires graduate diction and opera workshop (MUSA509, MUSA510)."
+      ],
+      "notes": [
+        "Instruments/voice include strings, winds, brass, percussion, piano, guitar, and voice.",
+        "Collaborative Piano track has distinct chamber music requirements — consult department.",
+        "Source: https://www.masongross.rutgers.edu/graduate/music/"
+      ]
+    },
+
+    "music_mm_composition": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Music, Composition (MM)",
+      "catalog_year": "2025-2026",
+      "program_years": 2,
+      "total_credits": 32,
+      "required_courses": [
+        "MUSC501",
+        "MUSC503",
+        "MUSC504", "MUSC505",
+        "MUSC511",
+        "MUSC512",
+        "MUSC513",
+        "MUSA501", "MUSA502",
+        "MUSA507",
+        "MUSC580"
+      ],
+      "electives": {
+        "count": 3,
+        "description": "9 credits of graduate electives in music theory, history, or technology.",
+        "options": [
+          "MUSC506", "MUSC507",
+          "MUSA503", "MUSA504",
+          "MUSA505", "MUSA506",
+          "MUSA508"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["MUSC501", "MUSC511", "MUSC504", "MUSA501", "MUSA507"],
+        "year_1_spring": ["MUSC503", "MUSC512", "MUSC505", "MUSA502", "elective_1"],
+        "year_2_fall":   ["MUSC513", "elective_2", "elective_3"],
+        "year_2_spring": ["MUSC580"]
+      },
+      "constraints": [
+        "32 total credits required.",
+        "Composition lessons (MUSA501-502): 4 credits across 2 semesters.",
+        "Additional 2 semesters of lessons strongly recommended (MUSA503-504).",
+        "Large ensemble participation (MUSA507): 1 credit required.",
+        "MUSC580 consists of a portfolio of original works and a written thesis document.",
+        "Applicants must submit a portfolio of original compositions.",
+        "GPA of 3.0 or higher required."
+      ],
+      "notes": [
+        "Program emphasizes acoustic composition; electroacoustic and computer music are also supported.",
+        "Source: https://www.masongross.rutgers.edu/graduate/music/"
+      ]
+    },
+
+    "music_mm_conducting": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Music, Conducting (MM)",
+      "catalog_year": "2025-2026",
+      "program_years": 2,
+      "total_credits": 32,
+      "required_courses": [
+        "MUSC515", "MUSC516",
+        "MUSA501", "MUSA502",
+        "MUSA507", "MUSA508",
+        "MUSC504", "MUSC505",
+        "MUSC501",
+        "MUSC512",
+        "MUSC580"
+      ],
+      "electives": {
+        "count": 3,
+        "description": "9 credits of graduate electives; options vary by track (orchestral, choral, or wind ensemble).",
+        "options": [
+          "MUSC503", "MUSC506", "MUSC507",
+          "MUSC511",
+          "MUSA503", "MUSA504"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["MUSC515", "MUSA501", "MUSA507", "MUSC504", "MUSC501"],
+        "year_1_spring": ["MUSC516", "MUSA502", "MUSA508", "MUSC505", "elective_1"],
+        "year_2_fall":   ["MUSC512", "elective_2", "elective_3"],
+        "year_2_spring": ["MUSC580"]
+      },
+      "constraints": [
+        "32 total credits required.",
+        "Conducting seminars (MUSC515-516): 4 credits.",
+        "Applied conducting lessons (MUSA501-502): 4 credits.",
+        "Large ensemble conducting practicum (MUSA507-508): 2 credits.",
+        "Orchestral, choral, and wind ensemble specializations are available.",
+        "Conducting recital/final project required.",
+        "Keyboard proficiency exam required.",
+        "GPA of 3.0 or higher required."
+      ],
+      "notes": [
+        "Source: https://www.masongross.rutgers.edu/graduate/music/"
+      ]
+    },
+
+    "music_mm_jazz": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Music, Jazz Studies (MM)",
+      "catalog_year": "2025-2026",
+      "program_years": 2,
+      "total_credits": 32,
+      "required_courses": [
+        "MUSC504",
+        "MUSC509", "MUSC510",
+        "MUSC523",
+        "MUSA501", "MUSA502", "MUSA503", "MUSA504",
+        "MUSA505", "MUSA506",
+        "MUSC580"
+      ],
+      "electives": {
+        "count": 3,
+        "description": "9 credits of graduate electives in jazz history, arranging, or music theory.",
+        "options": [
+          "MUSC501", "MUSC503",
+          "MUSC506", "MUSC507",
+          "MUSA507", "MUSA508"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["MUSC509", "MUSA501", "MUSA505", "MUSC504", "elective_1"],
+        "year_1_spring": ["MUSC510", "MUSA502", "MUSA506", "MUSC523", "elective_2"],
+        "year_2_fall":   ["MUSA503", "elective_3"],
+        "year_2_spring": ["MUSA504", "MUSC580"]
+      },
+      "constraints": [
+        "32 total credits required.",
+        "Applied jazz lessons (MUSA501-504): 8 credits across 4 semesters.",
+        "Jazz combo and ensemble (MUSA505-506): 2 credits.",
+        "Graduate recital required.",
+        "Audition on primary jazz instrument required for admission.",
+        "GPA of 3.0 or higher required."
+      ],
+      "notes": [
+        "Source: https://www.masongross.rutgers.edu/graduate/music/"
+      ]
+    },
+
+    "music_mat_education": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Music Education (MAT)",
+      "catalog_year": "2025-2026",
+      "program_years": 2,
+      "total_credits": 36,
+      "required_courses": [
+        "MUSC517",
+        "MUSC518",
+        "MUSC519",
+        "MUSC504",
+        "MUSC501",
+        "MUSA501", "MUSA502",
+        "MUSA507",
+        "MUSC521",
+        "MUSC580"
+      ],
+      "electives": {
+        "count": 2,
+        "description": "6 credits of approved graduate electives in music or education.",
+        "options": [
+          "MUSC503", "MUSC505", "MUSC506", "MUSC507",
+          "MUSC511", "MUSC512", "MUSC513"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["MUSC517", "MUSC504", "MUSA501", "MUSA507", "MUSC501"],
+        "year_1_spring": ["MUSC518", "MUSC521", "MUSA502", "elective_1"],
+        "year_2_fall":   ["MUSC519", "elective_2"],
+        "year_2_spring": ["MUSC580"]
+      },
+      "constraints": [
+        "36 total credits required.",
+        "MUSC519 (Supervised Teaching) requires a placement in a NJ school; must hold or be pursuing teacher certification.",
+        "New Jersey teaching certificate required for full program completion.",
+        "Applied lessons (MUSA501-502) continued to maintain performance skills.",
+        "GPA of 3.0 or higher required.",
+        "National Teachers Examination or equivalent state licensure exam required."
+      ],
+      "notes": [
+        "The MAT option leads to NJ K-12 Music teacher certification.",
+        "Students who hold a BM in Music Education are strongly preferred for admission.",
+        "Source: https://www.masongross.rutgers.edu/graduate/music/"
+      ]
+    },
+
+    "music_mm_opera": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Music, Opera (MM)",
+      "catalog_year": "2025-2026",
+      "program_years": 2,
+      "total_credits": 32,
+      "required_courses": [
+        "MUSA501", "MUSA502", "MUSA503", "MUSA504",
+        "MUSA509", "MUSA510",
+        "MUSA505", "MUSA506",
+        "MUSC504", "MUSC505",
+        "MUSC521",
+        "MUSC580"
+      ],
+      "electives": {
+        "count": 1,
+        "description": "3 credits of graduate electives selected with faculty adviser.",
+        "options": [
+          "MUSC501", "MUSC503",
+          "MUSC506", "MUSC507"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["MUSA501", "MUSA509", "MUSA505", "MUSC504"],
+        "year_1_spring": ["MUSA502", "MUSA510", "MUSA506", "MUSC505"],
+        "year_2_fall":   ["MUSA503", "MUSC521", "elective_1"],
+        "year_2_spring": ["MUSA504", "MUSC580"]
+      },
+      "constraints": [
+        "32 total credits required.",
+        "Applied vocal lessons (MUSA501-504): 8 credits across 4 semesters.",
+        "Opera workshop (MUSA509-510): 4 credits — full role preparation and staged performance required.",
+        "Graduate recital required.",
+        "Audition in operatic repertoire required for admission.",
+        "Diction in Italian, German, and French expected at start of program.",
+        "GPA of 3.0 or higher required."
+      ],
+      "notes": [
+        "Students perform leading roles in Mason Gross Opera productions.",
+        "Source: https://www.masongross.rutgers.edu/graduate/music/"
+      ]
+    },
+
+    "theater_mfa_design": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Theater Arts, Design/Technology (MFA)",
+      "catalog_year": "2025-2026",
+      "program_years": 3,
+      "total_credits": 60,
+      "required_courses": [
+        "THTR501",
+        "THTR503",
+        "THTR505",
+        "THTA507", "THTA508",
+        "THTA511", "THTA512",
+        "THTA515", "THTA516",
+        "THTA590"
+      ],
+      "design_specialization": {
+        "description": "Students choose one specialization: Scenic Design, Costume Design, Lighting Design, or Sound Design. Required specialization courses supplement the core.",
+        "scenic_design": ["THTA517"],
+        "costume_design": ["THTA518"],
+        "lighting_design": ["THTA519"],
+        "sound_design": ["THTA520"]
+      },
+      "electives": {
+        "count": 5,
+        "description": "15 credits of graduate electives; may include cross-disciplinary design courses, production work, or approved academic courses.",
+        "options": [
+          "THTA501", "THTA502",
+          "THTA503", "THTA504",
+          "THTA509", "THTA510",
+          "THTA513", "THTA514",
+          "THTA517", "THTA518", "THTA519", "THTA520",
+          "THTR501", "THTR503", "THTR505"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["THTR501", "THTA507", "THTA515", "specialization_course"],
+        "year_1_spring": ["THTR503", "THTA508", "THTA516", "elective_1"],
+        "year_2_fall":   ["THTR505", "THTA511", "elective_2"],
+        "year_2_spring": ["THTA512", "elective_3"],
+        "year_3_fall":   ["elective_4", "elective_5"],
+        "year_3_spring": ["THTA590"]
+      },
+      "constraints": [
+        "60 total credits required.",
+        "Three full seasons of production work required.",
+        "MFA Thesis (THTA590, 6 credits) consists of a fully realized production design and written documentation.",
+        "Portfolio review at end of first year.",
+        "Applicants must submit a design portfolio.",
+        "GPA of 3.0 or higher required.",
+        "Full-time enrollment required."
+      ],
+      "notes": [
+        "Program trains designers for theater, opera, film, and television.",
+        "Students design mainstage productions beginning in Year 2.",
+        "Source: https://www.masongross.rutgers.edu/graduate/theater-arts/"
+      ]
+    },
+
+    "theater_mfa_stage_management": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Theater Arts, Stage Management (MFA)",
+      "catalog_year": "2025-2026",
+      "program_years": 3,
+      "total_credits": 60,
+      "required_courses": [
+        "THTR501",
+        "THTR503",
+        "THTR505",
+        "THTA513", "THTA514",
+        "THTA515", "THTA516",
+        "THTA507",
+        "THTA590"
+      ],
+      "electives": {
+        "count": 7,
+        "description": "21 credits of graduate electives; production assignments, design courses, and academic seminars all count toward elective requirements.",
+        "options": [
+          "THTA501", "THTA502",
+          "THTA508", "THTA511", "THTA512",
+          "THTA517", "THTA518", "THTA519", "THTA520",
+          "THTR501", "THTR503", "THTR505"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["THTR501", "THTA513", "THTA515", "THTA507"],
+        "year_1_spring": ["THTR503", "THTA514", "THTA516", "elective_1"],
+        "year_2_fall":   ["THTR505", "elective_2", "elective_3"],
+        "year_2_spring": ["elective_4", "elective_5"],
+        "year_3_fall":   ["elective_6", "elective_7"],
+        "year_3_spring": ["THTA590"]
+      },
+      "constraints": [
+        "60 total credits required.",
+        "Three full production seasons as stage manager required; roles escalate in scope each year.",
+        "MFA Thesis (THTA590, 6 credits) consists of a fully stage-managed mainstage production and written documentation.",
+        "Must demonstrate proficiency in production scheduling, calling cues, and company management.",
+        "GPA of 3.0 or higher required.",
+        "Full-time enrollment required."
+      ],
+      "notes": [
+        "Students work alongside Equity directors and designers on Mason Gross mainstage productions.",
+        "Source: https://www.masongross.rutgers.edu/graduate/theater-arts/"
+      ]
+    },
+
+    "visual_arts_mfa": {
+      "school": "MGSA",
+      "degree_level": "master",
+      "major_name": "Visual Arts (MFA)",
+      "catalog_year": "2025-2026",
+      "program_years": 2,
+      "total_credits": 60,
+      "required_courses": [
+        "ART501", "ART502", "ART503", "ART504",
+        "ART511", "ART512", "ART513", "ART514",
+        "ART515",
+        "ART516",
+        "ART590"
+      ],
+      "electives": {
+        "count": 2,
+        "description": "6 credits of approved graduate electives; cross-disciplinary courses from other MGSA departments may count with adviser approval.",
+        "options": [
+          "ART501", "ART502", "ART503", "ART504",
+          "ART515", "ART516"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_sequence": {
+        "year_1_fall":   ["ART501", "ART511", "ART515"],
+        "year_1_spring": ["ART502", "ART512", "elective_1"],
+        "year_2_fall":   ["ART503", "ART513", "ART516"],
+        "year_2_spring": ["ART504", "ART514", "elective_2", "ART590"]
+      },
+      "constraints": [
+        "60 total credits required.",
+        "Studio practice courses (ART511-514): 24 credits across 4 semesters.",
+        "Graduate seminars (ART501-504): 12 credits across 4 semesters.",
+        "MFA Thesis Exhibition (ART590, 6 credits) is a fully installed public exhibition with accompanying artist statement.",
+        "Thesis review by faculty and outside critics required.",
+        "Applicants must submit a portfolio of 15-20 works.",
+        "GPA of 3.0 or higher required.",
+        "Full-time enrollment expected."
+      ],
+      "notes": [
+        "Students develop a concentrated studio practice; disciplines include painting, drawing, printmaking, photography, sculpture, and media art.",
+        "Individual studio space provided to all MFA students.",
+        "Two-year terminal degree; no thesis document beyond artist statement required.",
+        "Source: https://www.masongross.rutgers.edu/graduate/visual-arts/"
+      ]
     }
   }
 }

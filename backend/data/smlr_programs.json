@@ -1,0 +1,176 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+
+    "human_resource_management_ba": {
+      "school": "SMLR",
+      "degree_level": "bachelor_ba",
+      "major_name": "Human Resource Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "HRM301",
+        "HRM311", "HRM312", "HRM313",
+        "HRM315", "HRM317", "HRM318",
+        "HRM360",
+        "LSER345", "LSER364", "LSER376",
+        "LER315"
+      ],
+      "electives": {
+        "description": "Three additional courses from HRM or LER offerings (no more than 3 LER total across required + electives)",
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "HRM351", "HRM352", "HRM353", "HRM354", "HRM355", "HRM440",
+          "LER312", "LER314", "LER316", "LER318", "LER319",
+          "LER325", "LER326", "LER338", "LER350", "LER360",
+          "LER363", "LER367", "LER368", "LER375", "LER377", "LER385",
+          "LER401", "LER402", "LER403", "LER404", "LER450"
+        ],
+        "any_from_catalog": false
+      },
+      "related_requirement": {
+        "description": "Three courses from related disciplines: Psychology, Economics, or Sociology",
+        "count": 3,
+        "options": [
+          "PSYC221", "PSYC321", "PSYC331", "PSYC336", "PSYC338",
+          "ECON102", "ECON103", "ECON220", "ECON322", "ECON362",
+          "SOC201", "SOC308", "SOC320", "SOC380"
+        ]
+      },
+      "constraints": [
+        "HRM301 (Introduction to Human Resource Management) must be completed before all other HRM major courses; grade of C or higher required.",
+        "Organizational Behavior (LSER345) and Employment Law (LER315) may be taken concurrently with HRM301.",
+        "No more than 3 Labor Studies (LER) courses may count toward the 12 major courses.",
+        "Grade of C or better required in all courses used to fulfill major requirements.",
+        "Total major credits: 45-48 (15-16 courses). Total degree credits: ~120."
+      ],
+      "notes": [
+        "Multidisciplinary major drawing from business strategy, psychology, economics, and sociology.",
+        "Program requirements effective September 1, 2021.",
+        "Internship opportunities available via HRM496/497 (not required but recommended)."
+      ]
+    },
+
+    "labor_studies_employment_relations_ba": {
+      "school": "SMLR",
+      "degree_level": "bachelor_ba",
+      "major_name": "Labor Studies and Employment Relations",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LER395"
+      ],
+      "intro_requirement": {
+        "description": "One introductory course (choose one)",
+        "options": ["LER100", "LER110"]
+      },
+      "capstone_requirement": {
+        "description": "One capstone or internship course (choose one)",
+        "options": ["LER490", "LER496", "LER497", "LER450"]
+      },
+      "research_requirement": {
+        "description": "One research methods or statistics course",
+        "options": [
+          "LER401",
+          "SOC311", "PSYC200", "POLS300", "GEOG319", "ECON322", "STAT211", "STAT212", "STAT285"
+        ]
+      },
+      "electives": {
+        "description": "27 credits of Labor Studies electives (200-400 level LER courses); up to 6 credits may be from related social science departments",
+        "count": 9,
+        "min_level_200_plus": 9,
+        "options": [
+          "LER201", "LER202", "LER203", "LER207",
+          "LER215", "LER220", "LER230", "LER240", "LER250", "LER265",
+          "LER294", "LER295", "LER297", "LER298",
+          "LER300", "LER301", "LER302", "LER303", "LER304",
+          "LER307", "LER308", "LER309", "LER310", "LER311",
+          "LER312", "LER313", "LER314", "LER315", "LER316",
+          "LER317", "LER318", "LER319", "LER320", "LER321",
+          "LER322", "LER325", "LER326", "LER330", "LER335",
+          "LER336", "LER337", "LER338", "LER340", "LER350",
+          "LER355", "LER357", "LER359", "LER360", "LER361",
+          "LER362", "LER363", "LER366", "LER367", "LER368",
+          "LER375", "LER377", "LER378", "LER385",
+          "LER401", "LER402", "LER403", "LER404", "LER407", "LER450", "LER470",
+          "LSER345", "LSER364", "LSER376",
+          "HRM301", "HRM311", "HRM312", "HRM313", "HRM315", "HRM317", "HRM318"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "36 credits of LER (Labor Studies) courses required for the major; minimum grade of C or better in each.",
+        "Joint offering between SMLR and School of Arts and Sciences (SAS); student must be admitted to SAS.",
+        "LER395 requires submission of a brief essay prior to enrollment.",
+        "Up to 6 elective credits may come from related social science disciplines (Sociology, Economics, Political Science, etc.).",
+        "Students with relevant work experience may substitute the capstone with any 200-400 level LER course (resume required).",
+        "Total degree credits: ~120."
+      ],
+      "notes": [
+        "Addresses contemporary workplace issues including work-life balance, employee rights, collective bargaining, and global labor.",
+        "Minimum GPA of 2.0 required for major declaration.",
+        "Conditional admission via SAS major/minor sign-up portal."
+      ]
+    },
+
+    "labor_employment_relations_bs": {
+      "school": "SMLR",
+      "degree_level": "bachelor_bs",
+      "major_name": "Labor and Employment Relations",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "LER315",
+        "LER395"
+      ],
+      "intro_requirement": {
+        "description": "One introductory course (choose one)",
+        "options": ["LER100", "LER110"]
+      },
+      "capstone_requirement": {
+        "description": "One capstone or internship course (choose one)",
+        "options": ["LER490", "LER496", "LER497", "LER450"]
+      },
+      "research_requirement": {
+        "description": "One research methods or statistics course",
+        "options": [
+          "LER401",
+          "SOC311", "PSYC200", "POLS300", "GEOG319", "ECON322", "STAT211", "STAT212", "STAT285"
+        ]
+      },
+      "electives": {
+        "description": "24 credits of LER electives (200-400 level); up to 6 credits may be from related social science departments",
+        "count": 8,
+        "min_level_200_plus": 8,
+        "options": [
+          "LER201", "LER202", "LER203", "LER207",
+          "LER215", "LER220", "LER230", "LER240", "LER250", "LER265",
+          "LER294", "LER295", "LER297", "LER298",
+          "LER300", "LER301", "LER302", "LER303", "LER304",
+          "LER307", "LER308", "LER309", "LER310", "LER311",
+          "LER312", "LER313", "LER314", "LER316",
+          "LER317", "LER318", "LER319", "LER320", "LER321",
+          "LER322", "LER325", "LER326", "LER330", "LER335",
+          "LER336", "LER337", "LER338", "LER340", "LER350",
+          "LER355", "LER357", "LER359", "LER360", "LER361",
+          "LER362", "LER363", "LER366", "LER367", "LER368",
+          "LER375", "LER377", "LER378", "LER385",
+          "LER402", "LER403", "LER404", "LER407", "LER470",
+          "LSER345", "LSER364", "LSER376"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "36 credits of undergraduate LER courses required, with a grade of C or better in each.",
+        "Designed for students with at least one year of college completed; flexible scheduling (online, daytime, weekend, evening, off-campus).",
+        "Students who have completed an AA or AS from an NJ county college satisfy most general education requirements.",
+        "Up to 6 elective credits may come from related social science disciplines.",
+        "Total degree credits: ~120."
+      ],
+      "notes": [
+        "Flexible scheduling options including online and evening/weekend courses for working students.",
+        "Non-traditional degree-completion program; contact SMLR advisors for transfer credit evaluation.",
+        "Advisors: Anuja Rivera (anujab@smlr.rutgers.edu) or Bill Bailey (william.bailey@rutgers.edu)."
+      ]
+    }
+
+  }
+}

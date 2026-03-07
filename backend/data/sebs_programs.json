@@ -1,0 +1,1197 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+
+    "agricultural_business_management_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Agricultural Business Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "ECON201",
+        "ECON202",
+        "ACCT272",
+        "BIO103",
+        "CHEM161",
+        "AGECO103",
+        "AGECO220",
+        "AGECO256",
+        "AGECO301",
+        "AGECO315",
+        "AGECO330",
+        "AGECO351",
+        "AGECO455",
+        "AGECO492"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "AGECO400", "AGECO420", "AGECO430", "AGECO460", "AGECO470", "AGECO480",
+          "ENVSCI201", "EENR101", "PLSC100"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 120.",
+        "Core AGECO requirements (18 credits): AGECO103, AGECO220, AGECO256, AGECO301, AGECO315, AGECO330.",
+        "Advanced AGECO requirements (9 credits): AGECO351, AGECO455, AGECO492.",
+        "Three AGECO electives (9 credits) chosen from 300/400-level approved list; at least two at the 300-level or above.",
+        "Supporting science: BIO103 and CHEM161.",
+        "Business foundation: ECON201, ECON202, ACCT272.",
+        "Mathematics and statistics: MATH115 and STAT211.",
+        "Writing requirement: EXPOS101.",
+        "Minimum grade of C required in all major courses.",
+        "Additional general education, social science, and humanity requirements apply per SEBS guidelines."
+      ],
+      "notes": [
+        "Prepares students for careers in agribusiness, farm management, food industry, and agricultural finance.",
+        "Internship strongly recommended; AGECO480 (Agricultural Entrepreneurship) satisfies entrepreneurship elective."
+      ]
+    },
+
+    "animal_science_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Animal Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM163",
+        "CHEM307",
+        "CHEM308",
+        "GENET302",
+        "ANSC101",
+        "ANSC200",
+        "ANSC201",
+        "ANSC210",
+        "ANSC220",
+        "ANSC301",
+        "ANSC311",
+        "ANSC370",
+        "ANSC492"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "ANSC211", "ANSC320", "ANSC330", "ANSC340", "ANSC380",
+          "ANSC400", "ANSC410", "ANSC420", "ANSC430",
+          "PBIO201", "MICROB316", "NUTRSCI101"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 122.",
+        "Core ANSC sequence: ANSC101, ANSC200, ANSC201, ANSC210, ANSC220.",
+        "Advanced ANSC core: ANSC301, ANSC311, ANSC370, ANSC492.",
+        "Four ANSC electives (12 credits) from approved list; at least three at the 300-level or above.",
+        "Chemistry sequence: CHEM161, CHEM162, CHEM171, CHEM163, CHEM307, CHEM308.",
+        "Biology sequence: BIO115, BIO117, BIO116, BIO118.",
+        "Genetics: GENET302.",
+        "Mathematics: MATH115. Statistics: STAT211.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Concentrations available: Companion Animals, Equine Science, Livestock Production, Pre-Veterinary.",
+        "Pre-veterinary students should complete additional upper-level biology and chemistry courses."
+      ]
+    },
+
+    "biochemistry_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Biochemistry",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH151",
+        "MATH152",
+        "STAT211",
+        "PHYS123",
+        "PHYS124",
+        "PHYS227",
+        "PHYS229",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM163",
+        "CHEM307",
+        "CHEM308",
+        "CHEM309",
+        "CHEM310",
+        "MCB380",
+        "MCB381",
+        "MCB207",
+        "GENET302"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "MCB301", "MCB407", "MCB408", "MCB411", "MCB412", "MCB413", "MCB420", "MCB421",
+          "CHEM341", "CHEM348", "CHEM351",
+          "MICROB380", "BIOTECH301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 124.",
+        "Mathematics: MATH151, MATH152.",
+        "Physics: PHYS123, PHYS124, PHYS227, PHYS229.",
+        "Biology sequence: BIO115, BIO117, BIO116, BIO118.",
+        "Chemistry sequence: CHEM161, CHEM162, CHEM171, CHEM163, CHEM307, CHEM308, CHEM309, CHEM310.",
+        "Biochemistry core: MCB380, MCB381, MCB207.",
+        "Genetics: GENET302.",
+        "Three advanced electives (9 credits) at the 300-level or above from approved MCB/CHEM list.",
+        "Writing: EXPOS101. Statistics: STAT211.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "This BS is jointly offered by SEBS and SAS; students may be enrolled through either school.",
+        "Strong preparation for graduate study, medical school, pharmacy school, or biotechnology careers.",
+        "Research experience (MCB/CHEM independent research credits) strongly encouraged."
+      ]
+    },
+
+    "bioenvironmental_engineering_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Bioenvironmental Engineering",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENG101", "ENG102",
+        "EXPOS101",
+        "CHEM159", "CHEM171",
+        "MATH151",
+        "PHYS123",
+        "CHEM160",
+        "MATH152",
+        "PHYS124",
+        "ENG221",
+        "MATH251",
+        "MATH244",
+        "PHYS227",
+        "PHYS229",
+        "BIO103",
+        "ISE343",
+        "ENVSCI201",
+        "ENVSCI202",
+        "ENVSCI303",
+        "CEE243",
+        "BSYSE100",
+        "BSYSE200",
+        "BSYSE210",
+        "BSYSE220",
+        "BSYSE230",
+        "BSYSE301",
+        "BSYSE310",
+        "BSYSE320",
+        "BSYSE400",
+        "BSYSE410",
+        "BSYSE492"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "BSYSE330", "BSYSE340", "BSYSE420",
+          "ENVSCI381", "ENVSCI401", "ENVSCI410",
+          "CEE387", "CEE429", "MAE351",
+          "EENR335", "PLSC220"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Joint program administered by SEBS and the School of Engineering.",
+        "Total credits: approximately 128.",
+        "Engineering foundation (first two years): same as SOE core including ENG101/102, CHEM159/160, MATH151/152/244/251, PHYS123/124/227/229, ISE343.",
+        "Environmental Sciences core: ENVSCI201, ENVSCI202, ENVSCI303.",
+        "Civil Engineering support: CEE243.",
+        "BSYSE core (18 credits): BSYSE200, BSYSE210, BSYSE220, BSYSE230, BSYSE301.",
+        "Advanced BSYSE (9 credits): BSYSE310, BSYSE320, BSYSE400.",
+        "Watershed and capstone: BSYSE410, BSYSE492.",
+        "Three technical electives from approved BSYSE/ENVSCI/CEE list.",
+        "Two H/SS electives required.",
+        "Minimum grade of C in all engineering and science courses."
+      ],
+      "notes": [
+        "Accredited by ABET through the School of Engineering.",
+        "Focuses on application of engineering principles to biological, agricultural, and environmental systems.",
+        "Combines elements of Civil, Environmental, and Biological engineering."
+      ]
+    },
+
+    "biotechnology_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Biotechnology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH151",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM163",
+        "CHEM307",
+        "CHEM308",
+        "GENET302",
+        "MCB201",
+        "BIOTECH115",
+        "BIOTECH210",
+        "BIOTECH215",
+        "BIOTECH301",
+        "BIOTECH311",
+        "BIOTECH492"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "BIOTECH320", "BIOTECH330", "BIOTECH400", "BIOTECH410", "BIOTECH420", "BIOTECH430",
+          "MICROB380", "MICROB391",
+          "MCB380", "MCB301",
+          "ANSC400", "PBIO410"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 120.",
+        "Introduction: BIOTECH115.",
+        "Core sequence: BIOTECH210, BIOTECH215, BIOTECH301, BIOTECH311.",
+        "Capstone: BIOTECH492.",
+        "Chemistry sequence: CHEM161, CHEM162, CHEM171, CHEM163, CHEM307, CHEM308.",
+        "Biology sequence: BIO115, BIO117, BIO116, BIO118.",
+        "Genetics: GENET302. Biochemistry: MCB201.",
+        "Mathematics: MATH151. Statistics: STAT211.",
+        "Four electives (12 credits) from approved list; at least three at the 300-level or above.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Interdisciplinary program spanning agricultural, industrial, and medical biotechnology.",
+        "Students interested in regulatory careers should take BIOTECH420.",
+        "Research thesis option available for students with 3.0+ GPA."
+      ]
+    },
+
+    "climate_and_society_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Climate and Society",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH151",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "CHEM161",
+        "CHEM162",
+        "ENVSCI101",
+        "ENVSCI201",
+        "ENVSCI202",
+        "ENVSCI303",
+        "METEOR101",
+        "METEOR121",
+        "METEOR431",
+        "METEOR450",
+        "ENVSCI430",
+        "EENR101",
+        "HUMEC410",
+        "ECON201"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "ENVSCI311", "ENVSCI381", "ENVSCI410", "ENVSCI420", "ENVSCI492",
+          "METEOR400", "METEOR440",
+          "EENR325", "EENR400", "EENR430",
+          "HUMEC401", "HUMEC415", "HUMEC420", "HUMEC430",
+          "AGECO330", "AGECO351"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 120.",
+        "Interdisciplinary program drawing on environmental, atmospheric, and social sciences.",
+        "Science core: ENVSCI101, ENVSCI201, ENVSCI202, ENVSCI303, BIO115, BIO117, CHEM161, CHEM162.",
+        "Atmospheric science: METEOR101, METEOR121, METEOR431, METEOR450.",
+        "Climate and society bridge: ENVSCI430, HUMEC410.",
+        "Policy context: EENR101, ECON201.",
+        "Four electives (12 credits) from approved interdisciplinary list; at least three at 300-level or above.",
+        "Writing: EXPOS101. Mathematics: MATH151. Statistics: STAT211.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Program prepares students for careers in climate policy, environmental consulting, sustainability, and research.",
+        "Students are encouraged to complete a minor in Economics, Geography, or a related field.",
+        "Research or internship experience strongly recommended."
+      ]
+    },
+
+    "ecology_evolution_natural_resources_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Ecology, Evolution, and Natural Resources",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "EENR101",
+        "EENR201",
+        "EENR202",
+        "EENR220",
+        "EENR300",
+        "EENR305",
+        "EENR350",
+        "EENR492"
+      ],
+      "electives": {
+        "count": 5,
+        "min_level_300_plus": 4,
+        "options": [
+          "EENR315", "EENR325", "EENR330", "EENR335", "EENR340",
+          "EENR400", "EENR405", "EENR410", "EENR415", "EENR420", "EENR430",
+          "ENVSCI201", "ENVSCI202", "ENVSCI311", "ENVSCI381", "ENVSCI385",
+          "MARINE200", "MARINE220", "METEOR101",
+          "PBIO201", "PLSC220"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 120.",
+        "Introduction and core: EENR101, EENR201, EENR202, EENR220.",
+        "Advanced core: EENR300, EENR305, EENR350.",
+        "Capstone: EENR492.",
+        "Five electives (15 credits) from approved EENR/ENVSCI/related list; at least four at 300-level or above.",
+        "Science foundation: BIO115, BIO117, BIO116, BIO118, CHEM161, CHEM162, CHEM171.",
+        "Mathematics: MATH115. Statistics: STAT211.",
+        "Writing: EXPOS101.",
+        "Field experience strongly encouraged; EENR305 fulfills field methods requirement.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Concentrations available: Wildlife Ecology, Conservation Biology, Forest Resources, Wetland and Aquatic Ecology.",
+        "GIS skills (ENVSCI385) strongly recommended for all concentrations.",
+        "Many students pursue careers in wildlife management, conservation, environmental consulting, or graduate study."
+      ]
+    },
+
+    "environmental_and_business_economics_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Environmental and Business Economics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "ECON201",
+        "ECON202",
+        "ACCT272",
+        "BIO103",
+        "CHEM161",
+        "ENVSCI101",
+        "AGECO103",
+        "AGECO220",
+        "AGECO351",
+        "AGECO330",
+        "AGECO400",
+        "AGECO420",
+        "AGECO492"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "AGECO430", "AGECO455", "AGECO460", "AGECO470", "AGECO480",
+          "ECON300", "ECON301", "ECON320", "ECON321",
+          "ENVSCI201", "ENVSCI311", "ENVSCI381",
+          "EENR410", "HUMEC410"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 122.",
+        "Interdisciplinary program combining environmental science with economics and business.",
+        "Economics core: ECON201, ECON202, AGECO103, AGECO220.",
+        "Environmental economics: AGECO351, AGECO330, AGECO400, AGECO420.",
+        "Capstone: AGECO492.",
+        "Business support: ACCT272.",
+        "Four electives (12 credits) from approved AGECO/ECON/ENVSCI list; at least three at 300-level.",
+        "Science requirement: BIO103, CHEM161, ENVSCI101.",
+        "Writing: EXPOS101. Math: MATH115. Stats: STAT211.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Ideal for students interested in environmental policy, natural resource economics, sustainability consulting, or public policy.",
+        "Students are encouraged to minor in Public Policy or Statistics."
+      ]
+    },
+
+    "environmental_policy_institutions_behavior_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Environmental Policy, Institutions, and Behavior",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "ECON201",
+        "BIO103",
+        "CHEM161",
+        "ENVSCI101",
+        "ENVSCI201",
+        "ENVSCI322",
+        "EENR101",
+        "EENR410",
+        "HUMEC101",
+        "HUMEC310",
+        "HUMEC401",
+        "HUMEC410",
+        "HUMEC415",
+        "HUMEC420",
+        "HUMEC492"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "HUMEC430", "HUMEC320", "HUMEC350",
+          "ENVSCI381", "ENVSCI385", "ENVSCI420", "ENVSCI430",
+          "EENR325", "EENR405",
+          "AGECO330", "AGECO351",
+          "ECON300", "ECON301"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 120.",
+        "Interdisciplinary program in the Department of Human Ecology.",
+        "Core environmental: ENVSCI101, ENVSCI201, ENVSCI322, EENR101, EENR410.",
+        "Human ecology core: HUMEC101, HUMEC310, HUMEC401, HUMEC410, HUMEC415, HUMEC420.",
+        "Capstone: HUMEC492.",
+        "Social science: ECON201.",
+        "Science requirements: BIO103, CHEM161.",
+        "Four electives (12 credits) from approved interdisciplinary list; at least three at 300-level.",
+        "Writing: EXPOS101. Math: MATH115. Stats: STAT211.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Program focuses on the human dimensions of environmental change and the role of institutions and behavior in sustainability.",
+        "Strong preparation for law school, public policy graduate programs, government, and NGO careers.",
+        "Internship with an environmental organization or government agency strongly recommended."
+      ]
+    },
+
+    "environmental_sciences_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Environmental Sciences",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH151",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM307",
+        "ENVSCI101",
+        "ENVSCI201",
+        "ENVSCI202",
+        "ENVSCI303",
+        "ENVSCI311",
+        "ENVSCI381",
+        "ENVSCI385",
+        "ENVSCI492"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "ENVSCI401", "ENVSCI410", "ENVSCI420", "ENVSCI430",
+          "EENR300", "EENR325", "EENR335", "EENR340", "EENR400", "EENR430",
+          "MARINE200", "MARINE210",
+          "METEOR101", "METEOR431",
+          "PLSC220", "MICROB400"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 122.",
+        "Introduction: ENVSCI101.",
+        "Core sequence: ENVSCI201, ENVSCI202, ENVSCI303.",
+        "Advanced core: ENVSCI311, ENVSCI381, ENVSCI385.",
+        "Capstone seminar: ENVSCI492.",
+        "Chemistry: CHEM161, CHEM162, CHEM171, CHEM307.",
+        "Biology: BIO115, BIO117, BIO116.",
+        "Mathematics: MATH151. Statistics: STAT211.",
+        "Four electives (12 credits) from approved interdisciplinary science list; at least three at 300-level.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Concentrations available: Environmental Chemistry, Environmental Biology, Environmental Geology (joint with Earth and Planetary Sciences), and Soil and Water Sciences.",
+        "GIS skills (ENVSCI385) are required and valuable for all concentrations.",
+        "Students are encouraged to pursue undergraduate research opportunities."
+      ]
+    },
+
+    "food_science_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Food Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM163",
+        "CHEM307",
+        "CHEM308",
+        "MICROB316",
+        "MICROB317",
+        "FS100",
+        "FS203",
+        "FS204",
+        "FS205",
+        "FS206",
+        "FS215",
+        "FS301",
+        "FS302",
+        "FS303",
+        "FS370",
+        "FS380",
+        "FS404",
+        "FS492"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 2,
+        "options": [
+          "FS400", "FS405", "FS410", "FS491",
+          "NUTRSCI101", "NUTRSCI204",
+          "MICROB380", "MICROB405"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 126.",
+        "Microbiology prerequisite: MICROB316 and MICROB317 required before FS205.",
+        "Food Science core (27 credits): FS203, FS204, FS205, FS206, FS215, FS301, FS302, FS303, FS370.",
+        "Advanced Food Science (9 credits): FS380, FS404, FS492.",
+        "Chemistry: CHEM161, CHEM162, CHEM171, CHEM163, CHEM307, CHEM308.",
+        "Biology: BIO115, BIO117, BIO116, BIO118.",
+        "Two electives (6 credits) from approved FS/NUTRSCI/MICROB list at 300-level or above.",
+        "Writing: EXPOS101. Math: MATH115. Stats: STAT211.",
+        "Minimum grade of C in all major courses.",
+        "IFT (Institute of Food Technologists) approved program."
+      ],
+      "notes": [
+        "Program is accredited/approved by the Institute of Food Technologists (IFT).",
+        "Internship in the food industry strongly recommended and available for credit (FS491).",
+        "Students interested in regulatory careers should take FS405."
+      ]
+    },
+
+    "human_ecology_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Human Ecology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "ECON201",
+        "BIO103",
+        "ENVSCI101",
+        "HUMEC101",
+        "HUMEC201",
+        "HUMEC231",
+        "HUMEC240",
+        "HUMEC310",
+        "HUMEC320",
+        "HUMEC340",
+        "HUMEC401",
+        "HUMEC492"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "HUMEC330", "HUMEC350", "HUMEC410", "HUMEC415", "HUMEC420", "HUMEC430",
+          "ENVSCI201", "ENVSCI311", "ENVSCI381",
+          "EENR101", "EENR325", "EENR410",
+          "AGECO103", "AGECO351"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 118.",
+        "Human Ecology core: HUMEC101, HUMEC201, HUMEC231, HUMEC240.",
+        "Applied core: HUMEC310, HUMEC320, HUMEC340, HUMEC401.",
+        "Capstone: HUMEC492.",
+        "Supporting sciences: BIO103, ENVSCI101.",
+        "Social science: ECON201.",
+        "Four electives (12 credits) from approved HUMEC/ENVSCI/EENR list; at least three at 300-level.",
+        "Writing: EXPOS101. Math: MATH115. Stats: STAT211.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Interdisciplinary program examining the relationship between humans and their natural and built environments.",
+        "Prepares students for careers in social services, community development, environmental education, and public policy.",
+        "Students may pursue a concentration in Environmental Education or Family and Consumer Science."
+      ]
+    },
+
+    "landscape_architecture_bsla": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bsla",
+      "major_name": "Landscape Architecture",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "ENVSCI101",
+        "ENVSCI201",
+        "LA101",
+        "LA102",
+        "LA201",
+        "LA202",
+        "LA203",
+        "LA204",
+        "LA205",
+        "LA301",
+        "LA302",
+        "LA303",
+        "LA304",
+        "LA310",
+        "LA311",
+        "LA401",
+        "LA402",
+        "LA410",
+        "LA420",
+        "LA490",
+        "LA491"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 2,
+        "options": [
+          "EENR315", "EENR325", "EENR400",
+          "ENVSCI381", "ENVSCI385",
+          "PLSC220", "PBIO201", "PBIO320"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 130.",
+        "Professional degree (BSLA); accredited by LAAB (Landscape Architectural Accreditation Board).",
+        "Studio sequence (core): LA102, LA201, LA301, LA401, LA490, LA491.",
+        "Technical requirements: LA202, LA302 (site engineering), LA205 (graphics).",
+        "Planting design: LA203, LA311.",
+        "History and theory: LA204, LA303, LA304.",
+        "Urban and ecological design: LA310, LA402, LA410, LA420.",
+        "Thesis: LA490 and LA491 (6 credits total).",
+        "All LA studio courses require a grade of C or better to advance.",
+        "Students must maintain satisfactory progress in the studio sequence.",
+        "Writing: EXPOS101. Math: MATH115. Stats: STAT211."
+      ],
+      "notes": [
+        "The BSLA is a professional degree qualifying graduates to sit for the Landscape Architect Registration Examination (LARE).",
+        "Internship (professional practice experience) strongly encouraged and may be required for licensure.",
+        "Students with a prior bachelor's degree may be eligible for the MLA (Master of Landscape Architecture) accelerated path."
+      ]
+    },
+
+    "marine_sciences_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Marine Sciences",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH151",
+        "MATH152",
+        "STAT211",
+        "PHYS123",
+        "PHYS124",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM307",
+        "MARINE100",
+        "MARINE200",
+        "MARINE210",
+        "MARINE220",
+        "MARINE310",
+        "MARINE320",
+        "MARINE330",
+        "MARINE360",
+        "MARINE492"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "MARINE340", "MARINE350", "MARINE400", "MARINE410", "MARINE420", "MARINE430",
+          "ENVSCI201", "ENVSCI303",
+          "EENR201", "EENR340",
+          "METEOR101", "METEOR210"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 124.",
+        "Marine core: MARINE100, MARINE200, MARINE210, MARINE220.",
+        "Advanced oceanography: MARINE310, MARINE320, MARINE330.",
+        "Field methods: MARINE360.",
+        "Capstone: MARINE492.",
+        "Science foundation: BIO115, BIO117, BIO116, BIO118, CHEM161, CHEM162, CHEM171, CHEM307.",
+        "Mathematics: MATH151, MATH152. Physics: PHYS123, PHYS124.",
+        "Statistics: STAT211.",
+        "Three electives (9 credits) at the 300-level or above from approved list.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Field trips to marine research stations (e.g., Rutgers Marine Field Station, Tuckerton) are integral to the program.",
+        "Prepares students for graduate study in oceanography, marine biology, coastal management, or marine policy careers.",
+        "MARINE360 (Marine Field Methods) involves mandatory weekend field trips."
+      ]
+    },
+
+    "meteorology_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Meteorology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH151",
+        "MATH152",
+        "MATH244",
+        "MATH251",
+        "STAT211",
+        "PHYS123",
+        "PHYS124",
+        "PHYS227",
+        "PHYS229",
+        "METEOR121",
+        "METEOR210",
+        "METEOR221",
+        "METEOR231",
+        "METEOR301",
+        "METEOR311",
+        "METEOR321",
+        "METEOR331",
+        "METEOR341",
+        "METEOR492"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "METEOR400", "METEOR410", "METEOR421", "METEOR431", "METEOR440", "METEOR450",
+          "ENVSCI430", "ENVSCI201",
+          "EENR335", "MARINE330"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 124.",
+        "Introduction: METEOR121.",
+        "Observation and analysis: METEOR210.",
+        "Dynamic sequence: METEOR221, METEOR321.",
+        "Synoptic sequence: METEOR231, METEOR331.",
+        "Physical meteorology: METEOR301, METEOR311.",
+        "Data analysis: METEOR341.",
+        "Capstone: METEOR492.",
+        "Three electives (9 credits) at the 300-level or above from approved METEOR/ENVSCI list.",
+        "Mathematics: MATH151, MATH152, MATH244, MATH251.",
+        "Physics: PHYS123, PHYS124, PHYS227, PHYS229.",
+        "Statistics: STAT211.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "AMS (American Meteorological Society) course certification standards are incorporated.",
+        "Students are encouraged to complete a minor in Mathematics, Computer Science, or Environmental Sciences.",
+        "The Rutgers Weather Lab provides operational forecasting experience.",
+        "METEOR421 (Numerical Weather Prediction) requires programming background (CS101 or equivalent recommended)."
+      ]
+    },
+
+    "microbiology_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Microbiology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH151",
+        "STAT211",
+        "PHYS123",
+        "PHYS124",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM163",
+        "CHEM307",
+        "CHEM308",
+        "GENET302",
+        "MCB201",
+        "MICROB316",
+        "MICROB317",
+        "MICROB380",
+        "MICROB390",
+        "MICROB391",
+        "MICROB492"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "MICROB400", "MICROB405", "MICROB407", "MICROB410", "MICROB415", "MICROB420",
+          "MCB380", "MCB301", "MCB407",
+          "BIOTECH301", "BIOTECH311"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 122.",
+        "Microbiology core: MICROB316, MICROB317, MICROB380.",
+        "Advanced core: MICROB390, MICROB391.",
+        "Capstone: MICROB492.",
+        "Biochemistry: MCB201.",
+        "Genetics: GENET302.",
+        "Chemistry: CHEM161, CHEM162, CHEM171, CHEM163, CHEM307, CHEM308.",
+        "Biology: BIO115, BIO117, BIO116, BIO118.",
+        "Physics: PHYS123, PHYS124.",
+        "Three electives (9 credits) at the 300-level or above from approved MICROB/MCB list.",
+        "Mathematics: MATH151. Statistics: STAT211.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Strong preparation for graduate school in microbiology, public health, medicine, or biotechnology.",
+        "Students interested in medical or clinical careers should include MICROB410 (Medical Microbiology).",
+        "Research credit (independent study) available for 3.0+ GPA students."
+      ]
+    },
+
+    "nutritional_sciences_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Nutritional Sciences",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM163",
+        "CHEM307",
+        "CHEM308",
+        "MICROB316",
+        "FS215",
+        "NUTRSCI101",
+        "NUTRSCI204",
+        "NUTRSCI310",
+        "NUTRSCI320",
+        "NUTRSCI330",
+        "NUTRSCI340",
+        "NUTRSCI350",
+        "NUTRSCI492"
+      ],
+      "electives": {
+        "count": 2,
+        "min_level_300_plus": 2,
+        "options": [
+          "NUTRSCI360", "NUTRSCI400", "NUTRSCI410", "NUTRSCI420", "NUTRSCI430",
+          "FS203", "FS301", "FS404",
+          "MICROB380"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 122.",
+        "Nutrition core: NUTRSCI101, NUTRSCI204.",
+        "Biochemistry sequence: NUTRSCI310, NUTRSCI320.",
+        "Applied nutrition: NUTRSCI330, NUTRSCI340, NUTRSCI350.",
+        "Capstone: NUTRSCI492.",
+        "Food Science support: FS215.",
+        "Microbiology: MICROB316.",
+        "Chemistry: CHEM161, CHEM162, CHEM171, CHEM163, CHEM307, CHEM308.",
+        "Biology: BIO115, BIO117, BIO116, BIO118.",
+        "Two electives (6 credits) at the 300-level or above from approved list.",
+        "Writing: EXPOS101. Math: MATH115. Stats: STAT211.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Prepares students for dietetic internship programs (DI) leading to Registered Dietitian Nutritionist (RDN) credential.",
+        "Students planning to become RDNs should consult with the program director for ACEND-approved didactic program requirements.",
+        "Research opportunities available through Rutgers Center for Lipid Research and other labs."
+      ]
+    },
+
+    "plant_biology_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Plant Biology",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH151",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "BIO118",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "CHEM307",
+        "GENET302",
+        "PBIO101",
+        "PBIO201",
+        "PBIO202",
+        "PBIO220",
+        "PBIO301",
+        "PBIO310",
+        "PBIO320",
+        "PBIO330",
+        "PBIO492"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 3,
+        "options": [
+          "PBIO400", "PBIO410", "PBIO420", "PBIO430",
+          "EENR201", "EENR220", "EENR315", "EENR325",
+          "MICROB316", "BIOTECH301",
+          "MCB380", "MCB201"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 120.",
+        "Introduction: PBIO101.",
+        "Core sequence: PBIO201, PBIO202, PBIO220.",
+        "Advanced core: PBIO301, PBIO310, PBIO320, PBIO330.",
+        "Capstone: PBIO492.",
+        "Chemistry: CHEM161, CHEM162, CHEM171, CHEM307.",
+        "Biology: BIO115, BIO117, BIO116, BIO118.",
+        "Genetics: GENET302.",
+        "Three electives (9 credits) at the 300-level or above from approved PBIO/EENR/MCB list.",
+        "Mathematics: MATH151. Statistics: STAT211.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Prepares students for graduate study in botany, plant biology, plant genomics, or careers in horticulture and agriculture.",
+        "Students interested in biotechnology should take PBIO410 and BIOTECH301.",
+        "The greenhouse facilities and botanical gardens provide hands-on research opportunities."
+      ]
+    },
+
+    "plant_science_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Plant Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "BIO116",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "GENET302",
+        "PLSC100",
+        "PLSC200",
+        "PLSC220",
+        "PLSC300",
+        "PLSC310",
+        "PLSC320",
+        "PLSC330",
+        "PLSC492"
+      ],
+      "electives": {
+        "count": 4,
+        "min_level_300_plus": 3,
+        "options": [
+          "PLSC230", "PLSC340", "PLSC350",
+          "PLSC400", "PLSC410", "PLSC420",
+          "PBIO201", "PBIO220", "PBIO320",
+          "EENR330", "AGECO103", "TURF200"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 120.",
+        "Introduction: PLSC100.",
+        "Core sequence: PLSC200, PLSC220, PLSC300.",
+        "Entomology and pathology: PLSC310, PLSC320.",
+        "Agronomy: PLSC330.",
+        "Capstone: PLSC492.",
+        "Chemistry: CHEM161, CHEM162, CHEM171.",
+        "Biology: BIO115, BIO117, BIO116.",
+        "Genetics: GENET302.",
+        "Four electives (12 credits) from approved PLSC/PBIO/related list; at least three at 300-level.",
+        "Mathematics: MATH115. Statistics: STAT211.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "Concentrations available: Agronomy, Horticulture, Plant Protection (Pest Management), and Sustainable Agriculture.",
+        "Students in the Plant Protection concentration should emphasize PLSC230, PLSC300, PLSC310, PLSC320.",
+        "Prepares students for careers in crop production, extension services, plant breeding, and sustainable agriculture."
+      ]
+    },
+
+    "turfgrass_science_bs": {
+      "school": "SEBS",
+      "degree_level": "bachelor_bs",
+      "major_name": "Turfgrass Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SEBS101",
+        "EXPOS101",
+        "MATH115",
+        "STAT211",
+        "BIO115",
+        "BIO117",
+        "CHEM161",
+        "CHEM162",
+        "CHEM171",
+        "PLSC200",
+        "PLSC220",
+        "PLSC320",
+        "TURF100",
+        "TURF200",
+        "TURF210",
+        "TURF300",
+        "TURF310",
+        "TURF320",
+        "TURF400",
+        "TURF492"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 2,
+        "options": [
+          "TURF330", "TURF410",
+          "PLSC300", "PLSC330", "PLSC340", "PLSC350", "PLSC420",
+          "AGECO103", "AGECO220", "AGECO455",
+          "EENR330"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total major credits: approximately 118.",
+        "Plant Science support: PLSC200, PLSC220, PLSC320.",
+        "Turfgrass core: TURF100, TURF200, TURF210, TURF300.",
+        "Applied management: TURF310, TURF320.",
+        "Advanced and capstone: TURF400, TURF492.",
+        "Chemistry: CHEM161, CHEM162, CHEM171.",
+        "Biology: BIO115, BIO117.",
+        "Three electives (9 credits) from approved TURF/PLSC/AGECO list; at least two at 300-level.",
+        "Mathematics: MATH115. Statistics: STAT211.",
+        "Writing: EXPOS101.",
+        "Minimum grade of C in all major courses."
+      ],
+      "notes": [
+        "One of the oldest and most distinguished turfgrass programs in the United States.",
+        "Students gain hands-on experience at the Rutgers Horticultural Farm and golf course facilities.",
+        "Graduates work in golf course management, sports turf, lawn care, sod production, and landscape management.",
+        "Students interested in the business side should add AGECO electives."
+      ]
+    }
+
+  }
+}

@@ -28,6 +28,11 @@ REGISTRY_FILES = [
     "mgsa_programs.json",
     "rbs_programs.json",
     "sci_programs.json",
+    "smlr_programs.json",
+    "sebs_programs.json",
+    "ssw_programs.json",
+    "son_programs.json",
+    "emsp_programs.json",
 ]
 
 

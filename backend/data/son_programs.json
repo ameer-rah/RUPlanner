@@ -1,0 +1,426 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+
+    "nursing_bsn": {
+      "school": "SON",
+      "degree_level": "bachelor_bs",
+      "major_name": "Nursing",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "NURS101",
+        "NURS110", "NURS111",
+        "NURS120",
+        "NURS130",
+        "NURS150", "NURS151",
+        "NURS200",
+        "NURS210", "NURS211",
+        "NURS220", "NURS221",
+        "NURS230",
+        "NURS300", "NURS301",
+        "NURS310", "NURS311",
+        "NURS320", "NURS321",
+        "NURS330", "NURS331",
+        "NURS340", "NURS341",
+        "NURS350", "NURS351",
+        "NURS400",
+        "NURS410",
+        "NURS420",
+        "NURS430"
+      ],
+      "prerequisites": {
+        "description": "Required pre-nursing prerequisites (completed before admission to the nursing major; not counted toward nursing credits)",
+        "notes": [
+          "English Composition (e.g. EXPOS101)",
+          "General Chemistry I (e.g. CHEM101 or equivalent)",
+          "Introduction to Psychology (e.g. PSYC101)",
+          "Introduction to Sociology (e.g. SOC201)",
+          "Statistics (e.g. STAT011 or equivalent)",
+          "Human Development across the Lifespan (e.g. PSYC260 or equivalent)"
+        ]
+      },
+      "electives": {
+        "description": "Liberal Arts and Science elective requirements — courses outside nursing to fulfill degree breadth",
+        "count": 4,
+        "options": [],
+        "any_from_catalog": true,
+        "notes": "Any approved humanities, social science, or natural science course meeting SON breadth requirements"
+      },
+      "constraints": [
+        "Admission to the BSN program requires a minimum GPA of 3.0 in prerequisite sciences.",
+        "NURS110 and NURS111 (A&P I and II) must be completed before NURS150 and NURS200.",
+        "NURS220 (Foundations of Nursing Practice) is the gateway course; must be completed before all 300-level NURS courses.",
+        "NURS210 must be completed before NURS300; NURS211 before NURS310.",
+        "NURS420 (Senior Practicum) requires completion of all 300-level clinical and theory courses.",
+        "Minimum grade of C required in all NURS courses; minimum grade of C+ required in all sciences.",
+        "Clinical placements (NURS221, 301, 311, 321, 331, 341, 351, 420) require current CPR certification, health clearance, and background check.",
+        "Total credits: approximately 120-128."
+      ],
+      "notes": [
+        "NCLEX-RN exam eligibility upon graduation.",
+        "CCNE-accredited program.",
+        "Source: https://nursing.rutgers.edu/academics/undergraduate/bsn/"
+      ]
+    },
+
+    "nursing_rn_bsn": {
+      "school": "SON",
+      "degree_level": "bachelor_bs",
+      "major_name": "Nursing (RN to BSN)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "NURS230",
+        "NURS350", "NURS351",
+        "NURS400",
+        "NURS410",
+        "NURS420",
+        "NURS430"
+      ],
+      "transfer_credit": {
+        "description": "Credit awarded for prior RN education and licensure",
+        "notes": [
+          "Students holding an active RN license receive credit for all foundational and clinical nursing courses (NURS101 through NURS341).",
+          "Credit equivalencies determined upon evaluation of ADN or diploma transcripts.",
+          "Transfer credit typically accounts for 30-60 nursing credits."
+        ]
+      },
+      "electives": {
+        "description": "Liberal Arts and Science electives to complete the baccalaureate degree",
+        "count": 3,
+        "options": [],
+        "any_from_catalog": true,
+        "notes": "Any approved humanities, social science, or natural science course meeting SON breadth requirements"
+      },
+      "constraints": [
+        "Applicants must hold a current, unrestricted RN license in New Jersey or a compact state.",
+        "Minimum cumulative GPA of 2.5 required for admission.",
+        "Program designed to be completed fully online with flexible clinical hours arranged locally.",
+        "NURS400 (Nursing Research) and NURS410 (Nursing Leadership) are required new coursework for RN-BSN students.",
+        "NURS420 (Senior Practicum) is fulfilled through a supervised preceptored experience in the student's community.",
+        "Total new credits required: approximately 30-36 beyond transfer credit. Total degree credits: 120."
+      ],
+      "notes": [
+        "Program available fully online.",
+        "CCNE-accredited program.",
+        "Source: https://nursing.rutgers.edu/academics/undergraduate/rn-to-bsn/"
+      ]
+    },
+
+    "nursing_msn_fnp": {
+      "school": "SON",
+      "degree_level": "master",
+      "major_name": "Nursing (MSN) — Family Nurse Practitioner",
+      "catalog_year": "2025-2026",
+      "core_required": {
+        "description": "MSN core courses required for all specializations (18 credits)",
+        "courses": [
+          "MSN500", "MSN501", "MSN502",
+          "MSN503", "MSN504", "MSN505",
+          "MSN510", "MSN520",
+          "MSN530"
+        ]
+      },
+      "specialization_required": {
+        "description": "Family Nurse Practitioner specialization courses (18 credits)",
+        "courses": [
+          "MSN540", "MSN541",
+          "MSN542", "MSN543",
+          "MSN544", "MSN545"
+        ]
+      },
+      "constraints": [
+        "Total credits: 45 (core + specialization + elective).",
+        "MSN500, MSN501, and MSN502 (Advanced Assessment, Pathophysiology, Pharmacology) must be completed before MSN530.",
+        "MSN530 (Diagnostic Reasoning) must be completed before any FNP specialization courses.",
+        "FNP specialization courses must be taken in sequence (MSN540 → MSN541 → MSN542 → MSN543 → MSN544 → MSN545).",
+        "Minimum 500 supervised clinical hours required (distributed across FNP practicum courses).",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program.",
+        "Clinical placements require active RN license, malpractice insurance, and health clearance."
+      ],
+      "electives": {
+        "description": "Choose one graduate nursing elective (3 credits)",
+        "count": 1,
+        "options": [
+          "MSN505", "MSN520", "MSN580"
+        ],
+        "any_from_catalog": false
+      },
+      "notes": [
+        "Graduates eligible to sit for AANP or ANCC Family Nurse Practitioner certification examination.",
+        "CCNE-accredited program.",
+        "Source: https://nursing.rutgers.edu/academics/graduate/msn/fnp/"
+      ]
+    },
+
+    "nursing_msn_agpcnp": {
+      "school": "SON",
+      "degree_level": "master",
+      "major_name": "Nursing (MSN) — Adult-Gerontology Primary Care NP",
+      "catalog_year": "2025-2026",
+      "core_required": {
+        "description": "MSN core courses required for all specializations (18 credits)",
+        "courses": [
+          "MSN500", "MSN501", "MSN502",
+          "MSN503", "MSN504", "MSN505",
+          "MSN510", "MSN520",
+          "MSN530"
+        ]
+      },
+      "specialization_required": {
+        "description": "Adult-Gerontology Primary Care NP specialization courses (12 credits)",
+        "courses": [
+          "MSN550", "MSN551",
+          "MSN552", "MSN553"
+        ]
+      },
+      "electives": {
+        "description": "Choose two graduate nursing electives (6 credits)",
+        "count": 2,
+        "options": [
+          "MSN503", "MSN504", "MSN505", "MSN520", "MSN580"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total credits: 45 (core + specialization + electives).",
+        "MSN500, MSN501, and MSN502 must be completed before MSN530.",
+        "MSN530 must be completed before any AGPC NP specialization courses.",
+        "AGPC NP courses must be taken in sequence (MSN550 → MSN551 → MSN552 → MSN553).",
+        "Minimum 500 supervised clinical hours required.",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program."
+      ],
+      "notes": [
+        "Graduates eligible to sit for ANCC Adult-Gerontology Primary Care NP certification examination.",
+        "CCNE-accredited program.",
+        "Source: https://nursing.rutgers.edu/academics/graduate/msn/agpcnp/"
+      ]
+    },
+
+    "nursing_msn_pmhnp": {
+      "school": "SON",
+      "degree_level": "master",
+      "major_name": "Nursing (MSN) — Psychiatric-Mental Health NP",
+      "catalog_year": "2025-2026",
+      "core_required": {
+        "description": "MSN core courses required for all specializations (18 credits)",
+        "courses": [
+          "MSN500", "MSN501", "MSN502",
+          "MSN503", "MSN504", "MSN505",
+          "MSN510", "MSN520",
+          "MSN530"
+        ]
+      },
+      "specialization_required": {
+        "description": "Psychiatric-Mental Health NP specialization courses (12 credits)",
+        "courses": [
+          "MSN560", "MSN561",
+          "MSN562", "MSN563"
+        ]
+      },
+      "electives": {
+        "description": "Choose two graduate nursing electives (6 credits)",
+        "count": 2,
+        "options": [
+          "MSN503", "MSN505", "MSN520", "MSN580"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total credits: 45 (core + specialization + electives).",
+        "MSN500, MSN501, and MSN502 must be completed before MSN530.",
+        "MSN530 must be completed before any PMHNP specialization courses.",
+        "PMHNP courses must be taken in sequence (MSN560 → MSN561 → MSN562 → MSN563).",
+        "Minimum 500 supervised clinical hours required across PMHNP practicum courses.",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program."
+      ],
+      "notes": [
+        "Graduates eligible to sit for ANCC Psychiatric-Mental Health NP certification examination.",
+        "CCNE-accredited program.",
+        "Source: https://nursing.rutgers.edu/academics/graduate/msn/pmhnp/"
+      ]
+    },
+
+    "nursing_msn_educator": {
+      "school": "SON",
+      "degree_level": "master",
+      "major_name": "Nursing (MSN) — Nurse Educator",
+      "catalog_year": "2025-2026",
+      "core_required": {
+        "description": "MSN core courses required for all specializations (18 credits)",
+        "courses": [
+          "MSN500", "MSN501", "MSN502",
+          "MSN503", "MSN504", "MSN505",
+          "MSN510", "MSN520"
+        ]
+      },
+      "specialization_required": {
+        "description": "Nurse Educator specialization courses (9 credits)",
+        "courses": [
+          "MSN570", "MSN571", "MSN572"
+        ]
+      },
+      "electives": {
+        "description": "Choose two graduate nursing electives (6 credits)",
+        "count": 2,
+        "options": [
+          "MSN530", "MSN580", "MSN581"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total credits: 36 (core + specialization + electives).",
+        "MSN503 (Nursing Theory) must be completed before MSN570.",
+        "MSN570 → MSN571 → MSN572 must be taken in sequence.",
+        "MSN572 (Nurse Educator Practicum) requires 150 supervised educational practicum hours.",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program."
+      ],
+      "notes": [
+        "Graduates eligible to sit for the NLN Certified Nurse Educator (CNE) examination.",
+        "CCNE-accredited program.",
+        "Source: https://nursing.rutgers.edu/academics/graduate/msn/nurse-educator/"
+      ]
+    },
+
+    "nursing_msn_administrator": {
+      "school": "SON",
+      "degree_level": "master",
+      "major_name": "Nursing (MSN) — Nurse Administrator",
+      "catalog_year": "2025-2026",
+      "core_required": {
+        "description": "MSN core courses required for all specializations (18 credits)",
+        "courses": [
+          "MSN500", "MSN501", "MSN502",
+          "MSN503", "MSN504", "MSN505",
+          "MSN510", "MSN520"
+        ]
+      },
+      "specialization_required": {
+        "description": "Nurse Administrator specialization courses (9 credits)",
+        "courses": [
+          "MSN580", "MSN581", "MSN582"
+        ]
+      },
+      "electives": {
+        "description": "Choose two graduate nursing electives (6 credits)",
+        "count": 2,
+        "options": [
+          "MSN530", "MSN570", "MSN571"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total credits: 36 (core + specialization + electives).",
+        "MSN580 (Nursing Administration) must be completed before MSN581 and MSN582.",
+        "MSN580 → MSN581 → MSN582 must be taken in sequence.",
+        "MSN582 (Nurse Administrator Practicum) requires 150 supervised administrative practicum hours.",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program."
+      ],
+      "notes": [
+        "Graduates eligible to sit for the AONE Nurse Manager and Leader (CNML) or ANCC Nurse Executive (NE-BC) certification examination.",
+        "CCNE-accredited program.",
+        "Source: https://nursing.rutgers.edu/academics/graduate/msn/nurse-administrator/"
+      ]
+    },
+
+    "nursing_dnp": {
+      "school": "SON",
+      "degree_level": "doctoral",
+      "major_name": "Doctor of Nursing Practice (DNP)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "DNP710",
+        "DNP720",
+        "DNP730",
+        "DNP740",
+        "DNP700", "DNP701", "DNP702",
+        "DNP750", "DNP751"
+      ],
+      "entry_options": {
+        "description": "Program is available as post-MSN or post-BSN entry",
+        "post_msn": {
+          "description": "Post-MSN DNP: for students holding an MSN or advanced practice nursing degree (33-36 credits total)",
+          "notes": [
+            "MSN-level advanced practice coursework may be credited toward the DNP.",
+            "Typical completion: 2-3 years part-time."
+          ]
+        },
+        "post_bsn": {
+          "description": "Post-BSN DNP: for students entering directly from a BSN (75-80 credits total, includes MSN-equivalent content)",
+          "notes": [
+            "Students complete MSN-level advanced practice courses plus all DNP core requirements.",
+            "Typical completion: 4-5 years."
+          ]
+        }
+      },
+      "constraints": [
+        "Total credits (post-MSN): approximately 33-36.",
+        "Total credits (post-BSN): approximately 75-80.",
+        "DNP700 (DNP Project Seminar I) must be completed before DNP701 and DNP750.",
+        "DNP Project Seminars (DNP700 → DNP701 → DNP702) must be taken in sequence.",
+        "DNP750 and DNP751 (Clinical Immersion) must be taken in sequence.",
+        "Minimum 1,000 post-baccalaureate supervised clinical hours required (AACN standard).",
+        "A DNP scholarly project (evidence-based quality improvement initiative) is required for graduation.",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "Applicants must hold an active RN license and either a BSN or MSN from a CCNE- or ACEN-accredited program."
+      ],
+      "notes": [
+        "CCNE-accredited program.",
+        "Terminal practice degree — does not qualify for independent research faculty positions (see PhD).",
+        "Source: https://nursing.rutgers.edu/academics/graduate/dnp/"
+      ]
+    },
+
+    "nursing_phd": {
+      "school": "SON",
+      "degree_level": "doctoral",
+      "major_name": "PhD in Nursing Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHD800", "PHD801",
+        "PHD810", "PHD811", "PHD812",
+        "PHD820",
+        "PHD830",
+        "PHD900", "PHD901", "PHD902"
+      ],
+      "cognate_electives": {
+        "description": "Two cognate/elective courses from an approved discipline outside nursing (6 credits)",
+        "count": 2,
+        "options": [],
+        "any_from_catalog": true,
+        "notes": "Cognate courses are selected in consultation with the dissertation advisor; must be at the doctoral level and approved by the program director."
+      },
+      "dissertation": {
+        "description": "Doctoral dissertation — original research contribution to nursing science",
+        "notes": [
+          "Qualifying examination required after completion of core coursework.",
+          "Dissertation proposal defense required before data collection.",
+          "Final dissertation defense required for degree completion.",
+          "Dissertation credit hours: 12 minimum."
+        ]
+      },
+      "constraints": [
+        "Total credits: approximately 60 (coursework + dissertation).",
+        "PHD800 (Nursing Science I) must be completed before PHD801.",
+        "PHD810 and PHD811 (Qualitative and Quantitative Methods) must be completed before PHD812 (Mixed Methods).",
+        "PHD900 (Dissertation Seminar I) requires completion of PHD801 and PHD812.",
+        "PHD901 requires completion of PHD900; PHD902 requires completion of PHD901.",
+        "Qualifying examination must be passed before advancing to doctoral candidacy.",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "Full-time enrollment strongly recommended; part-time study available with advisor approval.",
+        "Applicants must hold a BSN or MSN from a CCNE- or ACEN-accredited program."
+      ],
+      "notes": [
+        "Research-focused terminal degree preparing graduates for academic and research careers.",
+        "Funding opportunities available including fellowships, research assistantships, and teaching assistantships.",
+        "CCNE-accredited program.",
+        "Source: https://nursing.rutgers.edu/academics/graduate/phd/"
+      ]
+    }
+
+  }
+}

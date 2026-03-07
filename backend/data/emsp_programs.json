@@ -1,0 +1,464 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+
+    "pharmd": {
+      "school": "EMSP",
+      "degree_level": "professional_doctorate",
+      "major_name": "Doctor of Pharmacy",
+      "catalog_year": "2025-2026",
+      "program_years": 6,
+      "pre_professional_years": 2,
+      "professional_years": 4,
+      "total_credits_approx": 200,
+      "curriculum": {
+        "year_1": {
+          "label": "Pre-Professional Year 1",
+          "fall": {
+            "required": ["BIO115", "CHEM161", "CHEM171", "EXPOS101", "MATH135"],
+            "credits": 16
+          },
+          "spring": {
+            "required": ["BIO116", "CHEM162", "BIO117", "PHRC104"],
+            "writing_elective": {
+              "description": "One second college-level writing course (choose one)",
+              "count": 1,
+              "options": ["EXPOS201", "EXPOS202", "EXPOS203", "EXPOS301", "EXPOS302", "EXPOS303", "EXPOS312", "EXPOS315", "EXPOS342", "EXPOS375"]
+            },
+            "hum_ss_electives": {
+              "description": "One Humanities/Social Science elective",
+              "count": 1
+            },
+            "credits": 17
+          }
+        },
+        "year_2": {
+          "label": "Pre-Professional Year 2",
+          "fall": {
+            "required": ["CHEM307", "ECON102", "PHYS161"],
+            "hum_ss_electives": {
+              "description": "Two Humanities/Social Science electives (one may be Psych/Soc)",
+              "count": 2
+            },
+            "credits": 17
+          },
+          "spring": {
+            "required": ["PHSL200", "CHEM308", "CHEM311", "STAT401"],
+            "hum_ss_electives": {
+              "description": "Two Humanities/Social Science electives",
+              "count": 2
+            },
+            "credits": 18
+          }
+        },
+        "year_3": {
+          "label": "First Professional Year (P1)",
+          "fall": {
+            "required": ["PHBT309", "PHSL304", "PHAR301", "PCHM307", "PHRC320", "PHRC304"],
+            "professional_elective": {
+              "description": "One professional elective (2 credits)",
+              "count": 1
+            },
+            "credits_range": "16-18.5"
+          },
+          "spring": {
+            "required": ["PHBT310", "PHAR430", "PHSL320", "PHAR320", "PHRC321", "PHRC305", "PHRC317"],
+            "professional_elective": {
+              "description": "One professional elective (2 credits)",
+              "count": 1
+            },
+            "credits_range": "17-19"
+          },
+          "summer": {
+            "required": ["PHRC330"],
+            "credits": 2
+          }
+        },
+        "year_4": {
+          "label": "Second Professional Year (P2)",
+          "fall": {
+            "required": ["PHBT420", "PCHM409", "PHRC470", "PTHR440", "PTHR442", "PHRC432", "PHRC404"],
+            "credits": 17.5
+          },
+          "spring": {
+            "required": ["PCHM410", "PTHR445", "PTHR446", "PHRC489", "PHRC308", "PHRC433", "PHRC405", "PHRC417"],
+            "professional_elective": {
+              "description": "One professional elective (2 credits)",
+              "count": 1
+            },
+            "credits_range": "17-19"
+          },
+          "summer": {
+            "required": ["PHRC480"],
+            "credits": 2
+          }
+        },
+        "year_5": {
+          "label": "Third Professional Year (P3)",
+          "fall": {
+            "required": ["PTHR540", "PTHR541", "PTHR542", "PHRC540", "PHRC550", "PHRC534", "PHRC504"],
+            "professional_elective": {
+              "description": "One professional elective (2 credits)",
+              "count": 1
+            },
+            "credits_range": "15-17.5"
+          },
+          "spring": {
+            "required": ["PTHR545", "PTHR546", "PTHR547", "PHRC515", "PHRC545", "PHRC535", "PHRC505", "PHRC518"],
+            "professional_elective": {
+              "description": "One professional elective (2 credits)",
+              "count": 1
+            },
+            "credits_range": "15-18.5"
+          }
+        },
+        "year_6": {
+          "label": "Fourth Professional Year (P4) — Advanced Practice Experiences",
+          "note": "P4 begins in the summer immediately following P3 Spring. All P1–P3 curriculum must be successfully completed before registering for APPEs.",
+          "summer": {
+            "required": ["PHRC791", "PHRC792", "PHRC793"],
+            "credits_range": "10-15"
+          },
+          "fall": {
+            "required": ["PHRC794", "PHRC795", "PHRC796", "PHRC614"],
+            "credits_range": "11-16"
+          },
+          "spring": {
+            "required": ["PHRC797", "PHRC798", "PHRC615", "PHRC617"],
+            "optional": ["PHRC799"],
+            "credits_range": "13-18"
+          }
+        }
+      },
+      "professional_electives": {
+        "total_required": 5,
+        "clinical_required": 1,
+        "distribution": "Spread across 6 semesters of P1 through P3 (2 credits each)",
+        "notes": [
+          "At least one clinical professional elective is required (class of 2018 and later).",
+          "Contact EMSP Office of Student Affairs for the current approved professional elective list."
+        ]
+      },
+      "leap_ahead_portfolio": {
+        "description": "Eight LEAP-Ahead Documentation Portfolio milestones (PHRC304, 305, 404, 405, 504, 505, 614, 615) spanning P1 through P4. Each is 0.5 credits. Work begins during IPPE and is submitted for grading in the final P4 semester.",
+        "total_credits": 4
+      },
+      "pre_professional_requirements": {
+        "description": "Admission to P1 requires successful completion of both pre-professional years with competitive GPA. Review current EMSP requirements for exact cutoffs.",
+        "prerequisite_courses_from_sas": [
+          "BIO115", "BIO116", "BIO117",
+          "CHEM161", "CHEM162", "CHEM171",
+          "CHEM307", "CHEM308", "CHEM311",
+          "MATH135", "ECON102", "PHYS161", "STAT401", "EXPOS101"
+        ],
+        "hum_ss_electives_total": 5,
+        "psych_or_soc_elective": 1
+      },
+      "dual_degree_options": [
+        "PharmD/MD — in partnership with Rutgers RWJMS",
+        "PharmD/MPH — Master of Public Health",
+        "PharmD/MBA — Master of Business Administration",
+        "PharmD/PhD in Medicinal Chemistry — see pharmd_phd_medicinal_chemistry program",
+        "PharmD/MS in Health Outcomes, Policy and Economics (HOPE)"
+      ],
+      "constraints": [
+        "All pre-professional Year 1 and Year 2 coursework must be complete before entering P1 (Year 3).",
+        "All P1–P3 curriculum must be successfully completed before registering for any P4 APPE rotation.",
+        "Students must complete at least 8 APPE rotations (PHRC791–PHRC798) during the P4 year; a 9th optional rotation (PHRC799) may be added with director approval.",
+        "Five professional electives required across P1–P3; at least one must be a designated clinical elective.",
+        "Minimum GPA required for advancement; consult EMSP academic standards policy.",
+        "All LEAP-Ahead Documentation Portfolio work must be submitted and graded by the final P4 semester."
+      ],
+      "notes": [
+        "Six-year program combining 2 pre-professional (SAS) years and 4 professional years.",
+        "Pre-professional years are completed at SAS New Brunswick; students apply separately to the PharmD program for P1 entry.",
+        "ACPE-accredited program; graduates are eligible to sit for the NAPLEX and MPJE licensure examinations.",
+        "Source: https://pharmacy.rutgers.edu/programs/doctor-of-pharmacy-pharm-d/curriculum/"
+      ]
+    },
+
+    "medicinal_chemistry_ms_thesis": {
+      "school": "EMSP",
+      "degree_level": "master",
+      "major_name": "Medicinal Chemistry (MS — Thesis Option)",
+      "catalog_year": "2025-2026",
+      "program_years": 3,
+      "total_credits": 22,
+      "required_core_courses": [
+        "MCHM501", "MCHM502",
+        "BCHEM511",
+        "CHEM515", "CHEM503"
+      ],
+      "seminar_requirement": {
+        "description": "One Seminar in Medicinal Chemistry presentation required (1 credit)",
+        "count": 1,
+        "options": ["MCHM601", "MCHM602"]
+      },
+      "lab_rotation": {
+        "description": "Laboratory Rotation in Medicinal Chemistry (required for thesis option; must begin first semester)",
+        "course": "MCHM508",
+        "credits": 3
+      },
+      "research_requirement": {
+        "description": "Research in Medicinal Chemistry — thesis research credits (enroll in MCHM701 repeatedly until 9 research credits are accumulated)",
+        "course": "MCHM701",
+        "total_research_credits": 9
+      },
+      "electives": {
+        "description": "3 elective credits from the approved elective list or advisor-approved courses",
+        "count": 1,
+        "options": [
+          "CHEM511", "CHEM550", "CHEM571", "CHEM575", "CHEM580", "CHEM582",
+          "BCHEM503", "BCHEM512",
+          "MCHM506",
+          "PCOL560", "PCOL600", "PCOL680",
+          "AGING610"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_timeline": {
+        "year_1_fall": ["MCHM501", "BCHEM511", "MCHM508"],
+        "year_1_spring": ["CHEM503", "CHEM515", "MCHM502", "MCHM701"],
+        "year_2_fall": ["elective_1", "MCHM601_or_602", "MCHM701"],
+        "year_2_spring": ["MCHM701"],
+        "year_3_fall": ["thesis_defense"]
+      },
+      "constraints": [
+        "Minimum 22 course credits required, including at least 9 research credits (MCHM701) and 1 seminar credit.",
+        "Lab rotation (MCHM508) is required; minimum 15 hours/week for a passing grade.",
+        "Research advisor must be selected by end of the first semester.",
+        "Dissertation committee (advisor + 2 program faculty + 1 outside member) must be finalized by Fall of Year 2.",
+        "Minimum GPA of 3.00 required; no more than two grades of C or C+ allowed.",
+        "MCHM501 is offered Fall of odd years; MCHM502 is offered Spring of odd years — plan accordingly.",
+        "CHEM503 added to requirements as of 2024-25 academic year."
+      ],
+      "notes": [
+        "Average time to completion: 2-3 years full-time.",
+        "Students entering the Ph.D. program do not earn the M.S. degree along the way.",
+        "Source: Graduate Program in Medicinal Chemistry Student Handbook (Updated 07/2024)"
+      ]
+    },
+
+    "medicinal_chemistry_ms_nothesis": {
+      "school": "EMSP",
+      "degree_level": "master",
+      "major_name": "Medicinal Chemistry (MS — Non-Thesis Option)",
+      "catalog_year": "2025-2026",
+      "program_years": 2,
+      "total_credits": 31,
+      "required_core_courses": [
+        "MCHM501", "MCHM502",
+        "BCHEM511",
+        "CHEM515", "CHEM503"
+      ],
+      "seminar_requirement": {
+        "description": "One Seminar in Medicinal Chemistry presentation required (1 credit)",
+        "count": 1,
+        "options": ["MCHM601", "MCHM602"]
+      },
+      "capstone_requirement": {
+        "description": "Non-Thesis Masters Programmatic Study in Medicinal Chemistry — literature review or small research project culminating in a written critical essay, submitted and defended before a committee",
+        "course": "MCHM620",
+        "credits": 3
+      },
+      "electives": {
+        "description": "12 elective credits from the approved elective list or advisor-approved courses",
+        "count": 4,
+        "options": [
+          "CHEM511", "CHEM550", "CHEM571", "CHEM575", "CHEM580", "CHEM582",
+          "BCHEM503", "BCHEM512",
+          "MCHM506",
+          "PCOL560", "PCOL600", "PCOL680",
+          "AGING610"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_timeline": {
+        "year_1_fall": ["MCHM501", "elective_1", "elective_2"],
+        "year_1_spring": ["CHEM503", "CHEM515", "MCHM502"],
+        "year_2_fall": ["BCHEM511", "MCHM601_or_602", "elective_3"],
+        "year_2_spring": ["elective_4", "MCHM620"]
+      },
+      "constraints": [
+        "31 total course credits required; lab rotation (MCHM508) is NOT required for the non-thesis option.",
+        "MCHM620 requires selection of a committee advisor and submission/defense of a written critical essay.",
+        "Minimum GPA of 3.00 required; no more than two grades of C or C+ allowed.",
+        "MCHM501 offered Fall odd years; MCHM502 offered Spring of corresponding odd-year cycle.",
+        "CHEM503 added to requirements as of 2024-25 academic year."
+      ],
+      "notes": [
+        "No laboratory research required; focused on coursework and written scholarship.",
+        "Source: Graduate Program in Medicinal Chemistry Student Handbook (Updated 07/2024)"
+      ]
+    },
+
+    "medicinal_chemistry_phd": {
+      "school": "EMSP",
+      "degree_level": "doctorate",
+      "major_name": "Medicinal Chemistry (PhD)",
+      "catalog_year": "2025-2026",
+      "program_years": 6,
+      "total_credits": 72,
+      "required_core_courses": [
+        "MCHM501", "MCHM502",
+        "CHEM515", "CHEM503",
+        "BCHEM511",
+        "MCHM540"
+      ],
+      "seminar_requirement": {
+        "description": "Two Seminar presentations required across the program (2 credits total)",
+        "count": 2,
+        "options": ["MCHM601", "MCHM602"]
+      },
+      "lab_rotation": {
+        "description": "Laboratory Rotation in Medicinal Chemistry (required in first semester for all PhD students)",
+        "course": "MCHM508",
+        "credits": 3
+      },
+      "research_requirement": {
+        "description": "Research in Medicinal Chemistry — dissertation research credits (enroll in MCHM701 repeatedly until 43 research credits are accumulated)",
+        "course": "MCHM701",
+        "total_research_credits": 43
+      },
+      "electives": {
+        "description": "6 elective credits from the approved list or advisor-approved courses",
+        "count": 2,
+        "options": [
+          "CHEM511", "CHEM550", "CHEM571", "CHEM575", "CHEM580", "CHEM582",
+          "BCHEM503", "BCHEM512",
+          "MCHM506",
+          "PCOL560", "PCOL600", "PCOL680",
+          "AGING610"
+        ],
+        "any_from_catalog": false
+      },
+      "suggested_timeline": {
+        "year_1_fall": ["MCHM501", "BCHEM511", "elective_1", "MCHM508"],
+        "year_1_spring": ["CHEM503", "CHEM515", "MCHM502"],
+        "year_2_fall": ["elective_2"],
+        "year_2_spring": ["qualifying_exam"],
+        "year_3_spring": ["MCHM601"],
+        "year_4": ["MCHM540"],
+        "year_5": ["MCHM602", "dissertation_defense"]
+      },
+      "milestones": {
+        "advisor_selection": "By end of first semester of full-time study (failure to select results in transfer to M.S. program)",
+        "dissertation_committee": "Finalized by Fall semester of Year 2 (advisor + 2 program faculty + 1 outside member with Ph.D.)",
+        "qualifying_exam": "Deadline: August of Year 2. Includes 1-hour presentation on thesis project (background, design, preliminary results, future plans). Pass, conditional pass, or fail. Failure → M.S. exit.",
+        "independent_research_proposal": "Year 4 — NIH R21-style proposal (1-page Specific Aims + 6-page Research Proposal); student's own ideas, not directly related to thesis. Presented to dissertation committee.",
+        "thesis_committee_meeting": "At least one meeting required by end of Spring of Year 4 to review project scope and results.",
+        "yearly_development_plan": "Annual submission required; two consecutive Unsatisfactory grades may result in dismissal.",
+        "dissertation_defense": "Typically Year 5 or Year 6"
+      },
+      "constraints": [
+        "Total ~72 credits: 20 core + 6 electives + 3 rotation + 43 research.",
+        "MCHM540 (Independent Research Proposal) may only be submitted after all didactic coursework is complete (excluding MCHM540 and seminars).",
+        "MCHM501 is offered Fall of odd years; MCHM502 is offered Spring of corresponding cycle — plan around biennial scheduling.",
+        "Qualifying exam must be passed by August of Year 2 for formal Ph.D. candidacy.",
+        "Minimum GPA of 3.00; maximum two grades of C or C+ (exceeding two results in reclassification to terminal M.S.).",
+        "Teaching Assistantship (MCHM877, E-credits) is available for first 2 years for students with Dept. of Medicinal Chemistry faculty advisors. E-credits count toward full-time status but not toward GPA or degree.",
+        "Average time to completion: 5-6 years.",
+        "Up to 9 transfer credits accepted for Ph.D. students (from accredited institutions, grade B or better, within last 6 years, after completing 12 Rutgers credits)."
+      ],
+      "notes": [
+        "Interdisciplinary program; faculty from Medicinal Chemistry, Chemistry, Plant Biology, Pharmacology, and Food Sciences.",
+        "PhD students do not earn an M.S. degree along the way.",
+        "Advanced Organic Chemistry I (CHEM511) is the strongly recommended first elective.",
+        "Source: Graduate Program in Medicinal Chemistry Student Handbook (Updated 07/2024)"
+      ]
+    },
+
+    "pharmd_phd_medicinal_chemistry": {
+      "school": "EMSP",
+      "degree_level": "dual_professional_doctorate",
+      "major_name": "PharmD / PhD in Medicinal Chemistry (Dual Degree)",
+      "catalog_year": "2025-2026",
+      "program_years": 9,
+      "description": "Combined PharmD and PhD program allowing highly motivated PharmD students to complete both degrees in approximately 9 years. Students begin PhD coursework during professional PharmD years and matriculate formally into the Medicinal Chemistry Graduate Program at the end of their P2 year.",
+      "pharmd_component": {
+        "description": "All PharmD requirements are fulfilled in full (6-year curriculum, see pharmd program). P3 and P4 coursework is tailored to also satisfy PhD requirements.",
+        "reference_program": "pharmd"
+      },
+      "phd_component_required_core": {
+        "description": "Required core courses for PhD within dual degree (17 credits — BCHEM511 waived; completed within PharmD years)",
+        "courses": ["MCHM501", "MCHM502", "CHEM515", "CHEM503", "MCHM540"],
+        "seminar": {
+          "count": 2,
+          "options": ["MCHM601", "MCHM602"]
+        }
+      },
+      "phd_component_lab_rotation": {
+        "course": "MCHM508",
+        "credits": 3
+      },
+      "phd_component_research": {
+        "course": "MCHM701",
+        "total_research_credits": 46
+      },
+      "phd_component_electives": {
+        "description": "6 elective credits from approved list",
+        "count": 2,
+        "options": [
+          "CHEM511", "CHEM550", "CHEM571", "CHEM575", "CHEM580", "CHEM582",
+          "BCHEM503", "BCHEM512",
+          "MCHM506",
+          "PCOL560", "PCOL600", "PCOL680",
+          "AGING610"
+        ]
+      },
+      "suggested_timeline": {
+        "P1_P2_pharmd_years": {
+          "label": "Pre-professional + P1/P2 PharmD (Years 1-4)",
+          "phd_courses_taken_concurrently": ["MCHM501", "MCHM502", "MCHM508"],
+          "credits_toward_phd": 9
+        },
+        "P3_P4_pharmd_years": {
+          "label": "P3/P4 PharmD (Years 5-6) — also completing PhD coursework",
+          "phd_courses_taken_concurrently": ["CHEM503", "CHEM515", "elective_1"],
+          "credits_toward_phd": 18
+        },
+        "post_pharmd_year_1": {
+          "label": "Year 7 (first full PhD year after receiving PharmD)",
+          "fall": ["elective_2"],
+          "spring": ["qualifying_exam"],
+          "credits_toward_phd": 21
+        },
+        "post_pharmd_year_2": {
+          "label": "Year 8",
+          "spring": ["MCHM601"],
+          "credits_toward_phd": 22
+        },
+        "post_pharmd_year_3": {
+          "label": "Year 9",
+          "spring": ["MCHM540"],
+          "credits_toward_phd": 25
+        },
+        "post_pharmd_year_4": {
+          "label": "Year 10 (if needed)",
+          "activities": ["MCHM602", "dissertation_defense"],
+          "credits_toward_phd": 26
+        }
+      },
+      "milestones": {
+        "formal_phd_matriculation": "End of P2 year in PharmD program",
+        "qualifying_exam": "By August of the first full year post-PharmD (Year 7 Spring)",
+        "pharmd_graduation": "End of P4 year with PharmD classmates (Year 6)"
+      },
+      "constraints": [
+        "Dual degree program takes approximately 9 years total.",
+        "Students must be formally admitted to the PhD program at end of P2 PharmD year.",
+        "All PharmD curriculum requirements must still be met in full.",
+        "Qualifying exam deadline: August of first full year after PharmD graduation.",
+        "46 research credits required for PhD component (vs. 43 for standalone PhD).",
+        "Minimum GPA of 3.00 in both programs required.",
+        "Program joined the dual degree structure in 2014."
+      ],
+      "notes": [
+        "P3 and P4 PharmD coursework is tailored to simultaneously satisfy PhD core requirements.",
+        "Students graduate with PharmD alongside their P4 classmates and subsequently continue toward PhD.",
+        "Source: Graduate Program in Medicinal Chemistry Student Handbook (Updated 07/2024); pharmacy.rutgers.edu/programs/"
+      ]
+    }
+
+  }
+}

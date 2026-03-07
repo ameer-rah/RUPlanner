@@ -99,8 +99,11 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "925": "SPAN",      # Spanish
     "535": "AMST",      # American Studies
     "016": "AFRS",      # Africana Studies
-    "534": "LER",       # Labor Studies & Employment Relations (SMLR)
-    "356": "SOCW",      # Social Work
+    "534": "LER",       # Labor Studies & Employment Relations (SMLR, 37:575)
+    "533": "HRM",       # Human Resource Management (SMLR, 37:533)
+    "624": "LSER",      # SMLR shared management/org-behavior courses (37:624)
+    "356": "SOCW",      # Social Work (legacy subject code)
+    "910": "SW",        # Social Work — School of Social Work (SSW) undergraduate BA courses
     # Engineering — SOE core departments
     "440": "ENG",       # General Engineering / ID3EA / Packaging (SOE)
     "125": "BME",       # Biomedical Engineering
@@ -135,6 +138,36 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "966": "THTA",      # Theater Arts BFA — applied/studio courses (07:966)
     # SPPP / Bloustein — additional subjects
     "575": "DISA",      # Disability Studies (37:575, cross-listed SPPP minor)
+    # SEBS — School of Environmental and Biological Sciences (school code 11)
+    "067": "ANSC",      # Animal Science (11:067)
+    "090": "AGECO",     # Agricultural, Food and Resource Economics (11:090)
+    "100": "BIOTECH",   # Biotechnology (11:100)
+    "050": "BSYSE",     # Biological and Agricultural Engineering (11:050)
+    "370": "EENR",      # Ecology, Evolution, and Natural Resources (11:370)
+    "373": "EPIB",      # Environmental Policy, Institutions, and Behavior (11:373)
+    "400": "FS",        # Food Science (11:400)
+    "430": "HUMEC",     # Human Ecology (11:430)
+    "550": "LA",        # Landscape Architecture (11:550)
+    # NOTE: "563" is Chinese (01:563) in SUBJECT_TO_PREFIX; Marine Sciences (11:563)
+    # is handled via _UNIT_SUBJECT_OVERRIDE below.
+    "670": "METEOR",    # Meteorology (11:670)
+    "680": "MICROB",    # Microbiology (11:680)
+    "709": "NUTRSCI",   # Nutritional Sciences (11:709)
+    "776": "PBIO",      # Plant Biology (11:776)
+    "780": "PLSC",      # Plant Science (11:780)
+    "902": "TURF",      # Turfgrass Science (11:902)
+    # SON — School of Nursing (school code 10)
+    "678": "NURS",      # Nursing undergraduate courses (10:678)
+    # EMSP — Ernest Mario School of Pharmacy (school code 30/31)
+    "158": "PHBT",      # Pharmaceutical Biotechnology / Microbiology (30:158)
+    "715": "PCHM",      # Pharmaceutical Chemistry (30:715)
+    "718": "PHSL",      # Physiology / Pathophysiology / Pharmacology (30:718)
+    "720": "PTHR",      # Pharmacotherapy (30:720)
+    "721": "PHAR",      # Pharmaceutics / Drug Delivery / Biopharmaceutics (30:721)
+    "725": "PHRC",      # Pharmacy Care / Practice / Clinical (30:725)
+    "663": "MCHM",      # Medicinal Chemistry graduate program (31:663)
+    "115": "BCHEM",     # Biochemistry graduate (31:115)
+    "560": "PCOL",      # Pharmacology graduate (31:560)
 }
 
 # Subject codes shared between multiple schools that need offering-unit disambiguation.
@@ -144,6 +177,9 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
 _UNIT_SUBJECT_OVERRIDE: dict[str, dict[str, str]] = {
     "07": {
         "965": "THTR",   # Mason Gross Theater BA (07:965) — SAS uses same subject → THEA
+    },
+    "11": {
+        "563": "MARINE", # Marine Sciences (11:563) — SAS/language uses same subject → CHN
     },
 }
 

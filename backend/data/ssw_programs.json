@@ -1,0 +1,287 @@
+{
+  "catalog_year": "2025-2026",
+  "programs": {
+
+    "social_work_ba": {
+      "school": "SSW",
+      "degree_level": "bachelor_ba",
+      "major_name": "Social Work",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "SW220",
+        "SW311", "SW312",
+        "SW332",
+        "SW402", "SW403",
+        "SW405",
+        "SW406",
+        "SW471", "SW472",
+        "SW473", "SW474",
+        "SW475"
+      ],
+      "prerequisites": {
+        "description": "Required prerequisites (completed before major coursework; not counted toward major credits)",
+        "notes": [
+          "Introduction to Psychology (e.g. PSYC101)",
+          "Introduction to Sociology (e.g. SOC201)",
+          "Human Biology (e.g. BIO101 or equivalent)",
+          "Statistics (e.g. STAT011 or equivalent)",
+          "Two courses from: Anthropology, Art, Communication, History, Literature, Music, Philosophy, Political Science, Religion, or Theater"
+        ]
+      },
+      "electives": {
+        "description": "Select elective Social Work courses to complement the core curriculum",
+        "count": 2,
+        "options": [
+          "SW221", "SW222", "SW223", "SW224",
+          "SW225", "SW226", "SW227", "SW228",
+          "SW476"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "SW220 (Introduction to Social Work and Social Justice) is the required gateway course; must be completed before all 300- and 400-level SW courses.",
+        "SW311 and SW402 and SW406 must be completed before beginning SW471 (Practicum I) and SW472 (Generalist Practice I).",
+        "SW471 and SW472 must be completed before SW473 (Practicum II) and SW474 (Generalist Practice II).",
+        "SW475 (Integration Seminar) requires completion of SW473 and SW474.",
+        "Minimum cumulative GPA of 3.0 required to declare and maintain enrollment in the major.",
+        "No grade lower than C accepted in any social work core course.",
+        "Field/practicum placement (SW471, SW473) requires concurrent enrollment in the corresponding practice seminar.",
+        "Total major credits: approximately 45-48. Total degree credits: ~120."
+      ],
+      "notes": [
+        "BA offered jointly with the School of Arts and Sciences (SAS) New Brunswick and Camden campuses; students must be admitted to the partnering liberal arts college.",
+        "Full CSWE accreditation; graduates are eligible for LSW licensure in New Jersey.",
+        "Source: https://socialwork.rutgers.edu/academics/bachelor-arts-ba-social-work"
+      ]
+    },
+
+    "social_work_msw_clinical": {
+      "school": "SSW",
+      "degree_level": "master",
+      "major_name": "Social Work (MSW) — Clinical Social Work Specialization",
+      "catalog_year": "2025-2026",
+      "foundation_courses": {
+        "description": "Foundation year — required for all students except those admitted under Advanced Standing (21 credits of coursework + 6 credits of practicum/seminar = 27 credits total)",
+        "required": [
+          "MSW500", "MSW501", "MSW502", "MSW504",
+          "MSW505", "MSW506", "MSW507",
+          "MSW508", "MSW509",
+          "MSW553", "MSW557"
+        ]
+      },
+      "specialization_required": {
+        "description": "Clinical Social Work advanced year required courses (6 credits)",
+        "courses": ["MSW511", "MSW512"]
+      },
+      "advanced_practice_distribution": {
+        "description": "Choose one Advanced Practice Distribution course in a specialized population (3 credits)",
+        "count": 1,
+        "options": [
+          "MSW513", "MSW516", "MSW517", "MSW518",
+          "MSW519", "MSW520", "MSW522", "MSW523",
+          "MSW525", "MSW568"
+        ]
+      },
+      "advanced_contemporary_policy": {
+        "description": "Choose one Advanced Contemporary Policy course (3 credits)",
+        "count": 1,
+        "options": [
+          "MSW542", "MSW584", "MSW585", "MSW587", "MSW591"
+        ]
+      },
+      "research_requirement": {
+        "description": "Required research and evaluation course (3 credits)",
+        "courses": ["MSW595"]
+      },
+      "advanced_practicum": {
+        "description": "Advanced year practicum sequence (6 credits)",
+        "courses": ["MSW600", "MSW601"]
+      },
+      "electives": {
+        "description": "Four elective courses chosen from MSW elective offerings (12 credits)",
+        "count": 4,
+        "options": [
+          "MSW503", "MSW514", "MSW515", "MSW529",
+          "MSW530", "MSW532", "MSW538", "MSW539",
+          "MSW543", "MSW544", "MSW545", "MSW546",
+          "MSW547", "MSW549", "MSW559", "MSW562",
+          "MSW564", "MSW566", "MSW567", "MSW570",
+          "MSW572", "MSW574", "MSW579", "MSW582",
+          "MSW594",
+          "MSW513", "MSW516", "MSW517", "MSW518",
+          "MSW519", "MSW520", "MSW522", "MSW523",
+          "MSW525", "MSW568",
+          "MSW542", "MSW584", "MSW585", "MSW587", "MSW591"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total credits: 60 (27 foundation + 33 advanced). Advanced Standing students complete 39 credits (advanced year only).",
+        "MSW511 (Clinical Social Work I) requires completion of MSW500 and MSW507.",
+        "MSW512 (Clinical Social Work II) requires completion of MSW511.",
+        "MSW595 requires completion of MSW505.",
+        "MSW600 and MSW601 require completion of foundation practicum (MSW508, MSW509).",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "All practicum hours are arranged through the Office of Practicum Learning.",
+        "Available in Traditional On-Campus, Blended Online, 100% Online, and Intensive Weekend formats."
+      ],
+      "notes": [
+        "Clinical specialization prepares students for direct practice with individuals, families, groups, and communities.",
+        "Graduates eligible for LMSW licensure in New Jersey upon completion.",
+        "CSWE-accredited program.",
+        "Source: https://socialwork.rutgers.edu/academics/master-social-work-msw/msw-curriculum-syllabi"
+      ]
+    },
+
+    "social_work_msw_management_policy": {
+      "school": "SSW",
+      "degree_level": "master",
+      "major_name": "Social Work (MSW) — Management and Policy Specialization",
+      "catalog_year": "2025-2026",
+      "foundation_courses": {
+        "description": "Foundation year — required for all students except those admitted under Advanced Standing (21 credits of coursework + 6 credits of practicum/seminar = 27 credits total)",
+        "required": [
+          "MSW500", "MSW501", "MSW502", "MSW504",
+          "MSW505", "MSW506", "MSW507",
+          "MSW508", "MSW509",
+          "MSW553", "MSW557"
+        ]
+      },
+      "specialization_required": {
+        "description": "Management and Policy advanced year required courses (6 credits)",
+        "courses": ["MSW535", "MSW536"]
+      },
+      "advanced_practice_distribution": {
+        "description": "Choose one Management and Policy Advanced Practice Distribution course (3 credits)",
+        "count": 1,
+        "options": [
+          "MSW528", "MSW537", "MSW540", "MSW541"
+        ]
+      },
+      "advanced_contemporary_policy": {
+        "description": "Choose one Advanced Contemporary Policy course (3 credits)",
+        "count": 1,
+        "options": [
+          "MSW542", "MSW584", "MSW585", "MSW587", "MSW591"
+        ]
+      },
+      "research_requirement": {
+        "description": "Required research and evaluation course (3 credits)",
+        "courses": ["MSW595"]
+      },
+      "advanced_practicum": {
+        "description": "Advanced year practicum sequence (6 credits)",
+        "courses": ["MSW600", "MSW601"]
+      },
+      "electives": {
+        "description": "Four elective courses chosen from MSW elective offerings (12 credits)",
+        "count": 4,
+        "options": [
+          "MSW503", "MSW514", "MSW515", "MSW529",
+          "MSW532", "MSW538", "MSW539",
+          "MSW543", "MSW544", "MSW545", "MSW546",
+          "MSW547", "MSW549", "MSW559", "MSW562",
+          "MSW564", "MSW566", "MSW567", "MSW570",
+          "MSW572", "MSW574", "MSW579", "MSW582",
+          "MSW594",
+          "MSW528", "MSW537", "MSW540", "MSW541",
+          "MSW542", "MSW584", "MSW585", "MSW587", "MSW591"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total credits: 60 (27 foundation + 33 advanced). Advanced Standing students complete 39 credits (advanced year only).",
+        "MSW535 (Management Practice and Theory) requires completion of MSW500 and MSW501.",
+        "MSW536 (Program and Strategic Planning) requires completion of MSW535.",
+        "MSW595 requires completion of MSW505.",
+        "MSW600 and MSW601 require completion of foundation practicum (MSW508, MSW509).",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "All practicum hours are arranged through the Office of Practicum Learning.",
+        "Available in Traditional On-Campus, Blended Online, 100% Online, and Intensive Weekend formats."
+      ],
+      "notes": [
+        "Management and Policy specialization prepares students for leadership roles in social service agencies, nonprofits, and public policy settings.",
+        "Graduates eligible for LMSW licensure in New Jersey upon completion.",
+        "CSWE-accredited program.",
+        "Source: https://socialwork.rutgers.edu/academics/master-social-work-msw/msw-curriculum-syllabi"
+      ]
+    },
+
+    "social_work_msw_advanced_standing": {
+      "school": "SSW",
+      "degree_level": "master",
+      "major_name": "Social Work (MSW) — Advanced Standing",
+      "catalog_year": "2025-2026",
+      "eligibility": {
+        "description": "Advanced Standing is available to students who hold an accredited BSW from a CSWE-accredited program with a minimum GPA of 3.0. Students waive the foundation year and complete only the advanced year (39 credits).",
+        "notes": [
+          "Must have earned a BSW within the last 5 years.",
+          "Minimum undergraduate GPA of 3.0 in social work courses required.",
+          "Available through Traditional On-Campus, 100% Online, and Intensive Weekend formats."
+        ]
+      },
+      "specialization_choice": {
+        "description": "Choose one specialization: Clinical Social Work or Management and Policy",
+        "options": ["Clinical Social Work", "Management and Policy"]
+      },
+      "clinical_track": {
+        "description": "Advanced year courses if Clinical Social Work specialization is selected (39 credits)",
+        "required_specialization": ["MSW511", "MSW512"],
+        "advanced_practice_distribution": {
+          "description": "Choose one (3 credits)",
+          "count": 1,
+          "options": [
+            "MSW513", "MSW516", "MSW517", "MSW518",
+            "MSW519", "MSW520", "MSW522", "MSW523",
+            "MSW525", "MSW568"
+          ]
+        },
+        "advanced_contemporary_policy": {
+          "description": "Choose one (3 credits)",
+          "count": 1,
+          "options": [
+            "MSW542", "MSW584", "MSW585", "MSW587", "MSW591"
+          ]
+        },
+        "research": ["MSW595"],
+        "practicum": ["MSW600", "MSW601"],
+        "electives_count": 4
+      },
+      "management_policy_track": {
+        "description": "Advanced year courses if Management and Policy specialization is selected (39 credits)",
+        "required_specialization": ["MSW535", "MSW536"],
+        "advanced_practice_distribution": {
+          "description": "Choose one (3 credits)",
+          "count": 1,
+          "options": [
+            "MSW528", "MSW537", "MSW540", "MSW541"
+          ]
+        },
+        "advanced_contemporary_policy": {
+          "description": "Choose one (3 credits)",
+          "count": 1,
+          "options": [
+            "MSW542", "MSW584", "MSW585", "MSW587", "MSW591"
+          ]
+        },
+        "research": ["MSW595"],
+        "practicum": ["MSW600", "MSW601"],
+        "electives_count": 4
+      },
+      "constraints": [
+        "Total credits: 39 (advanced year only; foundation year waived).",
+        "Program can be completed in 1-2 years full-time or part-time.",
+        "Advanced Standing applicants must submit official BSW transcripts and a practicum evaluation.",
+        "Minimum GPA of 3.0 required to remain in good standing.",
+        "All practicum hours are arranged through the Office of Practicum Learning."
+      ],
+      "notes": [
+        "Advanced Standing is not available through the Blended Online program.",
+        "Graduates eligible for LMSW licensure in New Jersey upon completion.",
+        "CSWE-accredited program.",
+        "Source: https://socialwork.rutgers.edu/academics/master-social-work-msw/msw-program-options"
+      ]
+    }
+
+  }
+}
