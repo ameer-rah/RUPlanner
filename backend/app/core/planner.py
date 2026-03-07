@@ -214,13 +214,17 @@ def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], 
     level_token = next((t for t in tokens if t not in _SCHOOLS), "")
 
     db_level: Optional[str] = {
-        "BS":    "bachelor_bs",
-        "BA":    "bachelor_ba",
-        "BFA":   "bachelor_bfa",
-        "BM":    "bachelor_bm",
-        "MINOR": "minor",
-        "MS":    "master",
-        "AS":    "associate",
+        "BS":            "bachelor_bs",
+        "BA":            "bachelor_ba",
+        "BFA":           "bachelor_bfa",
+        "BM":            "bachelor_bm",
+        "BSBA":          "bachelor_bsba",
+        "BSLA":          "bachelor_bsla",
+        "MINOR":         "minor",
+        "MS":            "master",
+        "AS":            "associate",
+        "CONCENTRATION": "concentration",
+        "DOCTORAL":      "doctoral",
     }.get(level_token)
 
     # Fallback: use the request's degree_level when no explicit token found
@@ -238,9 +242,10 @@ def _merge_requirements(programs: List[Dict]) -> Dict:
             if c not in merged_required:
                 merged_required.append(c)
 
-    max_count = max((p.get("electives", {}).get("count", 0) for p in programs), default=0)
-    max_300 = max(
-        (p.get("electives", {}).get("min_level_300_plus", 0) for p in programs), default=0
+    # Sum counts: each program's electives must all be satisfied, not just the largest set.
+    total_count = sum(p.get("electives", {}).get("count", 0) for p in programs)
+    total_300 = sum(
+        p.get("electives", {}).get("min_level_300_plus", 0) for p in programs
     )
     all_options: List[str] = []
     for p in programs:
@@ -254,10 +259,10 @@ def _merge_requirements(programs: List[Dict]) -> Dict:
     result: Dict = {
         "required_courses": merged_required,
         "electives": {
-            "count": max_count,
+            "count": total_count,
             "options": all_options,
             "any_from_catalog": any_from_catalog,
-            "min_level_300_plus": max_300,
+            "min_level_300_plus": total_300,
         },
     }
 
@@ -325,14 +330,34 @@ def resolve_program(request: PlanRequest) -> Dict:
             "Run: python -m management.seed_programs to populate the programs table."
         )
 
-    # Derive the catalog from the primary major's school.  For cross-school
-    # dual degrees (e.g. SAS + SOE), the major's school takes precedence.
-    primary_school = found[0].get("school", "SAS")
-    catalog_file = _SCHOOL_CATALOG.get(primary_school, _SCHOOL_CATALOG.get("SAS", "sas_catalog.json"))
     merged_reqs = found[0] if len(found) == 1 else _merge_requirements(found)
 
+    # Collect catalogs from every involved school so that cross-school dual
+    # degrees (e.g. SAS Computer Science + SOE Electrical Engineering) have
+    # access to all required courses.
+    schools_seen: List[str] = []
+    for p in found:
+        s = p.get("school", "SAS")
+        if s not in schools_seen:
+            schools_seen.append(s)
+
+    # Build a merged catalog covering all schools.
+    merged_catalog: Dict[str, Dict] = {}
+    for school in schools_seen:
+        cat_file = _SCHOOL_CATALOG.get(school)
+        if cat_file:
+            try:
+                school_cat = load_catalog(DATA_DIR / cat_file)
+                merged_catalog.update(school_cat)
+            except FileNotFoundError:
+                pass
+
+    # Fallback: if we somehow ended up with no catalog, use SAS.
+    if not merged_catalog:
+        merged_catalog = load_catalog(DATA_DIR / _SCHOOL_CATALOG["SAS"])
+
     return {
-        "catalog": DATA_DIR / catalog_file,
+        "catalog": merged_catalog,
         "requirements": merged_reqs,
     }
 
@@ -492,7 +517,8 @@ def _is_offered(course: Dict, season: str, season_has_data: Dict[str, bool]) -> 
 
 def heuristic_plan(request: PlanRequest) -> PlanResponse:
     program = resolve_program(request)
-    catalog = load_catalog(program["catalog"])
+    # resolve_program now returns a pre-merged catalog dict (not a Path).
+    catalog: Dict[str, Dict] = program["catalog"]
     requirements: Dict = program["requirements"]  # already a dict from the DB
 
     completed: Set[str] = {c.strip().upper() for c in request.completed_courses}
@@ -598,12 +624,30 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     grad_term = " ".join(
         w.capitalize() if i == 0 else w for i, w in enumerate(request.target_grad_term.split())
     )
-    terms = terms_between(start, grad_term)
+    all_terms = terms_between(start, grad_term)
 
-    if not terms:
+    if not all_terms:
         warnings.append(
             f"Target graduation term '{grad_term}' is at or before "
             f"the start term '{start}'. Please choose a future graduation date."
+        )
+        return PlanResponse(terms=[], remaining_courses=remaining, warnings=warnings)
+
+    # Filter to only the seasons the student wants to enroll in.
+    # An explicit empty list means the student selected nothing — warn immediately.
+    if request.preferred_seasons is not None and len(request.preferred_seasons) == 0:
+        warnings.append(
+            "No semesters selected. Please choose at least one semester (Spring, Summer, or Fall)."
+        )
+        return PlanResponse(terms=[], remaining_courses=remaining, warnings=warnings)
+    preferred: set = {s.capitalize() for s in (request.preferred_seasons or _SEASONS)}
+    if not preferred:
+        preferred = set(_SEASONS)
+    terms = [t for t in all_terms if t.split()[0] in preferred]
+    if not terms:
+        warnings.append(
+            "No terms remain after applying your season preferences. "
+            "Please select at least one season (Spring, Summer, or Fall)."
         )
         return PlanResponse(terms=[], remaining_courses=remaining, warnings=warnings)
 

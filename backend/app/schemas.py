@@ -14,6 +14,10 @@ class PlanRequest(BaseModel):
     target_grad_term: str = Field(..., description="e.g., Spring 2028")
     start_term: Optional[str] = Field(None, description="First term to schedule; defaults to current term if omitted")
     max_credits_per_term: int = 15
+    preferred_seasons: List[str] = Field(
+        default=["Spring", "Fall"],
+        description="Seasons in which the student wants to enroll (Spring, Summer, Fall). Defaults to Spring and Fall.",
+    )
 
 
 class PlannedCourse(BaseModel):

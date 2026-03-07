@@ -1,7 +1,8 @@
 from contextlib import asynccontextmanager
+import re
 from typing import List
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
 from .database import engine, Base, SessionLocal
@@ -96,3 +97,107 @@ def generate_plan(payload: PlanRequest) -> PlanResponse:
         return heuristic_plan(payload)
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
+
+
+# ---------------------------------------------------------------------------
+# Transcript PDF parsing
+# ---------------------------------------------------------------------------
+
+# Rutgers transcript course code pattern, e.g. "01:198:111" or "14:332:252"
+_RU_CODE_RE = re.compile(r'\b\d{2}:\d{3}:\d{3}\b')
+
+# Subject-code mapping for common Rutgers department numbers
+_DEPT_MAP = {
+    "198": "CS",
+    "151": "MATH",
+    "152": "MATH",
+    "250": "MATH",
+    "640": "MATH",
+    "642": "MATH",
+    "160": "PHYS",
+    "750": "PHYS",
+    "160": "CHEM",
+    "160": "BIOL",
+    "447": "STAT",
+}
+
+_SUBJECT_DEPT: dict = {
+    "01:198": "CS",
+    "01:640": "MATH",
+    "01:642": "MATH",
+    "01:750": "PHYS",
+    "01:160": "CHEM",
+    "01:119": "BIOL",
+    "01:447": "STAT",
+    "14:332": "ECE",
+    "14:540": "BME",
+    "01:355": "STAT",
+    "01:090": "HNRS",
+    "01:730": "PSYCH",
+    "01:920": "SOC",
+    "01:790": "POLISCI",
+    "01:070": "ANTHRO",
+    "01:220": "ECON",
+    "01:355": "STAT",
+    "01:300": "ENGLISH",
+    "01:685": "LINGUISTICS",
+}
+
+
+def _parse_transcript_text(text: str) -> List[str]:
+    """
+    Extract completed course codes from Rutgers transcript text.
+
+    Handles two formats:
+    1. Rutgers-style section codes like "01:198:111" → mapped to "CS111"
+    2. Already-formatted codes like "CS111" appearing in the text
+    """
+    codes: List[str] = []
+
+    # Match Rutgers section codes (e.g. 01:198:111)
+    for match in _RU_CODE_RE.finditer(text):
+        raw = match.group()
+        parts = raw.split(":")
+        if len(parts) == 3:
+            school_dept = f"{parts[0]}:{parts[1]}"
+            course_num = parts[2]
+            subject = _SUBJECT_DEPT.get(school_dept)
+            if subject:
+                code = f"{subject}{course_num}"
+                if code not in codes:
+                    codes.append(code)
+
+    # Also match already-formatted codes like CS111, MATH151, PHYS203
+    formatted_re = re.compile(r'\b([A-Z]{2,8})(\d{2,4}[A-Z]?)\b')
+    for match in formatted_re.finditer(text):
+        code = match.group(0).upper()
+        if code not in codes:
+            codes.append(code)
+
+    return codes
+
+
+@app.post("/parse-transcript", response_model=List[str])
+async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
+    """
+    Accept a Rutgers transcript PDF and return a list of course codes
+    detected in the document. The caller should review the list and add
+    any codes that should be treated as completed.
+    """
+    if not file.filename or not file.filename.lower().endswith(".pdf"):
+        raise HTTPException(status_code=400, detail="Only PDF files are accepted.")
+
+    content = await file.read()
+    if len(content) > 20 * 1024 * 1024:  # 20 MB guard
+        raise HTTPException(status_code=413, detail="File too large (max 20 MB).")
+
+    try:
+        from pypdf import PdfReader
+        import io as _io
+        reader = PdfReader(_io.BytesIO(content))
+        text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    except Exception as exc:
+        raise HTTPException(status_code=422, detail=f"Could not read PDF: {exc}")
+
+    codes = _parse_transcript_text(text)
+    return codes

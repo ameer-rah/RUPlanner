@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import CompletedCoursesInput from "./CompletedCoursesInput";
 import ProgramSelectInput from "./ProgramSelectInput";
+import TranscriptUpload from "./TranscriptUpload";
 
 type ProgramInfo = {
   school: string;
@@ -33,6 +34,7 @@ type PlanResponse = {
   completion_term: string | null;
 };
 
+const ALL_SEASONS = ["Spring", "Summer", "Fall"];
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 export default function HomePage() {
@@ -41,6 +43,7 @@ export default function HomePage() {
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [targetGradTerm, setTargetGradTerm] = useState("Spring 2028");
   const [maxCredits, setMaxCredits] = useState(15);
+  const [preferredSeasons, setPreferredSeasons] = useState<string[]>(["Spring", "Fall"]);
   const [plan, setPlan] = useState<PlanResponse | null>(null);
   const [status, setStatus] = useState("");
   const [programs, setPrograms] = useState<ProgramInfo[]>([]);
@@ -55,8 +58,30 @@ export default function HomePage() {
   const majorPrograms = programs.filter((p) => p.degree_level !== "minor");
   const minorPrograms = programs.filter((p) => p.degree_level === "minor");
 
+  function toggleSeason(season: string) {
+    setPreferredSeasons((prev) =>
+      prev.includes(season) ? prev.filter((s) => s !== season) : [...prev, season]
+    );
+  }
+
+  function handleTranscriptCourses(codes: string[]) {
+    setCompletedCourses((prev) => {
+      const merged = [...prev];
+      for (const c of codes) {
+        if (!merged.includes(c)) merged.push(c);
+      }
+      return merged;
+    });
+  }
+
   async function handleSubmit(event: { preventDefault(): void }) {
     event.preventDefault();
+
+    if (preferredSeasons.length === 0) {
+      setStatus("Please select at least one semester to enroll in.");
+      return;
+    }
+
     setStatus("Generating plan...");
     const payload = {
       majors: selectedMajors,
@@ -64,6 +89,7 @@ export default function HomePage() {
       completed_courses: completedCourses,
       target_grad_term: targetGradTerm,
       max_credits_per_term: maxCredits,
+      preferred_seasons: preferredSeasons,
     };
 
     const res = await fetch(`${apiBase}/plan`, {
@@ -88,9 +114,7 @@ export default function HomePage() {
       <h1>RU Planner</h1>
       <p className="muted">Pick your degree, program, and completed courses to generate a plan.</p>
       <form className="form" onSubmit={handleSubmit}>
-        <label className="label">
-          Major(s)
-        </label>
+        <label className="label">Major(s)</label>
         <ProgramSelectInput
           programs={majorPrograms}
           value={selectedMajors}
@@ -108,9 +132,10 @@ export default function HomePage() {
           placeholder="Search minors…"
         />
 
-        <label className="label">
-          Completed courses
-        </label>
+        <label className="label">Completed courses</label>
+        <div style={{ marginBottom: "4px" }}>
+          <TranscriptUpload onCoursesDetected={handleTranscriptCourses} />
+        </div>
         <CompletedCoursesInput value={completedCourses} onChange={setCompletedCourses} />
 
         <label className="label" htmlFor="targetGradTerm">
@@ -135,6 +160,36 @@ export default function HomePage() {
           value={maxCredits}
           onChange={(event) => setMaxCredits(Number(event.target.value))}
         />
+
+        <label className="label">Semesters to enroll in</label>
+        <div style={{ display: "flex", gap: "16px", marginBottom: "8px" }}>
+          {ALL_SEASONS.map((season) => (
+            <label
+              key={season}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "14px",
+                cursor: "pointer",
+                userSelect: "none",
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={preferredSeasons.includes(season)}
+                onChange={() => toggleSeason(season)}
+                style={{ width: "16px", height: "16px", cursor: "pointer" }}
+              />
+              {season}
+            </label>
+          ))}
+        </div>
+        {preferredSeasons.length === 0 && (
+          <p style={{ fontSize: "12px", color: "#b91c1c", marginTop: 0, marginBottom: "8px" }}>
+            Select at least one semester.
+          </p>
+        )}
 
         <button className="primary-button" type="submit">
           Generate my plan
