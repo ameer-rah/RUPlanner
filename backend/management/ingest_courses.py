@@ -156,6 +156,30 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "776": "PBIO",      # Plant Biology (11:776)
     "780": "PLSC",      # Plant Science (11:780)
     "902": "TURF",      # Turfgrass Science (11:902)
+    # GSE — Graduate School of Education (school code 15/16)
+    "230": "EADM",      # Educational Administration and Supervision (15:230)
+    "233": "ACE",       # Adult and Continuing Education (15:233)
+    "245": "CSA",       # College Student Affairs (15:245)
+    "250": "EDLT",      # Learning and Teaching — General (15:250)
+    "251": "ECEE",      # Early Childhood/Elementary Education (15:251)
+    "252": "ENGLA",     # English/Language Arts Education (15:252)
+    "253": "LANE",      # Language Education / ESL / Bilingual (15:253)
+    "254": "MAED",      # Mathematics Education (15:254)
+    "255": "EDUC",      # Nondepartmental GSE / EdD Core (15:255)
+    "256": "SCED",      # Science Education (15:256)
+    "257": "SSED",      # Social Studies Education (15:257)
+    "262": "DSLE",      # Design of Learning Environments (15:262)
+    "267": "TLED",      # Teacher Leadership (15:267)
+    "290": "EDPY",      # Educational Psychology (15:290)
+    "291": "ESME",      # Educational Statistics, Measurement, and Evaluation (15:291)
+    "293": "SPED",      # Special Education (15:293)
+    "294": "GFED",      # Gifted Education (15:294)
+    "295": "LCD",       # Learning, Cognition, and Development (15:295)
+    "297": "CPSY",      # Counseling Psychology and School Counseling (15:297)
+    "299": "READ",      # Reading / Literacy Education (15:299)
+    "310": "SPFE",      # Social and Philosophical Foundations of Education (15:310)
+    "300": "EDPD",      # PhD in Education graduate courses (16:300)
+    "507": "HIED",      # PhD in Higher Education graduate courses (16:507)
     # SON — School of Nursing (school code 10)
     "678": "NURS",      # Nursing undergraduate courses (10:678)
     # EMSP — Ernest Mario School of Pharmacy (school code 30/31)
@@ -180,6 +204,24 @@ _UNIT_SUBJECT_OVERRIDE: dict[str, dict[str, str]] = {
     },
     "11": {
         "563": "MARINE", # Marine Sciences (11:563) — SAS/language uses same subject → CHN
+    },
+    "15": {
+        "300": "EDPD",   # GSE PhD in Education courses (15:300) — disambiguate from SAS Education (05:300)
+    },
+    "16": {
+        "300": "EDPD",   # GSE PhD graduate courses offered under unit 16
+        "507": "HIED",   # PhD in Higher Education (16:507)
+    },
+    # GSAPP — Graduate School of Applied and Professional Psychology (school code 18)
+    # Subject codes 820, 821, 826, 829, 844 are shared with other offering units
+    # (e.g. 820 is also used by SAS Middle East/African language departments under unit 01),
+    # so we must restrict mapping to offeringUnitCode "18" only.
+    "18": {
+        "820": "PPSY",   # Professional Psychology — core/shared GSAPP courses (18:820)
+        "821": "CLPSY",  # Clinical Psychology (18:821)
+        "826": "SPSY",   # School Psychology (18:826)
+        "829": "OPSY",   # Organizational Psychology (18:829)
+        "844": "MAP",    # Master of Applied Psychology (18:844)
     },
 }
 

@@ -7,7 +7,7 @@ class CourseInput(BaseModel):
 
 
 class PlanRequest(BaseModel):
-    degree_level: str = Field(..., description="Associate, Bachelor, or Master")
+    degree_level: str = Field("bachelor", description="Associate, Bachelor, or Master")
     majors: List[str]
     minors: List[str]
     completed_courses: List[str]
@@ -34,6 +34,7 @@ class PlanResponse(BaseModel):
     terms: List[TermPlan]
     remaining_courses: List[str]
     warnings: List[str]
+    completion_term: Optional[str] = None  # last term with courses when finished before graduation
 
 
 class ProgramInfo(BaseModel):

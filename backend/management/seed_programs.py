@@ -33,6 +33,8 @@ REGISTRY_FILES = [
     "ssw_programs.json",
     "son_programs.json",
     "emsp_programs.json",
+    "gse_programs.json",
+    "gsapp_programs.json",
 ]
 
 

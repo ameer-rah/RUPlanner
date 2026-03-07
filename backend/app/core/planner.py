@@ -18,6 +18,13 @@ _SCHOOL_CATALOG: Dict[str, str] = {
     "MGSA": "mgsa_catalog.json",
     "RBS": "rbs_catalog.json",
     "SCI": "sci_catalog.json",
+    "SMLR": "smlr_catalog.json",
+    "SEBS": "sebs_catalog.json",
+    "SSW": "ssw_catalog.json",
+    "SON": "son_catalog.json",
+    "EMSP": "emsp_catalog.json",
+    "GSE": "gse_catalog.json",
+    "GSAPP": "gsapp_catalog.json",
 }
 
 # Maps (request degree_level, hint found in major string) → DB degree_level value
@@ -202,7 +209,7 @@ def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], 
     major_name = m.group(1).strip()
     tokens = [t.strip().upper() for t in m.group(2).split(",")]
 
-    _SCHOOLS = {"SAS", "SOE", "RBS", "SPPP", "MGSA", "SCI"}
+    _SCHOOLS = {"SAS", "SOE", "RBS", "SPPP", "MGSA", "SCI", "SMLR", "SEBS", "SSW", "SON", "EMSP", "GSE", "GSAPP"}
     school = next((t for t in tokens if t in _SCHOOLS), "SAS")
     level_token = next((t for t in tokens if t not in _SCHOOLS), "")
 
@@ -587,11 +594,15 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     # --- Determine term window ---
     start = request.start_term or current_term()
-    terms = terms_between(start, request.target_grad_term)
+    # Normalize graduation term capitalization so "spring 2028" works like "Spring 2028"
+    grad_term = " ".join(
+        w.capitalize() if i == 0 else w for i, w in enumerate(request.target_grad_term.split())
+    )
+    terms = terms_between(start, grad_term)
 
     if not terms:
         warnings.append(
-            f"Target graduation term '{request.target_grad_term}' is at or before "
+            f"Target graduation term '{grad_term}' is at or before "
             f"the start term '{start}'. Please choose a future graduation date."
         )
         return PlanResponse(terms=[], remaining_courses=remaining, warnings=warnings)
@@ -709,7 +720,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     if queue:
         warnings.append(
-            f"Not all requirements fit before {request.target_grad_term}. "
+            f"Not all requirements fit before {grad_term}. "
             "Consider extending your graduation date or increasing max credits per term."
         )
 
@@ -718,8 +729,17 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     unscheduled_co = [c for c in co_pulled if c not in scheduled and c not in completed]
     queue.extend(unscheduled_co)
 
+    non_empty_terms = [t for t in planned_terms if t.courses]
+    last_course_term = non_empty_terms[-1].term if non_empty_terms else None
+
+    # Detect early completion: all courses placed before the graduation term.
+    completion_term = None
+    if not queue and last_course_term and last_course_term != grad_term:
+        completion_term = last_course_term
+
     return PlanResponse(
-        terms=[t for t in planned_terms if t.courses],
+        terms=non_empty_terms,
         remaining_courses=queue,
         warnings=warnings,
+        completion_term=completion_term,
     )

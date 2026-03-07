@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import CompletedCoursesInput from "./CompletedCoursesInput";
+import ProgramSelectInput from "./ProgramSelectInput";
 
 type ProgramInfo = {
   school: string;
@@ -29,14 +30,14 @@ type PlanResponse = {
   terms: PlanTerm[];
   remaining_courses: string[];
   warnings: string[];
+  completion_term: string | null;
 };
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 export default function HomePage() {
-  const [degreeLevel, setDegreeLevel] = useState("Bachelor");
-  const [majors, setMajors] = useState("Computer Science (BS, SAS)");
-  const [minors, setMinors] = useState("");
+  const [selectedMajors, setSelectedMajors] = useState<string[]>(["Computer Science (BS, SAS)"]);
+  const [selectedMinors, setSelectedMinors] = useState<string[]>([]);
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [targetGradTerm, setTargetGradTerm] = useState("Spring 2028");
   const [maxCredits, setMaxCredits] = useState(15);
@@ -58,9 +59,8 @@ export default function HomePage() {
     event.preventDefault();
     setStatus("Generating plan...");
     const payload = {
-      degree_level: degreeLevel,
-      majors: majors.split(",").map((item) => item.trim()).filter(Boolean),
-      minors: minors.split(",").map((item) => item.trim()).filter(Boolean),
+      majors: selectedMajors,
+      minors: selectedMinors,
       completed_courses: completedCourses,
       target_grad_term: targetGradTerm,
       max_credits_per_term: maxCredits,
@@ -88,51 +88,25 @@ export default function HomePage() {
       <h1>RU Planner</h1>
       <p className="muted">Pick your degree, program, and completed courses to generate a plan.</p>
       <form className="form" onSubmit={handleSubmit}>
-        <label className="label" htmlFor="degreeLevel">
-          Degree level
+        <label className="label">
+          Major(s)
         </label>
-        <select
-          id="degreeLevel"
-          className="input"
-          value={degreeLevel}
-          onChange={(event) => setDegreeLevel(event.target.value)}
-        >
-          <option>Associate</option>
-          <option>Bachelor</option>
-          <option>Master</option>
-        </select>
-
-        <label className="label" htmlFor="majors">
-          Major(s) — comma-separate for dual major
-        </label>
-        <input
-          id="majors"
-          className="input"
-          value={majors}
-          onChange={(event) => setMajors(event.target.value)}
-          list="majorOptions"
+        <ProgramSelectInput
+          programs={majorPrograms}
+          value={selectedMajors}
+          onChange={setSelectedMajors}
+          placeholder="Search by name or school…"
         />
-        <datalist id="majorOptions">
-          {majorPrograms.map((p) => (
-            <option key={p.display_name} value={p.display_name} />
-          ))}
-        </datalist>
 
-        <label className="label" htmlFor="minors">
-          Minor(s) — comma-separate for multiple
+        <label className="label">
+          Minor(s) <span className="label-optional">optional</span>
         </label>
-        <input
-          id="minors"
-          className="input"
-          value={minors}
-          onChange={(event) => setMinors(event.target.value)}
-          list="minorOptions"
+        <ProgramSelectInput
+          programs={minorPrograms}
+          value={selectedMinors}
+          onChange={setSelectedMinors}
+          placeholder="Search minors…"
         />
-        <datalist id="minorOptions">
-          {minorPrograms.map((p) => (
-            <option key={p.display_name} value={p.display_name} />
-          ))}
-        </datalist>
 
         <label className="label">
           Completed courses
@@ -178,6 +152,15 @@ export default function HomePage() {
                   <span key={code} className="plan-completed-chip">{code}</span>
                 ))}
               </div>
+            </div>
+          )}
+
+          {plan.completion_term && (
+            <div className="plan-completion">
+              <strong>All requirements complete</strong>
+              <span>
+                Every required course fits by <strong>{plan.completion_term}</strong> — you&apos;re on track for your graduation date.
+              </span>
             </div>
           )}
 

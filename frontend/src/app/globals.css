@@ -103,6 +103,37 @@ select {
   font-size: 12px;
 }
 
+/* ── Optional label annotation ──────────────────────────────────────── */
+
+.label-optional {
+  font-weight: 400;
+  color: #9ca3af;
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* ── Program select group header ─────────────────────────────────────── */
+
+.program-select-group-header {
+  padding: 6px 12px 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-top: 1px solid #f3f4f6;
+}
+
+.program-select-group-header:first-child {
+  border-top: none;
+}
+
+.program-select-empty {
+  padding: 12px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
 /* ── Chip input (completed courses) ──────────────────────────────────── */
 
 .chip-input-wrapper {
@@ -209,6 +240,21 @@ select {
   text-overflow: ellipsis;
 }
 
+/* ── Early-completion banner ─────────────────────────────────────────── */
+
+.plan-completion {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 12px;
+  padding: 12px;
+  color: #166534;
+  font-size: 14px;
+}
+
 /* ── Completed courses summary panel ────────────────────────────────── */
 
 .plan-completed {
@@ -237,4 +283,26 @@ select {
   padding: 2px 9px;
   font-size: 12px;
   font-weight: 600;
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────── */
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 14px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .primary-button {
+    width: 100%;
+    padding: 13px 16px;
+    font-size: 15px;
+  }
+
+  .plan-grid {
+    grid-template-columns: 1fr;
+  }
 }
