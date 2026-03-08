@@ -15,53 +15,73 @@ type Props = {
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
-const COURSE_CODE_RE = /^[A-Z]{2,8}\d{2,4}[A-Z]?$/i;
-
 export default function CompletedCoursesInput({ value, onChange }: Props) {
   const [inputValue, setInputValue] = useState("");
   const [suggestions, setSuggestions] = useState<CourseSearchResult[]>([]);
   const [activeIdx, setActiveIdx] = useState(-1);
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Close on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setOpen(false);
+        setActiveIdx(-1);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   const fetchSuggestions = useCallback((q: string) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     if (!q.trim()) {
       setSuggestions([]);
+      setLoading(false);
       return;
     }
+    setLoading(true);
     debounceRef.current = setTimeout(async () => {
       try {
         const res = await fetch(
-          `${apiBase}/courses?q=${encodeURIComponent(q.trim())}&limit=10`
+          `${apiBase}/courses?q=${encodeURIComponent(q.trim())}&limit=12`
         );
         if (res.ok) {
           const data: CourseSearchResult[] = await res.json();
-          setSuggestions(data);
+          // Filter out already-added courses
+          setSuggestions(data.filter((c) => !value.includes(c.code)));
           setActiveIdx(-1);
         }
       } catch {
         setSuggestions([]);
+      } finally {
+        setLoading(false);
       }
-    }, 250);
-  }, []);
+    }, 200);
+  }, [value]);
 
   useEffect(() => {
     fetchSuggestions(inputValue);
   }, [inputValue, fetchSuggestions]);
 
-  function addCode(raw: string) {
-    const code = raw.trim().toUpperCase();
-    if (!code) return;
-    if (value.includes(code)) {
+  function addCode(code: string) {
+    const upper = code.trim().toUpperCase();
+    if (!upper || value.includes(upper)) {
       setInputValue("");
       setSuggestions([]);
+      setOpen(false);
       return;
     }
-    onChange([...value, code]);
+    onChange([...value, upper]);
     setInputValue("");
     setSuggestions([]);
     setActiveIdx(-1);
+    setOpen(false);
+    inputRef.current?.focus();
   }
 
   function removeCode(code: string) {
@@ -80,7 +100,7 @@ export default function CompletedCoursesInput({ value, onChange }: Props) {
       return;
     }
     if (e.key === "Escape") {
-      setSuggestions([]);
+      setOpen(false);
       setActiveIdx(-1);
       return;
     }
@@ -98,11 +118,13 @@ export default function CompletedCoursesInput({ value, onChange }: Props) {
     }
   }
 
-  const showDropdown = suggestions.length > 0;
+  const showDropdown = open && inputValue.trim().length > 0;
 
   return (
     <div
+      ref={wrapperRef}
       className="chip-input-wrapper"
+      style={{ position: "relative" }}
       onClick={() => inputRef.current?.focus()}
     >
       {value.map((code) => (
@@ -126,9 +148,13 @@ export default function CompletedCoursesInput({ value, onChange }: Props) {
         ref={inputRef}
         className="chip-text-input"
         type="text"
-        placeholder={value.length === 0 ? "Type a course code, e.g. CS111…" : ""}
+        placeholder={value.length === 0 ? "Search by code or name…" : "Add another…"}
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setOpen(true);
+        }}
+        onFocus={() => setOpen(true)}
         onKeyDown={handleKeyDown}
         autoComplete="off"
         spellCheck={false}
@@ -136,22 +162,30 @@ export default function CompletedCoursesInput({ value, onChange }: Props) {
 
       {showDropdown && (
         <div className="chip-suggestions">
-          {suggestions.map((s, idx) => (
-            <div
-              key={s.code}
-              className={`chip-suggestion-item${idx === activeIdx ? " chip-suggestion-active" : ""}`}
-              onMouseDown={(e) => {
-                e.preventDefault();
-                addCode(s.code);
-              }}
-              onMouseEnter={() => setActiveIdx(idx)}
-            >
-              <span className="chip-suggestion-code">{s.code}</span>
-              <span className="chip-suggestion-title">
-                {s.title} · {s.credits} cr
-              </span>
+          {loading ? (
+            <div className="program-select-empty">Searching…</div>
+          ) : suggestions.length === 0 ? (
+            <div className="program-select-empty">
+              No courses found — press Enter to add &ldquo;{inputValue.trim().toUpperCase()}&rdquo; manually.
             </div>
-          ))}
+          ) : (
+            suggestions.map((s, idx) => (
+              <div
+                key={s.code}
+                className={`chip-suggestion-item${idx === activeIdx ? " chip-suggestion-active" : ""}`}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  addCode(s.code);
+                }}
+                onMouseEnter={() => setActiveIdx(idx)}
+              >
+                <span className="chip-suggestion-code">{s.code}</span>
+                <span className="chip-suggestion-title">
+                  {s.title} · {s.credits} cr
+                </span>
+              </div>
+            ))
+          )}
         </div>
       )}
     </div>

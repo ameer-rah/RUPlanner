@@ -1,14 +1,37 @@
 from contextlib import asynccontextmanager
+import os
 import re
+from dotenv import load_dotenv
+
+load_dotenv()
+from datetime import datetime, timedelta
 from typing import List
 
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import FastAPI, HTTPException, UploadFile, File, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from jose import JWTError, jwt
+import bcrypt
+from google.oauth2 import id_token as google_id_token
+from google.auth.transport import requests as google_requests
 
 from .database import engine, Base, SessionLocal
 from . import models
-from .schemas import PlanRequest, PlanResponse, ProgramInfo, CourseSearchResult
+from .schemas import PlanRequest, PlanResponse, ProgramInfo, CourseSearchResult, UserCreate, Token, SaveScheduleRequest, GoogleAuthRequest
 from .core.planner import heuristic_plan
+
+SECRET_KEY = os.getenv("SECRET_KEY", "ru-planner-dev-secret-change-in-production")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_DAYS = 30
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
+
+def _hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+def _verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode(), hashed.encode())
+
+_bearer = HTTPBearer()
 
 
 @asynccontextmanager
@@ -181,3 +204,136 @@ async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
 
     codes = _parse_transcript_text(text)
     return codes
+
+
+# ── Auth helpers ─────────────────────────────────────────────────────────────
+
+def _create_token(user_id: int) -> str:
+    expire = datetime.utcnow() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
+    return jwt.encode({"sub": str(user_id), "exp": expire}, SECRET_KEY, algorithm=ALGORITHM)
+
+
+def _get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(_bearer)) -> int:
+    try:
+        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("sub")
+        if user_id is None:
+            raise HTTPException(status_code=401, detail="Invalid token")
+        return int(user_id)
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+
+# ── Auth endpoints ────────────────────────────────────────────────────────────
+
+@app.post("/auth/register", response_model=Token)
+def register(payload: UserCreate) -> Token:
+    db = SessionLocal()
+    try:
+        if db.query(models.User).filter(models.User.email == payload.email).first():
+            raise HTTPException(status_code=400, detail="Email already registered")
+        user = models.User(email=payload.email, hashed_password=_hash_password(payload.password))
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        return Token(access_token=_create_token(user.id), token_type="bearer")
+    finally:
+        db.close()
+
+
+@app.post("/auth/login", response_model=Token)
+def login(payload: UserCreate) -> Token:
+    db = SessionLocal()
+    try:
+        user = db.query(models.User).filter(models.User.email == payload.email).first()
+        if not user or not _verify_password(payload.password, user.hashed_password):
+            raise HTTPException(status_code=401, detail="Invalid email or password")
+        return Token(access_token=_create_token(user.id), token_type="bearer")
+    finally:
+        db.close()
+
+
+@app.post("/auth/google", response_model=Token)
+def google_auth(payload: GoogleAuthRequest) -> Token:
+    if not GOOGLE_CLIENT_ID:
+        raise HTTPException(status_code=500, detail="Google auth is not configured on the server.")
+    try:
+        idinfo = google_id_token.verify_oauth2_token(
+            payload.credential,
+            google_requests.Request(),
+            GOOGLE_CLIENT_ID,
+        )
+        email = idinfo["email"]
+    except ValueError:
+        raise HTTPException(status_code=401, detail="Invalid Google token.")
+
+    db = SessionLocal()
+    try:
+        user = db.query(models.User).filter(models.User.email == email).first()
+        if not user:
+            user = models.User(email=email, hashed_password="")
+            db.add(user)
+            db.commit()
+            db.refresh(user)
+        return Token(access_token=_create_token(user.id), token_type="bearer")
+    finally:
+        db.close()
+
+
+@app.get("/auth/me")
+def me(user_id: int = Depends(_get_current_user_id)):
+    db = SessionLocal()
+    try:
+        user = db.query(models.User).filter(models.User.id == user_id).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        return {"id": user.id, "email": user.email}
+    finally:
+        db.close()
+
+
+# ── Schedule save/load endpoints ──────────────────────────────────────────────
+
+@app.post("/schedules")
+def save_schedule(payload: SaveScheduleRequest, user_id: int = Depends(_get_current_user_id)):
+    db = SessionLocal()
+    try:
+        schedule = models.SavedSchedule(user_id=user_id, name=payload.name, plan_data=payload.plan_data)
+        db.add(schedule)
+        db.commit()
+        db.refresh(schedule)
+        return {"id": schedule.id, "message": "Schedule saved"}
+    finally:
+        db.close()
+
+
+@app.get("/schedules")
+def get_schedules(user_id: int = Depends(_get_current_user_id)):
+    db = SessionLocal()
+    try:
+        rows = (
+            db.query(models.SavedSchedule)
+            .filter(models.SavedSchedule.user_id == user_id)
+            .order_by(models.SavedSchedule.created_at.desc())
+            .all()
+        )
+        return [{"id": r.id, "name": r.name, "plan_data": r.plan_data, "created_at": r.created_at.isoformat()} for r in rows]
+    finally:
+        db.close()
+
+
+@app.delete("/schedules/{schedule_id}", status_code=204)
+def delete_schedule(schedule_id: int, user_id: int = Depends(_get_current_user_id)):
+    db = SessionLocal()
+    try:
+        row = (
+            db.query(models.SavedSchedule)
+            .filter(models.SavedSchedule.id == schedule_id, models.SavedSchedule.user_id == user_id)
+            .first()
+        )
+        if not row:
+            raise HTTPException(status_code=404, detail="Schedule not found")
+        db.delete(row)
+        db.commit()
+    finally:
+        db.close()

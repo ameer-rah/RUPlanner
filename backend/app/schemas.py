@@ -53,3 +53,29 @@ class CourseSearchResult(BaseModel):
     code: str
     title: str
     credits: int
+
+
+class UserCreate(BaseModel):
+    email: str
+    password: str
+
+
+class GoogleAuthRequest(BaseModel):
+    credential: str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class SaveScheduleRequest(BaseModel):
+    name: str = "My Schedule"
+    plan_data: dict
+
+
+class SavedScheduleInfo(BaseModel):
+    id: int
+    name: str
+    created_at: str
+    plan_data: dict
