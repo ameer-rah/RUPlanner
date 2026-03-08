@@ -1,0 +1,380 @@
+[
+  {
+    "code": "PHYS203",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "THEA226",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL101",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS483",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS111",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MATH152",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL102",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS292",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL329",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MATH112",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MATH115",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL103",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL104",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM101",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM109",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM110",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM113",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM115",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM114",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM116",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC103",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC104",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC206",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC207",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC233",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "GEOSC234",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS101",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS102",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS109",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS110",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS205",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS204",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS206",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS213",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS215",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS214",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHYS216",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST209",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "AMST220",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS112",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS205",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS206",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS211",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS213",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS214",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CS314",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "HIST232",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MATH151",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "MATH250",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PHIL103",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS484",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PSYC291",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "ENGL201",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SOC201",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "SOC101",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "STAT211",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "STAT285",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "PSYC200",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "STAT401",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM108",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM128",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM162",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "CHEM102",
+    "title": "",
+    "credits": 3,
+    "prerequisites": []
+  }
+]

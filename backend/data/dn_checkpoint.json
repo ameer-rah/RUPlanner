@@ -1,0 +1,832 @@
+{
+  "scraped": {
+    "dn_2721": {
+      "school": "01",
+      "degree_level": "bachelor_bs",
+      "major_name": "The SAS Core Curriculum (NB)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS203",
+        "THEA226",
+        "ENGL101",
+        "POLS483",
+        "CS111",
+        "MATH152"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [],
+      "_raw_blocks": [
+        {
+          "title": "R1 : Contemporary Challenges [CC]",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R2 : Areas of Inquiry: Natural Sciences [NS]",
+          "courses": [
+            "PHYS203"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R3 : Areas of Inquiry: Social [SCL] and Historical [HST] Analysis",
+          "courses": [
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R4 : Areas of Inquiry: Arts and Humanities [AHo], [AHp], [AHq], [AHr]",
+          "courses": [
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R5 : Cognitive Skills and Processes: Writing and Communication [WC], [WCr], [WCd]",
+          "courses": [
+            "ENGL101",
+            "POLS483"
+          ],
+          "is_elective": false,
+          "total_courses": 3
+        },
+        {
+          "title": "R6 : Cognitive Skills and Processes: Quantitative and Formal Reasoning [QQ], [QR]",
+          "courses": [
+            "CS111",
+            "MATH152"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        }
+      ]
+    },
+    "dn_13": {
+      "school": "07",
+      "degree_level": "bachelor_bs",
+      "major_name": "Mason Gross School of the Arts (NB)",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "electives": {
+        "count": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [
+        "ERROR: requirements grid not found"
+      ],
+      "_raw_blocks": []
+    },
+    "dn_18": {
+      "school": "10",
+      "degree_level": "bachelor_bs",
+      "major_name": "Edward J. Bloustein School of Planning and Public Policy General Education Requirements (NB)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENGL101",
+        "ENGL102",
+        "MATH152",
+        "CS111",
+        "PHYS203",
+        "POLS292",
+        "PHIL329",
+        "THEA226"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [],
+      "_raw_blocks": [
+        {
+          "title": "R1 : Writing and Communication",
+          "courses": [
+            "ENGL101",
+            "ENGL102"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R2 : Quantitative Reasoning",
+          "courses": [
+            "MATH152"
+          ],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R3 : Science and Technology",
+          "courses": [
+            "CS111",
+            "PHYS203"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R4 : Social Science",
+          "courses": [
+            "POLS292"
+          ],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R5 : Arts and Humanities",
+          "courses": [
+            "PHIL329"
+          ],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R6 : History",
+          "courses": [
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R7 : Diversity (Global and Cultural Awareness)",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 1
+        }
+      ]
+    },
+    "dn_2742": {
+      "school": "11",
+      "degree_level": "bachelor_bs",
+      "major_name": "School of Environmental and Biological Sciences (SEBS) Core Curriculum (NB)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS203",
+        "THEA226",
+        "ENGL101",
+        "POLS483",
+        "CS111",
+        "MATH152",
+        "MATH112",
+        "MATH115"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [],
+      "_raw_blocks": [
+        {
+          "title": "R1 : Contemporary Challenges [CC]",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R2 : Areas of Inquiry: Natural Sciences [NS]",
+          "courses": [
+            "PHYS203"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R3 : Areas of Inquiry: Social [SCL] and Historical [HST] Analysis",
+          "courses": [
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": 3
+        },
+        {
+          "title": "R4 : Areas of Inquiry: Arts and Humanities [AHo], [AHp], [AHq], [AHr]",
+          "courses": [
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R5 : Cognitive Skills and Processes: Writing and Communication [WC] and [WCd]",
+          "courses": [
+            "ENGL101",
+            "POLS483"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R6 : Cognitive Skills and Processes: Quantitative and Formal Reasoning [QQ], [QR]",
+          "courses": [
+            "CS111",
+            "MATH152",
+            "MATH112",
+            "MATH115"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        }
+      ]
+    },
+    "dn_29": {
+      "school": "14",
+      "degree_level": "bachelor_bs",
+      "major_name": "School of Engineering General Education Requirements (NB)",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "electives": {
+        "count": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [
+        "ERROR: requirements grid not found"
+      ],
+      "_raw_blocks": []
+    },
+    "dn_30": {
+      "school": "15",
+      "degree_level": "bachelor_bs",
+      "major_name": "Graduate School of Education (NB)",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "electives": {
+        "count": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [
+        "ERROR: requirements grid not found"
+      ],
+      "_raw_blocks": []
+    },
+    "dn_36": {
+      "school": "21",
+      "degree_level": "bachelor_bs",
+      "major_name": "Newark College of Arts and Sciences (NCAS) Core Curriculum (NK)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENGL101",
+        "ENGL102",
+        "ENGL103",
+        "ENGL104",
+        "CHEM101",
+        "CHEM109",
+        "CHEM110",
+        "CHEM113",
+        "CHEM115",
+        "CHEM114",
+        "CHEM116",
+        "GEOSC103",
+        "GEOSC104",
+        "GEOSC206",
+        "GEOSC207",
+        "GEOSC233",
+        "GEOSC234",
+        "PHYS101",
+        "PHYS102",
+        "PHYS109",
+        "PHYS110",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "PHYS213",
+        "PHYS215",
+        "PHYS214",
+        "PHYS216",
+        "AMST209",
+        "AMST220",
+        "CS111",
+        "CS112",
+        "CS205",
+        "CS206",
+        "CS211",
+        "CS213",
+        "CS214",
+        "CS314",
+        "HIST232",
+        "MATH151",
+        "MATH152",
+        "MATH250",
+        "PHIL103",
+        "PHIL329",
+        "POLS292",
+        "POLS483",
+        "POLS484",
+        "PSYC291",
+        "THEA226"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [],
+      "_raw_blocks": [
+        {
+          "title": "R1 : Basic Writing Skills",
+          "courses": [
+            "ENGL101",
+            "ENGL102",
+            "ENGL103",
+            "ENGL104"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R2 : Quantitative Reasoning",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R3 : Natural Sciences",
+          "courses": [
+            "CHEM101",
+            "CHEM109",
+            "CHEM110",
+            "CHEM113",
+            "CHEM115",
+            "CHEM114",
+            "CHEM116",
+            "GEOSC103",
+            "GEOSC104",
+            "GEOSC206",
+            "GEOSC207",
+            "GEOSC233",
+            "GEOSC234",
+            "PHYS101",
+            "PHYS102",
+            "PHYS109",
+            "PHYS110",
+            "PHYS203",
+            "PHYS205",
+            "PHYS204",
+            "PHYS206",
+            "PHYS213",
+            "PHYS215",
+            "PHYS214",
+            "PHYS216"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R4 : Social Sciences",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R5 : History and Literature",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 3
+        },
+        {
+          "title": "R6 : Arts & Media",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R7 : Other Liberal Arts",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R8 : Writing Requirements",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R9",
+          "courses": [
+            "AMST209",
+            "AMST220",
+            "CS111",
+            "CS112",
+            "CS205",
+            "CS206",
+            "CS211",
+            "CS213",
+            "CS214",
+            "CS314",
+            "HIST232",
+            "MATH151",
+            "MATH152",
+            "MATH250",
+            "PHIL103",
+            "PHIL329",
+            "PHYS203",
+            "PHYS205",
+            "PHYS206",
+            "POLS292",
+            "POLS483",
+            "POLS484",
+            "PSYC291",
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        }
+      ]
+    },
+    "dn_37": {
+      "school": "25",
+      "degree_level": "bachelor_bs",
+      "major_name": "Nursing General Education Requirements (NB) (NK)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENGL101",
+        "ENGL102",
+        "ENGL201",
+        "THEA226",
+        "SOC201",
+        "SOC101",
+        "PHIL329",
+        "CS206",
+        "STAT211",
+        "STAT285",
+        "PSYC200",
+        "STAT401",
+        "CHEM108",
+        "CHEM110",
+        "CHEM128",
+        "CHEM162",
+        "POLS484"
+      ],
+      "electives": {
+        "count": 3,
+        "min_level_300_plus": 0,
+        "options": [
+          "CS213",
+          "CS214",
+          "CS314"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [],
+      "_raw_blocks": [
+        {
+          "title": "R1 : Writing",
+          "courses": [
+            "ENGL101",
+            "ENGL102",
+            "ENGL201"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        },
+        {
+          "title": "R2 : Anthropology/Cultural Studies",
+          "courses": [
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        },
+        {
+          "title": "R3 : Sociology",
+          "courses": [
+            "SOC201",
+            "SOC101"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        },
+        {
+          "title": "R4 : Literature",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": null
+        },
+        {
+          "title": "R5 : Humanities",
+          "courses": [
+            "PHIL329"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        },
+        {
+          "title": "R6 : Technology",
+          "courses": [
+            "CS206"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        },
+        {
+          "title": "R7 : Life Sciences and Statistics",
+          "courses": [
+            "STAT211",
+            "STAT285",
+            "PSYC200",
+            "STAT401",
+            "CHEM108",
+            "CHEM110",
+            "CHEM128",
+            "CHEM162"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        },
+        {
+          "title": "R8 : History, Political Science, Economics",
+          "courses": [
+            "POLS484"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        },
+        {
+          "title": "R9 : General Electives",
+          "courses": [
+            "CS213",
+            "CS214",
+            "CS314"
+          ],
+          "is_elective": true,
+          "total_courses": null
+        }
+      ]
+    },
+    "dn_43": {
+      "school": "29",
+      "degree_level": "bachelor_bs",
+      "major_name": "Rutgers Business School - Newark Core Curriculum (NK)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "ENGL101",
+        "ENGL102",
+        "ENGL103",
+        "ENGL104",
+        "PHYS109",
+        "PHYS110",
+        "GEOSC233",
+        "GEOSC234",
+        "PHYS101",
+        "PHYS102",
+        "CHEM101",
+        "CHEM109",
+        "CHEM110",
+        "CHEM102",
+        "CHEM113",
+        "CHEM115",
+        "CHEM114",
+        "CHEM116",
+        "GEOSC103",
+        "GEOSC104",
+        "GEOSC206",
+        "GEOSC207",
+        "PHYS203",
+        "PHYS205",
+        "PHYS204",
+        "PHYS206",
+        "PHYS213",
+        "PHYS214",
+        "AMST209",
+        "AMST220",
+        "CS111",
+        "CS112",
+        "CS205",
+        "CS206",
+        "CS211",
+        "CS213",
+        "CS214",
+        "CS314",
+        "HIST232",
+        "MATH151",
+        "MATH152",
+        "MATH250",
+        "PHIL103",
+        "PHIL329",
+        "POLS292",
+        "POLS483",
+        "POLS484",
+        "PSYC291",
+        "THEA226"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [],
+      "_raw_blocks": [
+        {
+          "title": "R1 : Basic Writing Skills",
+          "courses": [
+            "ENGL101",
+            "ENGL102",
+            "ENGL103",
+            "ENGL104"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R2 : Quantitative Reasoning",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R3 : Natural Sciences",
+          "courses": [
+            "PHYS109",
+            "PHYS110",
+            "GEOSC233",
+            "GEOSC234",
+            "PHYS101",
+            "PHYS102",
+            "CHEM101",
+            "CHEM109",
+            "CHEM110",
+            "CHEM102",
+            "CHEM113",
+            "CHEM115",
+            "CHEM114",
+            "CHEM116",
+            "GEOSC103",
+            "GEOSC104",
+            "GEOSC206",
+            "GEOSC207",
+            "PHYS203",
+            "PHYS205",
+            "PHYS204",
+            "PHYS206",
+            "PHYS213",
+            "PHYS214"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R4 : Social Sciences",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R5 : History and Literature",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 3
+        },
+        {
+          "title": "R6 : Arts & Media",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R7 : Other Liberal Arts",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 1
+        },
+        {
+          "title": "R8 : Writing Requirements",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R9",
+          "courses": [
+            "AMST209",
+            "AMST220",
+            "CS111",
+            "CS112",
+            "CS205",
+            "CS206",
+            "CS211",
+            "CS213",
+            "CS214",
+            "CS314",
+            "HIST232",
+            "MATH151",
+            "MATH152",
+            "MATH250",
+            "PHIL103",
+            "PHIL329",
+            "PHYS203",
+            "PHYS205",
+            "PHYS206",
+            "POLS292",
+            "POLS483",
+            "POLS484",
+            "PSYC291",
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": null
+        }
+      ]
+    },
+    "dn_2841": {
+      "school": "33",
+      "degree_level": "bachelor_bs",
+      "major_name": "Rutgers Business School - New Brunswick General Education Requirements: The Rutgers Core Curriculum (NB)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "PHYS203",
+        "THEA226",
+        "ENGL101",
+        "POLS483",
+        "CS111",
+        "MATH152"
+      ],
+      "electives": {
+        "count": 0,
+        "min_level_300_plus": 0,
+        "options": [],
+        "any_from_catalog": false
+      },
+      "constraints": [],
+      "notes": [],
+      "_raw_blocks": [
+        {
+          "title": "R1 : Contemporary Challenges [CC]",
+          "courses": [],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R2 : Areas of Inquiry: Natural Sciences [NS]",
+          "courses": [
+            "PHYS203"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R3 : Areas of Inquiry: Social [SCL] and Historical [HST] Analysis",
+          "courses": [
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R4 : Areas of Inquiry: Arts and Humanities [AHo], [AHp], [AHq], [AHr]",
+          "courses": [
+            "THEA226"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        },
+        {
+          "title": "R5 : Cognitive Skills and Processes: Writing and Communication [WC], [WCr], [WCd]",
+          "courses": [
+            "ENGL101",
+            "POLS483"
+          ],
+          "is_elective": false,
+          "total_courses": 3
+        },
+        {
+          "title": "R6 : Cognitive Skills and Processes: Quantitative and Formal Reasoning [QQ], [QR]",
+          "courses": [
+            "CS111",
+            "MATH152"
+          ],
+          "is_elective": false,
+          "total_courses": 2
+        }
+      ]
+    }
+  }
+}
