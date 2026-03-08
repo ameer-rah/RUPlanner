@@ -6,6 +6,13 @@ class CourseInput(BaseModel):
     code: str
 
 
+class ElectiveOption(BaseModel):
+    code: str
+    title: str
+    credits: int
+    prerequisites: List[str] = []
+
+
 class PlanRequest(BaseModel):
     degree_level: str = Field("bachelor", description="Associate, Bachelor, or Master")
     majors: List[str]
@@ -25,7 +32,8 @@ class PlannedCourse(BaseModel):
     title: str
     credits: int
     is_elective: bool = False
-    elective_options: List[str] = []
+    prerequisites: List[str] = []
+    elective_options: List[ElectiveOption] = []
 
 
 class TermPlan(BaseModel):

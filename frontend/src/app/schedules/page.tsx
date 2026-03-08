@@ -53,7 +53,7 @@ export default function SchedulesPage() {
   const router = useRouter();
   const [schedules, setSchedules] = useState<SavedSchedule[]>([]);
   const [loading, setLoading] = useState(true);
-  const [expanded, setExpanded] = useState<number | null>(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [confirmId, setConfirmId] = useState<number | null>(null);
 
@@ -76,7 +76,10 @@ export default function SchedulesPage() {
         }
         return r.ok ? r.json() : [];
       })
-      .then((data) => setSchedules(data ?? []))
+      .then((data: SavedSchedule[]) => {
+        setSchedules(data ?? []);
+        if (data?.length > 0) setSelectedId(data[0].id);
+      })
       .finally(() => setLoading(false));
   }, [router]);
 
@@ -97,147 +100,122 @@ export default function SchedulesPage() {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
-      setSchedules((prev) => prev.filter((s) => s.id !== id));
-      if (expanded === id) setExpanded(null);
+      setSchedules((prev) => {
+        const next = prev.filter((s) => s.id !== id);
+        if (selectedId === id) setSelectedId(next[0]?.id ?? null);
+        return next;
+      });
     } finally {
       setDeletingId(null);
       setConfirmId(null);
     }
   }
 
+  const selected = schedules.find((s) => s.id === selectedId) ?? null;
+
   return (
     <div className="schedules-shell">
       <header className="schedules-topbar">
         <div className="schedules-topbar-logo">
-          <span className="logo-mark">RU</span>
-          <span className="logo-text" style={{ color: "var(--text)" }}>Planner</span>
+          <img src="/RUPlanner_logo.png" alt="RU Planner" className="topbar-logo-img" />
+          <span className="logo-text" style={{ color: "var(--text)" }}>RU Planner</span>
         </div>
         <button className="topbar-btn" onClick={() => router.push("/")}>
           ← Back to planner
         </button>
       </header>
 
-      <div className="schedules-content">
-        {/* Page heading */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
-          <h1 style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em", margin: 0 }}>
-            My Schedules
-          </h1>
-          {!loading && schedules.length > 0 && (
-            <span style={{
-              fontSize: 12, fontWeight: 600, background: "var(--scarlet)",
-              color: "#fff", borderRadius: 20, padding: "2px 10px",
-            }}>
-              {schedules.length}
-            </span>
-          )}
-        </div>
-
-        {loading ? (
+      {loading ? (
+        <div className="empty-state" style={{ minHeight: "calc(100vh - 57px)" }}>
           <p className="muted">Loading…</p>
-        ) : schedules.length === 0 ? (
-          <div className="empty-state" style={{ minHeight: 280 }}>
-            <div className="empty-state-icon">📋</div>
-            <p className="empty-state-title">No saved schedules yet</p>
-            <p className="empty-state-sub">
-              Generate a degree plan and save it to see it here.
-            </p>
-            <button
-              className="primary-button"
-              style={{ width: "auto", marginTop: 4 }}
-              onClick={() => router.push("/")}
-            >
-              Generate a plan
-            </button>
-          </div>
-        ) : (
-          <div style={{ display: "grid", gap: 14 }}>
-            {schedules.map((s) => {
-              const credits = totalCredits(s.plan_data.terms);
-              const isExpanded = expanded === s.id;
-              const isConfirming = confirmId === s.id;
+        </div>
+      ) : schedules.length === 0 ? (
+        <div className="empty-state" style={{ minHeight: "calc(100vh - 57px)" }}>
+          <div className="empty-state-icon">📋</div>
+          <p className="empty-state-title">No saved schedules yet</p>
+          <p className="empty-state-sub">
+            Generate a degree plan and save it to see it here.
+          </p>
+          <button
+            className="primary-button"
+            style={{ width: "auto", marginTop: 4 }}
+            onClick={() => router.push("/")}
+          >
+            Generate a plan
+          </button>
+        </div>
+      ) : (
+        <div className="schedules-master-detail">
+          {/* ── Left: schedule list ── */}
+          <div className="schedules-list-panel">
+            <div className="schedules-list-header">
+              <h1 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>My Schedules</h1>
+              <span style={{
+                fontSize: 11, fontWeight: 600, background: "var(--scarlet)",
+                color: "#fff", borderRadius: 20, padding: "2px 9px",
+              }}>
+                {schedules.length}
+              </span>
+            </div>
 
-              return (
-                <div key={s.id} className="schedule-card">
-                  {/* Card header row */}
-                  <div style={{ display: "flex", alignItems: "stretch" }}>
-                    <button
-                      className="schedule-card-header"
-                      style={{ flex: 1 }}
-                      onClick={() => setExpanded(isExpanded ? null : s.id)}
-                    >
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div className="schedule-card-name">{s.name}</div>
-                        <div className="schedule-card-meta" style={{ marginTop: 4 }}>
-                          Saved {formatDate(s.created_at)}
-                          &nbsp;·&nbsp;{s.plan_data.terms.length} terms
-                          &nbsp;·&nbsp;{credits} total credits
-                          {s.plan_data.completion_term && (
-                            <span style={{ color: "#16a34a", fontWeight: 600 }}>
-                              &nbsp;· Completes {s.plan_data.completion_term}
-                            </span>
-                          )}
-                        </div>
+            <div className="schedules-list">
+              {schedules.map((s) => {
+                const credits = totalCredits(s.plan_data.terms);
+                const isSelected = selectedId === s.id;
+                const isConfirming = confirmId === s.id;
 
-                        {/* Term preview pills */}
-                        <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginTop: 10 }}>
-                          {s.plan_data.terms.slice(0, 8).map((t) => (
-                            <span
-                              key={t.term}
-                              style={{
-                                fontSize: 11, fontWeight: 600, borderRadius: 5,
-                                padding: "2px 8px", ...getTermPillStyle(t.term),
-                              }}
-                            >
-                              {t.term}
-                            </span>
-                          ))}
-                          {s.plan_data.terms.length > 8 && (
-                            <span style={{
-                              fontSize: 11, fontWeight: 600, borderRadius: 5,
-                              padding: "2px 8px", background: "#f1f5f9",
-                              color: "var(--muted)", border: "1px solid var(--border)",
-                            }}>
-                              +{s.plan_data.terms.length - 8} more
-                            </span>
-                          )}
-                        </div>
+                return (
+                  <div
+                    key={s.id}
+                    className={`schedule-list-item${isSelected ? " selected" : ""}`}
+                    onClick={() => setSelectedId(s.id)}
+                  >
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div className="schedule-card-name">{s.name}</div>
+                      <div className="schedule-card-meta" style={{ marginTop: 3 }}>
+                        {formatDate(s.created_at)}
+                        &nbsp;·&nbsp;{s.plan_data.terms.length} terms
+                        &nbsp;·&nbsp;{credits} cr
                       </div>
-
-                      <span className="schedule-expand-icon" style={{ marginLeft: 16 }}>
-                        {isExpanded ? "▲" : "▼"}
-                      </span>
-                    </button>
-
-                    {/* Delete button area */}
-                    <div style={{
-                      display: "flex", alignItems: "center", padding: "0 16px",
-                      borderLeft: "1px solid var(--border)", background: "var(--subtle)",
-                    }}>
-                      {isConfirming ? (
-                        <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "center" }}>
-                          <span style={{ fontSize: 11, color: "var(--muted)", whiteSpace: "nowrap" }}>
-                            Delete?
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 8 }}>
+                        {s.plan_data.terms.slice(0, 6).map((t) => (
+                          <span key={t.term} style={{
+                            fontSize: 10, fontWeight: 600, borderRadius: 4,
+                            padding: "1px 6px", ...getTermPillStyle(t.term),
+                          }}>
+                            {t.term}
                           </span>
-                          <div style={{ display: "flex", gap: 6 }}>
+                        ))}
+                        {s.plan_data.terms.length > 6 && (
+                          <span style={{
+                            fontSize: 10, fontWeight: 600, borderRadius: 4,
+                            padding: "1px 6px", background: "#f1f5f9",
+                            color: "var(--muted)", border: "1px solid var(--border)",
+                          }}>
+                            +{s.plan_data.terms.length - 6}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div
+                      style={{ flexShrink: 0, marginLeft: 8 }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {isConfirming ? (
+                        <div style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
+                          <span style={{ fontSize: 10, color: "var(--muted)" }}>Delete?</span>
+                          <div style={{ display: "flex", gap: 4 }}>
                             <button
                               onClick={() => handleDelete(s.id)}
                               disabled={deletingId === s.id}
-                              style={{
-                                fontSize: 11, fontWeight: 700, padding: "4px 10px",
-                                background: "#dc2626", color: "#fff", border: "none",
-                                borderRadius: 5, cursor: "pointer",
-                              }}
+                              style={{ fontSize: 10, fontWeight: 700, padding: "3px 8px", background: "#dc2626", color: "#fff", border: "none", borderRadius: 4, cursor: "pointer" }}
                             >
                               {deletingId === s.id ? "…" : "Yes"}
                             </button>
                             <button
                               onClick={() => setConfirmId(null)}
-                              style={{
-                                fontSize: 11, fontWeight: 600, padding: "4px 10px",
-                                background: "var(--white)", color: "var(--text)",
-                                border: "1px solid var(--border)", borderRadius: 5, cursor: "pointer",
-                              }}
+                              style={{ fontSize: 10, fontWeight: 600, padding: "3px 8px", background: "var(--white)", color: "var(--text)", border: "1px solid var(--border)", borderRadius: 4, cursor: "pointer" }}
                             >
                               No
                             </button>
@@ -247,77 +225,78 @@ export default function SchedulesPage() {
                         <button
                           onClick={() => setConfirmId(s.id)}
                           title="Delete schedule"
-                          style={{
-                            fontSize: 14, padding: "6px 8px", background: "none",
-                            border: "1px solid var(--border)", borderRadius: 6,
-                            cursor: "pointer", color: "var(--muted)", lineHeight: 1,
-                            transition: "all 0.15s",
-                          }}
-                          onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.background = "#fff1f2";
-                            (e.currentTarget as HTMLButtonElement).style.borderColor = "#fca5a5";
-                            (e.currentTarget as HTMLButtonElement).style.color = "#dc2626";
-                          }}
-                          onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLButtonElement).style.background = "none";
-                            (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border)";
-                            (e.currentTarget as HTMLButtonElement).style.color = "var(--muted)";
-                          }}
+                          style={{ fontSize: 13, padding: "4px 6px", background: "none", border: "1px solid transparent", borderRadius: 5, cursor: "pointer", color: "var(--muted)", lineHeight: 1, transition: "all 0.15s" }}
+                          onMouseEnter={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.background = "#fff1f2"; b.style.borderColor = "#fca5a5"; b.style.color = "#dc2626"; }}
+                          onMouseLeave={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.background = "none"; b.style.borderColor = "transparent"; b.style.color = "var(--muted)"; }}
                         >
                           🗑
                         </button>
                       )}
                     </div>
                   </div>
+                );
+              })}
+            </div>
+          </div>
 
-                  {/* Expanded plan */}
-                  {isExpanded && (
-                    <div className="schedule-card-body">
-                      {s.plan_data.completion_term && (
-                        <div className="plan-completion" style={{ marginBottom: 16 }}>
-                          <span>✓</span>
-                          <span>
-                            All requirements complete by <strong>{s.plan_data.completion_term}</strong>
-                          </span>
-                        </div>
+          {/* ── Right: detail panel ── */}
+          <div className="schedules-detail-panel">
+            {selected ? (
+              <>
+                <div className="schedules-detail-header">
+                  <div>
+                    <div style={{ fontSize: 18, fontWeight: 700 }}>{selected.name}</div>
+                    <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 2 }}>
+                      Saved {formatDate(selected.created_at)}
+                      &nbsp;·&nbsp;{selected.plan_data.terms.length} terms
+                      &nbsp;·&nbsp;{totalCredits(selected.plan_data.terms)} total credits
+                      {selected.plan_data.completion_term && (
+                        <span style={{ color: "#16a34a", fontWeight: 600 }}>
+                          &nbsp;· Completes {selected.plan_data.completion_term}
+                        </span>
                       )}
+                    </div>
+                  </div>
+                </div>
 
-                      <div className="plan-grid">
-                        {s.plan_data.terms.map((term) => (
-                          <div key={term.term} className={getTermClass(term.term)}>
-                            <div className="plan-term-header">
-                              <strong>{term.term}</strong>
-                              <span className="credits-badge">{term.total_credits} cr</span>
-                            </div>
-                            <div className="plan-course-list">
-                              {term.courses.map((course) => (
-                                <div
-                                  key={course.code}
-                                  className={`plan-course${course.is_elective ? " elective" : ""}`}
-                                >
-                                  <div className="plan-course-header">
-                                    <span className="plan-course-code">{course.code}</span>
-                                    {course.is_elective && (
-                                      <span className="elective-badge">ELECTIVE</span>
-                                    )}
-                                  </div>
-                                  <div className="plan-course-meta">
-                                    {course.title} · {course.credits} cr
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                <div style={{ padding: "20px 24px", overflowY: "auto", flex: 1 }}>
+                  {selected.plan_data.completion_term && (
+                    <div className="plan-completion" style={{ marginBottom: 16 }}>
+                      <span>✓</span>
+                      <span>All requirements complete by <strong>{selected.plan_data.completion_term}</strong></span>
                     </div>
                   )}
+                  <div className="plan-grid">
+                    {selected.plan_data.terms.map((term) => (
+                      <div key={term.term} className={getTermClass(term.term)}>
+                        <div className="plan-term-header">
+                          <strong>{term.term}</strong>
+                          <span className="credits-badge">{term.total_credits} cr</span>
+                        </div>
+                        <div className="plan-course-list">
+                          {term.courses.map((course) => (
+                            <div key={course.code} className={`plan-course${course.is_elective ? " elective" : ""}`}>
+                              <div className="plan-course-header">
+                                <span className="plan-course-code">{course.code}</span>
+                                {course.is_elective && <span className="elective-badge">ELECTIVE</span>}
+                              </div>
+                              <div className="plan-course-meta">{course.title} · {course.credits} cr</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              );
-            })}
+              </>
+            ) : (
+              <div className="empty-state" style={{ flex: 1 }}>
+                <p className="muted">Select a schedule to view</p>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

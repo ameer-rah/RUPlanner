@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import CompletedCoursesInput from "./CompletedCoursesInput";
 import ProgramSelectInput from "./ProgramSelectInput";
+import PlanEditor, { PlanTerm } from "./PlanEditor";
 
 type ProgramInfo = {
   school: string;
@@ -11,20 +12,6 @@ type ProgramInfo = {
   major_name: string;
   catalog_year: string;
   display_name: string;
-};
-
-type PlannedCourse = {
-  code: string;
-  title: string;
-  credits: number;
-  is_elective: boolean;
-  elective_options: string[];
-};
-
-type PlanTerm = {
-  term: string;
-  courses: PlannedCourse[];
-  total_credits: number;
 };
 
 type PlanResponse = {
@@ -36,13 +23,6 @@ type PlanResponse = {
 
 const ALL_SEASONS = ["Spring", "Summer", "Fall"];
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
-
-function getTermClass(term: string) {
-  if (term.includes("Fall")) return "plan-term term-fall";
-  if (term.includes("Spring")) return "plan-term term-spring";
-  if (term.includes("Summer")) return "plan-term term-summer";
-  return "plan-term";
-}
 
 function getSeasonBtnClass(season: string, active: boolean) {
   if (!active) return "season-btn";
@@ -56,14 +36,19 @@ export default function HomePage() {
   const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
   const [selectedMinors, setSelectedMinors] = useState<string[]>([]);
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
+  const [startTerm, setStartTerm] = useState("Fall 2026");
   const [targetGradTerm, setTargetGradTerm] = useState("Spring 2028");
   const [maxCredits, setMaxCredits] = useState(15);
   const [preferredSeasons, setPreferredSeasons] = useState<string[]>(["Spring", "Fall"]);
   const [plan, setPlan] = useState<PlanResponse | null>(null);
+  const [planKey, setPlanKey] = useState(0); // forces PlanEditor remount on new plan
   const [status, setStatus] = useState("");
   const [programs, setPrograms] = useState<ProgramInfo[]>([]);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState("");
+
+  // Tracks current edited terms from PlanEditor (kept in sync via callback)
+  const editedTermsRef = useRef<PlanTerm[]>([]);
 
   useEffect(() => {
     fetch(`${apiBase}/programs`)
@@ -110,6 +95,7 @@ export default function HomePage() {
       majors: selectedMajors,
       minors: selectedMinors,
       completed_courses: completedCourses,
+      start_term: startTerm.trim() || undefined,
       target_grad_term: targetGradTerm,
       max_credits_per_term: maxCredits,
       preferred_seasons: preferredSeasons,
@@ -128,9 +114,16 @@ export default function HomePage() {
     }
 
     const data = (await res.json()) as PlanResponse;
+    editedTermsRef.current = data.terms;
     setPlan(data);
+    setPlanKey((k) => k + 1); // remount PlanEditor with fresh state
     setStatus("");
   }
+
+  // Stable callback so PlanEditor doesn't re-render unnecessarily
+  const handleTermsChange = useCallback((terms: PlanTerm[]) => {
+    editedTermsRef.current = terms;
+  }, []);
 
   async function handleSave() {
     const token = localStorage.getItem("ru_planner_token");
@@ -142,10 +135,17 @@ export default function HomePage() {
 
     setSaveStatus("Saving…");
     const name = `${selectedMajors[0] ?? "My"} — ${targetGradTerm}`;
+
+    // Use the currently edited terms (may have been reordered/modified)
+    const plan_data = {
+      ...plan,
+      terms: editedTermsRef.current,
+    };
+
     const res = await fetch(`${apiBase}/schedules`, {
       method: "POST",
       headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ name, plan_data: plan }),
+      body: JSON.stringify({ name, plan_data }),
     });
 
     if (res.status === 401) {
@@ -169,8 +169,8 @@ export default function HomePage() {
       {/* ── Sidebar ── */}
       <aside className="sidebar">
         <div className="sidebar-logo">
-          <span className="logo-mark">RU</span>
-          <span className="logo-text">Planner</span>
+          <img src="/RUPlanner_logo.png" alt="RU Planner" className="sidebar-logo-img" />
+          <span className="logo-text">RU Planner</span>
         </div>
 
         <div className="sidebar-body">
@@ -200,6 +200,39 @@ export default function HomePage() {
             <div className="sidebar-section">
               <label className="label">Completed courses</label>
               <CompletedCoursesInput value={completedCourses} onChange={setCompletedCourses} />
+            </div>
+
+            <div className="sidebar-section">
+              <label className="label" htmlFor="startTerm">
+                Starting term
+              </label>
+              <div className="start-term-row">
+                {["Fall", "Spring", "Summer"].map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    className={`season-btn${startTerm.startsWith(s) ? ` active-${s.toLowerCase()}` : ""}`}
+                    onClick={() =>
+                      setStartTerm((prev) => {
+                        const year = prev.split(" ")[1] ?? "2026";
+                        return `${s} ${year}`;
+                      })
+                    }
+                  >
+                    {s}
+                  </button>
+                ))}
+                <input
+                  id="startTerm"
+                  className="input start-term-year"
+                  value={startTerm.split(" ")[1] ?? ""}
+                  onChange={(e) =>
+                    setStartTerm((prev) => `${prev.split(" ")[0]} ${e.target.value}`)
+                  }
+                  placeholder="2026"
+                  maxLength={4}
+                />
+              </div>
             </div>
 
             <div className="sidebar-section">
@@ -265,7 +298,6 @@ export default function HomePage() {
       {/* ── Main panel ── */}
       <div className="main-panel">
         <header className="topbar">
-          <span className="topbar-title">Degree Planner</span>
           <div className="topbar-right">
             {userEmail ? (
               <>
@@ -288,86 +320,62 @@ export default function HomePage() {
         <div className="main-content">
           {plan ? (
             <>
-              <section className="plan-grid">
-                {completedCourses.length > 0 && (
-                  <div className="plan-completed">
-                    <div className="plan-completed-label">
-                      {completedCourses.length} completed course{completedCourses.length !== 1 ? "s" : ""} applied
-                    </div>
-                    <div className="plan-completed-chips">
-                      {completedCourses.map((code) => (
-                        <span key={code} className="plan-completed-chip">{code}</span>
-                      ))}
-                    </div>
+              {/* Status banners */}
+              {completedCourses.length > 0 && (
+                <div className="plan-completed">
+                  <div className="plan-completed-label">
+                    {completedCourses.length} completed course{completedCourses.length !== 1 ? "s" : ""} applied
                   </div>
-                )}
+                  <div className="plan-completed-chips">
+                    {completedCourses.map((code) => (
+                      <span key={code} className="plan-completed-chip">{code}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
-                {plan.completion_term && (
-                  <div className="plan-completion">
-                    <span>✓</span>
-                    <span>
-                      All requirements fit by <strong>{plan.completion_term}</strong> — you&apos;re on track.
-                    </span>
-                  </div>
-                )}
+              {plan.completion_term && (
+                <div className="plan-completion">
+                  <span>✓</span>
+                  <span>
+                    All requirements fit by <strong>{plan.completion_term}</strong> — you&apos;re on track.
+                  </span>
+                </div>
+              )}
 
-                {plan.warnings.length > 0 && (
-                  <div className="plan-warning">
-                    <strong>Notes</strong>
-                    <ul>
-                      {plan.warnings.map((w) => (
-                        <li key={w}>{w}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+              {plan.warnings.length > 0 && (
+                <div className="plan-warning">
+                  <strong>Notes</strong>
+                  <ul>
+                    {plan.warnings.map((w) => (
+                      <li key={w}>{w}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-                {plan.remaining_courses.length > 0 && (
-                  <div className="plan-warning danger">
-                    <strong>Could not schedule before graduation</strong>
-                    <ul>
-                      {plan.remaining_courses.map((c) => (
-                        <li key={c}>{c}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+              {plan.remaining_courses.length > 0 && (
+                <div className="plan-warning danger">
+                  <strong>Could not schedule before graduation</strong>
+                  <ul>
+                    {plan.remaining_courses.map((c) => (
+                      <li key={c}>{c}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-                {plan.terms.map((term) => (
-                  <div key={term.term} className={getTermClass(term.term)}>
-                    <div className="plan-term-header">
-                      <strong>{term.term}</strong>
-                      <span className="credits-badge">{term.total_credits} cr</span>
-                    </div>
-                    <div className="plan-course-list">
-                      {term.courses.map((course) => (
-                        <div
-                          key={course.code}
-                          className={`plan-course${course.is_elective ? " elective" : ""}`}
-                        >
-                          <div className="plan-course-header">
-                            <span className="plan-course-code">{course.code}</span>
-                            {course.is_elective && (
-                              <span className="elective-badge">ELECTIVE</span>
-                            )}
-                          </div>
-                          <div className="plan-course-meta">
-                            {course.title} · {course.credits} cr
-                          </div>
-                          {course.is_elective && course.elective_options.length > 0 && (
-                            <details className="elective-swap">
-                              <summary>Swap — {course.elective_options.length} options</summary>
-                              <div className="elective-options">
-                                {course.elective_options.join(" · ")}
-                              </div>
-                            </details>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </section>
+              <div className="plan-editor-hint">
+                Drag courses between terms to reorder · Click <strong>Swap</strong> on electives to pick a different course
+              </div>
+
+              {/* Interactive plan editor */}
+              <PlanEditor
+                key={planKey}
+                initialTerms={plan.terms}
+                completedCourses={completedCourses}
+                onTermsChange={handleTermsChange}
+              />
 
               <div className="save-bar">
                 <button className="save-button" onClick={handleSave}>

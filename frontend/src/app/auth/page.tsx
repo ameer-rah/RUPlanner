@@ -117,7 +117,7 @@ export default function AuthPage() {
     <div className="auth-shell">
       <div className="auth-card">
         {/* Logo mark */}
-        <div className="auth-logo-mark">RU</div>
+        <img src="/RUPlanner_logo.png" alt="RU Planner" className="auth-logo-img" />
 
         {/* Heading */}
         <h1 className="auth-heading">

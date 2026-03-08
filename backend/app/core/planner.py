@@ -6,7 +6,7 @@ from typing import Dict, List, Optional, Set, Tuple
 
 import networkx as nx
 
-from ..schemas import PlanRequest, PlanResponse, PlannedCourse, TermPlan
+from ..schemas import PlanRequest, PlanResponse, PlannedCourse, TermPlan, ElectiveOption
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
@@ -607,7 +607,17 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                         title=course["title"],
                         credits=course["credits"],
                         is_elective=is_elec,
-                        elective_options=full_elective_pool if is_elec else [],
+                        prerequisites=course.get("prerequisites", []),
+                        elective_options=[
+                            ElectiveOption(
+                                code=catalog[c]["code"],
+                                title=catalog[c]["title"],
+                                credits=catalog[c]["credits"],
+                                prerequisites=catalog[c].get("prerequisites", []),
+                            )
+                            for c in full_elective_pool
+                            if c in catalog and c != code
+                        ] if is_elec else [],
                     )
                 )
                 term_credits += course["credits"]
@@ -626,6 +636,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                                 code=co["code"],
                                 title=co["title"],
                                 credits=co["credits"],
+                                prerequisites=co.get("prerequisites", []),
                             )
                         )
                         term_credits += co["credits"]

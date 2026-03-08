@@ -100,8 +100,8 @@ export default function ProgramSelectInput({ programs, value, onChange, placehol
       onClick={() => inputRef.current?.focus()}
     >
       {value.map((dn) => (
-        <span key={dn} className="chip">
-          {dn}
+        <span key={dn} className="chip" title={dn}>
+          <span className="chip-label">{dn}</span>
           <button
             type="button"
             className="chip-remove"
