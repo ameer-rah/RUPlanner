@@ -58,7 +58,6 @@ export default function TranscriptUpload({ onCoursesDetected }: Props) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (file) handleFile(file);
-    // reset so the same file can be re-uploaded if needed
     e.target.value = "";
   }
 

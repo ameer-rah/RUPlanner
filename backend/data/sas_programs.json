@@ -984,7 +984,6 @@
           "HIST102",
           "HIST203",
           "HIST204",
-          "HIST301",
           "HIST315",
           "HIST320",
           "HIST322",
@@ -1016,7 +1015,7 @@
         "At least 2 courses from Global/Non-Western history.",
         "At least 2 courses from European history.",
         "At least 2 courses from U.S. history.",
-        "At least 5 of 12 courses at 300\u2013400 level.",
+        "At least 5 of 12 courses at 300–400 level.",
         "At least 8 courses at Rutgers New Brunswick.",
         "Capstone: HIST401, HIST402, HIST451, or HIST495+HIST496."
       ],
@@ -1067,11 +1066,11 @@
       "constraints": [
         "12 courses total, minimum grade C in each.",
         "At least one course from 4 of 5 historical periods (Medieval, Renaissance, 18th C, 19th C, 20th C+).",
-        "At least one course in African-American Literature at 300\u2013400 level.",
-        "At least one course in Literatures of the Global South at 300\u2013400 level.",
+        "At least one course in African-American Literature at 300–400 level.",
+        "At least one course in Literatures of the Global South at 300–400 level.",
         "At least one course in Literary Theory.",
         "At least one 400-level seminar.",
-        "At least 6 courses at 300\u2013400 level.",
+        "At least 6 courses at 300–400 level.",
         "Max 2 creative writing courses as electives."
       ],
       "notes": []
@@ -1288,7 +1287,7 @@
         "any_from_catalog": false
       },
       "constraints": [
-        "Second major only \u2014 must complement a primary SAS major.",
+        "Second major only — must complement a primary SAS major.",
         "At least 18 credits of 36 must be at 300-level or above.",
         "Max 12 credits double-counted toward another major.",
         "No more than one D grade accepted."
@@ -1383,7 +1382,7 @@
       },
       "constraints": [
         "At least 5 electives at 300-level or above.",
-        "Interdisciplinary \u2014 courses may come from multiple departments.",
+        "Interdisciplinary — courses may come from multiple departments.",
         "Capstone seminar (AMST401) required.",
         "Minimum grade C in all courses."
       ],
@@ -1678,9 +1677,7 @@
           "MATH350",
           "MATH373",
           "MATH423",
-          "MATH461",
-          "MATH477",
-          "MATH481"
+          "MATH461"
         ],
         "any_from_catalog": false
       }
@@ -2565,7 +2562,7 @@
         "GERM232"
       ],
       "electives": {
-        "count": 7,
+        "count": 5,
         "min_level_300_plus": 5,
         "options": [
           "GERM301",
@@ -2617,7 +2614,7 @@
         "JPN302"
       ],
       "electives": {
-        "count": 4,
+        "count": 2,
         "min_level_300_plus": 4,
         "options": [
           "JPN401",
@@ -2640,7 +2637,7 @@
         "CHN302"
       ],
       "electives": {
-        "count": 4,
+        "count": 2,
         "min_level_300_plus": 4,
         "options": [
           "CHN401",
@@ -2663,7 +2660,7 @@
         "KOR302"
       ],
       "electives": {
-        "count": 4,
+        "count": 1,
         "min_level_300_plus": 4,
         "options": [
           "KOR401"
@@ -2685,7 +2682,7 @@
         "RUSS302"
       ],
       "electives": {
-        "count": 5,
+        "count": 2,
         "min_level_300_plus": 4,
         "options": [
           "RUSS401",
@@ -2708,7 +2705,7 @@
         "PORT302"
       ],
       "electives": {
-        "count": 5,
+        "count": 2,
         "min_level_300_plus": 4,
         "options": [
           "PORT401",
@@ -2796,7 +2793,7 @@
         "MUS400"
       ],
       "electives": {
-        "count": 4,
+        "count": 3,
         "min_level_300_plus": 3,
         "options": [
           "MUS301",
@@ -2849,7 +2846,7 @@
         "DANC400"
       ],
       "electives": {
-        "count": 4,
+        "count": 2,
         "min_level_300_plus": 3,
         "options": [
           "DANC302",
@@ -2871,7 +2868,7 @@
         "CINE402"
       ],
       "electives": {
-        "count": 5,
+        "count": 3,
         "min_level_300_plus": 4,
         "options": [
           "CINE302",
@@ -2895,7 +2892,7 @@
         "JOUR402"
       ],
       "electives": {
-        "count": 4,
+        "count": 3,
         "min_level_300_plus": 3,
         "options": [
           "JOUR301",
@@ -2916,7 +2913,7 @@
         "RELGS201"
       ],
       "electives": {
-        "count": 7,
+        "count": 4,
         "min_level_300_plus": 4,
         "options": [
           "RELGS301",
@@ -2946,7 +2943,6 @@
           "CLASS301",
           "CLASS302",
           "CLASS401",
-          "HIST301",
           "HIST301",
           "PHIL201",
           "PHIL210"
@@ -3026,7 +3022,6 @@
           "MEDST301",
           "MEDST401",
           "HIST301",
-          "HIST301",
           "ENGL201",
           "ENGL211",
           "CLASS301",
@@ -3076,13 +3071,12 @@
         "JWST202"
       ],
       "electives": {
-        "count": 7,
+        "count": 6,
         "min_level_300_plus": 4,
         "options": [
           "JWST301",
           "JWST302",
           "JWST401",
-          "HIST301",
           "HIST301",
           "RELGS301",
           "RELGS302"
@@ -7032,38 +7026,23 @@
       "major_name": "Critical Intelligence Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "POLS101",
-        "POLS302"
+        "POLS292",
+        "POLS483"
       ],
       "electives": {
-        "count": 4,
-        "min_level_300_plus": 3,
+        "count": 1,
+        "min_level_300_plus": 1,
         "options": [
-          "POLS304",
-          "POLS305",
-          "POLS306",
-          "POLS308",
-          "POLS313",
-          "POLS317",
-          "POLS319",
-          "POLS327",
-          "POLS329",
-          "POLS331",
-          "POLS338",
-          "POLS362",
-          "POLS363",
-          "POLS406",
-          "POLS426",
-          "POLS477",
-          "HIST271",
-          "HIST275",
-          "SOC241"
+          "POLS484",
+          "POLS485"
         ],
         "any_from_catalog": false
       },
       "constraints": [
-        "Examines intelligence agencies, national security, and surveillance through a critical lens.",
-        "At least 3 electives at 300+ level."
+        "POLS292 must be passed with a C or better prior to declaring the Critical Intelligence minor.",
+        "Maximum 2 course overlap allowed between Political Science major and Critical Intelligence Studies minor.",
+        "Maximum 1 course overlap allowed between Political Science minor and Critical Intelligence Studies minor.",
+        "Administered jointly by the Department of Political Science and the Center for Critical Intelligence Studies."
       ]
     },
     "ppe_minor": {

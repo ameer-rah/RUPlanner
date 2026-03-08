@@ -1,7 +1,6 @@
 {
   "catalog_year": "2025-2026",
   "programs": {
-
     "clinical_psyd": {
       "school": "GSAPP",
       "degree_level": "professional_doctorate",
@@ -15,15 +14,27 @@
           "label": "Year 1 — Foundational Coursework and Clinic Entry",
           "fall": {
             "required": [
-              "PPSY550", "PPSY581", "PPSY563", "PPSY575",
-              "CLPSY641", "CLPSY642", "CLPSY543", "CLPSY546", "CLPSY651"
+              "PPSY550",
+              "PPSY581",
+              "PPSY563",
+              "PPSY575",
+              "CLPSY641",
+              "CLPSY642",
+              "CLPSY543",
+              "CLPSY546",
+              "CLPSY651"
             ],
             "credits_approx": 22
           },
           "spring": {
             "required": [
-              "PPSY565", "PPSY531", "PPSY585",
-              "CLPSY547", "CLPSY543", "CLPSY546", "CLPSY652"
+              "PPSY565",
+              "PPSY531",
+              "PPSY585",
+              "CLPSY547",
+              "CLPSY543",
+              "CLPSY546",
+              "CLPSY652"
             ],
             "credits_approx": 21
           }
@@ -32,15 +43,27 @@
           "label": "Year 2 — Intermediate Coursework and Practicum",
           "fall": {
             "required": [
-              "PPSY613", "PPSY638", "CLPSY639", "CLPSY615",
-              "CLPSY641", "CLPSY642", "CLPSY543", "CLPSY546", "PPSY689"
+              "PPSY613",
+              "PPSY638",
+              "CLPSY639",
+              "CLPSY615",
+              "CLPSY641",
+              "CLPSY642",
+              "CLPSY543",
+              "CLPSY546",
+              "PPSY689"
             ],
             "credits_approx": 22
           },
           "spring": {
             "required": [
-              "PPSY639", "CLPSY640", "PPSY585",
-              "CLPSY543", "CLPSY546", "PPSY690", "CLPSY653"
+              "PPSY639",
+              "CLPSY640",
+              "PPSY585",
+              "CLPSY543",
+              "CLPSY546",
+              "PPSY690",
+              "CLPSY653"
             ],
             "credits_approx": 17
           }
@@ -49,8 +72,11 @@
           "label": "Year 3 — Advanced Assessment, Specialization, and Dissertation Prep",
           "fall": {
             "required": [
-              "PPSY633", "PPSY631", "CLPSY623",
-              "PPSY689", "PPSY700"
+              "PPSY633",
+              "PPSY631",
+              "CLPSY623",
+              "PPSY689",
+              "PPSY700"
             ],
             "electives": {
               "description": "One to two clinical electives from departmental offerings",
@@ -60,7 +86,9 @@
           },
           "spring": {
             "required": [
-              "CLPSY655", "PPSY690", "PPSY700"
+              "CLPSY655",
+              "PPSY690",
+              "PPSY700"
             ],
             "electives": {
               "description": "One to two clinical electives",
@@ -72,11 +100,17 @@
         "year_4": {
           "label": "Year 4 — Dissertation and Advanced Externship",
           "fall": {
-            "required": ["PPSY701", "PPSY693"],
+            "required": [
+              "PPSY701",
+              "PPSY693"
+            ],
             "credits_approx": 9
           },
           "spring": {
-            "required": ["PPSY702", "PPSY693"],
+            "required": [
+              "PPSY702",
+              "PPSY693"
+            ],
             "credits_approx": 9
           }
         },
@@ -84,11 +118,15 @@
           "label": "Year 5 — APA Internship",
           "note": "Full-time APA-accredited predoctoral internship (2,000 hours). Students must be advanced to candidacy before beginning internship.",
           "fall": {
-            "required": ["CLPSY657"],
+            "required": [
+              "CLPSY657"
+            ],
             "credits_approx": 3
           },
           "spring": {
-            "required": ["CLPSY658"],
+            "required": [
+              "CLPSY658"
+            ],
             "credits_approx": 3
           }
         }
@@ -96,20 +134,38 @@
       "clinical_electives": {
         "description": "Students choose from a variety of advanced clinical courses. Sample options include:",
         "options": [
-          "CLPSY511", "CLPSY512", "CLPSY555", "CLPSY562",
-          "CLPSY612", "PPSY560", "PPSY538", "PPSY568"
+          "CLPSY511",
+          "CLPSY512",
+          "CLPSY555",
+          "CLPSY562",
+          "CLPSY612",
+          "PPSY560",
+          "PPSY538",
+          "PPSY568"
         ]
       },
       "dissertation_requirement": {
         "description": "Original empirical dissertation required. Students enroll in PPSY700 (Prep), then PPSY701/702 (continuation), and PPSY703 (1-credit maintenance) until defense.",
-        "courses": ["PPSY700", "PPSY701", "PPSY702", "PPSY703"],
+        "courses": [
+          "PPSY700",
+          "PPSY701",
+          "PPSY702",
+          "PPSY703"
+        ],
         "total_credits": 9
       },
       "practicum_sequence": {
         "description": "Practicum begins Year 1 at the Center for Psychological Services (CPS) and affiliated community sites. Practica increase in complexity across years.",
         "courses": [
-          "CLPSY543", "CLPSY546", "CLPSY651", "CLPSY652",
-          "PPSY689", "PPSY690", "PPSY691", "PPSY693", "PPSY694"
+          "CLPSY543",
+          "CLPSY546",
+          "CLPSY651",
+          "CLPSY652",
+          "PPSY689",
+          "PPSY690",
+          "PPSY691",
+          "PPSY693",
+          "PPSY694"
         ]
       },
       "constraints": [
@@ -128,7 +184,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/clinical-department/clinical-psyd-overview"
       ]
     },
-
     "school_psyd": {
       "school": "GSAPP",
       "degree_level": "professional_doctorate",
@@ -142,15 +197,24 @@
           "label": "Year 1 — Foundations",
           "fall": {
             "required": [
-              "SPSY550", "SPSY543", "PPSY550", "PPSY581",
-              "PPSY563", "PPSY575", "PPSY689"
+              "SPSY550",
+              "SPSY543",
+              "PPSY550",
+              "PPSY581",
+              "PPSY563",
+              "PPSY575",
+              "PPSY689"
             ],
             "credits_approx": 20
           },
           "spring": {
             "required": [
-              "SPSY557", "PPSY531", "PPSY565",
-              "SPSY532", "PPSY690", "SPSY506"
+              "SPSY557",
+              "PPSY531",
+              "PPSY565",
+              "SPSY532",
+              "PPSY690",
+              "SPSY506"
             ],
             "credits_approx": 17
           }
@@ -159,15 +223,22 @@
           "label": "Year 2 — Assessment and Intervention",
           "fall": {
             "required": [
-              "SPSY630", "SPSY602", "PPSY613",
-              "SPSY558", "PPSY638", "PPSY689"
+              "SPSY630",
+              "SPSY602",
+              "PPSY613",
+              "SPSY558",
+              "PPSY638",
+              "PPSY689"
             ],
             "credits_approx": 17
           },
           "spring": {
             "required": [
-              "SPSY612", "PPSY631", "PPSY639",
-              "PPSY690", "SPSY506"
+              "SPSY612",
+              "PPSY631",
+              "PPSY639",
+              "PPSY690",
+              "SPSY506"
             ],
             "credits_approx": 16
           }
@@ -176,8 +247,11 @@
           "label": "Year 3 — Advanced Practice and Research",
           "fall": {
             "required": [
-              "SPSY609", "PPSY585", "SPSY605",
-              "PPSY700", "PPSY689"
+              "SPSY609",
+              "PPSY585",
+              "SPSY605",
+              "PPSY700",
+              "PPSY689"
             ],
             "electives": {
               "description": "One school psychology or professional psychology elective",
@@ -187,7 +261,9 @@
           },
           "spring": {
             "required": [
-              "SPSY616", "SPSY606", "PPSY700",
+              "SPSY616",
+              "SPSY606",
+              "PPSY700",
               "PPSY690"
             ],
             "electives": {
@@ -200,11 +276,18 @@
         "year_4": {
           "label": "Year 4 — Dissertation and Advanced Externship",
           "fall": {
-            "required": ["SPSY544", "PPSY701", "PPSY693"],
+            "required": [
+              "SPSY544",
+              "PPSY701",
+              "PPSY693"
+            ],
             "credits_approx": 9
           },
           "spring": {
-            "required": ["PPSY702", "PPSY693"],
+            "required": [
+              "PPSY702",
+              "PPSY693"
+            ],
             "electives": {
               "description": "One elective",
               "count": 1
@@ -216,23 +299,41 @@
           "label": "Year 5 — APA Internship",
           "note": "Full-time APA-accredited predoctoral internship in a school or community setting.",
           "fall": {
-            "required": ["SPSY631"],
+            "required": [
+              "SPSY631"
+            ],
             "credits_approx": 3
           },
           "spring": {
-            "required": ["SPSY632"],
+            "required": [
+              "SPSY632"
+            ],
             "credits_approx": 3
           }
         }
       },
       "dissertation_requirement": {
         "description": "Original empirical or applied dissertation in school psychology. Committee includes GSAPP faculty.",
-        "courses": ["PPSY700", "PPSY701", "PPSY702", "PPSY703"],
+        "courses": [
+          "PPSY700",
+          "PPSY701",
+          "PPSY702",
+          "PPSY703"
+        ],
         "total_credits": 9
       },
       "practicum_sequence": {
         "description": "Practicum begins Year 1; students are placed in schools and clinical settings each year, with increasing independence.",
-        "courses": ["PPSY689", "PPSY690", "PPSY691", "PPSY693", "SPSY605", "SPSY606", "SPSY631", "SPSY632"]
+        "courses": [
+          "PPSY689",
+          "PPSY690",
+          "PPSY691",
+          "PPSY693",
+          "SPSY605",
+          "SPSY606",
+          "SPSY631",
+          "SPSY632"
+        ]
       },
       "constraints": [
         "APA-accredited program; follows the Practitioner-Scholar model of training.",
@@ -248,7 +349,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/school-department/school-psyd-overview"
       ]
     },
-
     "org_psyd": {
       "school": "GSAPP",
       "degree_level": "professional_doctorate",
@@ -260,54 +360,94 @@
         "fundamentals_of_psychology": {
           "description": "Foundational psychology courses required of all doctoral students (6 credits)",
           "credits": 6,
-          "courses": ["PPSY550", "PPSY506"]
+          "courses": [
+            "PPSY550",
+            "PPSY506"
+          ]
         },
         "core_foundational_op": {
           "description": "Core foundational Organizational Psychology courses (15 credits)",
           "credits": 15,
           "courses": [
-            "OPSY512", "OPSY527", "OPSY531", "OPSY548", "OPSY617"
+            "OPSY512",
+            "OPSY527",
+            "OPSY531",
+            "OPSY548",
+            "OPSY617"
           ]
         },
         "core_stats_research_methods": {
           "description": "Core Statistics and Research Methods (12 credits)",
           "credits": 12,
-          "courses": ["PPSY581", "PPSY585", "OPSY517", "OPSY520"]
+          "courses": [
+            "PPSY581",
+            "PPSY585",
+            "OPSY517",
+            "OPSY520"
+          ]
         },
         "core_organizational_development": {
           "description": "Core Organizational Development courses (6 credits)",
           "credits": 6,
-          "courses": ["OPSY534", "OPSY536"]
+          "courses": [
+            "OPSY534",
+            "OPSY536"
+          ]
         },
         "area_1_iwo_psychology": {
           "description": "Area 1: Industrial, Work, and Organizational Psychology — choose 2 courses (6 credits)",
           "credits": 6,
           "count": 2,
-          "options": ["OPSY542", "OPSY617", "OPSY512", "OPSY527"]
+          "options": [
+            "OPSY542",
+            "OPSY617",
+            "OPSY512",
+            "OPSY527"
+          ]
         },
         "area_2_op_od_practice": {
           "description": "Area 2: OP/OD Practice — choose 2 courses (6 credits)",
           "credits": 6,
           "count": 2,
-          "options": ["OPSY565", "OPSY531", "OPSY534", "OPSY548"]
+          "options": [
+            "OPSY565",
+            "OPSY531",
+            "OPSY534",
+            "OPSY548"
+          ]
         },
         "experiential_learning": {
           "description": "Experiential Learning — internship or applied project (3 credits)",
           "credits": 3,
-          "courses": ["OPSY631"]
+          "courses": [
+            "OPSY631"
+          ]
         },
         "dissertation": {
           "description": "Dissertation research and defense (9 credits)",
           "credits": 9,
-          "courses": ["PPSY700", "PPSY701", "PPSY702", "PPSY703"]
+          "courses": [
+            "PPSY700",
+            "PPSY701",
+            "PPSY702",
+            "PPSY703"
+          ]
         },
         "electives": {
           "description": "Electives — choose 3 courses from departmental offerings (9 credits)",
           "credits": 9,
           "count": 3,
           "options": [
-            "OPSY542", "OPSY565", "PPSY563", "PPSY565", "PPSY575",
-            "PPSY613", "OPSY631", "OPSY632", "PPSY538", "PPSY568"
+            "OPSY542",
+            "OPSY565",
+            "PPSY563",
+            "PPSY565",
+            "PPSY575",
+            "PPSY613",
+            "OPSY631",
+            "OPSY632",
+            "PPSY538",
+            "PPSY568"
           ]
         }
       },
@@ -329,7 +469,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/applied-department/organizational-psychology-psyd-and-psym"
       ]
     },
-
     "org_psym": {
       "school": "GSAPP",
       "degree_level": "master",
@@ -342,48 +481,81 @@
           "description": "Foundational psychology (3 credits)",
           "credits": 3,
           "count": 1,
-          "options": ["PPSY550", "PPSY506"]
+          "options": [
+            "PPSY550",
+            "PPSY506"
+          ]
         },
         "core_foundational_op": {
           "description": "Core foundational Organizational Psychology courses (12 credits)",
           "credits": 12,
-          "courses": ["OPSY512", "OPSY527", "OPSY531", "OPSY548"]
+          "courses": [
+            "OPSY512",
+            "OPSY527",
+            "OPSY531",
+            "OPSY548"
+          ]
         },
         "core_stats_research_methods": {
           "description": "Core Statistics and Research Methods (9 credits)",
           "credits": 9,
-          "courses": ["PPSY581", "OPSY517", "OPSY520"]
+          "courses": [
+            "PPSY581",
+            "OPSY517",
+            "OPSY520"
+          ]
         },
         "core_organizational_development": {
           "description": "Core Organizational Development (3 credits)",
           "credits": 3,
           "count": 1,
-          "options": ["OPSY534", "OPSY536"]
+          "options": [
+            "OPSY534",
+            "OPSY536"
+          ]
         },
         "area_1_iwo_psychology": {
           "description": "Area 1: Industrial, Work, and Organizational Psychology — choose 1 course (3 credits)",
           "credits": 3,
           "count": 1,
-          "options": ["OPSY542", "OPSY617", "OPSY512"]
+          "options": [
+            "OPSY542",
+            "OPSY617",
+            "OPSY512"
+          ]
         },
         "area_2_op_od_practice": {
           "description": "Area 2: OP/OD Practice — choose 1 course (3 credits)",
           "credits": 3,
           "count": 1,
-          "options": ["OPSY565", "OPSY531"]
+          "options": [
+            "OPSY565",
+            "OPSY531"
+          ]
         },
         "experiential_learning": {
           "description": "Experiential Learning — internship, practicum, or applied project (3–6 credits)",
           "credits_range": "3-6",
-          "options": ["OPSY631", "OPSY632"]
+          "options": [
+            "OPSY631",
+            "OPSY632"
+          ]
         },
         "electives": {
           "description": "Electives — 3 courses (9 credits)",
           "credits": 9,
           "count": 3,
           "options": [
-            "OPSY542", "OPSY565", "OPSY617", "PPSY563", "PPSY565",
-            "PPSY575", "PPSY613", "PPSY538", "PPSY568", "PPSY550"
+            "OPSY542",
+            "OPSY565",
+            "OPSY617",
+            "PPSY563",
+            "PPSY565",
+            "PPSY575",
+            "PPSY613",
+            "PPSY538",
+            "PPSY568",
+            "PPSY550"
           ]
         }
       },
@@ -399,7 +571,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/applied-department/organizational-psychology-psyd-and-psym"
       ]
     },
-
     "maba": {
       "school": "GSAPP",
       "degree_level": "master",
@@ -408,22 +579,37 @@
       "program_years": 2,
       "total_credits": 42,
       "required_core_courses": [
-        "PPSY513", "PPSY512", "PPSY514", "PPSY516",
-        "PPSY521", "PPSY537", "PPSY517", "PPSY522", "PPSY534"
+        "PPSY513",
+        "PPSY512",
+        "PPSY514",
+        "PPSY516",
+        "PPSY521",
+        "PPSY537",
+        "PPSY517",
+        "PPSY522",
+        "PPSY534"
       ],
       "practicum": {
         "description": "Two semesters of supervised practicum experience at Rutgers ABA training sites (DDDC or RCAAS), meeting BACB supervised fieldwork requirements.",
-        "courses": ["PPSY510", "PPSY511"],
+        "courses": [
+          "PPSY510",
+          "PPSY511"
+        ],
         "credits": 6
       },
       "capstone_thesis_option": {
         "description": "Students choose between a capstone or thesis route. Capstone consists of two courses (6 credits); thesis is a single 3-credit course plus independent research.",
         "capstone": {
-          "courses": ["PPSY597", "PPSY598"],
+          "courses": [
+            "PPSY597",
+            "PPSY598"
+          ],
           "credits": 6
         },
         "thesis": {
-          "courses": ["PPSY527"],
+          "courses": [
+            "PPSY527"
+          ],
           "credits": 3
         }
       },
@@ -432,16 +618,41 @@
         "count_capstone_track": 1,
         "count_thesis_track": 2,
         "options": [
-          "PPSY503", "PPSY523", "PPSY524", "PPSY596",
-          "PPSY546", "PPSY547", "PPSY568", "PPSY575",
-          "PPSY538", "PPSY560"
+          "PPSY503",
+          "PPSY523",
+          "PPSY524",
+          "PPSY596",
+          "PPSY546",
+          "PPSY547",
+          "PPSY568",
+          "PPSY575",
+          "PPSY538",
+          "PPSY560"
         ]
       },
       "suggested_timeline": {
-        "year_1_fall": ["PPSY513", "PPSY512", "PPSY514", "PPSY521"],
-        "year_1_spring": ["PPSY516", "PPSY537", "PPSY534", "PPSY510"],
-        "year_2_fall": ["PPSY517", "PPSY522", "PPSY511", "elective_1"],
-        "year_2_spring": ["PPSY597_or_527", "PPSY598_or_elective_2"]
+        "year_1_fall": [
+          "PPSY513",
+          "PPSY512",
+          "PPSY514",
+          "PPSY521"
+        ],
+        "year_1_spring": [
+          "PPSY516",
+          "PPSY537",
+          "PPSY534",
+          "PPSY510"
+        ],
+        "year_2_fall": [
+          "PPSY517",
+          "PPSY522",
+          "PPSY511",
+          "elective_1"
+        ],
+        "year_2_spring": [
+          "PPSY597_or_527",
+          "PPSY598_or_elective_2"
+        ]
       },
       "bacb_eligibility": {
         "description": "Coursework aligns with the BACB Fifth Edition Task List and meets BACB academic requirements for BCBA certification. Students must also complete supervised fieldwork hours and pass the BCBA examination.",
@@ -469,7 +680,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/applied-department/applied-behavior-analysis-aba"
       ]
     },
-
     "map_general": {
       "school": "GSAPP",
       "degree_level": "master",
@@ -478,34 +688,75 @@
       "program_years": 2,
       "total_credits": 42,
       "core_required_courses": [
-        "MAP507", "MAP508", "MAP506", "MAP527",
-        "MAP511", "MAP526", "PPSY550", "PPSY575"
+        "MAP507",
+        "MAP508",
+        "MAP506",
+        "MAP527",
+        "MAP511",
+        "MAP526",
+        "PPSY550",
+        "PPSY575"
       ],
       "practicum": {
         "description": "Professional practicum placement in an approved clinical or organizational site (3 credits; may be repeated for additional credit)",
-        "courses": ["MAP505"],
+        "courses": [
+          "MAP505"
+        ],
         "credits": 3
       },
       "capstone": {
         "description": "Capstone Portfolio or Honors Capstone required for degree completion.",
-        "options": ["MAP502", "MAP503"],
+        "options": [
+          "MAP502",
+          "MAP503"
+        ],
         "credits": 3
       },
       "electives": {
         "description": "Elective courses to complete the 42-credit requirement. Students may select from MAP, PPSY, CLPSY, SPSY, or OPSY offerings with advisor approval.",
-        "count": 6,
+        "count": 0,
         "sample_options": [
-          "MAP510", "MAP515", "MAP516", "MAP528",
-          "PPSY563", "PPSY565", "PPSY531", "PPSY568",
-          "PPSY538", "PPSY560", "CLPSY547", "CLPSY555",
-          "OPSY534", "OPSY565"
+          "MAP510",
+          "MAP515",
+          "MAP516",
+          "MAP528",
+          "PPSY563",
+          "PPSY565",
+          "PPSY531",
+          "PPSY568",
+          "PPSY538",
+          "PPSY560",
+          "CLPSY547",
+          "CLPSY555",
+          "OPSY534",
+          "OPSY565"
         ]
       },
       "suggested_timeline": {
-        "year_1_fall": ["MAP507", "MAP508", "MAP526", "PPSY550"],
-        "year_1_spring": ["MAP506", "MAP527", "MAP511", "PPSY575"],
-        "year_2_fall": ["MAP505", "elective_1", "elective_2", "elective_3"],
-        "year_2_spring": ["elective_4", "elective_5", "elective_6", "MAP502_or_MAP503"]
+        "year_1_fall": [
+          "MAP507",
+          "MAP508",
+          "MAP526",
+          "PPSY550"
+        ],
+        "year_1_spring": [
+          "MAP506",
+          "MAP527",
+          "MAP511",
+          "PPSY575"
+        ],
+        "year_2_fall": [
+          "MAP505",
+          "elective_1",
+          "elective_2",
+          "elective_3"
+        ],
+        "year_2_spring": [
+          "elective_4",
+          "elective_5",
+          "elective_6",
+          "MAP502_or_MAP503"
+        ]
       },
       "constraints": [
         "Total: 42 credits.",
@@ -520,7 +771,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/applied-department/master-applied-psychology"
       ]
     },
-
     "map_addictions": {
       "school": "GSAPP",
       "degree_level": "master",
@@ -529,31 +779,51 @@
       "program_years": 2,
       "total_credits": 42,
       "core_required_courses": [
-        "MAP507", "MAP508", "MAP506", "MAP527",
-        "MAP511", "MAP526", "PPSY550", "PPSY575"
+        "MAP507",
+        "MAP508",
+        "MAP506",
+        "MAP527",
+        "MAP511",
+        "MAP526",
+        "PPSY550",
+        "PPSY575"
       ],
       "addictions_track_required": {
         "description": "Required concentration courses for the Addictions Counseling Track (ACT)",
-        "courses": ["MAP680", "MAP524"],
+        "courses": [
+          "MAP680",
+          "MAP524"
+        ],
         "credits": 6
       },
       "practicum": {
         "description": "Professional practicum placement in an addictions-focused setting (3 credits)",
-        "courses": ["MAP505"],
+        "courses": [
+          "MAP505"
+        ],
         "credits": 3
       },
       "capstone": {
         "description": "Capstone Portfolio or Honors Capstone required for degree completion.",
-        "options": ["MAP502", "MAP503"],
+        "options": [
+          "MAP502",
+          "MAP503"
+        ],
         "credits": 3
       },
       "electives": {
         "description": "Additional elective courses to complete 42 credits.",
-        "count": 4,
+        "count": 0,
         "sample_options": [
-          "MAP510", "MAP515", "MAP516", "MAP528",
-          "PPSY563", "PPSY565", "PPSY531",
-          "CLPSY547", "CLPSY555"
+          "MAP510",
+          "MAP515",
+          "MAP516",
+          "MAP528",
+          "PPSY563",
+          "PPSY565",
+          "PPSY531",
+          "CLPSY547",
+          "CLPSY555"
         ]
       },
       "constraints": [
@@ -568,7 +838,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/applied-department/master-applied-psychology"
       ]
     },
-
     "map_mtss": {
       "school": "GSAPP",
       "degree_level": "master",
@@ -577,12 +846,19 @@
       "program_years": 2,
       "total_credits": 30,
       "required_courses": [
-        "PPSY525", "PPSY526", "PPSY610", "PPSY533",
-        "PPSY541", "PPSY539", "PPSY542"
+        "PPSY525",
+        "PPSY526",
+        "PPSY610",
+        "PPSY533",
+        "PPSY541",
+        "PPSY539",
+        "PPSY542"
       ],
       "gse_required_courses": {
         "description": "Two required courses from the Rutgers Graduate School of Education",
-        "courses": ["SPED523"],
+        "courses": [
+          "SPED523"
+        ],
         "notes": [
           "SPED523 — Teaching in Inclusive Classrooms (GSE 15:293:523, Spring, 3 credits)",
           "GSE classroom organization course (15:293:TBD, Fall, 3 credits) — confirm with advisor for current offering"
@@ -599,11 +875,25 @@
       },
       "format": "Fully online, asynchronous",
       "recommended_course_sequence": {
-        "semester_1": ["PPSY525", "PPSY526"],
-        "semester_2": ["PPSY610", "SPED523"],
-        "semester_3": ["PPSY533", "PPSY539"],
-        "semester_4": ["PPSY541", "GSE_classroom_org"],
-        "semester_5_6": ["PPSY542"]
+        "semester_1": [
+          "PPSY525",
+          "PPSY526"
+        ],
+        "semester_2": [
+          "PPSY610",
+          "SPED523"
+        ],
+        "semester_3": [
+          "PPSY533",
+          "PPSY539"
+        ],
+        "semester_4": [
+          "PPSY541",
+          "GSE_classroom_org"
+        ],
+        "semester_5_6": [
+          "PPSY542"
+        ]
       },
       "constraints": [
         "Total: 30 credits (18 certificate credits + 12 additional master's credits).",
@@ -617,7 +907,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/school-department/multi-tiered-systems-support-mtss"
       ]
     },
-
     "accelerated_41_map": {
       "school": "GSAPP",
       "degree_level": "master",
@@ -635,8 +924,12 @@
       "graduate_year_courses": {
         "description": "Fifth year (full-time master's year): students complete remaining 30 MAP credits, including practicum and capstone.",
         "required": [
-          "MAP511", "MAP526", "PPSY550", "PPSY575",
-          "MAP505", "MAP502"
+          "MAP511",
+          "MAP526",
+          "PPSY550",
+          "PPSY575",
+          "MAP505",
+          "MAP502"
         ],
         "electives": {
           "count": 4,
@@ -656,7 +949,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/applied-department/41-program-accelerated-bachelors-master-applied-psychology"
       ]
     },
-
     "certificate_aba": {
       "school": "GSAPP",
       "degree_level": "certificate",
@@ -664,8 +956,12 @@
       "catalog_year": "2025-2026",
       "total_credits_approx": 18,
       "required_courses": [
-        "PPSY513", "PPSY512", "PPSY521", "PPSY514",
-        "PPSY516", "PPSY537"
+        "PPSY513",
+        "PPSY512",
+        "PPSY521",
+        "PPSY514",
+        "PPSY516",
+        "PPSY537"
       ],
       "eligibility": "Open to students with or currently pursuing a graduate degree. Courses meet BACB academic coursework requirements for BCBA certification eligibility.",
       "bacb_note": "Certificate completion alone does not guarantee BCBA exam eligibility. Supervised fieldwork hours and exam passage are also required.",
@@ -680,14 +976,18 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/applied-department/applied-behavior-analysis-aba"
       ]
     },
-
     "certificate_mtss": {
       "school": "GSAPP",
       "degree_level": "certificate",
       "major_name": "Multi-Tiered Systems of Support (MTSS) — Graduate Certificate",
       "catalog_year": "2025-2026",
       "total_credits": 18,
-      "required_courses": ["PPSY525", "PPSY526", "PPSY610", "PPSY533"],
+      "required_courses": [
+        "PPSY525",
+        "PPSY526",
+        "PPSY610",
+        "PPSY533"
+      ],
       "gse_required_courses": {
         "description": "Two required GSE courses",
         "notes": [
@@ -698,9 +998,18 @@
       },
       "format": "Fully online, asynchronous",
       "recommended_sequence": {
-        "semester_1": ["PPSY525", "PPSY526"],
-        "semester_2": ["PPSY610", "SPED523"],
-        "semester_3_4": ["PPSY533", "GSE_classroom_org"]
+        "semester_1": [
+          "PPSY525",
+          "PPSY526"
+        ],
+        "semester_2": [
+          "PPSY610",
+          "SPED523"
+        ],
+        "semester_3_4": [
+          "PPSY533",
+          "GSE_classroom_org"
+        ]
       },
       "constraints": [
         "Total: 18 credits.",
@@ -713,19 +1022,25 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/school-department/multi-tiered-systems-support-mtss"
       ]
     },
-
     "certificate_sport_perf_psych": {
       "school": "GSAPP",
       "degree_level": "certificate",
       "major_name": "Sport and Performance Psychology — Graduate Certificate",
       "catalog_year": "2025-2026",
       "total_credits": 15,
-      "required_core_courses": ["MAP617", "MAP618"],
+      "required_core_courses": [
+        "MAP617",
+        "MAP618"
+      ],
       "electives": {
         "description": "Complete remaining credits from approved electives to reach 15 total. Director may approve other courses aligned with AASP requirements.",
         "credits_needed": 9,
         "options": [
-          "MAP510", "MAP508", "OPSY565", "OPSY548", "MAP505"
+          "MAP510",
+          "MAP508",
+          "OPSY565",
+          "OPSY548",
+          "MAP505"
         ],
         "notes": [
           "EXSC455 (Exercise Psychology, undergraduate) may be approved by program director for students without equivalent background."
@@ -745,7 +1060,6 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/applied-department/sport-performance-psychology"
       ]
     },
-
     "certificate_suicide_prevention": {
       "school": "GSAPP",
       "degree_level": "certificate",
@@ -766,6 +1080,5 @@
         "Source: https://gsapp.rutgers.edu/academic-programs/certificates"
       ]
     }
-
   }
 }

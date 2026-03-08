@@ -8,13 +8,6 @@ from .database import Base
 
 
 class Course(Base):
-    """
-    A single course offered at Rutgers New Brunswick.
-    Populated by management/ingest_courses.py via the Rutgers SIS API.
-    Prerequisites are stored separately in the JSON catalogs until
-    a prerequisite-extraction pipeline is added.
-    """
-
     __tablename__ = "courses"
 
     code: Mapped[str] = mapped_column(String(20), primary_key=True)
@@ -29,14 +22,6 @@ class Course(Base):
 
 
 class Program(Base):
-    """
-    One row per academic program (major, minor, or certificate).
-    Adding a new major = inserting a row; no new JSON file needed.
-
-    requirements stores the full dict that the planner already knows
-    how to consume: required_courses, electives, science_requirement, etc.
-    """
-
     __tablename__ = "programs"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)

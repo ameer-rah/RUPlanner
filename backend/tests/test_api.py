@@ -1,20 +1,9 @@
-"""
-API smoke tests for the RU Planner FastAPI backend.
-
-Run from the backend directory:
-    .venv/bin/python -m pytest tests/test_api.py -v
-"""
-
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
 
 client = TestClient(app)
 
-
-# ---------------------------------------------------------------------------
-# GET /programs
-# ---------------------------------------------------------------------------
 
 class TestListPrograms:
     def test_returns_200(self):
@@ -44,10 +33,6 @@ class TestListPrograms:
         assert "minor" in levels
 
 
-# ---------------------------------------------------------------------------
-# GET /courses
-# ---------------------------------------------------------------------------
-
 class TestSearchCourses:
     def test_empty_query_returns_empty(self):
         res = client.get("/courses")
@@ -72,10 +57,6 @@ class TestSearchCourses:
         assert res.status_code == 200
         assert len(res.json()) <= 3
 
-
-# ---------------------------------------------------------------------------
-# POST /plan
-# ---------------------------------------------------------------------------
 
 def _base_payload(**overrides):
     payload = {
@@ -145,7 +126,6 @@ class TestGeneratePlan:
         )
         res = client.post("/plan", json=payload)
         all_codes = {c["code"] for t in res.json()["terms"] for c in t["courses"]}
-        # Math BS unique courses should appear
         assert len(all_codes & {"MATH251", "MATH300", "MATH311", "MATH351"}) > 0
 
     def test_minor_electives_included(self):
@@ -162,7 +142,6 @@ class TestGeneratePlan:
             for c in t["courses"]
             if c["is_elective"]
         ]
-        # CS(5) + Math minor(4) = 9 electives scheduled
         assert len(elective_codes) == 9
 
     def test_spring_only_no_other_seasons(self):
@@ -209,10 +188,6 @@ class TestGeneratePlan:
         assert res.json()["remaining_courses"] == []
 
 
-# ---------------------------------------------------------------------------
-# POST /parse-transcript
-# ---------------------------------------------------------------------------
-
 class TestParseTranscript:
     def test_non_pdf_rejected(self):
         res = client.post(
@@ -229,7 +204,6 @@ class TestParseTranscript:
         assert res.status_code == 422
 
     def test_valid_pdf_returns_list(self):
-        # Build a minimal valid PDF in-memory
         try:
             from pypdf import PdfWriter
             import io

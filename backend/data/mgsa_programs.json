@@ -10,35 +10,49 @@
         "DANC100",
         "DSTU115",
         "DANC126",
-        "DANC138", "DANC139",
+        "DANC138",
+        "DANC139",
         "DANC142",
         "DANC145",
         "DANC161",
         "DANC235",
         "DANC237",
-        "DANC240", "DANC241",
+        "DANC240",
+        "DANC241",
         "DANC243",
         "DANC248",
-        "DANC251", "DANC252",
+        "DANC251",
+        "DANC252",
         "DANC276",
         "DANC311",
         "DANC315",
         "DANC325",
-        "DANC334", "DANC335",
-        "DANC342", "DANC343",
+        "DANC334",
+        "DANC335",
+        "DANC342",
+        "DANC343",
         "DANC345",
         "DANC402",
         "DANC434",
-        "DANC441", "DANC442",
-        "DANC444", "DANC445"
+        "DANC441",
+        "DANC442",
+        "DANC444",
+        "DANC445"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "DANC137", "DANC153", "DANC274", "DANC277",
-          "DANC327", "DANC340", "DANC344", "DANC352",
-          "DANC360", "DANC363"
+          "DANC137",
+          "DANC153",
+          "DANC274",
+          "DANC277",
+          "DANC327",
+          "DANC340",
+          "DANC344",
+          "DANC352",
+          "DANC360",
+          "DANC363"
         ],
         "any_from_catalog": false
       },
@@ -49,7 +63,6 @@
       ],
       "notes": []
     },
-
     "music_bm_performance": {
       "school": "MGSA",
       "degree_level": "bachelor_bm",
@@ -57,25 +70,38 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "MUSA100",
-        "MUSC121", "MUSC122",
-        "MUSC123", "MUSC124",
+        "MUSC121",
+        "MUSC122",
+        "MUSC123",
+        "MUSC124",
         "MUSC127",
-        "MUSC221", "MUSC222",
-        "MUSC223", "MUSC224",
+        "MUSC221",
+        "MUSC222",
+        "MUSC223",
+        "MUSC224",
         "MUSC323",
         "MUSC329",
-        "MUSC301", "MUSC302",
+        "MUSC301",
+        "MUSC302",
         "MUSC303",
         "MUSC419",
-        "MUSA407", "MUSA408"
+        "MUSA407",
+        "MUSA408"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "MUSC321", "MUSC322", "MUSC341", "MUSC342",
-          "MUSC330", "MUSC420", "MUSC310",
-          "MUSC284", "MUSC469", "MUSC485"
+          "MUSC321",
+          "MUSC322",
+          "MUSC341",
+          "MUSC342",
+          "MUSC330",
+          "MUSC420",
+          "MUSC310",
+          "MUSC284",
+          "MUSC469",
+          "MUSC485"
         ],
         "any_from_catalog": false
       },
@@ -92,7 +118,6 @@
         "Applied lessons and ensemble credits are arranged with the department and not in this course list."
       ]
     },
-
     "music_bm_jazz": {
       "school": "MGSA",
       "degree_level": "bachelor_bm",
@@ -101,19 +126,28 @@
       "required_courses": [
         "MUSA100",
         "MUSC102",
-        "MUSC121", "MUSC122",
-        "MUSC123", "MUSC124",
+        "MUSC121",
+        "MUSC122",
+        "MUSC123",
+        "MUSC124",
         "MUSC125",
         "MUSC127",
-        "MUSC223", "MUSC224",
-        "MUSC247", "MUSC248",
-        "MUSC251", "MUSC252",
+        "MUSC223",
+        "MUSC224",
+        "MUSC247",
+        "MUSC248",
+        "MUSC251",
+        "MUSC252",
         "MUSC303",
-        "MUSC305", "MUSC306",
+        "MUSC305",
+        "MUSC306",
         "MUSC329",
-        "MUSC347", "MUSC348",
-        "MUSC371", "MUSC372",
-        "MUSC471", "MUSC472"
+        "MUSC347",
+        "MUSC348",
+        "MUSC371",
+        "MUSC372",
+        "MUSC471",
+        "MUSC472"
       ],
       "electives": {
         "count": 0,
@@ -131,7 +165,6 @@
       ],
       "notes": []
     },
-
     "music_bm_composition": {
       "school": "MGSA",
       "degree_level": "bachelor_bm",
@@ -139,18 +172,25 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "MUSA100",
-        "MUSC121", "MUSC122",
-        "MUSC123", "MUSC124",
+        "MUSC121",
+        "MUSC122",
+        "MUSC123",
+        "MUSC124",
         "MUSC127",
         "MUSC129",
-        "MUSC221", "MUSC222",
-        "MUSC223", "MUSC224",
+        "MUSC221",
+        "MUSC222",
+        "MUSC223",
+        "MUSC224",
         "MUSC321",
         "MUSC322",
         "MUSC323",
-        "MUSC329", "MUSC330",
-        "MUSC341", "MUSC342",
-        "MUSC301", "MUSC302",
+        "MUSC329",
+        "MUSC330",
+        "MUSC341",
+        "MUSC342",
+        "MUSC301",
+        "MUSC302",
         "MUSC303",
         "MUSC419",
         "MUSC284",
@@ -176,7 +216,6 @@
       ],
       "notes": []
     },
-
     "music_bm_education": {
       "school": "MGSA",
       "degree_level": "bachelor_bm",
@@ -184,15 +223,21 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "MUSA100",
-        "MUSC121", "MUSC122",
-        "MUSC123", "MUSC124",
+        "MUSC121",
+        "MUSC122",
+        "MUSC123",
+        "MUSC124",
         "MUSC127",
-        "MUSC221", "MUSC222",
-        "MUSC223", "MUSC224",
+        "MUSC221",
+        "MUSC222",
+        "MUSC223",
+        "MUSC224",
         "MUSC323",
-        "MUSC329", "MUSC330",
+        "MUSC329",
+        "MUSC330",
         "MUSC341",
-        "MUSC301", "MUSC302",
+        "MUSC301",
+        "MUSC302",
         "MUSC303",
         "MUSC419",
         "MUSC261",
@@ -222,7 +267,6 @@
       ],
       "notes": []
     },
-
     "theater_bfa_acting": {
       "school": "MGSA",
       "degree_level": "bachelor_bfa",
@@ -230,23 +274,38 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "THTA103",
-        "THTR281", "THTR282",
-        "THTR370", "THTR371",
+        "THTR281",
+        "THTR282",
+        "THTR370",
+        "THTR371",
         "THTR473",
         "THTA496",
-        "THTA271", "THTA272",
-        "THTA225", "THTA226",
-        "THTA227", "THTA228",
-        "THTA230", "THTA231",
-        "THTA275", "THTA276",
-        "THTA319", "THTA320",
-        "THTA321", "THTA322",
-        "THTA325", "THTA326",
-        "THTA327", "THTA328",
-        "THTA333", "THTA334",
-        "THTA371", "THTA372",
-        "THTA437", "THTA438",
-        "THTA439", "THTA440",
+        "THTA271",
+        "THTA272",
+        "THTA225",
+        "THTA226",
+        "THTA227",
+        "THTA228",
+        "THTA230",
+        "THTA231",
+        "THTA275",
+        "THTA276",
+        "THTA319",
+        "THTA320",
+        "THTA321",
+        "THTA322",
+        "THTA325",
+        "THTA326",
+        "THTA327",
+        "THTA328",
+        "THTA333",
+        "THTA334",
+        "THTA371",
+        "THTA372",
+        "THTA437",
+        "THTA438",
+        "THTA439",
+        "THTA440",
         "THTA425",
         "THTA476",
         "THTA480"
@@ -255,9 +314,16 @@
         "count": 2,
         "min_level_300_plus": 1,
         "options": [
-          "THTR271", "THTR272", "THTR325", "THTR326",
-          "THTR401", "THTR410", "THTR421", "THTR422",
-          "THTA427", "THTA428"
+          "THTR271",
+          "THTR272",
+          "THTR325",
+          "THTR326",
+          "THTR401",
+          "THTR410",
+          "THTR421",
+          "THTR422",
+          "THTA427",
+          "THTA428"
         ],
         "any_from_catalog": false
       },
@@ -269,7 +335,6 @@
       ],
       "notes": []
     },
-
     "theater_bfa_design": {
       "school": "MGSA",
       "degree_level": "bachelor_bfa",
@@ -277,38 +342,59 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "THTA103",
-        "THTR281", "THTR282",
-        "THTR370", "THTR371",
+        "THTR281",
+        "THTR282",
+        "THTR370",
+        "THTR371",
         "THTA496",
         "THTA105",
         "THTA123",
-        "THTA271", "THTA272",
+        "THTA271",
+        "THTA272",
         "THTA242",
-        "THTA243", "THTA244",
-        "THTA245", "THTA246",
-        "THTA247", "THTA248",
-        "THTA251", "THTA252",
-        "THTA300", "THTA301",
-        "THTA345", "THTA346",
+        "THTA243",
+        "THTA244",
+        "THTA245",
+        "THTA246",
+        "THTA247",
+        "THTA248",
+        "THTA251",
+        "THTA252",
+        "THTA300",
+        "THTA301",
+        "THTA345",
+        "THTA346",
         "THTA358",
-        "THTA313", "THTA314",
-        "THTA335", "THTA336",
-        "THTA343", "THTA344",
-        "THTA415", "THTA416",
+        "THTA313",
+        "THTA314",
+        "THTA335",
+        "THTA336",
+        "THTA343",
+        "THTA344",
+        "THTA415",
+        "THTA416",
         "THTA460",
         "THTA462",
-        "THTA464", "THTA465",
-        "THTA468", "THTA469"
+        "THTA464",
+        "THTA465",
+        "THTA468",
+        "THTA469"
       ],
       "electives": {
         "count": 2,
         "min_level_300_plus": 1,
         "options": [
-          "THTA311", "THTA312",
-          "THTA350", "THTA351",
-          "THTA455", "THTA456",
-          "THTA447", "THTA451",
-          "THTR310", "THTR401", "THTR410"
+          "THTA311",
+          "THTA312",
+          "THTA350",
+          "THTA351",
+          "THTA455",
+          "THTA456",
+          "THTA447",
+          "THTA451",
+          "THTR310",
+          "THTR401",
+          "THTR410"
         ],
         "any_from_catalog": false
       },
@@ -321,7 +407,6 @@
       ],
       "notes": []
     },
-
     "theater_bfa_production": {
       "school": "MGSA",
       "degree_level": "bachelor_bfa",
@@ -329,38 +414,53 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "THTA103",
-        "THTR281", "THTR282",
-        "THTR370", "THTR371",
+        "THTR281",
+        "THTR282",
+        "THTR370",
+        "THTR371",
         "THTA496",
         "THTA123",
         "THTA219",
-        "THTA215", "THTA216",
+        "THTA215",
+        "THTA216",
         "THTA242",
-        "THTA249", "THTA250",
-        "THTA251", "THTA252",
-        "THTA271", "THTA272",
+        "THTA249",
+        "THTA250",
+        "THTA251",
+        "THTA252",
+        "THTA271",
+        "THTA272",
         "THTA277",
         "THTA305",
         "THTA315",
         "THTA316",
-        "THTA339", "THTA340",
-        "THTA361", "THTA362",
+        "THTA339",
+        "THTA340",
+        "THTA361",
+        "THTA362",
         "THTA407",
         "THTA411",
-        "THTA415", "THTA416",
+        "THTA415",
+        "THTA416",
         "THTA423",
-        "THTA443", "THTA444",
-        "THTA468", "THTA469"
+        "THTA443",
+        "THTA444",
+        "THTA468",
+        "THTA469"
       ],
       "electives": {
         "count": 2,
         "min_level_300_plus": 0,
         "options": [
-          "THTA311", "THTA312",
-          "THTA350", "THTA351",
+          "THTA311",
+          "THTA312",
+          "THTA350",
+          "THTA351",
           "THTA274",
-          "THTA447", "THTA451",
-          "THTR364", "THTR365"
+          "THTA447",
+          "THTA451",
+          "THTR364",
+          "THTR365"
         ],
         "any_from_catalog": false
       },
@@ -372,33 +472,95 @@
       ],
       "notes": []
     },
-
     "visual_arts_bfa": {
       "school": "MGSA",
       "degree_level": "bachelor_bfa",
       "major_name": "Visual Arts",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ARTH105", "ARTH106",
+        "ARTH105",
+        "ARTH106",
         "ART107",
-        "ART121", "ART122",
-        "ART200", "ART201",
-        "ART227", "ART228",
-        "ART497", "ART498"
+        "ART121",
+        "ART122",
+        "ART200",
+        "ART201",
+        "ART227",
+        "ART228",
+        "ART497",
+        "ART498"
       ],
       "electives": {
         "count": 10,
         "min_level_300_plus": 4,
         "options": [
-          "ART221", "ART222", "ART321", "ART322", "ART421", "ART422", "ART455", "ART456",
-          "ART231", "ART232", "ART331", "ART332", "ART431", "ART432", "ART433", "ART434",
-          "ART243", "ART244", "ART343", "ART344", "ART441", "ART442", "ART446", "ART447",
-          "ART251", "ART252", "ART351", "ART352", "ART451", "ART452", "ART453", "ART454",
-          "ART261", "ART262", "ART361", "ART362", "ART461", "ART462", "ART463", "ART464",
-          "ART271", "ART272", "ART371", "ART372", "ART471", "ART472", "ART473", "ART474",
-          "ART281", "ART282", "ART381", "ART382", "ART481", "ART482", "ART483", "ART484",
-          "ART305", "ART303", "ART306", "ART308", "ART310", "ART317", "ART329", "ART356",
-          "ART383", "ART396", "ART420"
+          "ART221",
+          "ART222",
+          "ART321",
+          "ART322",
+          "ART421",
+          "ART422",
+          "ART455",
+          "ART456",
+          "ART231",
+          "ART232",
+          "ART331",
+          "ART332",
+          "ART431",
+          "ART432",
+          "ART433",
+          "ART434",
+          "ART243",
+          "ART244",
+          "ART343",
+          "ART344",
+          "ART441",
+          "ART442",
+          "ART446",
+          "ART447",
+          "ART251",
+          "ART252",
+          "ART351",
+          "ART352",
+          "ART451",
+          "ART452",
+          "ART453",
+          "ART454",
+          "ART261",
+          "ART262",
+          "ART361",
+          "ART362",
+          "ART461",
+          "ART462",
+          "ART463",
+          "ART464",
+          "ART271",
+          "ART272",
+          "ART371",
+          "ART372",
+          "ART471",
+          "ART472",
+          "ART473",
+          "ART474",
+          "ART281",
+          "ART282",
+          "ART381",
+          "ART382",
+          "ART481",
+          "ART482",
+          "ART483",
+          "ART484",
+          "ART305",
+          "ART303",
+          "ART306",
+          "ART308",
+          "ART310",
+          "ART317",
+          "ART329",
+          "ART356",
+          "ART383",
+          "ART396",
+          "ART420"
         ],
         "any_from_catalog": false
       },
@@ -413,7 +575,6 @@
       ],
       "notes": []
     },
-
     "design_bfa": {
       "school": "MGSA",
       "degree_level": "bachelor_bfa",
@@ -421,27 +582,51 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "ARTH105",
-        "ART121", "ART122",
-        "ART200", "ART201",
-        "ART227", "ART228",
-        "ART231", "ART232",
-        "ART308", "ART383",
-        "ART331", "ART332",
-        "ART431", "ART432",
-        "ART433", "ART434",
-        "ART497", "ART498"
+        "ART121",
+        "ART122",
+        "ART200",
+        "ART201",
+        "ART227",
+        "ART228",
+        "ART231",
+        "ART232",
+        "ART308",
+        "ART383",
+        "ART331",
+        "ART332",
+        "ART431",
+        "ART432",
+        "ART433",
+        "ART434",
+        "ART497",
+        "ART498"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "ART221", "ART222", "ART321", "ART322",
-          "ART243", "ART244", "ART343", "ART344", "ART441", "ART442",
-          "ART251", "ART252",
-          "ART261", "ART262", "ART361", "ART362",
-          "ART305", "ART396", "ART420",
+          "ART221",
+          "ART222",
+          "ART321",
+          "ART322",
+          "ART243",
+          "ART244",
+          "ART343",
+          "ART344",
+          "ART441",
+          "ART442",
+          "ART251",
+          "ART252",
+          "ART261",
+          "ART262",
+          "ART361",
+          "ART362",
+          "ART305",
+          "ART396",
+          "ART420",
           "ARTH106",
-          "CINE201", "CINE202"
+          "CINE201",
+          "CINE202"
         ],
         "any_from_catalog": false
       },
@@ -455,7 +640,6 @@
       ],
       "notes": []
     },
-
     "digital_filmmaking_bfa": {
       "school": "MGSA",
       "degree_level": "bachelor_bfa",
@@ -468,28 +652,35 @@
         "FILM191",
         "FILM192",
         "FILM205",
-        "CINE201", "CINE202",
+        "CINE201",
+        "CINE202",
         "FILM200",
         "FILM212",
         "FILM220",
         "FILM230",
-        "FILM291", "FILM292",
+        "FILM291",
+        "FILM292",
         "FILM305",
         "FILM306",
         "FILM330",
-        "FILM391", "FILM392",
+        "FILM391",
+        "FILM392",
         "FILM393",
         "FILM400",
         "FILM406",
-        "FILM410", "FILM411"
+        "FILM410",
+        "FILM411"
       ],
       "electives": {
         "count": 2,
         "min_level_300_plus": 1,
         "options": [
-          "CINE201", "CINE202",
-          "ART243", "ART244", "ART343", "ART344",
-          "ART441", "ART442"
+          "ART243",
+          "ART244",
+          "ART343",
+          "ART344",
+          "ART441",
+          "ART442"
         ],
         "any_from_catalog": false
       },
@@ -503,7 +694,6 @@
       ],
       "notes": []
     },
-
     "dance_mfa": {
       "school": "MGSA",
       "degree_level": "master",
@@ -516,7 +706,8 @@
         "DANC503",
         "DANC505",
         "DANC507",
-        "DANC509", "DANC511",
+        "DANC509",
+        "DANC511",
         "DANC513",
         "DANC515",
         "DANC517",
@@ -524,21 +715,41 @@
         "DANC590"
       ],
       "electives": {
-        "count": 5,
+        "count": 0,
         "description": "15 additional credits from graduate dance studio, technique, or approved cross-disciplinary courses.",
-        "options": [
-          "DANC501", "DANC503", "DANC505", "DANC507",
-          "DANC509", "DANC511", "DANC513", "DANC515", "DANC517"
-        ],
+        "options": [],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["DANC501", "DANC509", "DANC513"],
-        "year_1_spring": ["DANC503", "DANC511", "DANC515"],
-        "year_2_fall":   ["DANC505", "DANC517", "elective_1"],
-        "year_2_spring": ["DANC507", "DANC519", "elective_2"],
-        "year_3_fall":   ["elective_3", "elective_4", "DANC590"],
-        "year_3_spring": ["elective_5", "DANC590"]
+        "year_1_fall": [
+          "DANC501",
+          "DANC509",
+          "DANC513"
+        ],
+        "year_1_spring": [
+          "DANC503",
+          "DANC511",
+          "DANC515"
+        ],
+        "year_2_fall": [
+          "DANC505",
+          "DANC517",
+          "elective_1"
+        ],
+        "year_2_spring": [
+          "DANC507",
+          "DANC519",
+          "elective_2"
+        ],
+        "year_3_fall": [
+          "elective_3",
+          "elective_4",
+          "DANC590"
+        ],
+        "year_3_spring": [
+          "elective_5",
+          "DANC590"
+        ]
       },
       "constraints": [
         "60 total credits required.",
@@ -556,7 +767,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/dance/"
       ]
     },
-
     "music_mm_performance": {
       "school": "MGSA",
       "degree_level": "master",
@@ -565,10 +775,16 @@
       "program_years": 2,
       "total_credits": 32,
       "required_courses": [
-        "MUSA501", "MUSA502", "MUSA503", "MUSA504",
-        "MUSA505", "MUSA506",
-        "MUSA507", "MUSA508",
-        "MUSC504", "MUSC505",
+        "MUSA501",
+        "MUSA502",
+        "MUSA503",
+        "MUSA504",
+        "MUSA505",
+        "MUSA506",
+        "MUSA507",
+        "MUSA508",
+        "MUSC504",
+        "MUSC505",
         "MUSC521",
         "MUSC580"
       ],
@@ -576,18 +792,41 @@
         "count": 2,
         "description": "6 credits of graduate music electives chosen in consultation with the applied faculty adviser.",
         "options": [
-          "MUSC501", "MUSC503",
-          "MUSC506", "MUSC507",
-          "MUSC511", "MUSC512",
-          "MUSC513", "MUSC515", "MUSC516"
+          "MUSC501",
+          "MUSC503",
+          "MUSC506",
+          "MUSC507",
+          "MUSC511",
+          "MUSC512",
+          "MUSC513",
+          "MUSC515",
+          "MUSC516"
         ],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["MUSA501", "MUSA505", "MUSA507", "MUSC504", "elective_1"],
-        "year_1_spring": ["MUSA502", "MUSA506", "MUSA508", "MUSC505", "elective_2"],
-        "year_2_fall":   ["MUSA503", "MUSC521"],
-        "year_2_spring": ["MUSA504", "MUSC580"]
+        "year_1_fall": [
+          "MUSA501",
+          "MUSA505",
+          "MUSA507",
+          "MUSC504",
+          "elective_1"
+        ],
+        "year_1_spring": [
+          "MUSA502",
+          "MUSA506",
+          "MUSA508",
+          "MUSC505",
+          "elective_2"
+        ],
+        "year_2_fall": [
+          "MUSA503",
+          "MUSC521"
+        ],
+        "year_2_spring": [
+          "MUSA504",
+          "MUSC580"
+        ]
       },
       "constraints": [
         "32 total credits required.",
@@ -605,7 +844,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/music/"
       ]
     },
-
     "music_mm_composition": {
       "school": "MGSA",
       "degree_level": "master",
@@ -616,11 +854,13 @@
       "required_courses": [
         "MUSC501",
         "MUSC503",
-        "MUSC504", "MUSC505",
+        "MUSC504",
+        "MUSC505",
         "MUSC511",
         "MUSC512",
         "MUSC513",
-        "MUSA501", "MUSA502",
+        "MUSA501",
+        "MUSA502",
         "MUSA507",
         "MUSC580"
       ],
@@ -628,18 +868,39 @@
         "count": 3,
         "description": "9 credits of graduate electives in music theory, history, or technology.",
         "options": [
-          "MUSC506", "MUSC507",
-          "MUSA503", "MUSA504",
-          "MUSA505", "MUSA506",
+          "MUSC506",
+          "MUSC507",
+          "MUSA503",
+          "MUSA504",
+          "MUSA505",
+          "MUSA506",
           "MUSA508"
         ],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["MUSC501", "MUSC511", "MUSC504", "MUSA501", "MUSA507"],
-        "year_1_spring": ["MUSC503", "MUSC512", "MUSC505", "MUSA502", "elective_1"],
-        "year_2_fall":   ["MUSC513", "elective_2", "elective_3"],
-        "year_2_spring": ["MUSC580"]
+        "year_1_fall": [
+          "MUSC501",
+          "MUSC511",
+          "MUSC504",
+          "MUSA501",
+          "MUSA507"
+        ],
+        "year_1_spring": [
+          "MUSC503",
+          "MUSC512",
+          "MUSC505",
+          "MUSA502",
+          "elective_1"
+        ],
+        "year_2_fall": [
+          "MUSC513",
+          "elective_2",
+          "elective_3"
+        ],
+        "year_2_spring": [
+          "MUSC580"
+        ]
       },
       "constraints": [
         "32 total credits required.",
@@ -655,7 +916,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/music/"
       ]
     },
-
     "music_mm_conducting": {
       "school": "MGSA",
       "degree_level": "master",
@@ -664,10 +924,14 @@
       "program_years": 2,
       "total_credits": 32,
       "required_courses": [
-        "MUSC515", "MUSC516",
-        "MUSA501", "MUSA502",
-        "MUSA507", "MUSA508",
-        "MUSC504", "MUSC505",
+        "MUSC515",
+        "MUSC516",
+        "MUSA501",
+        "MUSA502",
+        "MUSA507",
+        "MUSA508",
+        "MUSC504",
+        "MUSC505",
         "MUSC501",
         "MUSC512",
         "MUSC580"
@@ -676,17 +940,38 @@
         "count": 3,
         "description": "9 credits of graduate electives; options vary by track (orchestral, choral, or wind ensemble).",
         "options": [
-          "MUSC503", "MUSC506", "MUSC507",
+          "MUSC503",
+          "MUSC506",
+          "MUSC507",
           "MUSC511",
-          "MUSA503", "MUSA504"
+          "MUSA503",
+          "MUSA504"
         ],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["MUSC515", "MUSA501", "MUSA507", "MUSC504", "MUSC501"],
-        "year_1_spring": ["MUSC516", "MUSA502", "MUSA508", "MUSC505", "elective_1"],
-        "year_2_fall":   ["MUSC512", "elective_2", "elective_3"],
-        "year_2_spring": ["MUSC580"]
+        "year_1_fall": [
+          "MUSC515",
+          "MUSA501",
+          "MUSA507",
+          "MUSC504",
+          "MUSC501"
+        ],
+        "year_1_spring": [
+          "MUSC516",
+          "MUSA502",
+          "MUSA508",
+          "MUSC505",
+          "elective_1"
+        ],
+        "year_2_fall": [
+          "MUSC512",
+          "elective_2",
+          "elective_3"
+        ],
+        "year_2_spring": [
+          "MUSC580"
+        ]
       },
       "constraints": [
         "32 total credits required.",
@@ -702,7 +987,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/music/"
       ]
     },
-
     "music_mm_jazz": {
       "school": "MGSA",
       "degree_level": "master",
@@ -712,27 +996,53 @@
       "total_credits": 32,
       "required_courses": [
         "MUSC504",
-        "MUSC509", "MUSC510",
+        "MUSC509",
+        "MUSC510",
         "MUSC523",
-        "MUSA501", "MUSA502", "MUSA503", "MUSA504",
-        "MUSA505", "MUSA506",
+        "MUSA501",
+        "MUSA502",
+        "MUSA503",
+        "MUSA504",
+        "MUSA505",
+        "MUSA506",
         "MUSC580"
       ],
       "electives": {
         "count": 3,
         "description": "9 credits of graduate electives in jazz history, arranging, or music theory.",
         "options": [
-          "MUSC501", "MUSC503",
-          "MUSC506", "MUSC507",
-          "MUSA507", "MUSA508"
+          "MUSC501",
+          "MUSC503",
+          "MUSC506",
+          "MUSC507",
+          "MUSA507",
+          "MUSA508"
         ],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["MUSC509", "MUSA501", "MUSA505", "MUSC504", "elective_1"],
-        "year_1_spring": ["MUSC510", "MUSA502", "MUSA506", "MUSC523", "elective_2"],
-        "year_2_fall":   ["MUSA503", "elective_3"],
-        "year_2_spring": ["MUSA504", "MUSC580"]
+        "year_1_fall": [
+          "MUSC509",
+          "MUSA501",
+          "MUSA505",
+          "MUSC504",
+          "elective_1"
+        ],
+        "year_1_spring": [
+          "MUSC510",
+          "MUSA502",
+          "MUSA506",
+          "MUSC523",
+          "elective_2"
+        ],
+        "year_2_fall": [
+          "MUSA503",
+          "elective_3"
+        ],
+        "year_2_spring": [
+          "MUSA504",
+          "MUSC580"
+        ]
       },
       "constraints": [
         "32 total credits required.",
@@ -746,7 +1056,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/music/"
       ]
     },
-
     "music_mat_education": {
       "school": "MGSA",
       "degree_level": "master",
@@ -760,7 +1069,8 @@
         "MUSC519",
         "MUSC504",
         "MUSC501",
-        "MUSA501", "MUSA502",
+        "MUSA501",
+        "MUSA502",
         "MUSA507",
         "MUSC521",
         "MUSC580"
@@ -769,16 +1079,37 @@
         "count": 2,
         "description": "6 credits of approved graduate electives in music or education.",
         "options": [
-          "MUSC503", "MUSC505", "MUSC506", "MUSC507",
-          "MUSC511", "MUSC512", "MUSC513"
+          "MUSC503",
+          "MUSC505",
+          "MUSC506",
+          "MUSC507",
+          "MUSC511",
+          "MUSC512",
+          "MUSC513"
         ],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["MUSC517", "MUSC504", "MUSA501", "MUSA507", "MUSC501"],
-        "year_1_spring": ["MUSC518", "MUSC521", "MUSA502", "elective_1"],
-        "year_2_fall":   ["MUSC519", "elective_2"],
-        "year_2_spring": ["MUSC580"]
+        "year_1_fall": [
+          "MUSC517",
+          "MUSC504",
+          "MUSA501",
+          "MUSA507",
+          "MUSC501"
+        ],
+        "year_1_spring": [
+          "MUSC518",
+          "MUSC521",
+          "MUSA502",
+          "elective_1"
+        ],
+        "year_2_fall": [
+          "MUSC519",
+          "elective_2"
+        ],
+        "year_2_spring": [
+          "MUSC580"
+        ]
       },
       "constraints": [
         "36 total credits required.",
@@ -794,7 +1125,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/music/"
       ]
     },
-
     "music_mm_opera": {
       "school": "MGSA",
       "degree_level": "master",
@@ -803,10 +1133,16 @@
       "program_years": 2,
       "total_credits": 32,
       "required_courses": [
-        "MUSA501", "MUSA502", "MUSA503", "MUSA504",
-        "MUSA509", "MUSA510",
-        "MUSA505", "MUSA506",
-        "MUSC504", "MUSC505",
+        "MUSA501",
+        "MUSA502",
+        "MUSA503",
+        "MUSA504",
+        "MUSA509",
+        "MUSA510",
+        "MUSA505",
+        "MUSA506",
+        "MUSC504",
+        "MUSC505",
         "MUSC521",
         "MUSC580"
       ],
@@ -814,16 +1150,35 @@
         "count": 1,
         "description": "3 credits of graduate electives selected with faculty adviser.",
         "options": [
-          "MUSC501", "MUSC503",
-          "MUSC506", "MUSC507"
+          "MUSC501",
+          "MUSC503",
+          "MUSC506",
+          "MUSC507"
         ],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["MUSA501", "MUSA509", "MUSA505", "MUSC504"],
-        "year_1_spring": ["MUSA502", "MUSA510", "MUSA506", "MUSC505"],
-        "year_2_fall":   ["MUSA503", "MUSC521", "elective_1"],
-        "year_2_spring": ["MUSA504", "MUSC580"]
+        "year_1_fall": [
+          "MUSA501",
+          "MUSA509",
+          "MUSA505",
+          "MUSC504"
+        ],
+        "year_1_spring": [
+          "MUSA502",
+          "MUSA510",
+          "MUSA506",
+          "MUSC505"
+        ],
+        "year_2_fall": [
+          "MUSA503",
+          "MUSC521",
+          "elective_1"
+        ],
+        "year_2_spring": [
+          "MUSA504",
+          "MUSC580"
+        ]
       },
       "constraints": [
         "32 total credits required.",
@@ -839,7 +1194,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/music/"
       ]
     },
-
     "theater_mfa_design": {
       "school": "MGSA",
       "degree_level": "master",
@@ -851,38 +1205,77 @@
         "THTR501",
         "THTR503",
         "THTR505",
-        "THTA507", "THTA508",
-        "THTA511", "THTA512",
-        "THTA515", "THTA516",
+        "THTA507",
+        "THTA508",
+        "THTA511",
+        "THTA512",
+        "THTA515",
+        "THTA516",
         "THTA590"
       ],
       "design_specialization": {
         "description": "Students choose one specialization: Scenic Design, Costume Design, Lighting Design, or Sound Design. Required specialization courses supplement the core.",
-        "scenic_design": ["THTA517"],
-        "costume_design": ["THTA518"],
-        "lighting_design": ["THTA519"],
-        "sound_design": ["THTA520"]
+        "scenic_design": [
+          "THTA517"
+        ],
+        "costume_design": [
+          "THTA518"
+        ],
+        "lighting_design": [
+          "THTA519"
+        ],
+        "sound_design": [
+          "THTA520"
+        ]
       },
       "electives": {
         "count": 5,
         "description": "15 credits of graduate electives; may include cross-disciplinary design courses, production work, or approved academic courses.",
         "options": [
-          "THTA501", "THTA502",
-          "THTA503", "THTA504",
-          "THTA509", "THTA510",
-          "THTA513", "THTA514",
-          "THTA517", "THTA518", "THTA519", "THTA520",
-          "THTR501", "THTR503", "THTR505"
+          "THTA501",
+          "THTA502",
+          "THTA503",
+          "THTA504",
+          "THTA509",
+          "THTA510",
+          "THTA513",
+          "THTA514",
+          "THTA517",
+          "THTA518",
+          "THTA519",
+          "THTA520"
         ],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["THTR501", "THTA507", "THTA515", "specialization_course"],
-        "year_1_spring": ["THTR503", "THTA508", "THTA516", "elective_1"],
-        "year_2_fall":   ["THTR505", "THTA511", "elective_2"],
-        "year_2_spring": ["THTA512", "elective_3"],
-        "year_3_fall":   ["elective_4", "elective_5"],
-        "year_3_spring": ["THTA590"]
+        "year_1_fall": [
+          "THTR501",
+          "THTA507",
+          "THTA515",
+          "specialization_course"
+        ],
+        "year_1_spring": [
+          "THTR503",
+          "THTA508",
+          "THTA516",
+          "elective_1"
+        ],
+        "year_2_fall": [
+          "THTR505",
+          "THTA511",
+          "elective_2"
+        ],
+        "year_2_spring": [
+          "THTA512",
+          "elective_3"
+        ],
+        "year_3_fall": [
+          "elective_4",
+          "elective_5"
+        ],
+        "year_3_spring": [
+          "THTA590"
+        ]
       },
       "constraints": [
         "60 total credits required.",
@@ -899,7 +1292,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/theater-arts/"
       ]
     },
-
     "theater_mfa_stage_management": {
       "school": "MGSA",
       "degree_level": "master",
@@ -911,8 +1303,10 @@
         "THTR501",
         "THTR503",
         "THTR505",
-        "THTA513", "THTA514",
-        "THTA515", "THTA516",
+        "THTA513",
+        "THTA514",
+        "THTA515",
+        "THTA516",
         "THTA507",
         "THTA590"
       ],
@@ -920,20 +1314,47 @@
         "count": 7,
         "description": "21 credits of graduate electives; production assignments, design courses, and academic seminars all count toward elective requirements.",
         "options": [
-          "THTA501", "THTA502",
-          "THTA508", "THTA511", "THTA512",
-          "THTA517", "THTA518", "THTA519", "THTA520",
-          "THTR501", "THTR503", "THTR505"
+          "THTA501",
+          "THTA502",
+          "THTA508",
+          "THTA511",
+          "THTA512",
+          "THTA517",
+          "THTA518",
+          "THTA519",
+          "THTA520"
         ],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["THTR501", "THTA513", "THTA515", "THTA507"],
-        "year_1_spring": ["THTR503", "THTA514", "THTA516", "elective_1"],
-        "year_2_fall":   ["THTR505", "elective_2", "elective_3"],
-        "year_2_spring": ["elective_4", "elective_5"],
-        "year_3_fall":   ["elective_6", "elective_7"],
-        "year_3_spring": ["THTA590"]
+        "year_1_fall": [
+          "THTR501",
+          "THTA513",
+          "THTA515",
+          "THTA507"
+        ],
+        "year_1_spring": [
+          "THTR503",
+          "THTA514",
+          "THTA516",
+          "elective_1"
+        ],
+        "year_2_fall": [
+          "THTR505",
+          "elective_2",
+          "elective_3"
+        ],
+        "year_2_spring": [
+          "elective_4",
+          "elective_5"
+        ],
+        "year_3_fall": [
+          "elective_6",
+          "elective_7"
+        ],
+        "year_3_spring": [
+          "THTA590"
+        ]
       },
       "constraints": [
         "60 total credits required.",
@@ -948,7 +1369,6 @@
         "Source: https://www.masongross.rutgers.edu/graduate/theater-arts/"
       ]
     },
-
     "visual_arts_mfa": {
       "school": "MGSA",
       "degree_level": "master",
@@ -957,26 +1377,46 @@
       "program_years": 2,
       "total_credits": 60,
       "required_courses": [
-        "ART501", "ART502", "ART503", "ART504",
-        "ART511", "ART512", "ART513", "ART514",
+        "ART501",
+        "ART502",
+        "ART503",
+        "ART504",
+        "ART511",
+        "ART512",
+        "ART513",
+        "ART514",
         "ART515",
         "ART516",
         "ART590"
       ],
       "electives": {
-        "count": 2,
+        "count": 0,
         "description": "6 credits of approved graduate electives; cross-disciplinary courses from other MGSA departments may count with adviser approval.",
-        "options": [
-          "ART501", "ART502", "ART503", "ART504",
-          "ART515", "ART516"
-        ],
+        "options": [],
         "any_from_catalog": false
       },
       "suggested_sequence": {
-        "year_1_fall":   ["ART501", "ART511", "ART515"],
-        "year_1_spring": ["ART502", "ART512", "elective_1"],
-        "year_2_fall":   ["ART503", "ART513", "ART516"],
-        "year_2_spring": ["ART504", "ART514", "elective_2", "ART590"]
+        "year_1_fall": [
+          "ART501",
+          "ART511",
+          "ART515"
+        ],
+        "year_1_spring": [
+          "ART502",
+          "ART512",
+          "elective_1"
+        ],
+        "year_2_fall": [
+          "ART503",
+          "ART513",
+          "ART516"
+        ],
+        "year_2_spring": [
+          "ART504",
+          "ART514",
+          "elective_2",
+          "ART590"
+        ]
       },
       "constraints": [
         "60 total credits required.",

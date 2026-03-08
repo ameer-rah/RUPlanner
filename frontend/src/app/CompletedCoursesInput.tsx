@@ -15,7 +15,6 @@ type Props = {
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
-// Matches patterns like CS111, MATH151, PHYS203, COMPLIT201
 const COURSE_CODE_RE = /^[A-Z]{2,8}\d{2,4}[A-Z]?$/i;
 
 export default function CompletedCoursesInput({ value, onChange }: Props) {
@@ -25,7 +24,6 @@ export default function CompletedCoursesInput({ value, onChange }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Fetch suggestions with 250ms debounce
   const fetchSuggestions = useCallback((q: string) => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
     if (!q.trim()) {
@@ -143,7 +141,7 @@ export default function CompletedCoursesInput({ value, onChange }: Props) {
               key={s.code}
               className={`chip-suggestion-item${idx === activeIdx ? " chip-suggestion-active" : ""}`}
               onMouseDown={(e) => {
-                e.preventDefault(); // keep focus in input
+                e.preventDefault();
                 addCode(s.code);
               }}
               onMouseEnter={() => setActiveIdx(idx)}

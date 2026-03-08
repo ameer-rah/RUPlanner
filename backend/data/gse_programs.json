@@ -1,7 +1,6 @@
 {
   "catalog_year": "2025-2026",
   "programs": {
-
     "phd_education_lcid": {
       "school": "GSE",
       "degree_level": "doctorate",
@@ -12,12 +11,26 @@
       "description": "The LCID concentration prepares researchers focused on classroom learning, teaching, and cognition. Students choose a specialization from: early childhood education, educational psychology, human development, language education, learning sciences, literacy education, mathematics education, science education, social studies education, special education, or statistics and measurement.",
       "required_proseminars": {
         "description": "Two required proseminars (6 credits)",
-        "courses": ["EDPD501", "EDPD503"]
+        "courses": [
+          "EDPD501",
+          "EDPD503"
+        ]
       },
       "required_research_methods": {
         "description": "Two research methods courses — one qualitative and one quantitative (6 credits)",
-        "qualitative_options": ["EDPD509", "EDPD517", "EDPD520"],
-        "quantitative_options": ["EDPD511", "EDPD515", "EDPD519", "EDPD683", "EDPD685", "EDPD687"]
+        "qualitative_options": [
+          "EDPD509",
+          "EDPD517",
+          "EDPD520"
+        ],
+        "quantitative_options": [
+          "EDPD511",
+          "EDPD515",
+          "EDPD519",
+          "EDPD683",
+          "EDPD685",
+          "EDPD687"
+        ]
       },
       "concentration_coursework": {
         "description": "Specialization coursework determined in consultation with advisor (minimum 36 credits from LCID-area courses)",
@@ -57,7 +70,6 @@
         "Source: catalogs.rutgers.edu/generated/gse_2425/pg112.html"
       ]
     },
-
     "phd_education_top": {
       "school": "GSE",
       "degree_level": "doctorate",
@@ -68,22 +80,61 @@
       "description": "The TOP concentration prepares scholars for research in higher education policy, organizational leadership, and international/comparative education settings. Students work in governmental, non-governmental, and policy research organizations.",
       "required_proseminars": {
         "description": "Two required proseminars (6 credits)",
-        "courses": ["EDPD501", "EDPD503"]
+        "courses": [
+          "EDPD501",
+          "EDPD503"
+        ]
       },
       "required_research_methods": {
         "description": "Two research methods courses — one qualitative and one quantitative (6 credits)",
-        "qualitative_options": ["EDPD509", "EDPD513", "EDPD517", "EDPD520"],
-        "quantitative_options": ["EDPD511", "EDPD515", "EDPD518", "EDPD519", "EDPD681", "EDPD683"]
+        "qualitative_options": [
+          "EDPD509",
+          "EDPD513",
+          "EDPD517",
+          "EDPD520"
+        ],
+        "quantitative_options": [
+          "EDPD511",
+          "EDPD515",
+          "EDPD518",
+          "EDPD519",
+          "EDPD681",
+          "EDPD683"
+        ]
       },
       "concentration_coursework": {
         "description": "Policy, organization, and higher education coursework in consultation with advisor (minimum 36 credits)",
         "sample_courses": [
-          "SPFE503", "SPFE504", "SPFE512", "SPFE522", "SPFE524", "SPFE528",
-          "SPFE531", "SPFE536", "SPFE540", "SPFE542", "SPFE568", "SPFE578",
-          "EDPD541", "EDPD543", "EDPD545", "EDPD551", "EDPD641", "EDPD643",
-          "EDPD645", "EDPD647",
-          "HIED500", "HIED510", "HIED515", "HIED525", "HIED530", "HIED535",
-          "HIED630", "HIED635", "HIED640", "HIED645"
+          "SPFE503",
+          "SPFE504",
+          "SPFE512",
+          "SPFE522",
+          "SPFE524",
+          "SPFE528",
+          "SPFE531",
+          "SPFE536",
+          "SPFE540",
+          "SPFE542",
+          "SPFE568",
+          "SPFE578",
+          "EDPD541",
+          "EDPD543",
+          "EDPD545",
+          "EDPD551",
+          "EDPD641",
+          "EDPD643",
+          "EDPD645",
+          "EDPD647",
+          "HIED500",
+          "HIED510",
+          "HIED515",
+          "HIED525",
+          "HIED530",
+          "HIED535",
+          "HIED630",
+          "HIED635",
+          "HIED640",
+          "HIED645"
         ]
       },
       "dissertation": {
@@ -110,7 +161,6 @@
         "Source: catalogs.rutgers.edu/generated/gse_2425/pg112.html"
       ]
     },
-
     "phd_higher_education": {
       "school": "GSE",
       "degree_level": "doctorate",
@@ -122,25 +172,56 @@
       "required_core": {
         "description": "Higher Education core courses (18 credits)",
         "courses": [
-          "HIED500", "HIED510", "HIED515",
-          "HIED525", "HIED530", "HIED535"
+          "HIED500",
+          "HIED510",
+          "HIED515",
+          "HIED525",
+          "HIED530",
+          "HIED535"
         ]
       },
       "required_research_methods": {
         "description": "Research methods core — qualitative and quantitative (15 credits)",
-        "courses": ["EDPD509", "EDPD511"],
+        "courses": [
+          "EDPD509",
+          "EDPD511"
+        ],
         "additional_methods": {
           "description": "Three additional methods courses selected from approved list (9 credits)",
-          "options": ["EDPD513", "EDPD515", "EDPD517", "EDPD519", "EDPD518", "EDPD681", "EDPD683", "EDPD685", "EDPD687"]
+          "options": [
+            "EDPD513",
+            "EDPD515",
+            "EDPD517",
+            "EDPD519",
+            "EDPD518",
+            "EDPD681",
+            "EDPD683",
+            "EDPD685",
+            "EDPD687"
+          ]
         }
       },
       "electives": {
         "description": "Higher education elective courses in consultation with advisor (15 credits)",
         "options": [
-          "HIED520", "HIED521", "HIED611", "HIED630", "HIED635",
-          "HIED640", "HIED645",
-          "SPFE502", "SPFE503", "SPFE504", "SPFE511", "SPFE612",
-          "EDPD541", "EDPD543", "EDPD545", "EDPD641", "EDPD643", "EDPD645"
+          "HIED520",
+          "HIED521",
+          "HIED611",
+          "HIED630",
+          "HIED635",
+          "HIED640",
+          "HIED645",
+          "SPFE502",
+          "SPFE503",
+          "SPFE504",
+          "SPFE511",
+          "SPFE612",
+          "EDPD541",
+          "EDPD543",
+          "EDPD545",
+          "EDPD641",
+          "EDPD643",
+          "EDPD645"
         ]
       },
       "dissertation": {
@@ -166,7 +247,6 @@
         "Source: catalogs.rutgers.edu/generated/gse_2425/pg113.html; gse.rutgers.edu/degree/ph-d-in-higher-education-program/"
       ]
     },
-
     "edd_educational_leadership": {
       "school": "GSE",
       "degree_level": "professional_doctorate",
@@ -178,19 +258,27 @@
       "core_courses": {
         "description": "EdD core courses shared by all students (24 credits)",
         "required": [
-          "EDUC611", "EDUC612",
-          "EDUC615", "EDUC617",
-          "EDUC606", "EDUC607",
-          "EDUC603", "EDUC602"
+          "EDUC611",
+          "EDUC612",
+          "EDUC615",
+          "EDUC617",
+          "EDUC606",
+          "EDUC607",
+          "EDUC603",
+          "EDUC602"
         ]
       },
       "concentration_courses": {
         "description": "Educational Leadership concentration courses (24 credits)",
         "required": [
-          "EADM604", "EADM608",
-          "EADM609", "EADM618",
-          "EADM622", "EADM623",
-          "EADM624", "EADM625"
+          "EADM604",
+          "EADM608",
+          "EADM609",
+          "EADM618",
+          "EADM622",
+          "EADM623",
+          "EADM624",
+          "EADM625"
         ],
         "certification_option": {
           "description": "For NJ principal/school administrator certification, substitute these courses (contact program for details)",
@@ -225,7 +313,6 @@
         "Source: gse.rutgers.edu/edd-program/; catalogs.rutgers.edu/generated/gse_2425/pg129.html"
       ]
     },
-
     "edd_education_culture_society": {
       "school": "GSE",
       "degree_level": "professional_doctorate",
@@ -237,19 +324,27 @@
       "core_courses": {
         "description": "EdD core courses (24 credits)",
         "required": [
-          "EDUC611", "EDUC612",
-          "EDUC615", "EDUC617",
-          "EDUC606", "EDUC607",
-          "EDUC603", "EDUC602"
+          "EDUC611",
+          "EDUC612",
+          "EDUC615",
+          "EDUC617",
+          "EDUC606",
+          "EDUC607",
+          "EDUC603",
+          "EDUC602"
         ]
       },
       "concentration_courses": {
         "description": "Education, Culture, and Society concentration courses (24 credits)",
         "required": [
-          "SPFE520", "SPFE524",
-          "SPFE531", "SPFE537",
-          "SPFE540", "SPFE542",
-          "SPFE568", "SPFE578"
+          "SPFE520",
+          "SPFE524",
+          "SPFE531",
+          "SPFE537",
+          "SPFE540",
+          "SPFE542",
+          "SPFE568",
+          "SPFE578"
         ]
       },
       "dissertation": {
@@ -272,7 +367,6 @@
         "Source: gse.rutgers.edu/degree/ed-d-program-education-culture-and-society-concentration/; catalogs.rutgers.edu/generated/gse_2425/pg130.html"
       ]
     },
-
     "edd_design_learning_environments": {
       "school": "GSE",
       "degree_level": "professional_doctorate",
@@ -284,19 +378,27 @@
       "core_courses": {
         "description": "EdD core courses (24 credits)",
         "required": [
-          "EDUC611", "EDUC612",
-          "EDUC615", "EDUC617",
-          "EDUC606", "EDUC607",
-          "EDUC603", "EDUC602"
+          "EDUC611",
+          "EDUC612",
+          "EDUC615",
+          "EDUC617",
+          "EDUC606",
+          "EDUC607",
+          "EDUC603",
+          "EDUC602"
         ]
       },
       "concentration_courses": {
         "description": "Design of Learning Environments concentration courses (24 credits)",
         "required": [
-          "DSLE603", "DSLE610",
-          "DSLE612", "DSLE620",
-          "DSLE622", "DSLE625",
-          "EDPD582", "EDLT649"
+          "DSLE603",
+          "DSLE610",
+          "DSLE612",
+          "DSLE620",
+          "DSLE622",
+          "DSLE625",
+          "EDPD582",
+          "EDLT649"
         ]
       },
       "dissertation": {
@@ -319,7 +421,6 @@
         "Source: gse.rutgers.edu/degree/ed-d-program-design-of-learning-environments-concentration/; catalogs.rutgers.edu/generated/gse_2425/pg131.html"
       ]
     },
-
     "edd_special_education": {
       "school": "GSE",
       "degree_level": "professional_doctorate",
@@ -331,27 +432,46 @@
       "core_courses": {
         "description": "EdD core courses (24 credits)",
         "required": [
-          "EDUC611", "EDUC612",
-          "EDUC615", "EDUC617",
-          "EDUC606", "EDUC607",
-          "EDUC603", "EDUC602"
+          "EDUC611",
+          "EDUC612",
+          "EDUC615",
+          "EDUC617",
+          "EDUC606",
+          "EDUC607",
+          "EDUC603",
+          "EDUC602"
         ]
       },
       "concentration_courses": {
         "description": "Special Education concentration courses (24 credits)",
         "core_required": [
-          "SPED605", "SPED630",
-          "SPED615", "SPED633"
+          "SPED605",
+          "SPED630",
+          "SPED615",
+          "SPED633"
         ],
         "electives": {
           "description": "12 credits of electives from special education or related fields",
           "count": 4,
           "options": [
-            "SPED509", "SPED521", "SPED522", "SPED523",
-            "SPED525", "SPED526", "SPED527", "SPED528",
-            "SPED529", "SPED530", "SPED540", "SPED608",
-            "SPED609", "SPED610", "SPED618",
-            "EDUC620", "EDPD509", "EDPD511"
+            "SPED509",
+            "SPED521",
+            "SPED522",
+            "SPED523",
+            "SPED525",
+            "SPED526",
+            "SPED527",
+            "SPED528",
+            "SPED529",
+            "SPED530",
+            "SPED540",
+            "SPED608",
+            "SPED609",
+            "SPED610",
+            "SPED618",
+            "EDUC620",
+            "EDPD509",
+            "EDPD511"
           ]
         }
       },
@@ -375,7 +495,6 @@
         "Source: gse.rutgers.edu/degree/ed-d-program-special-education-concentration/; catalogs.rutgers.edu/generated/gse_2425/pg132.html"
       ]
     },
-
     "edd_teacher_leadership": {
       "school": "GSE",
       "degree_level": "professional_doctorate",
@@ -387,19 +506,26 @@
       "core_courses": {
         "description": "EdD core courses (24 credits)",
         "required": [
-          "EDUC611", "EDUC612",
-          "EDUC615", "EDUC617",
-          "EDUC606", "EDUC607",
-          "EDUC603", "EDUC602"
+          "EDUC611",
+          "EDUC612",
+          "EDUC615",
+          "EDUC617",
+          "EDUC606",
+          "EDUC607",
+          "EDUC603",
+          "EDUC602"
         ]
       },
       "concentration_courses": {
         "description": "Teacher Leadership concentration courses (24 credits)",
         "required": [
-          "TLED604", "TLED610",
-          "TLED618", "TLED620",
+          "TLED604",
+          "TLED610",
+          "TLED618",
+          "TLED620",
           "TLED622",
-          "EDUC621", "EDUC622",
+          "EDUC621",
+          "EDUC622",
           "EDPD582"
         ]
       },
@@ -424,7 +550,6 @@
         "Source: gse.rutgers.edu/degree/ed-d-program-teacher-leadership/; catalogs.rutgers.edu/generated/gse_2425/pg133.html"
       ]
     },
-
     "edm_college_student_affairs_ft": {
       "school": "GSE",
       "degree_level": "master",
@@ -436,7 +561,8 @@
       "required_core": {
         "description": "Required core courses (21 credits)",
         "courses": [
-          "CSA501", "CSA502",
+          "CSA501",
+          "CSA502",
           "CSA603",
           "CSA641",
           "LCD580",
@@ -446,19 +572,35 @@
       },
       "field_experience": {
         "description": "Supervised field experience sequence (18 credits)",
-        "courses": ["CSA601", "CSA605"],
+        "courses": [
+          "CSA601",
+          "CSA605"
+        ],
         "notes": "Year-long placement in a college or university student affairs office."
       },
       "electives": {
         "description": "Elective courses chosen in consultation with advisor (9 credits)",
         "count": 3,
         "options": [
-          "CSA602", "CSA640", "CSA642", "CSA643",
-          "CPSY501", "CPSY505", "CPSY508",
-          "EADM506", "EADM517", "EADM620",
-          "HIED510", "HIED515", "HIED520", "HIED530",
-          "SPFE581", "SPFE611", "SPFE612",
-          "ESME511", "ESME520"
+          "CSA602",
+          "CSA640",
+          "CSA642",
+          "CSA643",
+          "CPSY501",
+          "CPSY505",
+          "CPSY508",
+          "EADM506",
+          "EADM517",
+          "EADM620",
+          "HIED510",
+          "HIED515",
+          "HIED520",
+          "HIED530",
+          "SPFE581",
+          "SPFE611",
+          "SPFE612",
+          "ESME511",
+          "ESME520"
         ]
       },
       "capstone": {
@@ -476,7 +618,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-college-student-affairs/; catalogs.rutgers.edu/generated/gse_2425/pg136.html"
       ]
     },
-
     "edm_college_student_affairs_exec": {
       "school": "GSE",
       "degree_level": "master",
@@ -488,20 +629,28 @@
       "required_core": {
         "description": "Required core courses (21 credits)",
         "courses": [
-          "EADM606", "EADM620",
-          "CSA501", "CSA502",
+          "EADM606",
+          "EADM620",
+          "CSA501",
+          "CSA502",
           "CSA641",
-          "CSA603", "CSA604"
+          "CSA603",
+          "CSA604"
         ]
       },
       "electives": {
         "description": "Electives chosen in consultation with advisor; at least 6 credits from Special Topics in CSA (9 credits)",
         "count": 3,
         "options": [
-          "CSA640", "CSA642", "CSA643",
+          "CSA640",
+          "CSA642",
+          "CSA643",
           "CSA602",
           "LCD580",
-          "CPSY501", "CPSY505", "CPSY507", "CPSY510"
+          "CPSY501",
+          "CPSY505",
+          "CPSY507",
+          "CPSY510"
         ]
       },
       "constraints": [
@@ -514,7 +663,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-college-student-affairs/; catalogs.rutgers.edu/generated/gse_2425/pg137.html"
       ]
     },
-
     "edm_educational_admin_option_c": {
       "school": "GSE",
       "degree_level": "master",
@@ -523,27 +671,46 @@
       "program_years": 2,
       "total_credits": 30,
       "description": "Non-certification track for students seeking graduate study in educational administration without pursuing NJ principal or supervisor certification. Flexible program plan developed with advisor.",
-      "required_courses": {
-        "description": "Required foundational courses (12 credits)",
-        "courses": [
-          "EADM500", "EADM605",
-          "EADM607", "EADM520"
-        ]
-      },
+      "required_courses": [
+        "EADM500",
+        "EADM605",
+        "EADM607",
+        "EADM520"
+      ],
       "electives": {
         "description": "Elective courses from Educational Administration or related GSE departments (18 credits)",
         "count": 6,
         "options": [
-          "EADM501", "EADM502", "EADM503",
-          "EADM505", "EADM508", "EADM512",
-          "EADM514", "EADM517", "EADM519",
-          "EADM521", "EADM603", "EADM604",
-          "EADM608", "EADM609", "EADM610",
-          "EADM618", "EADM621", "EADM622",
-          "EADM623", "EADM624", "EADM625",
-          "EADM630", "EADM650",
-          "SPFE500", "SPFE502", "SPFE504", "SPFE520", "SPFE522",
-          "ESME511", "ESME531"
+          "EADM501",
+          "EADM502",
+          "EADM503",
+          "EADM505",
+          "EADM508",
+          "EADM512",
+          "EADM514",
+          "EADM517",
+          "EADM519",
+          "EADM521",
+          "EADM603",
+          "EADM604",
+          "EADM608",
+          "EADM609",
+          "EADM610",
+          "EADM618",
+          "EADM621",
+          "EADM622",
+          "EADM623",
+          "EADM624",
+          "EADM625",
+          "EADM630",
+          "EADM650",
+          "SPFE500",
+          "SPFE502",
+          "SPFE504",
+          "SPFE520",
+          "SPFE522",
+          "ESME511",
+          "ESME531"
         ]
       },
       "constraints": [
@@ -557,7 +724,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-educational-administration-and-supervision-option-c/; catalogs.rutgers.edu/generated/gse_2425/pg147.html"
       ]
     },
-
     "edm_educational_admin_option_a": {
       "school": "GSE",
       "degree_level": "master",
@@ -566,25 +732,37 @@
       "program_years": 2,
       "total_credits": 36,
       "description": "Leads to NJ Principal and Supervisor certifications in addition to the EdM degree. Includes administrative internships in school settings.",
-      "required_courses": {
-        "description": "Required core and certification courses (24 credits)",
-        "courses": [
-          "EADM500", "EADM507",
-          "EADM512", "EADM514",
-          "EADM520", "EADM521",
-          "EADM530", "EADM531"
-        ]
-      },
+      "required_courses": [
+        "EADM500",
+        "EADM507",
+        "EADM512",
+        "EADM514",
+        "EADM520",
+        "EADM521",
+        "EADM530",
+        "EADM531"
+      ],
       "electives": {
         "description": "Elective courses (12 credits)",
         "count": 4,
         "options": [
-          "EADM501", "EADM502", "EADM503",
-          "EADM505", "EADM508",
-          "EADM604", "EADM608", "EADM609",
-          "EADM610", "EADM618", "EADM621",
-          "EADM622", "EADM623", "EADM624",
-          "EADM625", "EADM630", "EADM650"
+          "EADM501",
+          "EADM502",
+          "EADM503",
+          "EADM505",
+          "EADM508",
+          "EADM604",
+          "EADM608",
+          "EADM609",
+          "EADM610",
+          "EADM618",
+          "EADM621",
+          "EADM622",
+          "EADM623",
+          "EADM624",
+          "EADM625",
+          "EADM630",
+          "EADM650"
         ]
       },
       "constraints": [
@@ -598,7 +776,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-educational-administration-and-supervision-with-principal-and-supervisor-certification-option-a/"
       ]
     },
-
     "edm_education_culture_society": {
       "school": "GSE",
       "degree_level": "master",
@@ -607,23 +784,41 @@
       "program_years": 2,
       "total_credits": 30,
       "description": "Interdisciplinary program examining education through historical, philosophical, sociological, anthropological, and policy lenses. Prepares students for careers in research, policy, advocacy, and community organizations.",
-      "required_courses": {
-        "description": "Required foundation courses (9 credits)",
-        "courses": ["SPFE520", "SPFE515", "SPFE502"]
-      },
+      "required_courses": [
+        "SPFE520",
+        "SPFE515",
+        "SPFE502"
+      ],
       "electives": {
         "description": "Elective courses from Social and Philosophical Foundations and related departments (21 credits)",
         "count": 7,
         "options": [
-          "SPFE503", "SPFE504", "SPFE508",
-          "SPFE512", "SPFE521", "SPFE522",
-          "SPFE524", "SPFE528", "SPFE531",
-          "SPFE536", "SPFE537", "SPFE540",
-          "SPFE542", "SPFE551", "SPFE561",
-          "SPFE568", "SPFE569", "SPFE578",
-          "SPFE581", "SPFE607", "SPFE615", "SPFE625",
-          "ESME511", "ESME531",
-          "EDPD509", "EDPD511"
+          "SPFE503",
+          "SPFE504",
+          "SPFE508",
+          "SPFE512",
+          "SPFE521",
+          "SPFE522",
+          "SPFE524",
+          "SPFE528",
+          "SPFE531",
+          "SPFE536",
+          "SPFE537",
+          "SPFE540",
+          "SPFE542",
+          "SPFE551",
+          "SPFE561",
+          "SPFE568",
+          "SPFE569",
+          "SPFE578",
+          "SPFE581",
+          "SPFE607",
+          "SPFE615",
+          "SPFE625",
+          "ESME511",
+          "ESME531",
+          "EDPD509",
+          "EDPD511"
         ]
       },
       "capstone": {
@@ -639,7 +834,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-education-culture-and-society/; catalogs.rutgers.edu/generated/gse_2425/pg146.html"
       ]
     },
-
     "edm_learning_cognition_development": {
       "school": "GSE",
       "degree_level": "master",
@@ -653,31 +847,54 @@
         "learning": {
           "description": "Learning (3 credits)",
           "recommended": "LCD580",
-          "alternatives": ["LCD550", "LCD609", "LCD620"]
+          "alternatives": [
+            "LCD550",
+            "LCD609",
+            "LCD620"
+          ]
         },
         "cognition": {
           "description": "Cognition (3 credits)",
           "recommended": "LCD502",
-          "alternatives": ["LCD611", "LCD503", "LCD577"]
+          "alternatives": [
+            "LCD611",
+            "LCD503",
+            "LCD577"
+          ]
         },
         "development": {
           "description": "Development (3 credits)",
           "recommended": "LCD512",
-          "alternatives": ["LCD504", "LCD520", "LCD521", "LCD578"]
+          "alternatives": [
+            "LCD504",
+            "LCD520",
+            "LCD521",
+            "LCD578"
+          ]
         }
       },
       "lcd_electives": {
         "description": "LCD program electives (6 credits)",
         "count": 2,
         "options": [
-          "LCD510", "LCD518", "LCD519",
-          "LCD522", "LCD523", "LCD590",
-          "EDPD581", "EDPD582", "EDPD591", "EDPD597"
+          "LCD510",
+          "LCD518",
+          "LCD519",
+          "LCD522",
+          "LCD523",
+          "LCD590",
+          "EDPD581",
+          "EDPD582",
+          "EDPD591",
+          "EDPD597"
         ]
       },
       "statistics_requirement": {
         "description": "Educational statistics/measurement courses (6 credits)",
-        "courses": ["ESME531", "ESME532"]
+        "courses": [
+          "ESME531",
+          "ESME532"
+        ]
       },
       "outside_electives": {
         "description": "Electives outside LCD core areas (6 credits)",
@@ -687,9 +904,17 @@
       "capstone": {
         "description": "Capstone requirement (3 credits — included in total)",
         "options": [
-          {"code": "LCD609", "description": "Research in LCD — recommended for doctoral-track students"},
-          {"code": "EDPD503", "description": "Literature Review in Education"},
-          {"description": "Third LCD elective + 15-page term paper earning B+ or higher"}
+          {
+            "code": "LCD609",
+            "description": "Research in LCD — recommended for doctoral-track students"
+          },
+          {
+            "code": "EDPD503",
+            "description": "Literature Review in Education"
+          },
+          {
+            "description": "Third LCD elective + 15-page term paper earning B+ or higher"
+          }
         ]
       },
       "constraints": [
@@ -702,7 +927,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-learning-cognition-and-development/; catalogs.rutgers.edu/generated/gse_2425/pg140.html"
       ]
     },
-
     "edm_counseling_psychology": {
       "school": "GSE",
       "degree_level": "master",
@@ -714,30 +938,46 @@
       "required_core": {
         "description": "Required counseling psychology core courses (30 credits)",
         "courses": [
-          "CPSY501", "CPSY505",
-          "CPSY507", "CPSY508",
-          "CPSY510", "CPSY602",
-          "CPSY604", "CPSY607",
-          "CPSY613", "CPSY637"
+          "CPSY501",
+          "CPSY505",
+          "CPSY507",
+          "CPSY508",
+          "CPSY510",
+          "CPSY602",
+          "CPSY604",
+          "CPSY607",
+          "CPSY613",
+          "CPSY637"
         ]
       },
       "practicum": {
         "description": "Supervised practicum (9 credits)",
-        "courses": ["CPSY605"],
+        "courses": [
+          "CPSY605"
+        ],
         "notes": "Three semesters of supervised counseling practicum required."
       },
       "research_requirement": {
         "description": "Research methods course (3 credits)",
-        "options": ["CPSY615", "ESME511", "ESME531"]
+        "options": [
+          "CPSY615",
+          "ESME511",
+          "ESME531"
+        ]
       },
       "electives": {
         "description": "Elective courses approved by advisor (6 credits)",
         "count": 2,
         "options": [
-          "CPSY614", "CPSY625",
-          "LCD502", "LCD512", "LCD580",
-          "EDPY583", "EDPY605",
-          "SPED514", "SPED525"
+          "CPSY614",
+          "CPSY625",
+          "LCD502",
+          "LCD512",
+          "LCD580",
+          "EDPY583",
+          "EDPY605",
+          "SPED514",
+          "SPED525"
         ]
       },
       "constraints": [
@@ -752,7 +992,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-counseling-psychology/; catalogs.rutgers.edu/generated/gse_2425/pg136.html"
       ]
     },
-
     "edm_school_counseling": {
       "school": "GSE",
       "degree_level": "master",
@@ -764,17 +1003,25 @@
       "required_core": {
         "description": "Required core courses (33 credits)",
         "courses": [
-          "CPSY501", "CPSY502",
-          "CPSY505", "CPSY507",
-          "CPSY510", "CPSY512",
-          "CPSY513", "CPSY514",
-          "CPSY604", "CPSY613",
+          "CPSY501",
+          "CPSY502",
+          "CPSY505",
+          "CPSY507",
+          "CPSY510",
+          "CPSY512",
+          "CPSY513",
+          "CPSY514",
+          "CPSY604",
+          "CPSY613",
           "CPSY615"
         ]
       },
       "practicum": {
         "description": "School-based practicum and internship (15 credits)",
-        "courses": ["CPSY627", "CPSY628"],
+        "courses": [
+          "CPSY627",
+          "CPSY628"
+        ],
         "notes": "Both practicum and internship must be completed in NJ-approved school settings."
       },
       "constraints": [
@@ -789,7 +1036,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-with-certification-in-school-counseling/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_special_education_general": {
       "school": "GSE",
       "degree_level": "master",
@@ -801,23 +1047,38 @@
       "required_core": {
         "description": "Required core courses (18 credits)",
         "courses": [
-          "SPED521", "SPED522",
-          "SPED523", "SPED525",
-          "SPED533", "SPED540"
+          "SPED521",
+          "SPED522",
+          "SPED523",
+          "SPED525",
+          "SPED533",
+          "SPED540"
         ]
       },
       "electives": {
         "description": "Elective courses from special education or related fields (15 credits)",
         "count": 5,
         "options": [
-          "SPED509", "SPED514",
-          "SPED524", "SPED526", "SPED527",
-          "SPED528", "SPED529", "SPED530",
-          "SPED534", "SPED605", "SPED608",
-          "SPED609", "SPED610", "SPED615",
-          "SPED618", "SPED630",
-          "ESME511", "ESME531",
-          "EDPD509", "EDPD511"
+          "SPED509",
+          "SPED514",
+          "SPED524",
+          "SPED526",
+          "SPED527",
+          "SPED528",
+          "SPED529",
+          "SPED530",
+          "SPED534",
+          "SPED605",
+          "SPED608",
+          "SPED609",
+          "SPED610",
+          "SPED615",
+          "SPED618",
+          "SPED630",
+          "ESME511",
+          "ESME531",
+          "EDPD509",
+          "EDPD511"
         ]
       },
       "constraints": [
@@ -830,7 +1091,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-special-education-general-studies/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_special_education_tsd": {
       "school": "GSE",
       "degree_level": "master",
@@ -842,24 +1102,38 @@
       "required_core": {
         "description": "Required core courses for TSD certification (27 credits)",
         "courses": [
-          "SPED521", "SPED522",
-          "SPED523", "SPED525",
-          "SPED526", "SPED527",
-          "SPED528", "SPED533", "SPED534"
+          "SPED521",
+          "SPED522",
+          "SPED523",
+          "SPED525",
+          "SPED526",
+          "SPED527",
+          "SPED528",
+          "SPED533",
+          "SPED534"
         ]
       },
       "practicum": {
         "description": "Supervised practicum in special education settings (6 credits)",
-        "courses": ["SPED636"],
+        "courses": [
+          "SPED636"
+        ],
         "notes": "Practicum requires placement in both inclusive and self-contained special education classrooms."
       },
       "electives": {
         "description": "Elective courses (3 credits)",
         "count": 1,
         "options": [
-          "SPED509", "SPED514", "SPED524",
-          "SPED529", "SPED530", "SPED540",
-          "SPED608", "SPED609", "SPED610", "SPED618"
+          "SPED509",
+          "SPED514",
+          "SPED524",
+          "SPED529",
+          "SPED530",
+          "SPED540",
+          "SPED608",
+          "SPED609",
+          "SPED610",
+          "SPED618"
         ]
       },
       "constraints": [
@@ -874,7 +1148,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-special-education-with-teacher-of-students-with-disabilities-certification/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_literacy_education": {
       "school": "GSE",
       "degree_level": "master",
@@ -886,22 +1159,34 @@
       "required_core": {
         "description": "Required core literacy courses (18 credits)",
         "courses": [
-          "READ561", "READ562",
-          "READ514", "READ516",
-          "READ564", "READ565"
+          "READ561",
+          "READ562",
+          "READ514",
+          "READ516",
+          "READ564",
+          "READ565"
         ]
       },
       "electives": {
         "description": "Elective courses from reading, language, or related fields (15 credits)",
         "count": 5,
         "options": [
-          "READ509", "READ515", "READ518",
-          "READ519", "READ533", "READ553",
+          "READ509",
+          "READ515",
+          "READ518",
+          "READ519",
+          "READ533",
+          "READ553",
           "READ566",
-          "ENGLA517", "ENGLA519", "ENGLA521",
-          "ENGLA522", "ENGLA526",
-          "LANE520", "LANE537",
-          "ESME511", "EDPD509"
+          "ENGLA517",
+          "ENGLA519",
+          "ENGLA521",
+          "ENGLA522",
+          "ENGLA526",
+          "LANE520",
+          "LANE537",
+          "ESME511",
+          "EDPD509"
         ]
       },
       "constraints": [
@@ -914,7 +1199,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-literacy-education/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_mathematics_education": {
       "school": "GSE",
       "degree_level": "master",
@@ -926,20 +1210,30 @@
       "required_core": {
         "description": "Required core mathematics education courses (18 credits)",
         "courses": [
-          "MAED540", "MAED541",
-          "MAED542", "MAED548",
-          "MAED550", "MAED553"
+          "MAED540",
+          "MAED541",
+          "MAED542",
+          "MAED548",
+          "MAED550",
+          "MAED553"
         ]
       },
       "electives": {
         "description": "Elective courses from mathematics education or related GSE fields (12 credits)",
         "count": 4,
         "options": [
-          "MAED543", "MAED544", "MAED547",
-          "MAED551", "MAED552", "MAED649",
-          "ECEE561", "ECEE562",
-          "ESME511", "ESME531",
-          "EDPD661", "EDPD511"
+          "MAED543",
+          "MAED544",
+          "MAED547",
+          "MAED551",
+          "MAED552",
+          "MAED649",
+          "ECEE561",
+          "ECEE562",
+          "ESME511",
+          "ESME531",
+          "EDPD661",
+          "EDPD511"
         ]
       },
       "constraints": [
@@ -952,7 +1246,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-mathematics-education/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_science_education": {
       "school": "GSE",
       "degree_level": "master",
@@ -964,8 +1257,10 @@
       "required_core": {
         "description": "Required core science education courses (15 credits)",
         "courses": [
-          "SCED550", "SCED551",
-          "SCED552", "SCED553",
+          "SCED550",
+          "SCED551",
+          "SCED552",
+          "SCED553",
           "SCED558"
         ]
       },
@@ -973,11 +1268,19 @@
         "description": "Elective courses from science education or related fields (15 credits)",
         "count": 5,
         "options": [
-          "SCED532", "SCED533", "SCED534",
-          "SCED536", "SCED537", "SCED539",
-          "SCED554", "SCED556", "SCED560",
-          "SCED650", "SCED651",
-          "ESME511", "EDPD511"
+          "SCED532",
+          "SCED533",
+          "SCED534",
+          "SCED536",
+          "SCED537",
+          "SCED539",
+          "SCED554",
+          "SCED556",
+          "SCED560",
+          "SCED650",
+          "SCED651",
+          "ESME511",
+          "EDPD511"
         ]
       },
       "constraints": [
@@ -990,7 +1293,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-science-education/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_social_studies_education": {
       "school": "GSE",
       "degree_level": "master",
@@ -1002,8 +1304,10 @@
       "required_core": {
         "description": "Required core social studies education courses (15 credits)",
         "courses": [
-          "SSED561", "SSED564",
-          "SSED567", "SSED569",
+          "SSED561",
+          "SSED564",
+          "SSED567",
+          "SSED569",
           "SPFE522"
         ]
       },
@@ -1011,13 +1315,24 @@
         "description": "Elective courses from social studies or foundations (15 credits)",
         "count": 5,
         "options": [
-          "SSED560", "SSED562", "SSED568",
-          "SSED659", "SSED660",
-          "SPFE502", "SPFE503", "SPFE508",
-          "SPFE512", "SPFE524", "SPFE528",
-          "SPFE540", "SPFE542", "SPFE561",
-          "SPFE568", "SPFE578",
-          "ESME511", "EDPD511"
+          "SSED560",
+          "SSED562",
+          "SSED568",
+          "SSED659",
+          "SSED660",
+          "SPFE502",
+          "SPFE503",
+          "SPFE508",
+          "SPFE512",
+          "SPFE524",
+          "SPFE528",
+          "SPFE540",
+          "SPFE542",
+          "SPFE561",
+          "SPFE568",
+          "SPFE578",
+          "ESME511",
+          "EDPD511"
         ]
       },
       "constraints": [
@@ -1030,7 +1345,6 @@
         "Source: catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_educational_statistics": {
       "school": "GSE",
       "degree_level": "master",
@@ -1042,19 +1356,28 @@
       "required_core": {
         "description": "Required core courses (18 credits)",
         "courses": [
-          "ESME511", "ESME515",
-          "ESME518", "ESME520",
-          "ESME531", "ESME532"
+          "ESME511",
+          "ESME515",
+          "ESME518",
+          "ESME520",
+          "ESME531",
+          "ESME532"
         ]
       },
       "electives": {
         "description": "Elective courses from statistics, measurement, or related fields (12 credits)",
         "count": 4,
         "options": [
-          "ESME620", "ESME639",
-          "EDPD681", "EDPD683", "EDPD684",
-          "EDPD685", "EDPD687",
-          "EDPD511", "EDPD515", "EDPD519",
+          "ESME620",
+          "ESME639",
+          "EDPD681",
+          "EDPD683",
+          "EDPD684",
+          "EDPD685",
+          "EDPD687",
+          "EDPD511",
+          "EDPD515",
+          "EDPD519",
           "EDPD651"
         ]
       },
@@ -1069,7 +1392,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-educational-statistics-measurement-evaluation/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_language_education": {
       "school": "GSE",
       "degree_level": "master",
@@ -1081,8 +1403,10 @@
       "required_core": {
         "description": "Required core language education courses (15 credits)",
         "courses": [
-          "LANE520", "LANE530",
-          "LANE531", "LANE536",
+          "LANE520",
+          "LANE530",
+          "LANE531",
+          "LANE536",
           "LANE537"
         ]
       },
@@ -1090,14 +1414,27 @@
         "description": "Elective courses from language, literacy, or related fields (15 credits)",
         "count": 5,
         "options": [
-          "LANE509", "LANE510", "LANE511",
-          "LANE519", "LANE521", "LANE522",
-          "LANE523", "LANE525", "LANE527",
-          "LANE533", "LANE538", "LANE539",
-          "LANE540", "LANE620",
-          "READ561", "READ562",
-          "ENGLA514", "ENGLA522", "ENGLA524",
-          "ESME511", "EDPD509"
+          "LANE509",
+          "LANE510",
+          "LANE511",
+          "LANE519",
+          "LANE521",
+          "LANE522",
+          "LANE523",
+          "LANE525",
+          "LANE527",
+          "LANE533",
+          "LANE538",
+          "LANE539",
+          "LANE540",
+          "LANE620",
+          "READ561",
+          "READ562",
+          "ENGLA514",
+          "ENGLA522",
+          "ENGLA524",
+          "ESME511",
+          "EDPD509"
         ]
       },
       "endorsement_options": {
@@ -1118,7 +1455,6 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-language-education/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     },
-
     "edm_adult_continuing_education": {
       "school": "GSE",
       "degree_level": "master",
@@ -1130,8 +1466,10 @@
       "required_core": {
         "description": "Required core courses (15 credits)",
         "courses": [
-          "ACE542", "ACE543",
-          "ACE544", "ACE551",
+          "ACE542",
+          "ACE543",
+          "ACE544",
+          "ACE551",
           "ACE570"
         ]
       },
@@ -1139,13 +1477,24 @@
         "description": "Elective courses from adult education or related fields (15 credits)",
         "count": 5,
         "options": [
-          "ACE560", "ACE561", "ACE562",
-          "ACE563", "ACE564", "ACE565",
-          "ACE566", "ACE567", "ACE568",
-          "ACE569", "ACE580",
-          "EDLT503", "EDLT504", "EDLT559",
-          "EDLT560", "EDLT649",
-          "ESME511", "ESME520"
+          "ACE560",
+          "ACE561",
+          "ACE562",
+          "ACE563",
+          "ACE564",
+          "ACE565",
+          "ACE566",
+          "ACE567",
+          "ACE568",
+          "ACE569",
+          "ACE580",
+          "EDLT503",
+          "EDLT504",
+          "EDLT559",
+          "EDLT560",
+          "EDLT649",
+          "ESME511",
+          "ESME520"
         ]
       },
       "constraints": [
@@ -1158,6 +1507,5 @@
         "Source: gse.rutgers.edu/degree/ed-m-in-adult-and-continuing-education/; catalogs.rutgers.edu/generated/gse_2425/"
       ]
     }
-
   }
 }

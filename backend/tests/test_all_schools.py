@@ -1,18 +1,3 @@
-"""
-Comprehensive multi-school and combination tests.
-
-Covers:
-- All schools: SAS, SOE, RBS, SCI, SEBS, SSW, SMLR, SON, SPPP, MGSA
-- Cross-school dual majors (CS + ITI/SCI, CS + CompEng/SOE, etc.)
-- Minors from different schools (Critical Intelligence Studies, Data Science,
-  Health Administration, Urban Planning, etc.)
-- Intricate dual majors within the same school
-- Edge cases: programs with no electives, many required courses, BSBA, BFA, BM
-
-Run from backend/:
-    .venv/bin/python -m pytest tests/test_all_schools.py -v
-"""
-
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
@@ -21,10 +6,6 @@ from app.schemas import PlanRequest
 
 client = TestClient(app)
 
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
 
 def plan(majors, minors=None, completed=None, seasons=None, grad="Spring 2030", max_cr=18):
     return heuristic_plan(PlanRequest(
@@ -56,10 +37,6 @@ def all_codes(resp):
 def elective_codes(resp):
     return [c["code"] for t in resp.json()["terms"] for c in t["courses"] if c["is_elective"]]
 
-
-# ---------------------------------------------------------------------------
-# _parse_major_entry — degree-level token parsing
-# ---------------------------------------------------------------------------
 
 class TestParseMajorEntry:
     def test_bs(self):
@@ -106,10 +83,6 @@ class TestParseMajorEntry:
         school, level, name = _parse_major_entry("Information Technology and Informatics (BA, SCI)", "bachelor")
         assert school == "SCI" and level == "bachelor_ba"
 
-
-# ---------------------------------------------------------------------------
-# SAS programs
-# ---------------------------------------------------------------------------
 
 class TestSAS:
     def test_cs_bs(self):
@@ -169,10 +142,6 @@ class TestSAS:
             assert t["total_credits"] <= 12
 
 
-# ---------------------------------------------------------------------------
-# SCI (School of Communication and Information)
-# ---------------------------------------------------------------------------
-
 class TestSCI:
     def test_iti_ba(self):
         r = api_plan(["Information Technology and Informatics (BA, SCI)"])
@@ -191,31 +160,23 @@ class TestSCI:
     def test_iti_has_required_courses(self):
         r = api_plan(["Information Technology and Informatics (BA, SCI)"])
         codes = all_codes(r)
-        # ITI core courses must be planned
         iti_core = {"SCI103", "ITI200", "ITI201", "ITI202", "ITI210"}
         assert iti_core.issubset(codes)
 
     def test_iti_elective_count(self):
         r = api_plan(["Information Technology and Informatics (BA, SCI)"])
         electives = elective_codes(r)
-        # ITI needs 7 electives
         assert len(electives) == 7
 
     def test_iti_sas_iti_vs_sci_iti_different(self):
-        # SAS also has an ITI program — they are distinct
         r_sci = api_plan(["Information Technology and Informatics (BA, SCI)"])
         r_sas = api_plan(["Information Technology and Informatics (BA, SAS)"])
         assert r_sci.status_code == 200
         assert r_sas.status_code == 200
-        # SCI requires SCI103; SAS does not
         sci_codes = all_codes(r_sci)
         sas_codes = all_codes(r_sas)
         assert "SCI103" in sci_codes
 
-
-# ---------------------------------------------------------------------------
-# SOE (School of Engineering)
-# ---------------------------------------------------------------------------
 
 class TestSOE:
     def test_computer_engineering_bs(self):
@@ -253,23 +214,17 @@ class TestSOE:
         assert r.status_code == 200
 
     def test_env_engineering_no_electives(self):
-        # Environmental Engineering has 0 electives — all courses are required
         r = api_plan(["Environmental Engineering (BS, SOE)"])
         assert r.status_code == 200
         electives = elective_codes(r)
         assert len(electives) == 0
 
     def test_soe_shared_core_in_plan(self):
-        # All SOE programs share ENG101, MATH151, PHYS123 as core
         r = api_plan(["Computer Engineering (BS, SOE)"])
         codes = all_codes(r)
         for core in ("ENG101", "MATH151", "PHYS123"):
             assert core in codes, f"Missing SOE core: {core}"
 
-
-# ---------------------------------------------------------------------------
-# RBS (Rutgers Business School)
-# ---------------------------------------------------------------------------
 
 class TestRBS:
     def test_accounting_bsba(self):
@@ -299,7 +254,6 @@ class TestRBS:
         assert r.status_code == 200
 
     def test_accounting_no_electives_still_schedules(self):
-        # Accounting has 0 electives — should still produce a full plan
         r = api_plan(["Accounting (BSBA, RBS)"])
         assert r.status_code == 200
         assert len(r.json()["terms"]) > 0
@@ -311,10 +265,6 @@ class TestRBS:
         for core in ("EXPOS101", "MATH135", "ECON102", "ACCT272", "FIN300"):
             assert core in codes
 
-
-# ---------------------------------------------------------------------------
-# SEBS (School of Environmental and Biological Sciences)
-# ---------------------------------------------------------------------------
 
 class TestSEBS:
     def test_environmental_sciences_bs(self):
@@ -358,10 +308,6 @@ class TestSEBS:
         assert r.status_code == 200
 
 
-# ---------------------------------------------------------------------------
-# SPPP (School of Planning and Public Policy)
-# ---------------------------------------------------------------------------
-
 class TestSPPP:
     def test_public_health_bs(self):
         r = api_plan(["Public Health (BS, SPPP)"])
@@ -384,10 +330,6 @@ class TestSPPP:
         assert r.status_code == 200
 
 
-# ---------------------------------------------------------------------------
-# SSW (School of Social Work)
-# ---------------------------------------------------------------------------
-
 class TestSSW:
     def test_social_work_ba(self):
         r = api_plan(["Social Work (BA, SSW)"])
@@ -398,10 +340,6 @@ class TestSSW:
         assert len(r.json()["terms"]) > 0
         assert r.json()["remaining_courses"] == []
 
-
-# ---------------------------------------------------------------------------
-# SMLR (School of Management and Labor Relations)
-# ---------------------------------------------------------------------------
 
 class TestSMLR:
     def test_hrm_ba(self):
@@ -417,10 +355,6 @@ class TestSMLR:
         assert r.status_code == 200
 
 
-# ---------------------------------------------------------------------------
-# SON (School of Nursing)
-# ---------------------------------------------------------------------------
-
 class TestSON:
     def test_nursing_bs(self):
         r = api_plan(["Nursing (BS, SON)"])
@@ -429,16 +363,12 @@ class TestSON:
     def test_nursing_has_many_courses(self):
         r = api_plan(["Nursing (BS, SON)"])
         codes = all_codes(r)
-        assert len(codes) >= 20  # 29 required + 4 electives
+        assert len(codes) >= 20
 
     def test_rn_to_bsn(self):
         r = api_plan(["Nursing (RN to BSN) (BS, SON)"])
         assert r.status_code == 200
 
-
-# ---------------------------------------------------------------------------
-# MGSA (Mason Gross School of the Arts)
-# ---------------------------------------------------------------------------
 
 class TestMGSA:
     def test_dance_bfa(self):
@@ -476,26 +406,18 @@ class TestMGSA:
         assert r.status_code == 200
 
 
-# ---------------------------------------------------------------------------
-# Cross-school dual majors
-# ---------------------------------------------------------------------------
-
 class TestCrossSchoolDualMajors:
     def test_cs_sas_plus_comp_eng_soe(self):
-        """CS (BS, SAS) + Computer Engineering (BS, SOE) — quintessential cross-school."""
         r = api_plan([
             "Computer Science (BS, SAS)",
             "Computer Engineering (BS, SOE)",
         ])
         assert r.status_code == 200
         codes = all_codes(r)
-        # SAS CS core
         assert "CS111" in codes
-        # SOE CompEng core
         assert "ECE221" in codes or "ENG101" in codes
 
     def test_cs_sas_plus_iti_sci(self):
-        """CS (BS, SAS) + Information Technology and Informatics (BA, SCI)."""
         r = api_plan([
             "Computer Science (BS, SAS)",
             "Information Technology and Informatics (BA, SCI)",
@@ -506,7 +428,6 @@ class TestCrossSchoolDualMajors:
         assert "ITI200" in codes or "SCI103" in codes
 
     def test_cs_sas_plus_data_science(self):
-        """CS (BS, SAS) + Data Science CS Track (BS, SAS) — same school."""
         r = api_plan([
             "Computer Science (BS, SAS)",
             "Data Science (Computer Science Track) (BS, SAS)",
@@ -545,7 +466,6 @@ class TestCrossSchoolDualMajors:
         assert r.status_code == 200
 
     def test_iti_sci_plus_communication_sci(self):
-        """Two SCI majors — same school dual."""
         r = api_plan([
             "Information Technology and Informatics (BA, SCI)",
             "Communication (BA, SCI)",
@@ -567,7 +487,6 @@ class TestCrossSchoolDualMajors:
         assert r.status_code == 200
 
     def test_cross_school_no_remaining_with_enough_time(self):
-        """With enough terms and credits, cross-school duals should have no remaining courses."""
         r = api_plan(
             ["Computer Science (BS, SAS)", "Computer Engineering (BS, SOE)"],
             grad="Spring 2032", max_cr=21,
@@ -576,24 +495,17 @@ class TestCrossSchoolDualMajors:
         assert r.json()["remaining_courses"] == []
 
     def test_dual_major_elective_count_summed(self):
-        """Dual major must schedule electives from BOTH programs, not just the larger."""
         r = api_plan(
             ["Computer Science (BS, SAS)", "Mathematics (BS, SAS)"],
             grad="Spring 2032", max_cr=21,
         )
         assert r.status_code == 200
-        # CS has 5 electives, Math BS has 4 electives → total must be 9
         n = len(elective_codes(r))
         assert n == 9, f"Expected 9 electives (5 CS + 4 Math), got {n}"
 
 
-# ---------------------------------------------------------------------------
-# CS + ITI with Critical Intelligence Studies minor (the user's specific request)
-# ---------------------------------------------------------------------------
-
 class TestCSPlusITIWithCISMinor:
     def test_cs_iti_critical_intelligence_minor(self):
-        """CS (BS, SAS) + ITI (BA, SCI) + Critical Intelligence Studies (Minor, SAS)."""
         r = api_plan(
             ["Computer Science (BS, SAS)", "Information Technology and Informatics (BA, SCI)"],
             minors=["Critical Intelligence Studies (Minor, SAS)"],
@@ -610,12 +522,10 @@ class TestCSPlusITIWithCISMinor:
             max_cr=18,
         )
         assert r.status_code == 200
-        # Minor courses should appear in the plan
         codes = all_codes(r)
         assert len(codes) > 0
 
     def test_cs_iti_cis_minor_no_remaining(self):
-        """With plenty of time, nothing should be left unscheduled."""
         r = api_plan(
             ["Computer Science (BS, SAS)", "Information Technology and Informatics (BA, SCI)"],
             minors=["Critical Intelligence Studies (Minor, SAS)"],
@@ -625,10 +535,6 @@ class TestCSPlusITIWithCISMinor:
         assert r.status_code == 200
         assert r.json()["remaining_courses"] == []
 
-
-# ---------------------------------------------------------------------------
-# Minors from various schools
-# ---------------------------------------------------------------------------
 
 class TestMinorsFromVariousSchools:
     def test_data_science_minor_sas(self):
@@ -646,7 +552,6 @@ class TestMinorsFromVariousSchools:
         assert r.status_code == 200
 
     def test_business_minor_rbs_not_applicable(self):
-        """No RBS minors in DB — should just plan the major alone."""
         r = api_plan(["Computer Science (BS, SAS)"])
         assert r.status_code == 200
 
@@ -683,7 +588,6 @@ class TestMinorsFromVariousSchools:
         assert r.status_code == 200
 
     def test_two_minors_different_schools(self):
-        """CS major + Data Science minor (SAS) + Public Health minor (SPPP)."""
         r = api_plan(
             ["Computer Science (BS, SAS)"],
             minors=["Data Science (Minor, SAS)", "Public Health (Minor, SPPP)"],
@@ -693,7 +597,6 @@ class TestMinorsFromVariousSchools:
         assert r.status_code == 200
 
     def test_three_minors(self):
-        """Major with three minors — tests deep merging."""
         r = api_plan(
             ["Computer Science (BS, SAS)"],
             minors=[
@@ -706,10 +609,6 @@ class TestMinorsFromVariousSchools:
         )
         assert r.status_code == 200
 
-
-# ---------------------------------------------------------------------------
-# Completed courses interaction
-# ---------------------------------------------------------------------------
 
 class TestCompletedCoursesAllSchools:
     def test_soe_completed_core_not_rescheduled(self):
@@ -740,8 +639,6 @@ class TestCompletedCoursesAllSchools:
             assert c not in codes
 
     def test_iti_sci_completed_electives_reduces_quota(self):
-        # ITI needs 7 electives; completing 3 should leave 4
-        # Get some ITI elective options first
         from app.database import SessionLocal
         from app.models import Program
         db = SessionLocal()
@@ -759,10 +656,6 @@ class TestCompletedCoursesAllSchools:
         n = len(elective_codes(r))
         assert n == 4, f"Expected 4 remaining electives after completing 3, got {n}"
 
-
-# ---------------------------------------------------------------------------
-# Semester preference across schools
-# ---------------------------------------------------------------------------
 
 class TestSeasonPreferences:
     def test_soe_spring_fall_only(self):
@@ -798,10 +691,6 @@ class TestSeasonPreferences:
         assert r.json()["terms"] == []
 
 
-# ---------------------------------------------------------------------------
-# Intricate same-school dual majors (SAS)
-# ---------------------------------------------------------------------------
-
 class TestIntricateSameCampusDuals:
     def test_cs_bs_plus_math_bs(self):
         r = api_plan(["Computer Science (BS, SAS)", "Mathematics (BS, SAS)"],
@@ -836,7 +725,6 @@ class TestIntricateSameCampusDuals:
         assert r.status_code == 200
 
     def test_triple_minor_with_dual_major(self):
-        """Stress test: dual SAS major + 3 minors from 2 schools."""
         r = api_plan(
             ["Computer Science (BS, SAS)", "Mathematics (BS, SAS)"],
             minors=[
@@ -850,17 +738,12 @@ class TestIntricateSameCampusDuals:
         assert r.status_code == 200
 
     def test_cs_and_iti_same_school_sas(self):
-        """CS (SAS) + Information Technology and Informatics (SAS) — both in SAS."""
         r = api_plan([
             "Computer Science (BS, SAS)",
             "Information Technology and Informatics (BA, SAS)",
         ], grad="Spring 2032", max_cr=21)
         assert r.status_code == 200
 
-
-# ---------------------------------------------------------------------------
-# Prereq ordering across schools
-# ---------------------------------------------------------------------------
 
 class TestPrereqOrderingAllSchools:
     def _term_index(self, term: str) -> int:
@@ -875,7 +758,6 @@ class TestPrereqOrderingAllSchools:
         }
 
     def test_soe_math_before_advanced(self):
-        """MATH151 must precede MATH152 which precedes MATH251 in SOE plans."""
         r = api_plan(["Computer Engineering (BS, SOE)"])
         order = self._scheduled_order(r)
         if "MATH151" in order and "MATH152" in order:

@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
 from .database import engine, Base, SessionLocal
-from . import models  # noqa: F401 — registers all models so create_all sees them
+from . import models
 from .schemas import PlanRequest, PlanResponse, ProgramInfo, CourseSearchResult
 from .core.planner import heuristic_plan
 
@@ -99,14 +99,8 @@ def generate_plan(payload: PlanRequest) -> PlanResponse:
         raise HTTPException(status_code=404, detail=str(exc))
 
 
-# ---------------------------------------------------------------------------
-# Transcript PDF parsing
-# ---------------------------------------------------------------------------
-
-# Rutgers transcript course code pattern, e.g. "01:198:111" or "14:332:252"
 _RU_CODE_RE = re.compile(r'\b\d{2}:\d{3}:\d{3}\b')
 
-# Subject-code mapping for common Rutgers department numbers
 _DEPT_MAP = {
     "198": "CS",
     "151": "MATH",
@@ -145,16 +139,8 @@ _SUBJECT_DEPT: dict = {
 
 
 def _parse_transcript_text(text: str) -> List[str]:
-    """
-    Extract completed course codes from Rutgers transcript text.
-
-    Handles two formats:
-    1. Rutgers-style section codes like "01:198:111" → mapped to "CS111"
-    2. Already-formatted codes like "CS111" appearing in the text
-    """
     codes: List[str] = []
 
-    # Match Rutgers section codes (e.g. 01:198:111)
     for match in _RU_CODE_RE.finditer(text):
         raw = match.group()
         parts = raw.split(":")
@@ -167,7 +153,6 @@ def _parse_transcript_text(text: str) -> List[str]:
                 if code not in codes:
                     codes.append(code)
 
-    # Also match already-formatted codes like CS111, MATH151, PHYS203
     formatted_re = re.compile(r'\b([A-Z]{2,8})(\d{2,4}[A-Z]?)\b')
     for match in formatted_re.finditer(text):
         code = match.group(0).upper()
@@ -179,16 +164,11 @@ def _parse_transcript_text(text: str) -> List[str]:
 
 @app.post("/parse-transcript", response_model=List[str])
 async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
-    """
-    Accept a Rutgers transcript PDF and return a list of course codes
-    detected in the document. The caller should review the list and add
-    any codes that should be treated as completed.
-    """
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are accepted.")
 
     content = await file.read()
-    if len(content) > 20 * 1024 * 1024:  # 20 MB guard
+    if len(content) > 20 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File too large (max 20 MB).")
 
     try:

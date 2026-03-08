@@ -1,7 +1,6 @@
 {
   "catalog_year": "2025-2026",
   "programs": {
-
     "nursing_bsn": {
       "school": "SON",
       "degree_level": "bachelor_bs",
@@ -9,20 +8,30 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "NURS101",
-        "NURS110", "NURS111",
+        "NURS110",
+        "NURS111",
         "NURS120",
         "NURS130",
-        "NURS150", "NURS151",
+        "NURS150",
+        "NURS151",
         "NURS200",
-        "NURS210", "NURS211",
-        "NURS220", "NURS221",
+        "NURS210",
+        "NURS211",
+        "NURS220",
+        "NURS221",
         "NURS230",
-        "NURS300", "NURS301",
-        "NURS310", "NURS311",
-        "NURS320", "NURS321",
-        "NURS330", "NURS331",
-        "NURS340", "NURS341",
-        "NURS350", "NURS351",
+        "NURS300",
+        "NURS301",
+        "NURS310",
+        "NURS311",
+        "NURS320",
+        "NURS321",
+        "NURS330",
+        "NURS331",
+        "NURS340",
+        "NURS341",
+        "NURS350",
+        "NURS351",
         "NURS400",
         "NURS410",
         "NURS420",
@@ -41,7 +50,7 @@
       },
       "electives": {
         "description": "Liberal Arts and Science elective requirements — courses outside nursing to fulfill degree breadth",
-        "count": 4,
+        "count": 0,
         "options": [],
         "any_from_catalog": true,
         "notes": "Any approved humanities, social science, or natural science course meeting SON breadth requirements"
@@ -62,7 +71,6 @@
         "Source: https://nursing.rutgers.edu/academics/undergraduate/bsn/"
       ]
     },
-
     "nursing_rn_bsn": {
       "school": "SON",
       "degree_level": "bachelor_bs",
@@ -70,7 +78,8 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "NURS230",
-        "NURS350", "NURS351",
+        "NURS350",
+        "NURS351",
         "NURS400",
         "NURS410",
         "NURS420",
@@ -86,7 +95,7 @@
       },
       "electives": {
         "description": "Liberal Arts and Science electives to complete the baccalaureate degree",
-        "count": 3,
+        "count": 0,
         "options": [],
         "any_from_catalog": true,
         "notes": "Any approved humanities, social science, or natural science course meeting SON breadth requirements"
@@ -105,7 +114,6 @@
         "Source: https://nursing.rutgers.edu/academics/undergraduate/rn-to-bsn/"
       ]
     },
-
     "nursing_msn_fnp": {
       "school": "SON",
       "degree_level": "master",
@@ -114,18 +122,26 @@
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
         "courses": [
-          "MSN500", "MSN501", "MSN502",
-          "MSN503", "MSN504", "MSN505",
-          "MSN510", "MSN520",
+          "MSN500",
+          "MSN501",
+          "MSN502",
+          "MSN503",
+          "MSN504",
+          "MSN505",
+          "MSN510",
+          "MSN520",
           "MSN530"
         ]
       },
       "specialization_required": {
         "description": "Family Nurse Practitioner specialization courses (18 credits)",
         "courses": [
-          "MSN540", "MSN541",
-          "MSN542", "MSN543",
-          "MSN544", "MSN545"
+          "MSN540",
+          "MSN541",
+          "MSN542",
+          "MSN543",
+          "MSN544",
+          "MSN545"
         ]
       },
       "constraints": [
@@ -142,7 +158,9 @@
         "description": "Choose one graduate nursing elective (3 credits)",
         "count": 1,
         "options": [
-          "MSN505", "MSN520", "MSN580"
+          "MSN505",
+          "MSN520",
+          "MSN580"
         ],
         "any_from_catalog": false
       },
@@ -152,7 +170,6 @@
         "Source: https://nursing.rutgers.edu/academics/graduate/msn/fnp/"
       ]
     },
-
     "nursing_msn_agpcnp": {
       "school": "SON",
       "degree_level": "master",
@@ -161,24 +178,35 @@
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
         "courses": [
-          "MSN500", "MSN501", "MSN502",
-          "MSN503", "MSN504", "MSN505",
-          "MSN510", "MSN520",
+          "MSN500",
+          "MSN501",
+          "MSN502",
+          "MSN503",
+          "MSN504",
+          "MSN505",
+          "MSN510",
+          "MSN520",
           "MSN530"
         ]
       },
       "specialization_required": {
         "description": "Adult-Gerontology Primary Care NP specialization courses (12 credits)",
         "courses": [
-          "MSN550", "MSN551",
-          "MSN552", "MSN553"
+          "MSN550",
+          "MSN551",
+          "MSN552",
+          "MSN553"
         ]
       },
       "electives": {
         "description": "Choose two graduate nursing electives (6 credits)",
         "count": 2,
         "options": [
-          "MSN503", "MSN504", "MSN505", "MSN520", "MSN580"
+          "MSN503",
+          "MSN504",
+          "MSN505",
+          "MSN520",
+          "MSN580"
         ],
         "any_from_catalog": false
       },
@@ -197,7 +225,6 @@
         "Source: https://nursing.rutgers.edu/academics/graduate/msn/agpcnp/"
       ]
     },
-
     "nursing_msn_pmhnp": {
       "school": "SON",
       "degree_level": "master",
@@ -206,24 +233,34 @@
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
         "courses": [
-          "MSN500", "MSN501", "MSN502",
-          "MSN503", "MSN504", "MSN505",
-          "MSN510", "MSN520",
+          "MSN500",
+          "MSN501",
+          "MSN502",
+          "MSN503",
+          "MSN504",
+          "MSN505",
+          "MSN510",
+          "MSN520",
           "MSN530"
         ]
       },
       "specialization_required": {
         "description": "Psychiatric-Mental Health NP specialization courses (12 credits)",
         "courses": [
-          "MSN560", "MSN561",
-          "MSN562", "MSN563"
+          "MSN560",
+          "MSN561",
+          "MSN562",
+          "MSN563"
         ]
       },
       "electives": {
         "description": "Choose two graduate nursing electives (6 credits)",
         "count": 2,
         "options": [
-          "MSN503", "MSN505", "MSN520", "MSN580"
+          "MSN503",
+          "MSN505",
+          "MSN520",
+          "MSN580"
         ],
         "any_from_catalog": false
       },
@@ -242,7 +279,6 @@
         "Source: https://nursing.rutgers.edu/academics/graduate/msn/pmhnp/"
       ]
     },
-
     "nursing_msn_educator": {
       "school": "SON",
       "degree_level": "master",
@@ -251,22 +287,31 @@
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
         "courses": [
-          "MSN500", "MSN501", "MSN502",
-          "MSN503", "MSN504", "MSN505",
-          "MSN510", "MSN520"
+          "MSN500",
+          "MSN501",
+          "MSN502",
+          "MSN503",
+          "MSN504",
+          "MSN505",
+          "MSN510",
+          "MSN520"
         ]
       },
       "specialization_required": {
         "description": "Nurse Educator specialization courses (9 credits)",
         "courses": [
-          "MSN570", "MSN571", "MSN572"
+          "MSN570",
+          "MSN571",
+          "MSN572"
         ]
       },
       "electives": {
         "description": "Choose two graduate nursing electives (6 credits)",
         "count": 2,
         "options": [
-          "MSN530", "MSN580", "MSN581"
+          "MSN530",
+          "MSN580",
+          "MSN581"
         ],
         "any_from_catalog": false
       },
@@ -284,7 +329,6 @@
         "Source: https://nursing.rutgers.edu/academics/graduate/msn/nurse-educator/"
       ]
     },
-
     "nursing_msn_administrator": {
       "school": "SON",
       "degree_level": "master",
@@ -293,22 +337,31 @@
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
         "courses": [
-          "MSN500", "MSN501", "MSN502",
-          "MSN503", "MSN504", "MSN505",
-          "MSN510", "MSN520"
+          "MSN500",
+          "MSN501",
+          "MSN502",
+          "MSN503",
+          "MSN504",
+          "MSN505",
+          "MSN510",
+          "MSN520"
         ]
       },
       "specialization_required": {
         "description": "Nurse Administrator specialization courses (9 credits)",
         "courses": [
-          "MSN580", "MSN581", "MSN582"
+          "MSN580",
+          "MSN581",
+          "MSN582"
         ]
       },
       "electives": {
         "description": "Choose two graduate nursing electives (6 credits)",
         "count": 2,
         "options": [
-          "MSN530", "MSN570", "MSN571"
+          "MSN530",
+          "MSN570",
+          "MSN571"
         ],
         "any_from_catalog": false
       },
@@ -326,7 +379,6 @@
         "Source: https://nursing.rutgers.edu/academics/graduate/msn/nurse-administrator/"
       ]
     },
-
     "nursing_dnp": {
       "school": "SON",
       "degree_level": "doctoral",
@@ -337,8 +389,11 @@
         "DNP720",
         "DNP730",
         "DNP740",
-        "DNP700", "DNP701", "DNP702",
-        "DNP750", "DNP751"
+        "DNP700",
+        "DNP701",
+        "DNP702",
+        "DNP750",
+        "DNP751"
       ],
       "entry_options": {
         "description": "Program is available as post-MSN or post-BSN entry",
@@ -374,18 +429,22 @@
         "Source: https://nursing.rutgers.edu/academics/graduate/dnp/"
       ]
     },
-
     "nursing_phd": {
       "school": "SON",
       "degree_level": "doctoral",
       "major_name": "PhD in Nursing Science",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "PHD800", "PHD801",
-        "PHD810", "PHD811", "PHD812",
+        "PHD800",
+        "PHD801",
+        "PHD810",
+        "PHD811",
+        "PHD812",
         "PHD820",
         "PHD830",
-        "PHD900", "PHD901", "PHD902"
+        "PHD900",
+        "PHD901",
+        "PHD902"
       ],
       "cognate_electives": {
         "description": "Two cognate/elective courses from an approved discipline outside nursing (6 credits)",
@@ -421,6 +480,5 @@
         "Source: https://nursing.rutgers.edu/academics/graduate/phd/"
       ]
     }
-
   }
 }

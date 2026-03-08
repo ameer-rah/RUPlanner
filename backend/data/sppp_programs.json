@@ -1,7 +1,6 @@
 {
   "catalog_year": "2025-2026",
   "programs": {
-
     "city_and_regional_planning_ba": {
       "school": "SPPP",
       "degree_level": "bachelor_ba",
@@ -50,7 +49,6 @@
         "options": [
           "CRP233",
           "CRP235",
-          "CRP302",
           "CRP307",
           "CRP310",
           "CRP311",
@@ -79,9 +77,10 @@
         "CRP400 internship requires 64+ earned credits and CRP200.",
         "At least 18 credits must be at the 300-level or above."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/city-and-regional-planning/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/city-and-regional-planning/"
+      ]
     },
-
     "health_administration_bs": {
       "school": "SPPP",
       "degree_level": "bachelor_bs",
@@ -116,7 +115,7 @@
       },
       "electives": {
         "description": "Two additional Health Administration electives at 300-level or above",
-        "count": 2,
+        "count": 1,
         "min_level_300_plus": 2,
         "options": [
           "HA483"
@@ -129,9 +128,10 @@
         "EJBSC499 internship requires completion of EJBSC395 or PUBH395 and EJBSC450 and 100+ credits.",
         "Total major credits: approximately 55."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/healthadministration/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/healthadministration/"
+      ]
     },
-
     "public_health_bs": {
       "school": "SPPP",
       "degree_level": "bachelor_bs",
@@ -190,9 +190,10 @@
         "PUBH499 requires PUBH395, PUBH450, and 100+ earned credits.",
         "Total major credits: 46-47."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publichealth/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/publichealth/"
+      ]
     },
-
     "public_policy_bs": {
       "school": "SPPP",
       "degree_level": "bachelor_bs",
@@ -245,9 +246,10 @@
         "At least 12 elective credits must be from PPOL-coded courses.",
         "Total major credits: approximately 40-46."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publicpolicy/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/publicpolicy/"
+      ]
     },
-
     "urban_planning_design_bs": {
       "school": "SPPP",
       "degree_level": "bachelor_bs",
@@ -304,9 +306,10 @@
         "UPD405 (Studio II) requires UPD404.",
         "Total major credits: approximately 55."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/urbanplanninganddesign/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/urbanplanninganddesign/"
+      ]
     },
-
     "city_and_regional_planning_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -344,9 +347,10 @@
         "CRP200 (or PPP200) is the gateway course.",
         "At least 12 credits must be at the 300-level or above."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/city-and-regional-planning/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/city-and-regional-planning/"
+      ]
     },
-
     "health_administration_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -380,9 +384,10 @@
         "18 total credits required.",
         "Students majoring in Health Administration may not also pursue this minor."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/healthadministration/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/healthadministration/"
+      ]
     },
-
     "public_health_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -420,9 +425,10 @@
         "Courses designated for majors only (PUBH212, PUBH395, PUBH450, PUBH499) are excluded from the minor.",
         "Students majoring in Public Health may not also pursue this minor."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publichealth/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/publichealth/"
+      ]
     },
-
     "public_policy_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -461,9 +467,10 @@
         "18 total credits required.",
         "Students majoring in Public Policy may not also pursue this minor."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publicpolicy/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/publicpolicy/"
+      ]
     },
-
     "urban_planning_design_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -503,9 +510,10 @@
         "21 total credits required.",
         "Students majoring in Urban Planning and Design may not also pursue this minor."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/urbanplanninganddesign/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/urbanplanninganddesign/"
+      ]
     },
-
     "disability_studies_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -517,7 +525,9 @@
       ],
       "field_experience_requirement": {
         "description": "One field experience or practicum course (3 credits)",
-        "notes": ["Contact Bloustein undergraduate office for approved field experience options."]
+        "notes": [
+          "Contact Bloustein undergraduate office for approved field experience options."
+        ]
       },
       "electives": {
         "description": "Three approved elective courses (9 credits)",
@@ -538,9 +548,10 @@
         "DISA265 is the gateway course (37:575:265 Disability Studies: Intro to the Field).",
         "Students complete a field experience component in addition to coursework."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/disabilitystudies/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/disabilitystudies/"
+      ]
     },
-
     "health_equity_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -593,9 +604,10 @@
         "18 total credits required.",
         "At least 9 credits must be at the 300-level or above."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/health-equity/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/health-equity/"
+      ]
     },
-
     "medical_ethics_health_policy_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -650,9 +662,10 @@
         "MEHE400 (Research Ethics) requires MEHE201 as a prerequisite.",
         "Students may not double-count more than one course with their major."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/healthpolicy/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/healthpolicy/"
+      ]
     },
-
     "public_administration_management_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -687,9 +700,10 @@
         "PADM209 is the gateway course.",
         "Open to students in any Rutgers school."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/publicadministration/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/publicadministration/"
+      ]
     },
-
     "urban_studies_minor": {
       "school": "SPPP",
       "degree_level": "minor",
@@ -737,9 +751,10 @@
         "URST101 is the required gateway course.",
         "Consult Bloustein undergraduate advising for the full list of approved electives across departments."
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/undergraduate/urbanstudies/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/undergraduate/urbanstudies/"
+      ]
     },
-
     "mcrp": {
       "school": "SPPP",
       "degree_level": "master",
@@ -750,29 +765,56 @@
       "description": "The MCRP is an AICP-accredited professional degree preparing students for careers in urban and regional planning. Students gain skills in planning theory, law, quantitative and qualitative methods, GIS, and urban economics, then apply them in two studio experiences. Concentrations available in: land use and environmental planning, transportation, community development, housing, international development, and real estate.",
       "required_core": {
         "description": "Six required core courses (18 credits)",
-        "courses": ["CRP501", "CRP502", "CRP503", "CRP504", "CRP505", "CRP506"]
+        "courses": [
+          "CRP501",
+          "CRP502",
+          "CRP503",
+          "CRP504",
+          "CRP505",
+          "CRP506"
+        ]
       },
       "studio": {
         "description": "Two planning studios (12 credits); Studio I requires core methods and theory",
-        "courses": ["CRP510", "CRP511"]
+        "courses": [
+          "CRP510",
+          "CRP511"
+        ]
       },
       "electives": {
         "description": "Five graduate electives from the approved MCRP list (15 credits); at least three must be CRP-coded",
         "count": 5,
         "min_crp_coded": 3,
         "options": [
-          "CRP520", "CRP521", "CRP522", "CRP523", "CRP524",
-          "CRP525", "CRP526", "CRP527", "CRP528", "CRP529",
-          "CRP530", "CRP531", "CRP532", "CRP533",
-          "PPOL503", "PPOL504", "PPOL513",
-          "PADM501", "PADM502",
-          "PUBH504", "PUBH506"
+          "CRP520",
+          "CRP521",
+          "CRP522",
+          "CRP523",
+          "CRP524",
+          "CRP525",
+          "CRP526",
+          "CRP527",
+          "CRP528",
+          "CRP529",
+          "CRP530",
+          "CRP531",
+          "CRP532",
+          "CRP533",
+          "PPOL503",
+          "PPOL504",
+          "PPOL513",
+          "PADM501",
+          "PADM502",
+          "PUBH504",
+          "PUBH506"
         ],
         "any_from_catalog": false
       },
       "capstone": {
         "description": "Master's Research Project (3 credits) — completed in the final semester",
-        "courses": ["CRP599"]
+        "courses": [
+          "CRP599"
+        ]
       },
       "constraints": [
         "CRP510 (Planning Studio I) requires completion of CRP501 and CRP502.",
@@ -786,9 +828,11 @@
         "MCRP/MPH — complete both degrees in three years (75 credits combined)",
         "JD/MCRP — offered jointly with Rutgers Law School"
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/graduate/mcrp/", "AICP accredited; graduates eligible to sit for AICP exam after two years of professional practice."]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/graduate/mcrp/",
+        "AICP accredited; graduates eligible to sit for AICP exam after two years of professional practice."
+      ]
     },
-
     "mpa": {
       "school": "SPPP",
       "degree_level": "master",
@@ -800,28 +844,68 @@
       "required_core": {
         "description": "Eight required core courses (24 credits)",
         "courses": [
-          "PADM500", "PADM501", "PADM502", "PADM503",
-          "PADM504", "PADM505", "PADM510", "PADM599"
+          "PADM500",
+          "PADM501",
+          "PADM502",
+          "PADM503",
+          "PADM504",
+          "PADM505",
+          "PADM510",
+          "PADM599"
         ]
       },
       "electives": {
         "description": "Six graduate electives from the approved MPA list (18 credits); at least four must be from a single concentration",
         "count": 6,
         "options": [
-          "PADM506", "PADM507", "PADM508", "PADM509", "PADM511", "PADM512",
-          "PPOL500", "PPOL501", "PPOL502", "PPOL503", "PPOL504", "PPOL505",
-          "PPOL506", "PPOL507", "PPOL508",
-          "CRP501", "CRP504", "CRP524",
-          "PUBH504", "PUBH509"
+          "PADM506",
+          "PADM507",
+          "PADM508",
+          "PADM509",
+          "PADM511",
+          "PADM512",
+          "PPOL500",
+          "PPOL501",
+          "PPOL502",
+          "PPOL503",
+          "PPOL504",
+          "PPOL505",
+          "PPOL506",
+          "PPOL507",
+          "PPOL508",
+          "CRP501",
+          "CRP504",
+          "CRP524",
+          "PUBH504",
+          "PUBH509"
         ],
         "any_from_catalog": false
       },
       "concentrations": {
         "description": "Students select one concentration (at least 4 electives must come from concentration list)",
         "options": {
-          "public_management": ["PADM506", "PADM509", "PADM511", "PADM512", "PPOL506", "PPOL507"],
-          "nonprofit_management": ["PADM508", "PADM509", "PADM511", "PPOL506", "PPOL504"],
-          "health_administration": ["PUBH504", "PUBH509", "PADM509", "PPOL510", "PADM507"]
+          "public_management": [
+            "PADM506",
+            "PADM509",
+            "PADM511",
+            "PADM512",
+            "PPOL506",
+            "PPOL507"
+          ],
+          "nonprofit_management": [
+            "PADM508",
+            "PADM509",
+            "PADM511",
+            "PPOL506",
+            "PPOL504"
+          ],
+          "health_administration": [
+            "PUBH504",
+            "PUBH509",
+            "PADM509",
+            "PPOL510",
+            "PADM507"
+          ]
         }
       },
       "constraints": [
@@ -834,9 +918,11 @@
         "MPA/MPP — complete both degrees in three years (63 credits combined)",
         "MPA/MPH — complete both degrees in three years (69 credits combined)"
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/graduate/mpa/", "NASPAA accredited."]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/graduate/mpa/",
+        "NASPAA accredited."
+      ]
     },
-
     "mph": {
       "school": "SPPP",
       "degree_level": "master",
@@ -848,22 +934,38 @@
       "required_core": {
         "description": "Seven required core courses covering the five foundational areas of public health (21 credits)",
         "courses": [
-          "PUBH500", "PUBH501", "PUBH502",
-          "PUBH503", "PUBH504", "PUBH505", "PUBH511"
+          "PUBH500",
+          "PUBH501",
+          "PUBH502",
+          "PUBH503",
+          "PUBH504",
+          "PUBH505",
+          "PUBH511"
         ]
       },
       "practicum": {
         "description": "Supervised field practicum in an approved public health setting (3 credits); must be completed before the Integrative Learning Experience",
-        "courses": ["PUBH510"]
+        "courses": [
+          "PUBH510"
+        ]
       },
       "electives": {
         "description": "Seven graduate electives from the approved MPH concentration list (21 credits); at least four must be from the chosen concentration",
         "count": 7,
         "options": [
-          "PUBH506", "PUBH507", "PUBH508", "PUBH509",
-          "PUBH512", "PUBH513", "PUBH514", "PUBH515",
-          "PPOL510", "PPOL504", "PPOL512",
-          "PADM504", "PADM509",
+          "PUBH506",
+          "PUBH507",
+          "PUBH508",
+          "PUBH509",
+          "PUBH512",
+          "PUBH513",
+          "PUBH514",
+          "PUBH515",
+          "PPOL510",
+          "PPOL504",
+          "PPOL512",
+          "PADM504",
+          "PADM509",
           "CRP533"
         ],
         "any_from_catalog": false
@@ -871,11 +973,37 @@
       "concentrations": {
         "description": "Students select one concentration (at least 4 electives must come from concentration list)",
         "options": {
-          "epidemiology": ["PUBH508", "PUBH514", "PUBH515", "PUBH512"],
-          "health_policy_management": ["PUBH509", "PUBH513", "PPOL510", "PADM504", "PADM509"],
-          "social_behavioral_health": ["PUBH507", "PUBH509", "PUBH512", "PPOL504"],
-          "environmental_health": ["PUBH503", "PUBH514", "PPOL512", "CRP523"],
-          "global_health": ["PUBH506", "PUBH507", "PUBH509", "CRP527"]
+          "epidemiology": [
+            "PUBH508",
+            "PUBH514",
+            "PUBH515",
+            "PUBH512"
+          ],
+          "health_policy_management": [
+            "PUBH509",
+            "PUBH513",
+            "PPOL510",
+            "PADM504",
+            "PADM509"
+          ],
+          "social_behavioral_health": [
+            "PUBH507",
+            "PUBH509",
+            "PUBH512",
+            "PPOL504"
+          ],
+          "environmental_health": [
+            "PUBH503",
+            "PUBH514",
+            "PPOL512",
+            "CRP523"
+          ],
+          "global_health": [
+            "PUBH506",
+            "PUBH507",
+            "PUBH509",
+            "CRP527"
+          ]
         }
       },
       "constraints": [
@@ -890,9 +1018,11 @@
         "MPH/MPA — complete both degrees in three years (69 credits combined)",
         "MPH/MPP — complete both degrees in three years (69 credits combined)"
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/graduate/mph/", "CEPH accredited; program satisfies prerequisites for many doctoral public health programs."]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/graduate/mph/",
+        "CEPH accredited; program satisfies prerequisites for many doctoral public health programs."
+      ]
     },
-
     "mpp": {
       "school": "SPPP",
       "degree_level": "master",
@@ -904,34 +1034,76 @@
       "required_core": {
         "description": "Seven required core courses covering foundations of policy analysis (21 credits)",
         "courses": [
-          "PPOL500", "PPOL501", "PPOL502",
-          "PPOL503", "PPOL504", "PPOL505", "PPOL506"
+          "PPOL500",
+          "PPOL501",
+          "PPOL502",
+          "PPOL503",
+          "PPOL504",
+          "PPOL505",
+          "PPOL506"
         ]
       },
       "capstone": {
         "description": "Policy Capstone Seminar (3 credits) — taken in the final semester; students produce a policy analysis memo or report",
-        "courses": ["PPOL509"]
+        "courses": [
+          "PPOL509"
+        ]
       },
       "electives": {
         "description": "Six graduate electives from the approved MPP specialization list (18 credits); at least three must be from the chosen policy track",
         "count": 6,
         "options": [
-          "PPOL507", "PPOL508",
-          "PPOL510", "PPOL511", "PPOL512", "PPOL513", "PPOL514",
-          "PADM501", "PADM502", "PADM508", "PADM509",
-          "CRP501", "CRP504", "CRP521", "CRP524",
-          "PUBH504", "PUBH509", "PUBH513"
+          "PPOL507",
+          "PPOL508",
+          "PPOL510",
+          "PPOL511",
+          "PPOL512",
+          "PPOL513",
+          "PPOL514",
+          "PADM501",
+          "PADM502",
+          "PADM508",
+          "PADM509",
+          "CRP501",
+          "CRP504",
+          "CRP521",
+          "CRP524",
+          "PUBH504",
+          "PUBH509",
+          "PUBH513"
         ],
         "any_from_catalog": false
       },
       "policy_tracks": {
         "description": "Students select one policy track (at least 3 electives must come from track list)",
         "options": {
-          "education_policy": ["PPOL511", "PADM504", "PPOL508"],
-          "health_policy": ["PPOL510", "PUBH504", "PUBH509", "PUBH513"],
-          "environmental_policy": ["PPOL512", "CRP523", "CRP504"],
-          "urban_housing_policy": ["PPOL513", "CRP521", "CRP501", "CRP524"],
-          "social_policy": ["PPOL514", "PADM508", "PUBH509"]
+          "education_policy": [
+            "PPOL511",
+            "PADM504",
+            "PPOL508"
+          ],
+          "health_policy": [
+            "PPOL510",
+            "PUBH504",
+            "PUBH509",
+            "PUBH513"
+          ],
+          "environmental_policy": [
+            "PPOL512",
+            "CRP523",
+            "CRP504"
+          ],
+          "urban_housing_policy": [
+            "PPOL513",
+            "CRP521",
+            "CRP501",
+            "CRP524"
+          ],
+          "social_policy": [
+            "PPOL514",
+            "PADM508",
+            "PUBH509"
+          ]
         }
       },
       "constraints": [
@@ -945,9 +1117,10 @@
         "MPP/MPA — complete both degrees in three years (63 credits combined)",
         "JD/MPP — offered jointly with Rutgers Law School"
       ],
-      "notes": ["Source: https://bloustein.rutgers.edu/graduate/mpp/"]
+      "notes": [
+        "Source: https://bloustein.rutgers.edu/graduate/mpp/"
+      ]
     },
-
     "phd_planning_public_policy": {
       "school": "SPPP",
       "degree_level": "doctorate",
@@ -958,15 +1131,32 @@
       "description": "The PhD in Planning and Public Policy is the research degree of the Bloustein School, preparing scholars and researchers for academic and senior policy positions. Students develop deep expertise in a substantive policy area and in quantitative and qualitative research methods. Specialization areas include: urban planning, transportation policy, housing and community development, environmental policy, health policy, and public management.",
       "required_proseminars": {
         "description": "Three required doctoral proseminars establishing theoretical and methodological foundations (9 credits)",
-        "courses": ["CRP700", "CRP701", "CRP702"]
+        "courses": [
+          "CRP700",
+          "CRP701",
+          "CRP702"
+        ]
       },
       "research_methods": {
         "description": "Three graduate research methods courses — at least one quantitative and one qualitative (9 credits); may include approved courses from PPOL or other departments",
         "min_quantitative": 1,
         "min_qualitative": 1,
-        "quantitative_options": ["CRP502", "PPOL501", "PPOL502", "PADM503", "PUBH502"],
-        "qualitative_options": ["CRP503", "PPOL505", "PADM509"],
-        "additional_methods_options": ["CRP506", "PUBH513"]
+        "quantitative_options": [
+          "CRP502",
+          "PPOL501",
+          "PPOL502",
+          "PADM503",
+          "PUBH502"
+        ],
+        "qualitative_options": [
+          "CRP503",
+          "PPOL505",
+          "PADM509"
+        ],
+        "additional_methods_options": [
+          "CRP506",
+          "PUBH513"
+        ]
       },
       "specialization_coursework": {
         "description": "Ten courses in the chosen specialization area, selected in consultation with the dissertation advisor (30 credits); courses drawn from 500- and 700-level Bloustein offerings",
@@ -982,8 +1172,12 @@
       "dissertation": {
         "description": "Doctoral dissertation (24 credits); defended before a faculty committee after passing the qualifying examination",
         "credits": 24,
-        "courses": ["CRP799"],
-        "notes": ["CRP799 is registered as a 3-credit course; students enroll in 8 sections to accumulate 24 dissertation credits."]
+        "courses": [
+          "CRP799"
+        ],
+        "notes": [
+          "CRP799 is registered as a 3-credit course; students enroll in 8 sections to accumulate 24 dissertation credits."
+        ]
       },
       "qualifying_examination": {
         "description": "Students must pass a written qualifying examination in their specialization area and research methods before advancing to candidacy; typically taken after completing all coursework.",

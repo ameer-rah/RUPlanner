@@ -3489,6 +3489,36 @@
     ]
   },
   {
+    "code": "POLS292",
+    "title": "Theory and Practice of Critical Intelligence Studies",
+    "credits": 3,
+    "prerequisites": []
+  },
+  {
+    "code": "POLS483",
+    "title": "Intelligence Analysis and National Security",
+    "credits": 3,
+    "prerequisites": [
+      "POLS292"
+    ]
+  },
+  {
+    "code": "POLS484",
+    "title": "Cyber Intelligence and Security",
+    "credits": 3,
+    "prerequisites": [
+      "POLS292"
+    ]
+  },
+  {
+    "code": "POLS485",
+    "title": "Intelligence Ethics and Law",
+    "credits": 3,
+    "prerequisites": [
+      "POLS292"
+    ]
+  },
+  {
     "code": "PSYC101",
     "title": "General Psychology",
     "credits": 3,

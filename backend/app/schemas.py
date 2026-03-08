@@ -25,7 +25,7 @@ class PlannedCourse(BaseModel):
     title: str
     credits: int
     is_elective: bool = False
-    elective_options: List[str] = []  # full pool the student can swap from
+    elective_options: List[str] = []
 
 
 class TermPlan(BaseModel):
@@ -38,7 +38,7 @@ class PlanResponse(BaseModel):
     terms: List[TermPlan]
     remaining_courses: List[str]
     warnings: List[str]
-    completion_term: Optional[str] = None  # last term with courses when finished before graduation
+    completion_term: Optional[str] = None
 
 
 class ProgramInfo(BaseModel):

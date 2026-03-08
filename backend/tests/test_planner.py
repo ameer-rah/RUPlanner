@@ -1,10 +1,3 @@
-"""
-Unit tests for backend/app/core/planner.py
-
-Run from the backend directory:
-    .venv/bin/python -m pytest tests/test_planner.py -v
-"""
-
 import pytest
 from app.core.planner import (
     _term_index,
@@ -13,14 +6,11 @@ from app.core.planner import (
     _select_electives,
     _get_course_level,
     _resolve_science_courses,
+    _collect_missing_prereqs,
     heuristic_plan,
 )
 from app.schemas import PlanRequest
 
-
-# ---------------------------------------------------------------------------
-# _term_index & terms_between
-# ---------------------------------------------------------------------------
 
 class TestTermIndex:
     def test_spring_before_summer(self):
@@ -50,7 +40,6 @@ class TestTermsBetween:
         assert len(result) == 4
 
     def test_reversed_returns_empty(self):
-        # start > end → terms_between should return an empty list
         result = terms_between("Spring 2028", "Spring 2026")
         assert result == []
 
@@ -59,10 +48,6 @@ class TestTermsBetween:
         assert result[0] == "Fall 2025"
         assert result[-1] == "Spring 2027"
 
-
-# ---------------------------------------------------------------------------
-# _get_course_level
-# ---------------------------------------------------------------------------
 
 class TestGetCourseLevel:
     def test_100_level(self):
@@ -80,10 +65,6 @@ class TestGetCourseLevel:
     def test_no_digits(self):
         assert _get_course_level("ABC") == 0
 
-
-# ---------------------------------------------------------------------------
-# _select_electives
-# ---------------------------------------------------------------------------
 
 class TestSelectElectives:
     def _opts(self):
@@ -122,7 +103,7 @@ class TestSelectElectives:
         assert "CS210" not in chosen
 
     def test_warns_when_not_enough_300_plus(self):
-        opts = ["CS111", "CS112"]  # both 100-level
+        opts = ["CS111", "CS112"]
         _, warnings = _select_electives(
             opts, elective_count=2, min_level_300_plus=2,
             required=[], completed=set()
@@ -136,10 +117,6 @@ class TestSelectElectives:
         )
         assert chosen == []
 
-
-# ---------------------------------------------------------------------------
-# _merge_requirements
-# ---------------------------------------------------------------------------
 
 class TestMergeRequirements:
     def _cs_bs(self):
@@ -171,16 +148,15 @@ class TestMergeRequirements:
         req = merged["required_courses"]
         assert "CS111" in req
         assert "MATH152" in req
-        # MATH151 appears in both — should only appear once
         assert req.count("MATH151") == 1
 
     def test_elective_count_is_summed(self):
         merged = _merge_requirements([self._cs_bs(), self._math_minor()])
-        assert merged["electives"]["count"] == 9  # 5 + 4
+        assert merged["electives"]["count"] == 9
 
     def test_min_300_is_summed(self):
         merged = _merge_requirements([self._cs_bs(), self._math_minor()])
-        assert merged["electives"]["min_level_300_plus"] == 4  # 2 + 2
+        assert merged["electives"]["min_level_300_plus"] == 4
 
     def test_elective_options_union(self):
         merged = _merge_requirements([self._cs_bs(), self._math_minor()])
@@ -189,13 +165,11 @@ class TestMergeRequirements:
         assert "MATH300" in opts
 
     def test_single_program_passthrough(self):
-        """With one program, merging is a no-op (still returns correct counts)."""
         merged = _merge_requirements([self._cs_bs()])
         assert merged["electives"]["count"] == 5
         assert merged["electives"]["min_level_300_plus"] == 2
 
     def test_dual_major_no_duplicate_options(self):
-        """If the same elective appears in both pools it should only be listed once."""
         p1 = {
             "school": "SAS",
             "required_courses": ["CS111"],
@@ -210,10 +184,6 @@ class TestMergeRequirements:
         opts = merged["electives"]["options"]
         assert opts.count("CS314") == 1
 
-
-# ---------------------------------------------------------------------------
-# _resolve_science_courses
-# ---------------------------------------------------------------------------
 
 class TestResolveScienceCourses:
     def _req(self):
@@ -250,9 +220,50 @@ class TestResolveScienceCourses:
         assert _resolve_science_courses({}, set()) == []
 
 
-# ---------------------------------------------------------------------------
-# heuristic_plan — integration tests using real DB data
-# ---------------------------------------------------------------------------
+class TestCollectMissingPrereqs:
+    def _catalog(self):
+        return {
+            "A100": {"prerequisites": []},
+            "B200": {"prerequisites": ["A100"]},
+            "C300": {"prerequisites": ["B200"]},
+            "D400": {"prerequisites": ["C300"]},
+        }
+
+    def test_adds_direct_prereq(self):
+        required = ["B200"]
+        _collect_missing_prereqs(required, self._catalog(), set(), required)
+        assert "A100" in required
+
+    def test_adds_transitive_prereqs(self):
+        required = ["D400"]
+        _collect_missing_prereqs(required, self._catalog(), set(), required)
+        assert "C300" in required
+        assert "B200" in required
+        assert "A100" in required
+
+    def test_skips_completed(self):
+        required = ["C300"]
+        _collect_missing_prereqs(required, self._catalog(), {"B200"}, required)
+        assert "B200" not in required
+        assert "A100" not in required
+
+    def test_no_duplicates(self):
+        required = ["B200", "C300"]
+        _collect_missing_prereqs(required, self._catalog(), set(), required)
+        assert required.count("A100") == 1
+        assert required.count("B200") == 1
+
+    def test_skips_codes_not_in_catalog(self):
+        catalog = {"X300": {"prerequisites": ["MISSING999"]}}
+        required = ["X300"]
+        _collect_missing_prereqs(required, catalog, set(), required)
+        assert "MISSING999" not in required
+
+    def test_no_prereqs_no_change(self):
+        required = ["A100"]
+        _collect_missing_prereqs(required, self._catalog(), set(), required)
+        assert required == ["A100"]
+
 
 def _plan(majors, minors=None, completed=None, seasons=None, grad="Spring 2028", max_cr=15):
     return heuristic_plan(PlanRequest(
@@ -267,7 +278,6 @@ def _plan(majors, minors=None, completed=None, seasons=None, grad="Spring 2028",
 
 
 class TestHeuristicPlan:
-    # --- basic smoke ---
     def test_cs_bs_produces_terms(self):
         resp = _plan(["Computer Science (BS, SAS)"])
         assert len(resp.terms) > 0
@@ -276,7 +286,6 @@ class TestHeuristicPlan:
         resp = _plan(["Computer Science (BS, SAS)"], grad="Spring 2030", max_cr=18)
         assert resp.remaining_courses == []
 
-    # --- completed courses ---
     def test_completed_courses_not_rescheduled(self):
         resp = _plan(
             ["Computer Science (BS, SAS)"],
@@ -288,7 +297,6 @@ class TestHeuristicPlan:
         assert "MATH151" not in all_codes
 
     def test_completed_elective_reduces_quota(self):
-        # Complete two electives; the plan should schedule 3 remaining (5-2=3)
         resp = _plan(
             ["Computer Science (BS, SAS)"],
             completed=["CS210", "CS314"],
@@ -296,7 +304,6 @@ class TestHeuristicPlan:
         elective_codes = [c.code for t in resp.terms for c in t.courses if c.is_elective]
         assert len(elective_codes) == 3
 
-    # --- credit limits ---
     def test_credit_limit_respected(self):
         resp = _plan(["Computer Science (BS, SAS)"], max_cr=12)
         for term in resp.terms:
@@ -307,36 +314,28 @@ class TestHeuristicPlan:
         for term in resp.terms:
             assert term.total_credits <= 6
 
-    # --- prerequisite ordering ---
     def test_prereqs_satisfied_before_course(self):
         resp = _plan(["Computer Science (BS, SAS)"])
         scheduled_order: dict = {}
         for term in resp.terms:
             for course in term.courses:
                 scheduled_order[course.code] = term.term
-        # CS211 requires CS112; CS112 must appear before CS211
         if "CS112" in scheduled_order and "CS211" in scheduled_order:
             assert _term_index(scheduled_order["CS112"]) < _term_index(scheduled_order["CS211"])
-        # CS213 requires CS112+CS205
         if "CS205" in scheduled_order and "CS213" in scheduled_order:
             assert _term_index(scheduled_order["CS205"]) <= _term_index(scheduled_order["CS213"])
 
-    # --- dual major ---
     def test_dual_major_includes_both_required_courses(self):
         resp = _plan(["Computer Science (BS, SAS)", "Mathematics (BS, SAS)"])
         all_codes = {c.code for t in resp.terms for c in t.courses}
-        # Math BS adds MATH251, MATH300, MATH311, MATH351
         math_bs_only = {"MATH251", "MATH300", "MATH311", "MATH351"}
         assert math_bs_only.issubset(all_codes | {"MATH251", "MATH300", "MATH311", "MATH351"})
-        # CS courses also present
-        assert "CS111" in all_codes or "CS111" in []  # may be in completed
+        assert "CS111" in all_codes or "CS111" in []
 
     def test_dual_major_elective_count_is_correct(self):
         resp = _plan(["Computer Science (BS, SAS)", "Mathematics (BS, SAS)"], grad="Spring 2030", max_cr=18)
-        # No courses should be left unscheduled
         assert resp.remaining_courses == []
 
-    # --- minor ---
     def test_minor_courses_included(self):
         resp = _plan(
             ["Computer Science (BS, SAS)"],
@@ -346,11 +345,8 @@ class TestHeuristicPlan:
         )
         all_codes = {c.code for t in resp.terms for c in t.courses}
         elective_codes = {c.code for t in resp.terms for c in t.courses if c.is_elective}
-        # Math minor requires 4 electives from its pool; CS needs 5
-        # Together 9 electives should be scheduled
         assert len(elective_codes) == 9
 
-    # --- season filtering ---
     def test_spring_only_no_summer_or_fall(self):
         resp = _plan(["Computer Science (BS, SAS)"], seasons=["Spring"], grad="Spring 2030")
         for t in resp.terms:
@@ -359,7 +355,6 @@ class TestHeuristicPlan:
     def test_all_seasons_allowed(self):
         resp = _plan(["Computer Science (BS, SAS)"], seasons=["Spring", "Summer", "Fall"])
         seasons_used = {t.term.split()[0] for t in resp.terms}
-        # With all seasons available there should be no remaining courses by 2030
         resp2 = _plan(
             ["Computer Science (BS, SAS)"],
             seasons=["Spring", "Summer", "Fall"],
@@ -368,7 +363,6 @@ class TestHeuristicPlan:
         )
         assert resp2.remaining_courses == []
 
-    # --- graduation term in the past ---
     def test_past_grad_term_returns_warning(self):
         resp = heuristic_plan(PlanRequest(
             degree_level="bachelor",
@@ -382,22 +376,27 @@ class TestHeuristicPlan:
         assert len(resp.warnings) > 0
         assert resp.terms == []
 
-    # --- completion_term reported correctly ---
+    def test_finance_bsba_elective_prereqs_scheduled(self):
+        resp = _plan(["Finance (BSBA, RBS)"], grad="Spring 2030", max_cr=20)
+        all_codes = {c.code for t in resp.terms for c in t.courses}
+        if "ACCT472" in all_codes:
+            assert "ACCT326" in all_codes, "ACCT326 (prereq of ACCT472) should be scheduled"
+            assert "ACCT325" in all_codes, "ACCT325 (prereq of ACCT326) should be scheduled"
+        assert resp.remaining_courses == [], f"Unscheduled: {resp.remaining_courses}"
+
     def test_completion_term_when_early_finish(self):
-        # With almost all CS courses completed, the plan should finish early.
         mostly_done = [
             "CS111", "CS112", "CS205", "CS206", "CS211", "CS213", "CS214",
             "MATH151", "MATH152", "MATH250",
             "PHYS203", "PHYS205", "PHYS204", "PHYS206",
             "STAT291",
-            "CS210", "CS314", "CS323", "CS324", "CS334",  # electives
+            "CS210", "CS314", "CS323", "CS324", "CS334",
         ]
         resp = _plan(
             ["Computer Science (BS, SAS)"],
             completed=mostly_done,
             grad="Spring 2030",
         )
-        # CS344 still needed — should complete well before 2030
         if not resp.remaining_courses:
             assert resp.completion_term is not None
             assert resp.completion_term != "Spring 2030"

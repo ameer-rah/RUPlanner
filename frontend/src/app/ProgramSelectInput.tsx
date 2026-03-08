@@ -44,14 +44,12 @@ export default function ProgramSelectInput({ programs, value, onChange, placehol
         p.display_name.toLowerCase().includes(query.toLowerCase()))
   );
 
-  // Group by school, preserving insertion order
   const grouped: Record<string, ProgramInfo[]> = {};
   for (const p of filtered) {
     if (!grouped[p.school]) grouped[p.school] = [];
     grouped[p.school].push(p);
   }
 
-  // Flat list for keyboard navigation
   const flatFiltered = filtered;
 
   function select(displayName: string) {
