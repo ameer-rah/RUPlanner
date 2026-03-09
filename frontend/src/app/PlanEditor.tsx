@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useMemo, useEffect } from "react";
+import { getRegistrarCode, getCoursiclUrl } from "./registrar";
 
 export type ElectiveOption = {
   code: string;
@@ -340,7 +341,16 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                   >
                     <div className="plan-course-header">
                       <span className="drag-handle" title="Drag to move">⠿</span>
-                      <span className="plan-course-code">{course.code}</span>
+                      <a
+                        className="plan-course-code"
+                        href={getCoursiclUrl(course.code) ?? undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        title={getRegistrarCode(course.code) ?? course.code}
+                      >
+                        {course.code}
+                      </a>
                       {course.is_elective && (
                         <span className="elective-badge">ELECTIVE</span>
                       )}

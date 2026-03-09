@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback, KeyboardEvent } from "react";
+import { registrarToShortCode } from "./registrar";
 
 type CourseSearchResult = {
   code: string;
@@ -69,7 +70,9 @@ export default function CompletedCoursesInput({ value, onChange }: Props) {
   }, [inputValue, fetchSuggestions]);
 
   function addCode(code: string) {
-    const upper = code.trim().toUpperCase();
+    const raw = code.trim().toUpperCase();
+    // If the user typed a registrar code like "01:198:111", convert it to "CS111"
+    const upper = registrarToShortCode(raw) ?? raw;
     if (!upper || value.includes(upper)) {
       setInputValue("");
       setSuggestions([]);

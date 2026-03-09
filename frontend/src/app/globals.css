@@ -658,6 +658,13 @@ select:focus {
   font-weight: 700;
   font-size: 13px;
   color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.plan-course-code:hover {
+  text-decoration: underline;
+  color: var(--scarlet);
 }
 
 .elective-badge {
