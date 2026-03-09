@@ -21,9 +21,17 @@ class PlanRequest(BaseModel):
     target_grad_term: str = Field(..., description="e.g., Spring 2028")
     start_term: Optional[str] = Field(None, description="First term to schedule; defaults to current term if omitted")
     max_credits_per_term: int = 15
+    summer_max_credits: int = Field(
+        default=12,
+        description="Maximum total credits allowed in any Summer term (SAS policy: no more than 12 credits).",
+    )
+    winter_max_credits: int = Field(
+        default=4,
+        description="Maximum credits allowed in any Winter term (SAS policy: max 4 credits for one course, or two 1–1.5 credit courses up to 3 credits).",
+    )
     preferred_seasons: List[str] = Field(
         default=["Spring", "Fall"],
-        description="Seasons in which the student wants to enroll (Spring, Summer, Fall). Defaults to Spring and Fall.",
+        description="Seasons in which the student wants to enroll (Spring, Summer, Fall, Winter). Defaults to Spring and Fall.",
     )
 
 

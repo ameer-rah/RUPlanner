@@ -34,15 +34,18 @@ function getTermClass(term: string) {
   if (term.includes("Fall")) return "plan-term term-fall";
   if (term.includes("Spring")) return "plan-term term-spring";
   if (term.includes("Summer")) return "plan-term term-summer";
+  if (term.includes("Winter")) return "plan-term term-winter";
   return "plan-term";
 }
 
 function getTermPillStyle(term: string): React.CSSProperties {
   if (term.includes("Fall"))
-    return { background: "#422006", color: "#fbbf24", border: "1px solid #d97706" };
+    return { background: "#fffbeb", color: "#92400e", border: "1px solid #fcd34d" };
   if (term.includes("Spring"))
-    return { background: "#1e1b4b", color: "#93c5fd", border: "1px solid #2563eb" };
-  return { background: "#022c22", color: "#6ee7b7", border: "1px solid #059669" };
+    return { background: "#eff6ff", color: "#1e3a8a", border: "1px solid #93c5fd" };
+  if (term.includes("Summer"))
+    return { background: "#ecfdf5", color: "#065f46", border: "1px solid #6ee7b7" };
+  return { background: "#f5f3ff", color: "#4c1d95", border: "1px solid #c4b5fd" };
 }
 
 function totalCredits(terms: PlanTerm[]) {

@@ -1,7 +1,6 @@
 {
   "catalog_year": "2025-2026",
   "programs": {
-
     "human_resource_management_ba": {
       "school": "SMLR",
       "degree_level": "bachelor_ba",
@@ -9,10 +8,16 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "HRM301",
-        "HRM311", "HRM312", "HRM313",
-        "HRM315", "HRM317", "HRM318",
+        "HRM311",
+        "HRM312",
+        "HRM313",
+        "HRM315",
+        "HRM317",
+        "HRM318",
         "HRM360",
-        "LSER345", "LSER364", "LSER376",
+        "LSER345",
+        "LSER364",
+        "LSER376",
         "LER315"
       ],
       "electives": {
@@ -20,11 +25,33 @@
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "HRM351", "HRM352", "HRM353", "HRM354", "HRM355", "HRM440",
-          "LER312", "LER314", "LER316", "LER318", "LER319",
-          "LER325", "LER326", "LER338", "LER350", "LER360",
-          "LER363", "LER367", "LER368", "LER375", "LER377", "LER385",
-          "LER401", "LER402", "LER403", "LER404", "LER450"
+          "HRM351",
+          "HRM352",
+          "HRM353",
+          "HRM354",
+          "HRM355",
+          "HRM440",
+          "LER312",
+          "LER314",
+          "LER316",
+          "LER318",
+          "LER319",
+          "LER325",
+          "LER326",
+          "LER338",
+          "LER350",
+          "LER360",
+          "LER363",
+          "LER367",
+          "LER368",
+          "LER375",
+          "LER377",
+          "LER385",
+          "LER401",
+          "LER402",
+          "LER403",
+          "LER404",
+          "LER450"
         ],
         "any_from_catalog": false
       },
@@ -32,9 +59,20 @@
         "description": "Three courses from related disciplines: Psychology, Economics, or Sociology",
         "count": 3,
         "options": [
-          "PSYC221", "PSYC321", "PSYC331", "PSYC336", "PSYC338",
-          "ECON102", "ECON103", "ECON220", "ECON322", "ECON362",
-          "SOC201", "SOC308", "SOC320", "SOC380"
+          "PSYC221",
+          "PSYC321",
+          "PSYC331",
+          "PSYC336",
+          "PSYC338",
+          "ECON102",
+          "ECON103",
+          "ECON220",
+          "ECON322",
+          "ECON362",
+          "SOC201",
+          "SOC308",
+          "SOC320",
+          "SOC380"
         ]
       },
       "constraints": [
@@ -50,7 +88,6 @@
         "Internship opportunities available via HRM496/497 (not required but recommended)."
       ]
     },
-
     "labor_studies_employment_relations_ba": {
       "school": "SMLR",
       "degree_level": "bachelor_ba",
@@ -61,17 +98,32 @@
       ],
       "intro_requirement": {
         "description": "One introductory course (choose one)",
-        "options": ["LER100", "LER110"]
+        "options": [
+          "LER100",
+          "LER110"
+        ]
       },
       "capstone_requirement": {
         "description": "One capstone or internship course (choose one)",
-        "options": ["LER490", "LER496", "LER497", "LER450"]
+        "options": [
+          "LER490",
+          "LER496",
+          "LER497",
+          "LER450"
+        ]
       },
       "research_requirement": {
         "description": "One research methods or statistics course",
         "options": [
           "LER401",
-          "SOC311", "PSYC200", "POLS300", "GEOG319", "ECON322", "STAT211", "STAT212", "STAT285"
+          "SOC311",
+          "PSYC200",
+          "POLS300",
+          "GEOG319",
+          "ECON322",
+          "STAT211",
+          "STAT212",
+          "STAT285"
         ]
       },
       "electives": {
@@ -79,21 +131,81 @@
         "count": 9,
         "min_level_200_plus": 9,
         "options": [
-          "LER201", "LER202", "LER203", "LER207",
-          "LER215", "LER220", "LER230", "LER240", "LER250", "LER265",
-          "LER294", "LER295", "LER297", "LER298",
-          "LER300", "LER301", "LER302", "LER303", "LER304",
-          "LER307", "LER308", "LER309", "LER310", "LER311",
-          "LER312", "LER313", "LER314", "LER315", "LER316",
-          "LER317", "LER318", "LER319", "LER320", "LER321",
-          "LER322", "LER325", "LER326", "LER330", "LER335",
-          "LER336", "LER337", "LER338", "LER340", "LER350",
-          "LER355", "LER357", "LER359", "LER360", "LER361",
-          "LER362", "LER363", "LER366", "LER367", "LER368",
-          "LER375", "LER377", "LER378", "LER385",
-          "LER401", "LER402", "LER403", "LER404", "LER407", "LER450", "LER470",
-          "LSER345", "LSER364", "LSER376",
-          "HRM301", "HRM311", "HRM312", "HRM313", "HRM315", "HRM317", "HRM318"
+          "LER201",
+          "LER202",
+          "LER203",
+          "LER207",
+          "LER215",
+          "LER220",
+          "LER230",
+          "LER240",
+          "LER250",
+          "LER265",
+          "LER294",
+          "LER295",
+          "LER297",
+          "LER298",
+          "LER300",
+          "LER301",
+          "LER302",
+          "LER303",
+          "LER304",
+          "LER307",
+          "LER308",
+          "LER309",
+          "LER310",
+          "LER311",
+          "LER312",
+          "LER313",
+          "LER314",
+          "LER315",
+          "LER316",
+          "LER317",
+          "LER318",
+          "LER319",
+          "LER320",
+          "LER321",
+          "LER322",
+          "LER325",
+          "LER326",
+          "LER330",
+          "LER335",
+          "LER336",
+          "LER337",
+          "LER338",
+          "LER340",
+          "LER350",
+          "LER355",
+          "LER357",
+          "LER359",
+          "LER360",
+          "LER361",
+          "LER362",
+          "LER363",
+          "LER366",
+          "LER367",
+          "LER368",
+          "LER375",
+          "LER377",
+          "LER378",
+          "LER385",
+          "LER401",
+          "LER402",
+          "LER403",
+          "LER404",
+          "LER407",
+          "LER450",
+          "LER470",
+          "LSER345",
+          "LSER364",
+          "LSER376",
+          "HRM301",
+          "HRM311",
+          "HRM312",
+          "HRM313",
+          "HRM315",
+          "HRM317",
+          "HRM318"
         ],
         "any_from_catalog": false
       },
@@ -111,7 +223,6 @@
         "Conditional admission via SAS major/minor sign-up portal."
       ]
     },
-
     "labor_employment_relations_bs": {
       "school": "SMLR",
       "degree_level": "bachelor_bs",
@@ -123,17 +234,32 @@
       ],
       "intro_requirement": {
         "description": "One introductory course (choose one)",
-        "options": ["LER100", "LER110"]
+        "options": [
+          "LER100",
+          "LER110"
+        ]
       },
       "capstone_requirement": {
         "description": "One capstone or internship course (choose one)",
-        "options": ["LER490", "LER496", "LER497", "LER450"]
+        "options": [
+          "LER490",
+          "LER496",
+          "LER497",
+          "LER450"
+        ]
       },
       "research_requirement": {
         "description": "One research methods or statistics course",
         "options": [
           "LER401",
-          "SOC311", "PSYC200", "POLS300", "GEOG319", "ECON322", "STAT211", "STAT212", "STAT285"
+          "SOC311",
+          "PSYC200",
+          "POLS300",
+          "GEOG319",
+          "ECON322",
+          "STAT211",
+          "STAT212",
+          "STAT285"
         ]
       },
       "electives": {
@@ -141,20 +267,71 @@
         "count": 8,
         "min_level_200_plus": 8,
         "options": [
-          "LER201", "LER202", "LER203", "LER207",
-          "LER215", "LER220", "LER230", "LER240", "LER250", "LER265",
-          "LER294", "LER295", "LER297", "LER298",
-          "LER300", "LER301", "LER302", "LER303", "LER304",
-          "LER307", "LER308", "LER309", "LER310", "LER311",
-          "LER312", "LER313", "LER314", "LER316",
-          "LER317", "LER318", "LER319", "LER320", "LER321",
-          "LER322", "LER325", "LER326", "LER330", "LER335",
-          "LER336", "LER337", "LER338", "LER340", "LER350",
-          "LER355", "LER357", "LER359", "LER360", "LER361",
-          "LER362", "LER363", "LER366", "LER367", "LER368",
-          "LER375", "LER377", "LER378", "LER385",
-          "LER402", "LER403", "LER404", "LER407", "LER470",
-          "LSER345", "LSER364", "LSER376"
+          "LER201",
+          "LER202",
+          "LER203",
+          "LER207",
+          "LER215",
+          "LER220",
+          "LER230",
+          "LER240",
+          "LER250",
+          "LER265",
+          "LER294",
+          "LER295",
+          "LER297",
+          "LER298",
+          "LER300",
+          "LER301",
+          "LER302",
+          "LER303",
+          "LER304",
+          "LER307",
+          "LER308",
+          "LER309",
+          "LER310",
+          "LER311",
+          "LER312",
+          "LER313",
+          "LER314",
+          "LER316",
+          "LER317",
+          "LER318",
+          "LER319",
+          "LER320",
+          "LER321",
+          "LER322",
+          "LER325",
+          "LER326",
+          "LER330",
+          "LER335",
+          "LER336",
+          "LER337",
+          "LER338",
+          "LER340",
+          "LER350",
+          "LER355",
+          "LER357",
+          "LER359",
+          "LER360",
+          "LER361",
+          "LER362",
+          "LER363",
+          "LER366",
+          "LER367",
+          "LER368",
+          "LER375",
+          "LER377",
+          "LER378",
+          "LER385",
+          "LER402",
+          "LER403",
+          "LER404",
+          "LER407",
+          "LER470",
+          "LSER345",
+          "LSER364",
+          "LSER376"
         ],
         "any_from_catalog": false
       },
@@ -171,7 +348,6 @@
         "Advisors: Anuja Rivera (anujab@smlr.rutgers.edu) or Bill Bailey (william.bailey@rutgers.edu)."
       ]
     },
-
     "mler_master": {
       "school": "SMLR",
       "degree_level": "master",
@@ -181,39 +357,66 @@
       "description": "The MLER prepares thoughtful professionals, informed leaders, and researchers in labor and employment relations. Delivery ranges from entirely in-person to entirely online. Students complete 13 courses (39 credits) across required core, six competency areas, and free electives.",
       "required_core": {
         "description": "Two required courses taken by all students (6 credits)",
-        "courses": ["MLER500", "MLER560"]
+        "courses": [
+          "MLER500",
+          "MLER560"
+        ]
       },
       "competency_areas": {
         "description": "One course from each of six competency areas (18 credits total)",
         "law": {
-          "description": "Law — choose one (3 credits)",
+          "description": "Law \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER550", "MHRM566", "MLER521"]
+          "options": [
+            "MLER550",
+            "MHRM566",
+            "MLER521"
+          ]
         },
         "workforce_diversity": {
-          "description": "Workforce Diversity — choose one (3 credits)",
+          "description": "Workforce Diversity \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER541", "MLER551", "MLER526", "MLER510"]
+          "options": [
+            "MLER541",
+            "MLER551",
+            "MLER526",
+            "MLER510"
+          ]
         },
         "institutional_variety": {
-          "description": "Institutional Variety — choose one (3 credits)",
+          "description": "Institutional Variety \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER562", "MLER530", "MLER612"]
+          "options": [
+            "MLER562",
+            "MLER530",
+            "MLER612"
+          ]
         },
         "economic_policy": {
-          "description": "Economic Policy — choose one (3 credits)",
+          "description": "Economic Policy \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER527", "MHRM565"]
+          "options": [
+            "MLER527",
+            "MHRM565"
+          ]
         },
         "finance": {
-          "description": "Finance — choose one (3 credits)",
+          "description": "Finance \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER538", "MHRM540"]
+          "options": [
+            "MLER538",
+            "MHRM540"
+          ]
         },
         "research_methods": {
-          "description": "Research Methods — choose one (3 credits)",
+          "description": "Research Methods \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER501", "MLER503", "MHRM542", "MLER604"]
+          "options": [
+            "MLER501",
+            "MLER503",
+            "MHRM542",
+            "MLER604"
+          ]
         }
       },
       "electives": {
@@ -221,52 +424,123 @@
         "count": 5,
         "min_mler_credits": 6,
         "options": [
-          "MLER502", "MLER504", "MLER505", "MLER506", "MLER507",
-          "MLER508", "MLER509", "MLER511", "MLER512", "MLER513",
-          "MLER515", "MLER516", "MLER520", "MLER525", "MLER526",
-          "MLER528", "MLER530", "MLER535", "MLER541", "MLER543",
-          "MLER544", "MLER550", "MLER551", "MLER555", "MLER556",
-          "MLER557", "MLER558", "MLER559", "MLER562", "MLER563",
-          "MLER565", "MLER566", "MLER567", "MLER569", "MLER570",
-          "MLER575", "MLER581", "MLER603", "MLER604", "MLER612",
-          "MLER690", "MLER694", "MLER695",
-          "MHRM533", "MHRM540", "MHRM542", "MHRM550", "MHRM551",
-          "MHRM552", "MHRM553", "MHRM554", "MHRM555", "MHRM556",
-          "MHRM565", "MHRM566", "MHRM635", "MHRM665"
+          "MLER502",
+          "MLER504",
+          "MLER505",
+          "MLER506",
+          "MLER507",
+          "MLER508",
+          "MLER509",
+          "MLER511",
+          "MLER512",
+          "MLER513",
+          "MLER515",
+          "MLER516",
+          "MLER520",
+          "MLER525",
+          "MLER526",
+          "MLER528",
+          "MLER530",
+          "MLER535",
+          "MLER541",
+          "MLER543",
+          "MLER544",
+          "MLER550",
+          "MLER551",
+          "MLER555",
+          "MLER556",
+          "MLER557",
+          "MLER558",
+          "MLER559",
+          "MLER562",
+          "MLER563",
+          "MLER565",
+          "MLER566",
+          "MLER567",
+          "MLER569",
+          "MLER570",
+          "MLER575",
+          "MLER581",
+          "MLER603",
+          "MLER604",
+          "MLER612",
+          "MLER690",
+          "MLER694",
+          "MLER695",
+          "MHRM533",
+          "MHRM540",
+          "MHRM542",
+          "MHRM550",
+          "MHRM551",
+          "MHRM552",
+          "MHRM553",
+          "MHRM554",
+          "MHRM555",
+          "MHRM556",
+          "MHRM565",
+          "MHRM566",
+          "MHRM635",
+          "MHRM665"
         ],
         "any_from_catalog": false
       },
       "specializations": {
         "description": "Students may align their five electives around one of four optional specialization tracks",
         "diversity_and_workplace_inclusion": {
-          "description": "Diversity and Workplace Inclusion — Employment Law is required; choose electives from track list",
-          "required_in_competency": ["MHRM566"],
+          "description": "Diversity and Workplace Inclusion \u2014 Employment Law is required; choose electives from track list",
+          "required_in_competency": [
+            "MHRM566"
+          ],
           "recommended_electives": [
-            "MLER510", "MLER526", "MLER541", "MLER551", "MLER511", "MLER516"
+            "MLER510",
+            "MLER526",
+            "MLER541",
+            "MLER551",
+            "MLER511",
+            "MLER516"
           ]
         },
         "organizational_leadership_and_change": {
-          "description": "Organizational Leadership and Change — choose electives from track list",
+          "description": "Organizational Leadership and Change \u2014 choose electives from track list",
           "recommended_electives": [
-            "MLER543", "MLER556", "MLER515", "MLER530", "MLER544", "MLER508"
+            "MLER543",
+            "MLER556",
+            "MLER515",
+            "MLER530",
+            "MLER544",
+            "MLER508"
           ]
         },
         "labor_relations": {
-          "description": "Labor Relations — Collective Bargaining (MLER560) and Financial Analysis (MLER538) are required",
-          "required_in_core_or_competency": ["MLER560", "MLER538"],
+          "description": "Labor Relations \u2014 Collective Bargaining (MLER560) and Financial Analysis (MLER538) are required",
+          "required_in_core_or_competency": [
+            "MLER560",
+            "MLER538"
+          ],
           "recommended_electives": [
-            "MLER550", "MLER525", "MLER515", "MLER505", "MLER569", "MLER563", "MLER565"
+            "MLER550",
+            "MLER525",
+            "MLER515",
+            "MLER505",
+            "MLER569",
+            "MLER563",
+            "MLER565"
           ]
         },
         "labor_and_community_leadership": {
-          "description": "Labor and Community Leadership — choose electives from track list",
+          "description": "Labor and Community Leadership \u2014 choose electives from track list",
           "recommended_electives": [
-            "MLER513", "MLER559", "MLER526", "MLER567", "MLER530", "MLER543"
+            "MLER513",
+            "MLER559",
+            "MLER526",
+            "MLER567",
+            "MLER530",
+            "MLER543"
           ]
         }
       },
       "constraints": [
-        "Total credits: 39 (13 courses × 3 credits each).",
+        "Total credits: 39 (13 courses \u00d7 3 credits each).",
         "MLER500 (Introductory Seminar) must be taken in the first or second semester.",
         "Minimum of 6 elective credits must come from the MLER department (38:578 prefix).",
         "Students interested in employer-side HR may take up to 3 electives from the MHRM program.",
@@ -279,56 +553,91 @@
         "Source: https://smlr.rutgers.edu/academic-programs/graduate-programs/masters-labor-and-employment-relations"
       ]
     },
-
     "mler_master_online": {
       "school": "SMLR",
       "degree_level": "master",
-      "major_name": "Labor and Employment Relations (MLER) — Online Professional",
+      "major_name": "Labor and Employment Relations (MLER) \u2014 Online Professional",
       "catalog_year": "2025-2026",
       "total_credits": 36,
       "description": "100% online MLER designed for working professionals enrolled part-time. Requires 12 courses (36 credits) split across four required foundational courses, four competency-category courses, and four electives.",
       "required_foundational": {
         "description": "Four required foundational courses (12 credits)",
-        "courses": ["MLER500", "MLER560", "MLER527", "MHRM540"]
+        "courses": [
+          "MLER500",
+          "MLER560",
+          "MLER527",
+          "MHRM540"
+        ]
       },
       "competency_categories": {
         "description": "One course from each of four competency categories (12 credits)",
         "law": {
-          "description": "Law — choose one (3 credits)",
+          "description": "Law \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MHRM566", "MLER550", "MLER521"]
+          "options": [
+            "MHRM566",
+            "MLER550",
+            "MLER521"
+          ]
         },
         "workforce_diversity": {
-          "description": "Workforce Diversity — choose one (3 credits)",
+          "description": "Workforce Diversity \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER510", "MLER541"]
+          "options": [
+            "MLER510",
+            "MLER541"
+          ]
         },
         "research_methods": {
-          "description": "Research Methods — choose one (3 credits)",
+          "description": "Research Methods \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER501", "MLER503", "MLER604"]
+          "options": [
+            "MLER501",
+            "MLER503",
+            "MLER604"
+          ]
         },
         "institutional_variety": {
-          "description": "Institutional Variety — choose one (3 credits)",
+          "description": "Institutional Variety \u2014 choose one (3 credits)",
           "count": 1,
-          "options": ["MLER612", "MLER562"]
+          "options": [
+            "MLER612",
+            "MLER562"
+          ]
         }
       },
       "electives": {
         "description": "Four graduate elective courses (12 credits)",
         "count": 4,
         "options": [
-          "MLER504", "MLER505", "MLER508", "MLER511", "MLER513",
-          "MLER515", "MLER525", "MLER526", "MLER530", "MLER543",
-          "MLER544", "MLER551", "MLER555", "MLER556", "MLER559",
-          "MLER562", "MLER565", "MLER567", "MLER569", "MLER603",
-          "MLER612", "MLER694"
+          "MLER504",
+          "MLER505",
+          "MLER508",
+          "MLER511",
+          "MLER513",
+          "MLER515",
+          "MLER525",
+          "MLER526",
+          "MLER530",
+          "MLER543",
+          "MLER544",
+          "MLER551",
+          "MLER555",
+          "MLER556",
+          "MLER559",
+          "MLER562",
+          "MLER565",
+          "MLER567",
+          "MLER569",
+          "MLER603",
+          "MLER612",
+          "MLER694"
         ],
         "any_from_catalog": false
       },
       "constraints": [
-        "Total credits: 36 (12 courses × 3 credits each).",
-        "100% online; no minimum course load per semester — part-time friendly.",
+        "Total credits: 36 (12 courses \u00d7 3 credits each).",
+        "100% online; no minimum course load per semester \u2014 part-time friendly.",
         "Designed for working professionals; no GRE/GMAT required.",
         "Minimum GPA of 3.0 required to remain in good standing."
       ],
@@ -338,7 +647,6 @@
         "Source: https://smlr.rutgers.edu/academic-programs/graduate-programs/online-professional-masters-labor-and-employment-relations-mler"
       ]
     },
-
     "mhrm_master": {
       "school": "SMLR",
       "degree_level": "master",
@@ -349,42 +657,78 @@
       "required_core": {
         "description": "Twelve required core courses (36 credits)",
         "hr_strategy": {
-          "description": "HR Strategy sequence — four courses, taken in order (12 credits)",
-          "courses": ["MHRM580", "MHRM590", "MHRM680", "MHRM690"]
+          "description": "HR Strategy sequence \u2014 four courses, taken in order (12 credits)",
+          "courses": [
+            "MHRM580",
+            "MHRM590",
+            "MHRM680",
+            "MHRM690"
+          ]
         },
         "hr_decision_making": {
-          "description": "HR Decision Making — two courses (6 credits)",
-          "courses": ["MHRM540", "MHRM542"]
+          "description": "HR Decision Making \u2014 two courses (6 credits)",
+          "courses": [
+            "MHRM540",
+            "MHRM542"
+          ]
         },
         "hr_functional": {
-          "description": "HR Functional Areas — three courses (9 credits)",
-          "courses": ["MHRM533", "MHRM634", "MHRM635"]
+          "description": "HR Functional Areas \u2014 three courses (9 credits)",
+          "courses": [
+            "MHRM533",
+            "MHRM634",
+            "MHRM635"
+          ]
         },
         "hr_context": {
-          "description": "HR Context Areas — three courses (9 credits)",
-          "courses": ["MHRM565", "MHRM566", "MHRM665"]
+          "description": "HR Context Areas \u2014 three courses (9 credits)",
+          "courses": [
+            "MHRM565",
+            "MHRM566",
+            "MHRM665"
+          ]
         }
       },
       "electives": {
         "description": "Four elective courses (12 credits); HR Analytics concentration requires MHRM550 and MHRM650",
         "count": 4,
         "options": [
-          "MHRM550", "MHRM650",
-          "MHRM551", "MHRM552", "MHRM553", "MHRM554", "MHRM555", "MHRM556",
-          "MLER505", "MLER510", "MLER515", "MLER520", "MLER525",
-          "MLER526", "MLER538", "MLER543", "MLER544", "MLER550",
-          "MLER551", "MLER556", "MLER567", "MLER569"
+          "MHRM550",
+          "MHRM650",
+          "MHRM551",
+          "MHRM552",
+          "MHRM553",
+          "MHRM554",
+          "MHRM555",
+          "MHRM556",
+          "MLER505",
+          "MLER510",
+          "MLER515",
+          "MLER520",
+          "MLER525",
+          "MLER526",
+          "MLER538",
+          "MLER543",
+          "MLER544",
+          "MLER550",
+          "MLER551",
+          "MLER556",
+          "MLER567",
+          "MLER569"
         ],
         "any_from_catalog": false
       },
       "hr_analytics_concentration": {
         "description": "Optional HR Analytics concentration: complete MHRM550 and MHRM650 as two of the four electives",
         "prerequisite_grade": "Grade of B+ or higher in MHRM542 required before enrolling in MHRM550",
-        "required_electives": ["MHRM550", "MHRM650"]
+        "required_electives": [
+          "MHRM550",
+          "MHRM650"
+        ]
       },
       "constraints": [
         "Total credits: 48 (12 core + 4 electives, all 3 credits each).",
-        "MHRM580 → MHRM590 → MHRM680 → MHRM690 must be completed in sequence.",
+        "MHRM580 \u2192 MHRM590 \u2192 MHRM680 \u2192 MHRM690 must be completed in sequence.",
         "MHRM680 additionally requires MHRM540 as a prerequisite.",
         "MHRM635 requires completion of MHRM542.",
         "MHRM550 (Analytics I) requires grade of B+ or higher in MHRM542.",
@@ -398,31 +742,45 @@
         "Source: https://smlr.rutgers.edu/academic-programs/graduate-programs/masters-human-resource-management-mhrm"
       ]
     },
-
     "mhrm_master_online": {
       "school": "SMLR",
       "degree_level": "master",
-      "major_name": "Human Resource Management (MHRM) — Online Professional",
+      "major_name": "Human Resource Management (MHRM) \u2014 Online Professional",
       "catalog_year": "2025-2026",
       "description": "100% online MHRM for HR professionals and managers/supervisors with 4+ years of experience. Completable in as few as 18 months. Consists of 8 required core HR courses, a capstone, and 3 electives.",
       "required_core": {
         "description": "Eight required core HR courses",
         "courses": [
-          "MHRM580", "MHRM590", "MHRM540", "MHRM542",
-          "MHRM533", "MHRM565", "MHRM566", "MHRM665"
+          "MHRM580",
+          "MHRM590",
+          "MHRM540",
+          "MHRM542",
+          "MHRM533",
+          "MHRM565",
+          "MHRM566",
+          "MHRM665"
         ]
       },
       "capstone": {
         "description": "Required capstone project (counts as one course equivalent)",
-        "notes": ["Capstone project integrating HR strategy and organizational analysis"]
+        "notes": [
+          "Capstone project integrating HR strategy and organizational analysis"
+        ]
       },
       "electives": {
         "description": "Three elective courses",
         "count": 3,
         "options": [
-          "MHRM550", "MHRM650", "MHRM551", "MHRM552",
-          "MHRM553", "MHRM554", "MHRM555", "MHRM556",
-          "MHRM634", "MHRM635"
+          "MHRM550",
+          "MHRM650",
+          "MHRM551",
+          "MHRM552",
+          "MHRM553",
+          "MHRM554",
+          "MHRM555",
+          "MHRM556",
+          "MHRM634",
+          "MHRM635"
         ],
         "any_from_catalog": false
       },
@@ -436,120 +794,6 @@
         "Contact: Hadi El-Farr or Allison Kushner for program details.",
         "Source: https://smlr.rutgers.edu/academic-programs/graduate-programs/online-professional-masters-human-resource-management-mhrm"
       ]
-    },
-
-    "phd_irhr_hr_track": {
-      "school": "SMLR",
-      "degree_level": "doctorate",
-      "major_name": "Industrial Relations and Human Resources (PhD) — Human Resource Management Track",
-      "catalog_year": "2025-2026",
-      "program_years": 5,
-      "description": "Full-time, in-residence doctoral program. The Human Resource Management track trains researchers in staffing, compensation, performance management, training, and HR strategy. Students complete coursework, qualifying examinations, and an original dissertation.",
-      "required_proseminars": {
-        "description": "Two required doctoral proseminars (6 credits)",
-        "courses": ["IRHR501", "IRHR502"]
-      },
-      "required_research_methods": {
-        "description": "Doctoral research methods sequence (minimum 6 credits)",
-        "courses": ["IRHR600"],
-        "notes": [
-          "Students complete both quantitative and qualitative methods courses selected in consultation with advisor",
-          "Additional statistics/methods courses from MHRM or external departments required"
-        ]
-      },
-      "specialization_coursework": {
-        "description": "HR Management specialization coursework (minimum 24 additional credits), determined in consultation with advisor",
-        "representative_courses": [
-          "MHRM580", "MHRM590", "MHRM533", "MHRM634",
-          "MHRM635", "MHRM540", "MHRM542", "MHRM565",
-          "MHRM566", "MHRM665", "MHRM680", "MHRM690"
-        ]
-      },
-      "qualifying_examination": {
-        "description": "Written and oral qualifying examinations after completion of coursework; required before dissertation proposal"
-      },
-      "dissertation": {
-        "description": "Original research dissertation demonstrating independent scholarly contribution; defended before dissertation committee",
-        "courses": ["IRHR800"]
-      },
-      "constraints": [
-        "Full-time, in-residence commitment required.",
-        "Most students complete the program in five years.",
-        "Qualifying examinations must be passed before admission to candidacy.",
-        "Minimum GPA of 3.5 required to remain in good standing."
-      ],
-      "funding": {
-        "description": "Five years of support for admitted students",
-        "stipend_annual": 40000,
-        "tuition_waiver": "100%",
-        "summer_support": 3500,
-        "conference_travel_annual": 1200,
-        "international_conference_one_time": 2000,
-        "research_support_annual": 400
-      },
-      "notes": [
-        "Apprenticeship model: research conducted alongside faculty rather than coursework alone.",
-        "Job interviews typically occur in the fifth year fall semester; dissertation defenses in spring.",
-        "Source: https://smlr.rutgers.edu/academic-programs/phd-program"
-      ]
-    },
-
-    "phd_irhr_lws_track": {
-      "school": "SMLR",
-      "degree_level": "doctorate",
-      "major_name": "Industrial Relations and Human Resources (PhD) — Labor, Work, and Society Track",
-      "catalog_year": "2025-2026",
-      "program_years": 5,
-      "description": "Full-time, in-residence doctoral program. The Labor, Work, and Society track trains researchers in collective bargaining, labor history, labor markets, employment law, and comparative employment relations. Students complete coursework, qualifying examinations, and an original dissertation.",
-      "required_proseminars": {
-        "description": "Two required doctoral proseminars (6 credits)",
-        "courses": ["IRHR501", "IRHR502"]
-      },
-      "required_research_methods": {
-        "description": "Doctoral research methods sequence (minimum 6 credits)",
-        "courses": ["IRHR600"],
-        "notes": [
-          "Students complete both quantitative and qualitative methods courses selected in consultation with advisor",
-          "Additional methods courses from LER, Sociology, or other departments as needed"
-        ]
-      },
-      "specialization_coursework": {
-        "description": "Labor, Work, and Society specialization coursework (minimum 24 additional credits), determined in consultation with advisor",
-        "representative_courses": [
-          "MLER500", "MLER506", "MLER509", "MLER530",
-          "MLER538", "MLER550", "MLER551", "MLER560",
-          "MLER562", "MLER567", "MLER603", "MLER612",
-          "MLER701", "MLER702"
-        ]
-      },
-      "qualifying_examination": {
-        "description": "Written and oral qualifying examinations after completion of coursework; required before dissertation proposal"
-      },
-      "dissertation": {
-        "description": "Original research dissertation demonstrating independent scholarly contribution; defended before dissertation committee",
-        "courses": ["IRHR800"]
-      },
-      "constraints": [
-        "Full-time, in-residence commitment required.",
-        "Most students complete the program in five years.",
-        "Qualifying examinations must be passed before admission to candidacy.",
-        "Minimum GPA of 3.5 required to remain in good standing."
-      ],
-      "funding": {
-        "description": "Five years of support for admitted students",
-        "stipend_annual": 40000,
-        "tuition_waiver": "100%",
-        "summer_support": 3500,
-        "conference_travel_annual": 1200,
-        "international_conference_one_time": 2000,
-        "research_support_annual": 400
-      },
-      "notes": [
-        "Apprenticeship model: research conducted alongside faculty rather than coursework alone.",
-        "Job interviews typically occur in the fifth year fall semester; dissertation defenses in spring.",
-        "Source: https://smlr.rutgers.edu/academic-programs/phd-program"
-      ]
     }
-
   }
 }

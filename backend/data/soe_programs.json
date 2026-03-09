@@ -956,7 +956,7 @@
         "any_from_catalog": false
       },
       "constraints": [
-        "No fixed upper-division curriculum — junior/senior courses are developed with a faculty adviser.",
+        "No fixed upper-division curriculum \u2014 junior/senior courses are developed with a faculty adviser.",
         "10 engineering electives required (3+ credits each, from approved engineering/technical list).",
         "36 credits of technical electives required (can include CS, math, science, other engineering).",
         "4 H/SS electives required (12 credits); at least one must be economics.",
@@ -966,6 +966,354 @@
       "notes": [
         "Flexible program suited for packaging engineering, construction management, operations research, pre-med, or IT concentrations.",
         "Courses are NOT offered specifically for this curriculum (except Packaging Engineering); students select from existing departmental offerings."
+      ]
+    },
+    "electrical_computer_engineering_ms": {
+      "school": "SOE",
+      "degree_level": "master_ms",
+      "major_name": "Electrical and Computer Engineering",
+      "catalog_year": "2025-2026",
+      "total_credits": 30,
+      "description": "The MS in ECE offers non-thesis (30 credits of coursework + public essay seminar) and thesis (24 coursework + 6 thesis credits) pathways. Students declare one of seven specialization tracks.",
+      "tracks": {
+        "communications": {
+          "core_courses": [
+            "ECE541",
+            "ECE542",
+            "ECE543",
+            "ECE544",
+            "ECE545",
+            "ECE546",
+            "ECE548",
+            "ECE549"
+          ],
+          "restricted_electives": [
+            "ECE501",
+            "ECE505",
+            "ECE506",
+            "ECE509",
+            "ECE515",
+            "ECE519",
+            "ECE521",
+            "ECE525",
+            "ECE539",
+            "ECE557",
+            "ECE558",
+            "ECE559"
+          ]
+        },
+        "signal_information_processing": {
+          "core_courses": [
+            "ECE509",
+            "ECE521",
+            "ECE525",
+            "ECE530",
+            "ECE541",
+            "ECE549",
+            "ECE557",
+            "ECE561"
+          ],
+          "restricted_electives": [
+            "ECE501",
+            "ECE505",
+            "ECE506",
+            "ECE510",
+            "ECE512",
+            "ECE515",
+            "ECE519",
+            "ECE532",
+            "ECE533",
+            "ECE539",
+            "ECE542",
+            "ECE558",
+            "ECE579"
+          ]
+        },
+        "machine_learning": {
+          "core_courses": [
+            "ECE443",
+            "ECE509",
+            "ECE515",
+            "ECE530",
+            "ECE541",
+            "ECE549",
+            "ECE561"
+          ],
+          "restricted_electives": [
+            "ECE505",
+            "ECE516",
+            "ECE518",
+            "ECE521",
+            "ECE525",
+            "ECE531",
+            "ECE532",
+            "ECE533",
+            "ECE542",
+            "ECE557",
+            "ECE558",
+            "ECE566",
+            "ECE571",
+            "ECE573",
+            "ECE539",
+            "ECE559",
+            "ECE579",
+            "ECE590",
+            "ECE595",
+            "ECE640",
+            "CS520",
+            "CS530",
+            "CS533",
+            "CS535",
+            "CS536"
+          ]
+        },
+        "systems_controls": {
+          "core_courses": [
+            "ECE501",
+            "ECE505",
+            "ECE506",
+            "ECE508",
+            "ECE512"
+          ],
+          "restricted_electives_a": [
+            "ECE510",
+            "ECE514",
+            "ECE515",
+            "ECE541",
+            "ECE509"
+          ],
+          "restricted_electives_b": [
+            "ECE519",
+            "ECE521",
+            "ECE530",
+            "ECE532",
+            "ECE533",
+            "ECE542",
+            "ECE543",
+            "ECE549",
+            "ECE539"
+          ]
+        },
+        "computer_engineering": {
+          "core_courses_a": [
+            "ECE516",
+            "ECE518",
+            "ECE563",
+            "ECE564",
+            "ECE573"
+          ],
+          "core_courses_b": [
+            "ECE501",
+            "ECE509",
+            "CS510",
+            "CS521",
+            "CS522",
+            "CS524"
+          ],
+          "restricted_electives": [
+            "ECE507",
+            "ECE515",
+            "ECE530",
+            "ECE539",
+            "ECE543",
+            "ECE544",
+            "ECE561",
+            "ECE566",
+            "ECE567",
+            "ECE568",
+            "ECE569",
+            "ECE571",
+            "ECE574",
+            "ECE576",
+            "ECE577",
+            "ECE578",
+            "ECE579",
+            "CS515",
+            "CS518",
+            "CS519"
+          ]
+        },
+        "software_engineering": {
+          "core_courses": [
+            "ECE563",
+            "ECE566",
+            "ECE567",
+            "ECE568",
+            "ECE569",
+            "ECE573",
+            "CS512"
+          ],
+          "restricted_electives_a": [
+            "ECE503",
+            "ECE507",
+            "ECE516",
+            "ECE518",
+            "ECE530",
+            "ECE543",
+            "ECE544",
+            "ECE561",
+            "ECE564",
+            "ECE571",
+            "ECE579"
+          ],
+          "restricted_electives_b": [
+            "CS508",
+            "CS515",
+            "CS518",
+            "CS519",
+            "CS530",
+            "CS543",
+            "CS544",
+            "CS546",
+            "CS553"
+          ]
+        },
+        "electronic_devices_circuits_systems": {
+          "core_courses": [
+            "ECE574",
+            "ECE578",
+            "ECE580",
+            "ECE581",
+            "ECE583",
+            "ECE587",
+            "ECE589",
+            "ECE599"
+          ],
+          "restricted_electives": [
+            "ECE557",
+            "ECE558",
+            "ECE591",
+            "ECE592",
+            "ECE594",
+            "ECE598"
+          ]
+        }
+      },
+      "constraints": [
+        "Total: 30 credits.",
+        "Non-thesis: 30 credits of coursework plus an essay/report presented as a public seminar.",
+        "Thesis: 24 credits of coursework plus 6 thesis research credits; thesis and oral defense required.",
+        "Students must declare one specialization track.",
+        "Minimum cumulative GPA of 3.0."
+      ],
+      "notes": [
+        "Source: https://www.ece.rutgers.edu/admissions/graduate-program/master-science-degree"
+      ]
+    },
+    "mechanical_aerospace_engineering_ms": {
+      "school": "SOE",
+      "degree_level": "master_ms",
+      "major_name": "Mechanical and Aerospace Engineering",
+      "catalog_year": "2025-2026",
+      "total_credits": 30,
+      "description": "Research-oriented MS requiring a thesis. 24 course credits + 6 thesis research credits. Prepares students for industry practice or PhD study.",
+      "required_courses": [
+        "MATH527"
+      ],
+      "departmental_courses": {
+        "description": "Minimum of five 3-credit graduate-level (650-level) MAE department courses",
+        "min_count": 5
+      },
+      "electives": {
+        "description": "Up to two undergraduate 400-level courses (max 6 credits) with Graduate Program Director approval",
+        "max_undergrad_credits": 6
+      },
+      "specialization_areas": [
+        "Design and Control",
+        "Fluid Mechanics",
+        "Mechanics of Solids, Materials and Structures",
+        "Thermal Sciences"
+      ],
+      "constraints": [
+        "Total: 30 credits (24 course credits + 6 thesis research credits).",
+        "MATH527 (Methods of Applied Mathematics) is mandatory.",
+        "Minimum of five 3-credit courses at the 650 level from the MAE department.",
+        "Maximum one 3-credit Independent Study course (MAE601 or MAE602).",
+        "Maximum three credits with C or C+ acceptable toward the 24-credit course requirement.",
+        "Minimum cumulative GPA of 3.0.",
+        "Thesis required; must be written and publicly defended."
+      ],
+      "notes": [
+        "Source: https://mae.rutgers.edu/ms-degree-requirements"
+      ]
+    },
+    "chemical_biochemical_engineering_ms": {
+      "school": "SOE",
+      "degree_level": "master_ms",
+      "major_name": "Chemical and Biochemical Engineering",
+      "catalog_year": "2025-2026",
+      "total_credits": 30,
+      "required_courses": [
+        "CBE501",
+        "CBE502",
+        "CBE507",
+        "CBE511",
+        "CBE514"
+      ],
+      "electives": {
+        "non_thesis": {
+          "description": "15 elective credits; minimum 6 from the Chemical and Biochemical Engineering department",
+          "min_dept_credits": 6,
+          "total_elective_credits": 15
+        },
+        "thesis": {
+          "description": "9 elective credits plus 6 credits of thesis research",
+          "elective_credits": 9,
+          "thesis_credits": 6
+        }
+      },
+      "constraints": [
+        "Total: 30 credits.",
+        "Core: 15 credits (CBE501 Advanced Fluid Mechanics, CBE502 Advanced Heat and Mass Transport, CBE507 Analytical and Data-driven Approaches for Modeling and Simulation, CBE511 Advanced Thermodynamics and Statistical Mechanics, CBE514 Advanced Chemical Kinetics and Reaction Engineering).",
+        "Non-thesis option: 15 elective credits (min 6 from CBE department).",
+        "Thesis option: 9 elective credits + 6 thesis research credits.",
+        "Departmental seminar required each semester.",
+        "Catch-up courses may be required for students without an undergraduate chemical engineering background."
+      ],
+      "notes": [
+        "Non-thesis MS degree option in Pharmaceutical Engineering also available.",
+        "Source: https://cbe.rutgers.edu/admissions/graduate-program/master-science"
+      ]
+    },
+    "materials_science_engineering_ms": {
+      "school": "SOE",
+      "degree_level": "master_ms",
+      "major_name": "Materials Science and Engineering",
+      "catalog_year": "2025-2026",
+      "total_credits": 30,
+      "required_courses": [
+        "MSE527",
+        "MSE513",
+        "MSE503",
+        "MSE532"
+      ],
+      "electives": {
+        "description": "Select advanced electives in areas such as optical materials, surfaces, microscopy, glass, and electroceramics",
+        "options": [
+          "MSE505",
+          "MSE524",
+          "MSE528"
+        ],
+        "any_from_catalog": false,
+        "note": "Additional electives available from the full MSE graduate course offerings"
+      },
+      "tracks": {
+        "taught_masters": {
+          "description": "All 30 credits through coursework and a final paper presentation (12\u201324 months)"
+        },
+        "research_masters": {
+          "description": "24 credits of coursework + 6 credits of thesis research under MSE graduate faculty supervision (18\u201324 months). Thesis writing and defense required."
+        }
+      },
+      "constraints": [
+        "Total: 30 credits.",
+        "Required core: MSE527 Thermodynamics of Materials Systems, MSE513 Mechanical Behavior of Materials, MSE503 Theory of Solid State Materials, MSE532 Kinetics of Materials Systems (12 credits).",
+        "Maximum 12 credits from other Rutgers programs, advanced undergraduate MSE courses, or transfer credits.",
+        "Taught Masters track: 30 credits coursework + final paper.",
+        "Research Masters track: 24 credits coursework + 6 thesis credits + thesis defense."
+      ],
+      "notes": [
+        "Source: https://mse.rutgers.edu/ms-degree-requirements"
       ]
     }
   }

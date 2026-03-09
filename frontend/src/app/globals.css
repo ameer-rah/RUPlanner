@@ -1,5 +1,6 @@
-* {
+*, *::before, *::after {
   box-sizing: border-box;
+  font-family: inherit;
 }
 
 /* ── Design tokens ───────────────────────────────────────────────────── */
@@ -47,13 +48,18 @@
   --summer-bg: #ecfdf5;
   --summer-border: #6ee7b7;
   --summer-header: #065f46;
+
+  --winter-accent: #7c3aed;
+  --winter-bg: #f5f3ff;
+  --winter-border: #c4b5fd;
+  --winter-header: #4c1d95;
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
   font-size: 14px;
@@ -89,7 +95,7 @@ body {
 .sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0;
   padding: 24px 20px 20px;
   border-bottom: 1px solid var(--sidebar-border);
   margin-bottom: 4px;
@@ -111,10 +117,11 @@ body {
 }
 
 .logo-text {
-  font-size: 17px;
+  font-size: 24px;
   font-weight: 700;
   color: var(--sidebar-text);
   letter-spacing: -0.02em;
+  margin-left: -9.5px;
 }
 
 /* ── Logo image variants ──────────────────────────────────────────────── */
@@ -285,6 +292,36 @@ select:focus {
 
 /* ── Season toggle buttons ───────────────────────────────────────────── */
 
+.degree-filter-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.degree-filter-tab {
+  padding: 8px 0;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--sidebar-input-border);
+  background: var(--sidebar-input-bg);
+  color: var(--sidebar-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.degree-filter-tab:hover {
+  border-color: #4b5563;
+  color: var(--sidebar-text);
+}
+
+.degree-filter-tab.active {
+  background: #1a2744;
+  border-color: #3b82f6;
+  color: #93c5fd;
+}
+
 .season-toggles {
   display: flex;
   gap: 8px;
@@ -325,6 +362,12 @@ select:focus {
   background: #022c22;
   border-color: var(--summer-accent);
   color: #6ee7b7;
+}
+
+.season-btn.active-winter {
+  background: #2e1065;
+  border-color: var(--winter-accent);
+  color: #c4b5fd;
 }
 
 /* ── Credit slider ───────────────────────────────────────────────────── */
@@ -569,6 +612,16 @@ select:focus {
 .term-summer .plan-term-header .credits-badge {
   background: #d1fae5;
   color: var(--summer-header);
+}
+
+.term-winter .plan-term-header {
+  background: var(--winter-bg);
+  color: var(--winter-header);
+  border-bottom: 1px solid var(--winter-border);
+}
+.term-winter .plan-term-header .credits-badge {
+  background: #ede9fe;
+  color: var(--winter-header);
 }
 
 /* ── Course row ──────────────────────────────────────────────────────── */
@@ -1045,7 +1098,7 @@ select:focus {
 .schedules-topbar-logo {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 0;
 }
 
 /* ── Master / detail layout ─── */

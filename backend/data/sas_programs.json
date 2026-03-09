@@ -7458,6 +7458,205 @@
         "Interdisciplinary minor on the cultures, languages, and politics of Slavic and Eastern European regions.",
         "At least 2 electives at 300+ level."
       ]
+    },
+    "computer_science_ms": {
+      "school": "SAS",
+      "degree_level": "master_ms",
+      "major_name": "Computer Science",
+      "catalog_year": "2025-2026",
+      "total_credits": 36,
+      "description": "The MS in Computer Science requires 36 credits (12 courses). Students complete 2 Category A courses, 2 Category B courses, 4 additional A or B courses, and 4 open courses. An essay or thesis (6 credits) is required.",
+      "category_a_courses": {
+        "description": "Theory and Foundations — choose at least 2",
+        "options": [
+          "CS501",
+          "CS508",
+          "CS509",
+          "CS510",
+          "CS512",
+          "CS513",
+          "CS514",
+          "CS521",
+          "CS522",
+          "CS529",
+          "CS538",
+          "CS540",
+          "CS550",
+          "CS596"
+        ]
+      },
+      "category_b_courses": {
+        "description": "Applied and Systems — choose at least 2",
+        "options": [
+          "CS505",
+          "CS507",
+          "CS515",
+          "CS516",
+          "CS518",
+          "CS519",
+          "CS520",
+          "CS523",
+          "CS525",
+          "CS526",
+          "CS527",
+          "CS530",
+          "CS532",
+          "CS533",
+          "CS534",
+          "CS535",
+          "CS536",
+          "CS539",
+          "CS541",
+          "CS543",
+          "CS544",
+          "CS545",
+          "CS546",
+          "CS547",
+          "CS552",
+          "CS553",
+          "CS560",
+          "CS562",
+          "CS580",
+          "CS598"
+        ]
+      },
+      "thesis_or_essay": {
+        "description": "Students must complete either the Essay Option or Thesis Option (6 credits, equivalent to 2 courses)",
+        "essay_option": "Project-based paper with Title, Author(s), Abstract, and References plus public presentation slides",
+        "thesis_option": "Six credits of CS704–CS706 with faculty supervision and committee approval"
+      },
+      "constraints": [
+        "Total: 36 credits (12 courses).",
+        "At least 2 courses from Category A.",
+        "At least 2 courses from Category B.",
+        "4 additional courses from Category A or B.",
+        "4 open courses (interdepartmental, seminars, up to 2 independent study courses).",
+        "Essay or Thesis required (equivalent to 2 courses / 6 credits).",
+        "Minimum cumulative GPA of 3.0.",
+        "No more than 2 grades of C or lower."
+      ],
+      "notes": [
+        "Study plans available: General CS, Massive Data Analytics, AI/Machine Learning, Robotics, Systems/Security, Vision/Visualization/Graphics.",
+        "Source: https://www.cs.rutgers.edu/academics/graduate/m-s-program"
+      ]
+    },
+    "statistics_biostatistics_ms": {
+      "school": "SAS",
+      "degree_level": "master_ms",
+      "major_name": "Statistics and Biostatistics",
+      "catalog_year": "2025-2026",
+      "total_credits": 30,
+      "required_courses": [
+        "STAT563",
+        "STAT582",
+        "STAT583"
+      ],
+      "electives": {
+        "description": "Remaining credits from approved electives (minimum 21 elective credits)",
+        "count": 7,
+        "options": [
+          "STAT540",
+          "STAT542",
+          "STAT545",
+          "STAT553",
+          "STAT555",
+          "STAT565",
+          "STAT567",
+          "STAT568",
+          "STAT576",
+          "STAT588",
+          "STAT590"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "Total: at least 30 semester-hours of approved graduate credits.",
+        "Minimum cumulative GPA of 3.0; all grades must be C+ or better.",
+        "No more than two C+ grades permitted.",
+        "Written paper on a statistics topic required (typically fulfilled within coursework).",
+        "Exit presentation on a completed graduate-level Statistics course required.",
+        "Advanced students may substitute STAT592 and STAT593 for STAT582 and STAT583 with approval.",
+        "Up to 12 transfer credits allowed with program director approval."
+      ],
+      "notes": [
+        "Concentrations available: Quality Management, Biostatistics, Data Mining.",
+        "Source: https://statistics.rutgers.edu/graduate-academics/ms-degree-program"
+      ]
+    },
+    "economics_ma": {
+      "school": "SAS",
+      "degree_level": "master_ma",
+      "major_name": "Economics",
+      "catalog_year": "2025-2026",
+      "total_credits": 30,
+      "core_courses": {
+        "semester_1": {
+          "required": [
+            "ECON551",
+            "ECON552",
+            "ECON560",
+            "ECON585"
+          ]
+        },
+        "semester_2": {
+          "required": [
+            "ECON586"
+          ],
+          "econometrics_choice": {
+            "description": "Choose one",
+            "options": [
+              "ECON608",
+              "ECON609",
+              "ECON610"
+            ]
+          }
+        }
+      },
+      "tracks": {
+        "doctoral_preparation": {
+          "description": "Prepares students for PhD programs; focuses on micro/macroeconomic theory, quantitative methods, and mathematics.",
+          "semester_3_required": [
+            "ECON600",
+            "ECON601",
+            "ECON604"
+          ],
+          "semester_3_optional": [
+            "ECON606"
+          ],
+          "recommended_electives": [
+            "ECON620",
+            "ECON624",
+            "ECON628",
+            "ECON642",
+            "ECON644"
+          ]
+        },
+        "economic_data_analytics": {
+          "description": "Focuses on econometric methods for analyzing large datasets; applicable to health policy, government policy, macroeconomic forecasting, and risk management.",
+          "elective_credits": 12,
+          "recommended_electives": [
+            "ECON570",
+            "ECON571",
+            "ECON630",
+            "ECON631",
+            "ECON422",
+            "ECON423",
+            "ECON424",
+            "ECON716"
+          ]
+        }
+      },
+      "constraints": [
+        "Total: 30 credits (3 semesters).",
+        "Core: 18 credits; track-specific: 12 credits.",
+        "Expository essay required for both tracks.",
+        "Minimum cumulative GPA of 3.0.",
+        "No more than 9 credits with grades of C or lower.",
+        "Up to 9 transfer credits allowed from other graduate programs."
+      ],
+      "notes": [
+        "Source: https://economics.rutgers.edu/academics/graduate/ma-program"
+      ]
     }
   }
 }

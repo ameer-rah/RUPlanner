@@ -408,6 +408,263 @@
         "Total concentration credits: 9 (2 required + 1 elective)."
       ],
       "notes": []
+    },
+
+    "mba_fulltime": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MBA (Full-Time)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GACCT502", "GECON521", "GFIN522", "GMGT540", "GMKT550",
+        "GSCM564", "GETH623", "GMIS504", "GSTAT575", "GMGT589"
+      ],
+      "electives": {
+        "count": 6,
+        "options": [
+          "GINT543", "GMGT672", "GSCM650", "GFIN603", "GFIN604",
+          "GFIN605", "GFIN609", "GFIN611", "GFIN658", "GFIN681",
+          "GECON591", "GSCM607", "GSCM608", "GSCM640", "GSCM641",
+          "GSCM659", "GSCM661", "GSCM663", "GSCM669", "GSCM672",
+          "GSCM676", "GSCM679", "GMKT604", "GMKT609", "GMKT601",
+          "GMKT606", "GMKT610", "GMKT613", "GMKT615", "GMKT632",
+          "GMKT655", "GMKT677", "GMGT601", "GMGT603", "GMGT604",
+          "GMGT606", "GMGT617", "GMGT624", "GMGT654", "GMGT679",
+          "GIIB621", "GIIB670", "GRE632", "GRE650", "GRE630", "GFIN695"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "45 total credits: 27 core + 3 integrative + 15 concentration.",
+        "Choose a concentration: Finance, Supply Chain, Marketing, Analytics & Information Management, AI, Entrepreneurship, Strategy & Leadership, Global Business, Real Estate, Pharmaceutical Management."
+      ]
+    },
+
+    "mba_parttime": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MBA (Professional — Part-Time)",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GACCT577", "GECON581", "GFIN587", "GMGT585", "GMKT586",
+        "GSCM580", "GETH628"
+      ],
+      "electives": {
+        "count": 10,
+        "options": [
+          "GMIS504", "GMGT588", "GBLAW592", "GIIB621", "GSTAT575",
+          "GINT543", "GMGT672", "GSCM650", "GFIN603", "GFIN604",
+          "GFIN605", "GFIN609", "GFIN611", "GFIN658", "GFIN681",
+          "GECON591", "GSCM607", "GSCM608", "GSCM640", "GSCM641",
+          "GSCM659", "GSCM661", "GSCM663", "GSCM669", "GSCM672",
+          "GSCM676", "GSCM679", "GMKT604", "GMKT609", "GMKT601",
+          "GMKT606", "GMKT610", "GMKT615", "GMKT632", "GMKT655",
+          "GMKT677", "GMGT601", "GMGT603", "GMGT604", "GMGT606",
+          "GMGT617", "GMGT624", "GMGT654", "GMGT679", "GIIB670",
+          "GRE632", "GRE650", "GFIN695"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "49 total credits: 19 core + 7 foundation/integrative + 20 concentration electives.",
+        "Part-time evening program (~3 years average)."
+      ]
+    },
+
+    "ms_supply_chain_management": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MS in Supply Chain Management",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "electives": {
+        "count": 10,
+        "options": [
+          "GSCM586", "GSCM602", "GSCM610", "GSCM618", "GSCM637",
+          "GSCM639", "GSCM643", "GSCM680", "GSCM689", "GSCM690",
+          "GSCM693", "GSCM694", "GSCM698", "GSCM699", "GMKT606"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "30 total credits. Choose any 10 of the 15 listed courses.",
+        "No prerequisite requirements. All courses are open to enrolled students."
+      ]
+    },
+
+    "ms_supply_chain_analytics": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MS in Supply Chain Analytics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GSCM607", "GSCM586", "GSCM601"
+      ],
+      "electives": {
+        "count": 10,
+        "options": [
+          "GSCM649", "GSCM650", "GSCM608", "GSCM640", "GSCM659",
+          "GSCM661", "GSCM663", "GSCM676", "GSCM672", "GSCM679",
+          "GBAN603", "GSTAT608", "GSTAT641", "GBAN650", "GBAN646",
+          "GBAN660", "GBAN641", "GSCM696", "GMGT617"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "33 total credits: 9 core + 3 experiential + 21 electives (min 2 SCM + min 3 analytics).",
+        "STEM-designated program."
+      ]
+    },
+
+    "master_financial_analysis": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "Master of Financial Analysis",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GACCT577", "GFINA591", "GFINA658", "GFINA587", "GFINA603", "GFINA581"
+      ],
+      "electives": {
+        "count": 5,
+        "options": [
+          "GFINA611", "GFINA609", "GFINA613", "GFINA685", "GFINA608"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "33 total credits: 3 cr prerequisite + 15 cr fall core + 15 cr spring electives.",
+        "Full-time track; part-time option available with same courses."
+      ]
+    },
+
+    "master_quantitative_finance": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "Master of Quantitative Finance",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GQF611", "GQF654", "GQF604", "GQF571", "GQF662",
+        "GQF510", "GQF614", "GQF615", "GQF609", "GMATH563"
+      ],
+      "electives": {
+        "count": 5,
+        "options": [
+          "GQF603", "GQF670", "GQF686", "GQF695", "GFIN605",
+          "GFIN658", "GBAN650", "GACCT645", "GFINA613", "GFIN681"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "45 total credits: 30 core + 15 electives.",
+        "STEM-designated program."
+      ]
+    },
+
+    "ms_information_technology_analytics": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MS in Information Technology and Analytics",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "electives": {
+        "count": 10,
+        "options": [
+          "GBAN643", "GBAN603", "GBAN641", "GBAN650", "GBAN605",
+          "GBAN645", "GBAN646", "GBAN631", "GBAN635", "GBAN660",
+          "GBAN640", "GSTAT641", "GSTAT646", "GSCM659"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "30 total credits. Choose 3 foundation courses then 3+ from one concentration (Operations Research/AI-ML/Cybersecurity)."
+      ]
+    },
+
+    "ms_digital_marketing": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MS in Digital Marketing",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GMKT590", "GMKT630", "GMKT639", "GMKT638", "GMKT629", "GMKT634"
+      ],
+      "electives": {
+        "count": 3,
+        "options": [
+          "GMKT637", "GMKT631", "GMKT635", "GMKT633", "GMKT636", "GMKT632"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "30 total credits: 21 required core + 9 electives."
+      ]
+    },
+
+    "ms_marketing_analytics_insights": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MS in Marketing Analytics and Insights",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GMKT586", "GMKT604", "GMKT679", "GMKT685", "GBAN641", "GBAN646", "GMKT691"
+      ],
+      "electives": {
+        "count": 3,
+        "options": [
+          "GMKT655", "GMKT677", "GMKT604", "GBAN603", "GBAN635", "GBAN660", "GMKT678"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "30 total credits: 21 required core + 6 electives + 3 capstone.",
+        "Prerequisites: Marketing Management is pre/co-requisite for several core courses."
+      ]
+    },
+
+    "macc_accounting_analytics": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MAcc — Accounting and Analytics",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GACCT645", "GACCT531", "GACCT660", "GACCT630", "GACCT695"
+      ],
+      "electives": {
+        "count": 5,
+        "options": [
+          "GACCT635", "GACCT627", "GACCT688", "GACCT678", "GACCT684",
+          "GACCT686", "GACCT604", "GETH619", "GACCT551", "GACCT631"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "30 total credits: 15 core + 15 electives (min 9 STEM-designated).",
+        "Option A for students with undergraduate accounting degree.",
+        "Minimum 15 STEM credits required for degree certification."
+      ]
+    },
+
+    "macc_taxation": {
+      "school": "RBS",
+      "degree_level": "master",
+      "major_name": "MAcc — Taxation",
+      "catalog_year": "2025-2026",
+      "required_courses": [
+        "GACCT603", "GACCT605", "GACCT615", "GACCT616", "GETH619", "GBLAW592"
+      ],
+      "electives": {
+        "count": 4,
+        "options": [
+          "GACCT618", "GACCT626", "GACCT629", "GACCT631", "GACCT620",
+          "GACCT671", "GACCT625", "GACCT657", "GACCT619", "GACCT649"
+        ],
+        "any_from_catalog": false
+      },
+      "constraints": [
+        "30 total credits.",
+        "Students choose EITHER Ethics in Business (GETH619) OR Regulation of Tax Practice (GACCT671), not both.",
+        "All electives require GACCT603 as prerequisite."
+      ]
     }
 
   }

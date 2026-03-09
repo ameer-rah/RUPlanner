@@ -52,15 +52,21 @@ app.add_middleware(
 
 
 _LEVEL_LABEL = {
-    "bachelor_bs":   "BS",
-    "bachelor_ba":   "BA",
-    "bachelor_bfa":  "BFA",
-    "bachelor_bm":   "BM",
-    "bachelor_bsba": "BSBA",
-    "concentration": "Concentration",
-    "minor":         "Minor",
-    "master":        "MS",
-    "associate":     "AS",
+    "bachelor_bs":           "BS",
+    "bachelor_ba":           "BA",
+    "bachelor_bfa":          "BFA",
+    "bachelor_bm":           "BM",
+    "bachelor_bsba":         "BSBA",
+    "concentration":         "Concentration",
+    "minor":                 "Minor",
+    "master":                "MS",
+    "master_ms":             "MS",
+    "master_ma":             "MA",
+    "master_mat":            "MAT",
+    "master_meng":           "MEng",
+    "doctorate":             "PhD",
+    "professional_doctorate":"PsyD",
+    "associate":             "AS",
 }
 
 

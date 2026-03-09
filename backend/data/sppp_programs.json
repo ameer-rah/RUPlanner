@@ -811,7 +811,7 @@
         "any_from_catalog": false
       },
       "capstone": {
-        "description": "Master's Research Project (3 credits) — completed in the final semester",
+        "description": "Master's Research Project (3 credits) \u2014 completed in the final semester",
         "courses": [
           "CRP599"
         ]
@@ -824,9 +824,9 @@
         "Total: 18 (core) + 12 (studios) + 15 (electives) + 3 (capstone) = 48 credits."
       ],
       "dual_degrees": [
-        "MCRP/MPP — complete both degrees in three years (72 credits combined)",
-        "MCRP/MPH — complete both degrees in three years (75 credits combined)",
-        "JD/MCRP — offered jointly with Rutgers Law School"
+        "MCRP/MPP \u2014 complete both degrees in three years (72 credits combined)",
+        "MCRP/MPH \u2014 complete both degrees in three years (75 credits combined)",
+        "JD/MCRP \u2014 offered jointly with Rutgers Law School"
       ],
       "notes": [
         "Source: https://bloustein.rutgers.edu/graduate/mcrp/",
@@ -915,8 +915,8 @@
         "Total: 24 (core) + 18 (electives) = 42 credits."
       ],
       "dual_degrees": [
-        "MPA/MPP — complete both degrees in three years (63 credits combined)",
-        "MPA/MPH — complete both degrees in three years (69 credits combined)"
+        "MPA/MPP \u2014 complete both degrees in three years (63 credits combined)",
+        "MPA/MPH \u2014 complete both degrees in three years (69 credits combined)"
       ],
       "notes": [
         "Source: https://bloustein.rutgers.edu/graduate/mpa/",
@@ -1014,9 +1014,9 @@
         "Total: 21 (core) + 3 (practicum) + 21 (electives) = 45 credits."
       ],
       "dual_degrees": [
-        "MPH/MCRP — complete both degrees in three years (75 credits combined)",
-        "MPH/MPA — complete both degrees in three years (69 credits combined)",
-        "MPH/MPP — complete both degrees in three years (69 credits combined)"
+        "MPH/MCRP \u2014 complete both degrees in three years (75 credits combined)",
+        "MPH/MPA \u2014 complete both degrees in three years (69 credits combined)",
+        "MPH/MPP \u2014 complete both degrees in three years (69 credits combined)"
       ],
       "notes": [
         "Source: https://bloustein.rutgers.edu/graduate/mph/",
@@ -1044,7 +1044,7 @@
         ]
       },
       "capstone": {
-        "description": "Policy Capstone Seminar (3 credits) — taken in the final semester; students produce a policy analysis memo or report",
+        "description": "Policy Capstone Seminar (3 credits) \u2014 taken in the final semester; students produce a policy analysis memo or report",
         "courses": [
           "PPOL509"
         ]
@@ -1113,88 +1113,12 @@
         "Total: 21 (core) + 3 (capstone) + 18 (electives) = 42 credits."
       ],
       "dual_degrees": [
-        "MPP/MCRP — complete both degrees in three years (72 credits combined)",
-        "MPP/MPA — complete both degrees in three years (63 credits combined)",
-        "JD/MPP — offered jointly with Rutgers Law School"
+        "MPP/MCRP \u2014 complete both degrees in three years (72 credits combined)",
+        "MPP/MPA \u2014 complete both degrees in three years (63 credits combined)",
+        "JD/MPP \u2014 offered jointly with Rutgers Law School"
       ],
       "notes": [
         "Source: https://bloustein.rutgers.edu/graduate/mpp/"
-      ]
-    },
-    "phd_planning_public_policy": {
-      "school": "SPPP",
-      "degree_level": "doctorate",
-      "major_name": "Planning and Public Policy (PhD)",
-      "catalog_year": "2025-2026",
-      "total_credits": 72,
-      "program_years": 5,
-      "description": "The PhD in Planning and Public Policy is the research degree of the Bloustein School, preparing scholars and researchers for academic and senior policy positions. Students develop deep expertise in a substantive policy area and in quantitative and qualitative research methods. Specialization areas include: urban planning, transportation policy, housing and community development, environmental policy, health policy, and public management.",
-      "required_proseminars": {
-        "description": "Three required doctoral proseminars establishing theoretical and methodological foundations (9 credits)",
-        "courses": [
-          "CRP700",
-          "CRP701",
-          "CRP702"
-        ]
-      },
-      "research_methods": {
-        "description": "Three graduate research methods courses — at least one quantitative and one qualitative (9 credits); may include approved courses from PPOL or other departments",
-        "min_quantitative": 1,
-        "min_qualitative": 1,
-        "quantitative_options": [
-          "CRP502",
-          "PPOL501",
-          "PPOL502",
-          "PADM503",
-          "PUBH502"
-        ],
-        "qualitative_options": [
-          "CRP503",
-          "PPOL505",
-          "PADM509"
-        ],
-        "additional_methods_options": [
-          "CRP506",
-          "PUBH513"
-        ]
-      },
-      "specialization_coursework": {
-        "description": "Ten courses in the chosen specialization area, selected in consultation with the dissertation advisor (30 credits); courses drawn from 500- and 700-level Bloustein offerings",
-        "notes": [
-          "Urban Planning specialization: focus on CRP520-CRP533 and planning theory (CRP700).",
-          "Transportation Policy specialization: CRP522, CRP531, plus approved courses from engineering or economics.",
-          "Housing and Community Development: CRP521, CRP525, CRP528, PPOL513.",
-          "Environmental Policy: CRP523, CRP532, PPOL512.",
-          "Health Policy: PUBH504, PUBH509, PPOL510, PUBH513.",
-          "Public Management: PADM500, PADM501, PADM502, PADM505, PADM510."
-        ]
-      },
-      "dissertation": {
-        "description": "Doctoral dissertation (24 credits); defended before a faculty committee after passing the qualifying examination",
-        "credits": 24,
-        "courses": [
-          "CRP799"
-        ],
-        "notes": [
-          "CRP799 is registered as a 3-credit course; students enroll in 8 sections to accumulate 24 dissertation credits."
-        ]
-      },
-      "qualifying_examination": {
-        "description": "Students must pass a written qualifying examination in their specialization area and research methods before advancing to candidacy; typically taken after completing all coursework.",
-        "timing": "End of second or third year"
-      },
-      "constraints": [
-        "CRP700, CRP701, and CRP702 must be completed in the first year.",
-        "Students must demonstrate proficiency in at least one quantitative and one qualitative research method.",
-        "Qualifying examination must be passed before registering for dissertation credits (CRP799).",
-        "A minimum cumulative GPA of 3.5 is required to maintain doctoral standing.",
-        "Annual progress reviews conducted by dissertation committee.",
-        "Total: 9 (proseminars) + 9 (methods) + 30 (specialization) + 24 (dissertation) = 72 credits."
-      ],
-      "notes": [
-        "Source: https://bloustein.rutgers.edu/graduate/phd/",
-        "Students admitted with a relevant master's degree may receive up to 30 credits of advanced standing, reducing residency requirements.",
-        "Full funding (stipend + tuition remission) available to full-time students on competitive basis."
       ]
     }
   }

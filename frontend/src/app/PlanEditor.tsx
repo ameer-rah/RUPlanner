@@ -34,6 +34,7 @@ function getTermClass(term: string) {
   if (term.includes("Fall")) return "plan-term term-fall";
   if (term.includes("Spring")) return "plan-term term-spring";
   if (term.includes("Summer")) return "plan-term term-summer";
+  if (term.includes("Winter")) return "plan-term term-winter";
   return "plan-term";
 }
 
@@ -155,6 +156,10 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
 
   // ── Prerequisite validation ─────────────────────────────────────────────
 
+  const TERM_CREDIT_LIMITS: Record<string, number> = {
+    Fall: 20, Spring: 20, Summer: 12, Winter: 4,
+  };
+
   function validateDrop(
     course: PlannedCourse,
     toTermIdx: number,
@@ -162,6 +167,17 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
     fromTermIdx: number
   ): string | null {
     if (fromTermIdx === toTermIdx) return null; // same term, just reorder — always fine
+
+    // Rule 0: credit limit for destination term
+    const toTerm = currentTerms[toTermIdx];
+    const season = toTerm.term.split(" ")[0];
+    const limit = TERM_CREDIT_LIMITS[season];
+    if (limit !== undefined) {
+      const newTotal = toTerm.total_credits + course.credits;
+      if (newTotal > limit) {
+        return `${toTerm.term} would reach ${newTotal} cr — the ${season} semester limit is ${limit} credits.`;
+      }
+    }
 
     // Rule 1: every prereq of `course` must be completed or in a term BEFORE toTermIdx
     for (const prereq of course.prerequisites) {

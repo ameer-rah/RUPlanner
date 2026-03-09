@@ -21,14 +21,15 @@ type PlanResponse = {
   completion_term: string | null;
 };
 
-const ALL_SEASONS = ["Spring", "Summer", "Fall"];
+const ALL_SEASONS = ["Spring", "Summer", "Fall", "Winter"];
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 function getSeasonBtnClass(season: string, active: boolean) {
   if (!active) return "season-btn";
   if (season === "Fall") return "season-btn active-fall";
   if (season === "Spring") return "season-btn active-spring";
-  return "season-btn active-summer";
+  if (season === "Summer") return "season-btn active-summer";
+  return "season-btn active-winter";
 }
 
 export default function HomePage() {
@@ -46,6 +47,7 @@ export default function HomePage() {
   const [programs, setPrograms] = useState<ProgramInfo[]>([]);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState("");
+  const [degreeFilter, setDegreeFilter] = useState<string>("bachelor");
 
   // Tracks current edited terms from PlanEditor (kept in sync via callback)
   const editedTermsRef = useRef<PlanTerm[]>([]);
@@ -65,7 +67,15 @@ export default function HomePage() {
     setUserEmail(email);
   }, [router]);
 
-  const majorPrograms = programs.filter((p) => p.degree_level !== "minor");
+  const DEGREE_FILTERS = [
+    { key: "bachelor",      label: "Bachelor's",   levels: new Set(["bachelor_ba","bachelor_bs","bachelor_bfa","bachelor_bm","bachelor_bsba","bachelor_bsla"]) },
+    { key: "master",        label: "Master's",     levels: new Set(["master","master_ms","master_ma","master_mat","master_meng"]) },
+    { key: "concentration", label: "Concentration",levels: new Set(["concentration"]) },
+  ];
+  const activeFilter = DEGREE_FILTERS.find((f) => f.key === degreeFilter)!;
+  const majorPrograms = programs.filter(
+    (p) => p.degree_level !== "minor" && activeFilter.levels.has(p.degree_level)
+  );
   const minorPrograms = programs.filter((p) => p.degree_level === "minor");
 
   function toggleSeason(season: string) {
@@ -92,12 +102,15 @@ export default function HomePage() {
     setStatus("Generating plan…");
     setSaveStatus("");
     const payload = {
+      degree_level: degreeFilter,
       majors: selectedMajors,
       minors: selectedMinors,
       completed_courses: completedCourses,
       start_term: startTerm.trim() || undefined,
       target_grad_term: targetGradTerm,
       max_credits_per_term: maxCredits,
+      summer_max_credits: 12,
+      winter_max_credits: 4,
       preferred_seasons: preferredSeasons,
     };
 
@@ -176,6 +189,22 @@ export default function HomePage() {
         <div className="sidebar-body">
           <form className="form" onSubmit={handleSubmit}>
             <div className="sidebar-section">
+              <label className="label">Degree type</label>
+              <div className="degree-filter-tabs">
+                {DEGREE_FILTERS.map((f) => (
+                  <button
+                    key={f.key}
+                    type="button"
+                    className={`degree-filter-tab${degreeFilter === f.key ? " active" : ""}`}
+                    onClick={() => { setDegreeFilter(f.key); setSelectedMajors([]); }}
+                  >
+                    {f.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="sidebar-section">
               <label className="label">Major(s)</label>
               <ProgramSelectInput
                 programs={majorPrograms}
@@ -207,7 +236,7 @@ export default function HomePage() {
                 Starting term
               </label>
               <div className="start-term-row">
-                {["Fall", "Spring", "Summer"].map((s) => (
+                {["Fall", "Spring", "Summer", "Winter"].map((s) => (
                   <button
                     key={s}
                     type="button"
@@ -285,6 +314,16 @@ export default function HomePage() {
                   Select at least one semester.
                 </p>
               )}
+              {preferredSeasons.includes("Summer") && (
+                <p style={{ fontSize: "10px", color: "#6ee7b7", marginTop: "6px", marginBottom: 0, lineHeight: 1.4 }}>
+                  Summer: max 12 credits total. Prerequisites not monitored — verify eligibility before registering.
+                </p>
+              )}
+              {preferredSeasons.includes("Winter") && (
+                <p style={{ fontSize: "10px", color: "#c4b5fd", marginTop: "6px", marginBottom: 0, lineHeight: 1.4 }}>
+                  Winter: max 4 credits (1 course) or two 1–1.5 credit courses. Not available to first-years or students with GPA &lt; 2.0. Prerequisites not monitored.
+                </p>
+              )}
             </div>
 
             <button className="primary-button" type="submit">
@@ -320,6 +359,16 @@ export default function HomePage() {
         <div className="main-content">
           {plan ? (
             <>
+              {/* No courses available notice */}
+              {plan.terms.length === 0 && plan.remaining_courses.length === 0 && (
+                <div className="plan-warning">
+                  <strong>No course data available</strong>
+                  <p style={{ margin: "4px 0 0" }}>
+                    This program&apos;s course list hasn&apos;t been published yet. Contact the school directly for enrollment details.
+                  </p>
+                </div>
+              )}
+
               {/* Status banners */}
               {completedCourses.length > 0 && (
                 <div className="plan-completed">
@@ -390,6 +439,7 @@ export default function HomePage() {
                   </span>
                 )}
               </div>
+
             </>
           ) : (
             <div className="empty-state">

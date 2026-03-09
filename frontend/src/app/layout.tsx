@@ -1,5 +1,4 @@
 import "./globals.css";
-
 export const metadata = {
   title: "RU Planner",
   description: "Rutgers degree planner",

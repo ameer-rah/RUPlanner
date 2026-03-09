@@ -27,21 +27,27 @@ _SCHOOL_CATALOG: Dict[str, str] = {
 }
 
 _DEGREE_LEVEL_MAP: Dict[Tuple[str, Optional[str]], str] = {
-    ("bachelor", "ba"):  "bachelor_ba",
-    ("bachelor", "bs"):  "bachelor_bs",
+    ("bachelor", "ba"):   "bachelor_ba",
+    ("bachelor", "bs"):   "bachelor_bs",
     ("bachelor", "bfa"):  "bachelor_bfa",
     ("bachelor", "bm"):   "bachelor_bm",
     ("bachelor", "bsba"): "bachelor_bsba",
     ("bachelor", None):   "bachelor_bs",
     ("minor",         None):  "minor",
     ("master",        None):  "master",
+    ("master",        "ms"):  "master_ms",
+    ("master",        "ma"):  "master_ma",
+    ("master",        "mat"): "master_mat",
+    ("master",        "meng"):"master_meng",
+    ("doctorate",     None):  "doctorate",
+    ("phd",           None):  "doctorate",
     ("associate",     None):  "associate",
     ("concentration", None):  "concentration",
 }
 
 CATALOG_YEAR = "2025-2026"
 
-_SEASONS = ["Spring", "Summer", "Fall"]
+_SEASONS = ["Spring", "Summer", "Fall", "Winter"]
 
 
 def _load_catalog_from_db() -> Dict[str, Dict]:
@@ -71,7 +77,7 @@ def _load_catalog_from_db() -> Dict[str, Dict]:
 
 def _term_index(term: str) -> int:
     season, year = term.split()
-    return int(year) * 3 + _SEASONS.index(season)
+    return int(year) * 4 + _SEASONS.index(season)
 
 
 def current_term() -> str:
@@ -82,8 +88,10 @@ def current_term() -> str:
         season = "Spring"
     elif month <= 8:
         season = "Summer"
-    else:
+    elif month <= 11:
         season = "Fall"
+    else:
+        season = "Winter"
     return f"{season} {year}"
 
 
@@ -92,8 +100,8 @@ def terms_between(start: str, end: str) -> List[str]:
     end_idx = _term_index(end)
     terms: List[str] = []
     for i in range(start_idx, end_idx + 1):
-        year = i // 3
-        season = _SEASONS[i % 3]
+        year = i // 4
+        season = _SEASONS[i % 4]
         terms.append(f"{season} {year}")
     return terms
 
@@ -142,6 +150,18 @@ def _load_requirements_from_db(
             )
             .first()
         )
+        # Fallback: specific master sub-types → generic "master" (backward compat)
+        if row is None and degree_level.startswith("master_"):
+            row = (
+                db.query(Program)
+                .filter(
+                    Program.school == school,
+                    Program.degree_level == "master",
+                    Program.major_name == major_name,
+                    Program.catalog_year == catalog_year,
+                )
+                .first()
+            )
         if row is None:
             raise ValueError(
                 f"No program in DB: school={school}, level={degree_level}, "
@@ -167,17 +187,24 @@ def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], 
     level_token = next((t for t in tokens if t not in _SCHOOLS), "")
 
     db_level: Optional[str] = {
-        "BS":            "bachelor_bs",
-        "BA":            "bachelor_ba",
-        "BFA":           "bachelor_bfa",
-        "BM":            "bachelor_bm",
-        "BSBA":          "bachelor_bsba",
-        "BSLA":          "bachelor_bsla",
-        "MINOR":         "minor",
-        "MS":            "master",
-        "AS":            "associate",
-        "CONCENTRATION": "concentration",
-        "DOCTORAL":      "doctoral",
+        "BS":              "bachelor_bs",
+        "BA":              "bachelor_ba",
+        "BFA":             "bachelor_bfa",
+        "BM":              "bachelor_bm",
+        "BSBA":            "bachelor_bsba",
+        "BSLA":            "bachelor_bsla",
+        "BACHELOR_BSLA":   "bachelor_bsla",
+        "MINOR":           "minor",
+        "MS":              "master_ms",
+        "MA":              "master_ma",
+        "MAT":             "master_mat",
+        "MENG":            "master_meng",
+        "PHD":             "doctorate",
+        "PSYD":            "professional_doctorate",
+        "AS":              "associate",
+        "CONCENTRATION":   "concentration",
+        "DOCTORAL":        "doctoral",
+        "CERTIFICATE":     "certificate",
     }.get(level_token)
 
     if db_level is None:
@@ -409,6 +436,167 @@ def _is_offered(course: Dict, season: str, season_has_data: Dict[str, bool]) -> 
     return course.get(flag, True)
 
 
+def _normalize_graduate_requirements(requirements: Dict) -> Tuple[Dict, List[str]]:
+    """
+    Normalize non-standard graduate program structures into the planner's
+    expected format: {required_courses: [...], electives: {count, options}}.
+
+    Returns (normalized_requirements, extra_warnings).
+    Only uses course codes explicitly present in the data — no invented courses.
+    """
+    warnings_out: List[str] = []
+    normalized = dict(requirements)
+
+    # ── Step 1: Collect required courses from all known field names ──
+    required: List[str] = list(requirements.get("required_courses") or [])
+    seen_req: Set[str] = set(required)
+
+    # required_core_courses (e.g. EMSP Medicinal Chemistry, GSAPP MABA)
+    rcc = requirements.get("required_core_courses")
+    if isinstance(rcc, list):
+        for c in rcc:
+            if isinstance(c, str) and c not in seen_req:
+                required.append(c)
+                seen_req.add(c)
+
+    # foundation_courses, core_required, specialization_required — dicts with a "courses" key
+    for field in ("foundation_courses", "core_required", "specialization_required"):
+        val = requirements.get(field, {})
+        if isinstance(val, dict):
+            for c in val.get("courses", []):
+                if isinstance(c, str) and c not in seen_req:
+                    required.append(c)
+                    seen_req.add(c)
+
+    # ── Step 2: Handle complex structures that hold all courses in non-standard fields ──
+    # Only enter these branches when the standard fields above yielded nothing.
+    if not required:
+        total_credits: int = requirements.get("total_credits", 30)
+        elective_options: List[str] = []
+
+        # category_a_courses / category_b_courses (e.g. SAS CS MS)
+        cat_a = requirements.get("category_a_courses", {})
+        cat_b = requirements.get("category_b_courses", {})
+        if cat_a or cat_b:
+            seen: Set[str] = set()
+            for opt in cat_a.get("options", []) + cat_b.get("options", []):
+                if opt not in seen:
+                    elective_options.append(opt)
+                    seen.add(opt)
+            warnings_out.append(
+                "This program uses flexible categories (A/B). "
+                "The schedule below shows representative courses from the approved pool — "
+                "consult your adviser to finalize your selection."
+            )
+            normalized["required_courses"] = []
+            normalized["electives"] = {
+                "count": total_credits // 3,
+                "options": elective_options,
+                "any_from_catalog": False,
+            }
+            return normalized, warnings_out
+
+        # core_courses with semester sub-dicts (e.g. SAS Economics MA)
+        # Check BEFORE tracks because Economics MA has both.
+        core_courses = requirements.get("core_courses", {})
+        if core_courses and isinstance(core_courses, dict):
+            seen = set()
+            for sem_data in core_courses.values():
+                if not isinstance(sem_data, dict):
+                    continue
+                for c in sem_data.get("required", []):
+                    if c not in seen:
+                        required.append(c)
+                        seen.add(c)
+                for val in sem_data.values():
+                    if isinstance(val, dict) and "options" in val:
+                        for c in val["options"]:
+                            if c not in seen:
+                                elective_options.append(c)
+                                seen.add(c)
+            for track_data in requirements.get("tracks", {}).values():
+                if not isinstance(track_data, dict):
+                    continue
+                for key in ("semester_3_required", "recommended_electives"):
+                    for c in track_data.get(key, []):
+                        if c not in seen:
+                            elective_options.append(c)
+                            seen.add(c)
+            spent = len(required) * 3
+            normalized["required_courses"] = required
+            normalized["electives"] = {
+                "count": max(0, (total_credits - spent) // 3),
+                "options": elective_options,
+                "any_from_catalog": False,
+            }
+            return normalized, warnings_out
+
+        # tracks dict with nested course lists (e.g. SOE ECE MS)
+        tracks = requirements.get("tracks", {})
+        if tracks and isinstance(tracks, dict) and any(
+            isinstance(v, dict) for v in tracks.values()
+        ):
+            seen = set()
+            for track_data in tracks.values():
+                if not isinstance(track_data, dict):
+                    continue
+                for val in track_data.values():
+                    if isinstance(val, list):
+                        for c in val:
+                            if isinstance(c, str) and c not in seen:
+                                elective_options.append(c)
+                                seen.add(c)
+            track_names = ", ".join(k.replace("_", " ").title() for k in tracks)
+            warnings_out.append(
+                f"This program offers specialization tracks ({track_names}). "
+                "The schedule shows courses from all tracks — "
+                "consult your adviser to select the right track for your goals."
+            )
+            normalized["required_courses"] = []
+            normalized["electives"] = {
+                "count": total_credits // 3,
+                "options": elective_options,
+                "any_from_catalog": False,
+            }
+            return normalized, warnings_out
+
+    # ── Step 3: Write back the (possibly augmented) required_courses ──
+    normalized["required_courses"] = required
+
+    # ── Step 4: Fix electives — normalise alternative count field names ──
+    electives = dict(requirements.get("electives", {}))
+    if electives and "count" not in electives:
+        for alt in ("count_capstone_track", "count_thesis_track", "count_non_thesis"):
+            if alt in electives:
+                electives["count"] = electives[alt]
+                break
+    if electives:
+        normalized["electives"] = electives
+
+    return normalized, warnings_out
+
+
+def _build_catalog_stubs(codes: List[str], catalog: Dict[str, Dict]) -> List[str]:
+    """
+    For course codes referenced in requirements but missing from the catalog,
+    insert a minimal stub so the planner can schedule them.
+    Returns list of codes that got stubs (for warning purposes).
+    Uses only the course code as the title — no invented names.
+    Assumes 3 credits, which is standard for graduate courses.
+    """
+    stubbed: List[str] = []
+    for code in codes:
+        if code not in catalog:
+            catalog[code] = {
+                "code": code,
+                "title": code,
+                "credits": 3,
+                "prerequisites": [],
+            }
+            stubbed.append(code)
+    return stubbed
+
+
 def _collect_missing_prereqs(
     codes: List[str],
     catalog: Dict[str, Dict],
@@ -434,11 +622,34 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     completed: Set[str] = {c.strip().upper() for c in request.completed_courses}
     warnings: List[str] = []
 
+    # Normalize non-standard graduate program structures (tracks, categories, etc.)
+    requirements, grad_warnings = _normalize_graduate_requirements(requirements)
+    warnings.extend(grad_warnings)
+
+    # Check for departmental open-ended requirements (e.g. MAE MS "5 MAE 650-level courses")
+    dept_req = requirements.get("departmental_courses", {})
+    if dept_req and isinstance(dept_req, dict) and dept_req.get("min_count"):
+        warnings.append(
+            f"Note: {dept_req.get('description', 'Additional departmental courses required')}. "
+            "These must be selected with your adviser — no specific course codes are defined in this data."
+        )
+
     for code in sorted(completed):
         if code not in catalog:
             warnings.append(f"Completed course '{code}' not found in catalog — treated as satisfied prereq but may be a typo.")
 
     required: List[str] = list(requirements.get("required_courses", []))
+
+    # Build minimal stubs for graduate courses referenced in requirements but absent from catalog.
+    # This prevents them from being silently dropped. Title = course code, credits = 3 (standard).
+    all_referenced = list(required) + list(requirements.get("electives", {}).get("options", []))
+    stubbed = _build_catalog_stubs(all_referenced, catalog)
+    if stubbed:
+        warnings.append(
+            f"Full catalog details unavailable for {len(stubbed)} graduate course(s) "
+            f"({', '.join(stubbed[:6])}{'…' if len(stubbed) > 6 else ''}). "
+            "Credits shown as 3 per course (standard graduate unit). Verify with the registrar."
+        )
 
     for code in _resolve_science_courses(requirements, completed):
         if code not in required:
@@ -529,7 +740,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     if request.preferred_seasons is not None and len(request.preferred_seasons) == 0:
         warnings.append(
-            "No semesters selected. Please choose at least one semester (Spring, Summer, or Fall)."
+            "No semesters selected. Please choose at least one semester (Spring, Summer, Fall, or Winter)."
         )
         return PlanResponse(terms=[], remaining_courses=remaining, warnings=warnings)
     preferred: set = {s.capitalize() for s in (request.preferred_seasons or _SEASONS)}
@@ -539,7 +750,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     if not terms:
         warnings.append(
             "No terms remain after applying your season preferences. "
-            "Please select at least one season (Spring, Summer, or Fall)."
+            "Please select at least one season (Spring, Summer, Fall, or Winter)."
         )
         return PlanResponse(terms=[], remaining_courses=remaining, warnings=warnings)
 
@@ -570,6 +781,16 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     for term in terms:
         season = term.split()[0]
+        # Apply season-specific credit caps per SAS policy:
+        #   Summer: max 12 credits total (across Rutgers + elsewhere)
+        #   Winter: max 4 credits (one course) or two 1–1.5 credit courses up to 3 credits
+        if season == "Summer":
+            term_max = min(request.max_credits_per_term, request.summer_max_credits)
+        elif season == "Winter":
+            term_max = min(request.max_credits_per_term, request.winter_max_credits)
+        else:
+            term_max = request.max_credits_per_term
+
         term_courses: List[PlannedCourse] = []
         term_credits = 0
         next_queue: List[str] = []
@@ -596,7 +817,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             )
             fits = (
                 term_credits + course["credits"] + pending_co_credits
-                <= request.max_credits_per_term
+                <= term_max
             )
 
             if prereqs_met and offered and fits:
