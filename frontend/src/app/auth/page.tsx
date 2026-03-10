@@ -6,6 +6,13 @@ import { useRouter } from "next/navigation";
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 
+function safeGetStorage(key: string): string | null {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+function safeSetStorage(key: string, value: string) {
+  try { localStorage.setItem(key, value); } catch { /* ignore */ }
+}
+
 declare global {
   interface Window {
     google?: {
@@ -29,13 +36,13 @@ export default function AuthPage() {
   const [authChecked, setAuthChecked] = useState(false);
 
   async function finishAuth(token: string, userEmail: string) {
-    localStorage.setItem("ru_planner_token", token);
-    localStorage.setItem("ru_planner_email", userEmail);
+    safeSetStorage("ru_planner_token", token);
+    safeSetStorage("ru_planner_email", userEmail);
     router.push("/");
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("ru_planner_token");
+    const token = safeGetStorage("ru_planner_token");
     if (token) {
       router.push("/");
       return;

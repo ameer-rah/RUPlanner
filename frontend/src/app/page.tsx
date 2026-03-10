@@ -21,6 +21,13 @@ type PlanResponse = {
   completion_term: string | null;
 };
 
+function safeGetStorage(key: string): string | null {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+function safeRemoveStorage(key: string) {
+  try { localStorage.removeItem(key); } catch { /* ignore */ }
+}
+
 const ALL_SEASONS = ["Spring", "Summer", "Fall", "Winter"];
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
@@ -54,8 +61,8 @@ export default function HomePage() {
   const editedTermsRef = useRef<PlanTerm[]>([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("ru_planner_token");
-    const email = localStorage.getItem("ru_planner_email");
+    const token = safeGetStorage("ru_planner_token");
+    const email = safeGetStorage("ru_planner_email");
     if (!token) {
       router.push("/auth");
       return;
@@ -89,8 +96,8 @@ export default function HomePage() {
   }
 
   function handleSignOut() {
-    localStorage.removeItem("ru_planner_token");
-    localStorage.removeItem("ru_planner_email");
+    safeRemoveStorage("ru_planner_token");
+    safeRemoveStorage("ru_planner_email");
     setUserEmail(null);
     router.push("/auth");
   }
@@ -143,7 +150,7 @@ export default function HomePage() {
   }, []);
 
   async function handleSave() {
-    const token = localStorage.getItem("ru_planner_token");
+    const token = safeGetStorage("ru_planner_token");
     if (!token) {
       router.push("/auth");
       return;
@@ -166,8 +173,8 @@ export default function HomePage() {
     });
 
     if (res.status === 401) {
-      localStorage.removeItem("ru_planner_token");
-      localStorage.removeItem("ru_planner_email");
+      safeRemoveStorage("ru_planner_token");
+      safeRemoveStorage("ru_planner_email");
       setUserEmail(null);
       router.push("/auth");
       return;
