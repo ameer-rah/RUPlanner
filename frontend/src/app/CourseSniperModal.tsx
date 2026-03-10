@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { getRegistrarCode } from "./registrar";
+import RmpBadge from "./RmpBadge";
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
@@ -189,8 +190,15 @@ export default function CourseSniperModal({
                   const isSelected = selectedIndex === sec.index;
                   const instructor = sec.instructors[0] ?? "Staff";
                   const times = sec.meetingTimes
-                    .map((mt) => `${DAY_LABELS[mt.day] ?? mt.day} ${formatTime(mt.start)}–${formatTime(mt.end)}`)
-                    .join(", ");
+                    .map((mt) => {
+                      const loc = mt.building && mt.room
+                        ? ` · ${mt.building}-${mt.room}`
+                        : mt.building
+                        ? ` · ${mt.building}`
+                        : " · TBA";
+                      return `${DAY_LABELS[mt.day] ?? mt.day} ${formatTime(mt.start)}–${formatTime(mt.end)}${loc}`;
+                    })
+                    .join(" / ");
                   return (
                     <button
                       key={sec.index}
@@ -232,6 +240,7 @@ export default function CourseSniperModal({
                           {instructor}{times ? ` · ${times}` : ""}
                         </div>
                       </div>
+                      <RmpBadge instructorName={instructor} />
                     </button>
                   );
                 })}

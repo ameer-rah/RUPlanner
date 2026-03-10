@@ -357,6 +357,80 @@ def delete_schedule(schedule_id: int, user_id: int = Depends(_get_current_user_i
         db.close()
 
 
+# ── Rate My Professor proxy ───────────────────────────────────────────────────
+
+import requests as _requests
+
+_RMP_URL = "https://www.ratemyprofessors.com/graphql"
+_RMP_SCHOOL_ID = "U2Nob29sLTgyNQ=="   # Rutgers University–New Brunswick (School-825, 6407 profs)
+_rmp_cache: dict = {}
+
+_RMP_QUERY = """
+query SearchTeacher($text: String!, $schoolID: ID!) {
+  newSearch {
+    teachers(query: {text: $text, schoolID: $schoolID}) {
+      edges {
+        node {
+          firstName
+          lastName
+          avgRating
+          numRatings
+          avgDifficulty
+          wouldTakeAgainPercent
+          department
+          legacyId
+        }
+      }
+    }
+  }
+}
+"""
+
+@app.get("/rmp/rating")
+def rmp_rating(name: str = Query(..., description="Professor name, e.g. 'ZHU, HE' or 'He Zhu'")):
+    """Look up a professor's Rate My Professor rating for Rutgers NB."""
+    # Normalise: "LAST, FIRST" → "First Last"
+    if "," in name:
+        parts = [p.strip().title() for p in name.split(",", 1)]
+        query_name = f"{parts[1]} {parts[0]}"
+    else:
+        query_name = name.strip().title()
+
+    cache_key = query_name.lower()
+    if cache_key in _rmp_cache:
+        return _rmp_cache[cache_key]
+
+    try:
+        resp = _requests.post(
+            _RMP_URL,
+            json={"query": _RMP_QUERY, "variables": {"text": query_name, "schoolID": _RMP_SCHOOL_ID}},
+            headers={
+                "Authorization": "Basic dGVzdDp0ZXN0",
+                "Content-Type": "application/json",
+            },
+            timeout=5,
+        )
+        edges = resp.json().get("data", {}).get("newSearch", {}).get("teachers", {}).get("edges", [])
+    except Exception:
+        return None
+
+    if not edges:
+        _rmp_cache[cache_key] = None
+        return None
+
+    node = edges[0]["node"]
+    result = {
+        "name": f"{node['firstName']} {node['lastName']}",
+        "rating": node.get("avgRating"),
+        "num_ratings": node.get("numRatings", 0),
+        "difficulty": node.get("avgDifficulty"),
+        "would_take_again": node.get("wouldTakeAgainPercent"),
+        "legacy_id": node.get("legacyId"),
+    }
+    _rmp_cache[cache_key] = result
+    return result
+
+
 # ── SOC proxy ─────────────────────────────────────────────────────────────────
 
 @app.get("/soc/sections")
