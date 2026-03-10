@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { getRegistrarCode, getCoursiclUrl } from "../registrar";
+import CourseSniperModal from "../CourseSniperModal";
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
@@ -38,6 +39,32 @@ type SavedSchedule = {
   };
 };
 
+type Snipe = {
+  id: number;
+  course_code: string;
+  course_title: string;
+  section_index: string;
+  section_number: string;
+  year: string;
+  term: string;
+  campus: string;
+  phone_number: string;
+  active: boolean;
+  notified_at: string | null;
+  created_at: string;
+};
+
+const TERM_LABELS: Record<string, string> = {
+  "9": "Fall", "1": "Spring", "7": "Summer", "0": "Winter",
+};
+
+function termToSocCode(termName: string): { year: string; term: string } | null {
+  const match = termName.match(/^(Fall|Spring|Summer|Winter)\s+(\d{4})$/);
+  if (!match) return null;
+  const codes: Record<string, string> = { Fall: "9", Spring: "1", Summer: "7", Winter: "0" };
+  return { year: match[2], term: codes[match[1]] };
+}
+
 function getTermClass(term: string) {
   if (term.includes("Fall")) return "plan-term term-fall";
   if (term.includes("Spring")) return "plan-term term-spring";
@@ -60,6 +87,100 @@ function totalCredits(terms: PlanTerm[]) {
   return terms.reduce((sum, t) => sum + t.total_credits, 0);
 }
 
+// ── Snipes Panel ─────────────────────────────────────────────────────────────
+
+function SnipesPanel({
+  open, token, snipes, onDelete, onClose,
+}: {
+  open: boolean;
+  token: string;
+  snipes: Snipe[];
+  onDelete: (id: number) => void;
+  onClose: () => void;
+}) {
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
+  async function handleDelete(id: number) {
+    setDeletingId(id);
+    try {
+      await fetch(`${apiBase}/snipes/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      onDelete(id);
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
+  return (
+    <>
+      {/* Invisible backdrop — click to close */}
+      {open && <div className="snipes-backdrop" onClick={onClose} />}
+
+      <div className={`snipes-panel${open ? " open" : ""}`}>
+        {/* Header */}
+        <div className="snipes-panel-header">
+          <div>
+            <div className="snipes-panel-title">🎯 Course Sniper</div>
+            <div className="snipes-panel-sub">
+              Get a text the moment a seat opens
+            </div>
+          </div>
+          <button className="snipes-panel-close" onClick={onClose}>✕</button>
+        </div>
+
+        {/* Body */}
+        <div className="snipes-panel-body">
+          {snipes.length === 0 ? (
+            <div className="snipes-empty">
+              <div className="snipes-empty-icon">🎯</div>
+              <div className="snipes-empty-text">
+                No active snipes yet.<br />
+                Click the 🎯 on any course to watch a section.
+              </div>
+            </div>
+          ) : (
+            snipes.map((s) => {
+              const termLabel = `${TERM_LABELS[s.term] ?? s.term} ${s.year}`;
+              const wasNotified = !!s.notified_at;
+              return (
+                <div key={s.id} className={`snipe-card${wasNotified ? " notified" : ""}`}>
+                  <div className="snipe-card-icon">{wasNotified ? "✅" : "🎯"}</div>
+                  <div className="snipe-card-body">
+                    <div className="snipe-card-title">
+                      {s.course_code} · Sec {s.section_number}
+                      <span className="snipe-card-index">#{s.section_index}</span>
+                    </div>
+                    <div className="snipe-card-meta">
+                      {termLabel} · {s.phone_number}
+                    </div>
+                    {wasNotified && (
+                      <div className="snipe-card-notified">
+                        ✓ Notified {new Date(s.notified_at!).toLocaleString()}
+                      </div>
+                    )}
+                  </div>
+                  <button
+                    className="snipe-delete-btn"
+                    onClick={() => handleDelete(s.id)}
+                    disabled={deletingId === s.id}
+                    title="Remove snipe"
+                  >
+                    {deletingId === s.id ? "…" : "🗑"}
+                  </button>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Main Page ─────────────────────────────────────────────────────────────────
+
 export default function SchedulesPage() {
   const router = useRouter();
   const [schedules, setSchedules] = useState<SavedSchedule[]>([]);
@@ -67,17 +188,30 @@ export default function SchedulesPage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [confirmId, setConfirmId] = useState<number | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+
+  const [snipes, setSnipes] = useState<Snipe[]>([]);
+  const [snipeModal, setSnipeModal] = useState<{
+    courseCode: string;
+    courseTitle: string;
+    year: string;
+    term: string;
+  } | null>(null);
+  const [showSnipes, setShowSnipes] = useState(false);
+
+  const fetchSnipes = useCallback((tok: string) => {
+    fetch(`${apiBase}/snipes`, { headers: { Authorization: `Bearer ${tok}` } })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: Snipe[]) => setSnipes(data ?? []))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
-    const token = safeGetStorage("ru_planner_token");
-    if (!token) {
-      router.push("/auth");
-      return;
-    }
+    const tok = safeGetStorage("ru_planner_token");
+    if (!tok) { router.push("/auth"); return; }
+    setToken(tok);
 
-    fetch(`${apiBase}/schedules`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(`${apiBase}/schedules`, { headers: { Authorization: `Bearer ${tok}` } })
       .then((r) => {
         if (r.status === 401) {
           safeRemoveStorage("ru_planner_token");
@@ -92,24 +226,24 @@ export default function SchedulesPage() {
         if (data?.length > 0) setSelectedId(data[0].id);
       })
       .finally(() => setLoading(false));
-  }, [router]);
+
+    fetchSnipes(tok);
+  }, [router, fetchSnipes]);
 
   function formatDate(iso: string) {
     return new Date(iso).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
+      month: "short", day: "numeric", year: "numeric",
     });
   }
 
   async function handleDelete(id: number) {
-    const token = safeGetStorage("ru_planner_token");
-    if (!token) return;
+    const tok = safeGetStorage("ru_planner_token");
+    if (!tok) return;
     setDeletingId(id);
     try {
       await fetch(`${apiBase}/schedules/${id}`, {
         method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${tok}` },
       });
       setSchedules((prev) => {
         const next = prev.filter((s) => s.id !== id);
@@ -123,6 +257,7 @@ export default function SchedulesPage() {
   }
 
   const selected = schedules.find((s) => s.id === selectedId) ?? null;
+  const activeSnipes = snipes.filter((s) => s.active && !s.notified_at).length;
 
   return (
     <div className="schedules-shell">
@@ -131,10 +266,33 @@ export default function SchedulesPage() {
           <img src="/RUPlanner_logo.png" alt="RU Planner" className="topbar-logo-img" />
           <span className="logo-text" style={{ color: "var(--text)" }}>RU Planner</span>
         </div>
-        <button className="topbar-btn" onClick={() => router.push("/")}>
-          ← Back to planner
-        </button>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button
+            className="topbar-btn"
+            onClick={() => setShowSnipes((v) => !v)}
+            style={{ position: "relative" }}
+          >
+            🎯 My Snipes
+            {activeSnipes > 0 && (
+              <span className="snipe-topbar-badge">{activeSnipes}</span>
+            )}
+          </button>
+          <button className="topbar-btn" onClick={() => router.push("/")}>
+            ← Back to planner
+          </button>
+        </div>
       </header>
+
+      {/* Always-mounted slide-in panel */}
+      {token && (
+        <SnipesPanel
+          open={showSnipes}
+          token={token}
+          snipes={snipes}
+          onDelete={(id) => setSnipes((prev) => prev.filter((s) => s.id !== id))}
+          onClose={() => setShowSnipes(false)}
+        />
+      )}
 
       {loading ? (
         <div className="empty-state" style={{ minHeight: "calc(100vh - 57px)" }}>
@@ -144,9 +302,7 @@ export default function SchedulesPage() {
         <div className="empty-state" style={{ minHeight: "calc(100vh - 57px)" }}>
           <div className="empty-state-icon">📋</div>
           <p className="empty-state-title">No saved schedules yet</p>
-          <p className="empty-state-sub">
-            Generate a degree plan and save it to see it here.
-          </p>
+          <p className="empty-state-sub">Generate a degree plan and save it to see it here.</p>
           <button
             className="primary-button"
             style={{ width: "auto", marginTop: 4 }}
@@ -209,10 +365,7 @@ export default function SchedulesPage() {
                       </div>
                     </div>
 
-                    <div
-                      style={{ flexShrink: 0, marginLeft: 8 }}
-                      onClick={(e) => e.stopPropagation()}
-                    >
+                    <div style={{ flexShrink: 0, marginLeft: 8 }} onClick={(e) => e.stopPropagation()}>
                       {isConfirming ? (
                         <div style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
                           <span style={{ fontSize: 10, color: "var(--muted)" }}>Delete?</span>
@@ -237,8 +390,8 @@ export default function SchedulesPage() {
                           onClick={() => setConfirmId(s.id)}
                           title="Delete schedule"
                           style={{ fontSize: 13, padding: "4px 6px", background: "none", border: "1px solid transparent", borderRadius: 5, cursor: "pointer", color: "var(--muted)", lineHeight: 1, transition: "all 0.15s" }}
-                          onMouseEnter={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.background = "#fff1f2"; b.style.borderColor = "#fca5a5"; b.style.color = "#dc2626"; }}
-                          onMouseLeave={(e) => { const b = e.currentTarget as HTMLButtonElement; b.style.background = "none"; b.style.borderColor = "transparent"; b.style.color = "var(--muted)"; }}
+                          onMouseEnter={(e) => { const b = e.currentTarget; b.style.background = "#fff1f2"; b.style.borderColor = "#fca5a5"; b.style.color = "#dc2626"; }}
+                          onMouseLeave={(e) => { const b = e.currentTarget; b.style.background = "none"; b.style.borderColor = "transparent"; b.style.color = "var(--muted)"; }}
                         >
                           🗑
                         </button>
@@ -285,23 +438,55 @@ export default function SchedulesPage() {
                           <span className="credits-badge">{term.total_credits} cr</span>
                         </div>
                         <div className="plan-course-list">
-                          {term.courses.map((course) => (
-                            <div key={course.code} className={`plan-course${course.is_elective ? " elective" : ""}`}>
-                              <div className="plan-course-header">
-                                <a
-                                  className="plan-course-code"
-                                  href={getCoursiclUrl(course.code) ?? undefined}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  title={getRegistrarCode(course.code) ?? course.code}
-                                >
-                                  {course.code}
-                                </a>
-                                {course.is_elective && <span className="elective-badge">ELECTIVE</span>}
+                          {term.courses.map((course) => {
+                            const soc = termToSocCode(term.term);
+                            const hasRegistrar = !!getRegistrarCode(course.code);
+                            return (
+                              <div key={course.code} className={`plan-course${course.is_elective ? " elective" : ""}`}>
+                                <div className="plan-course-header">
+                                  <a
+                                    className="plan-course-code"
+                                    href={getCoursiclUrl(course.code) ?? undefined}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    title={getRegistrarCode(course.code) ?? course.code}
+                                  >
+                                    {course.code}
+                                  </a>
+                                  {course.is_elective && <span className="elective-badge">ELECTIVE</span>}
+
+                                  {soc && hasRegistrar && token && (
+                                    <button
+                                      title="Snipe a section — get texted when a seat opens"
+                                      onClick={() => setSnipeModal({
+                                        courseCode: course.code,
+                                        courseTitle: course.title,
+                                        year: soc.year,
+                                        term: soc.term,
+                                      })}
+                                      style={{
+                                        marginLeft: "auto",
+                                        background: "none",
+                                        border: "none",
+                                        cursor: "pointer",
+                                        fontSize: 14,
+                                        padding: "1px 4px",
+                                        borderRadius: 4,
+                                        color: "var(--muted)",
+                                        lineHeight: 1,
+                                        transition: "color 0.15s",
+                                      }}
+                                      onMouseEnter={(e) => { e.currentTarget.style.color = "var(--scarlet)"; }}
+                                      onMouseLeave={(e) => { e.currentTarget.style.color = "var(--muted)"; }}
+                                    >
+                                      🎯
+                                    </button>
+                                  )}
+                                </div>
+                                <div className="plan-course-meta">{course.title} · {course.credits} cr</div>
                               </div>
-                              <div className="plan-course-meta">{course.title} · {course.credits} cr</div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       </div>
                     ))}
@@ -315,6 +500,18 @@ export default function SchedulesPage() {
             )}
           </div>
         </div>
+      )}
+
+      {snipeModal && token && (
+        <CourseSniperModal
+          courseCode={snipeModal.courseCode}
+          courseTitle={snipeModal.courseTitle}
+          year={snipeModal.year}
+          term={snipeModal.term}
+          token={token}
+          onClose={() => setSnipeModal(null)}
+          onSniped={() => fetchSnipes(token)}
+        />
       )}
     </div>
   );

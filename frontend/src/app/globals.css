@@ -1509,3 +1509,212 @@ select:focus {
     overflow: visible;
   }
 }
+
+/* ── Snipes slide-in panel ───────────────────────────────────────────────── */
+
+.snipes-panel {
+  position: fixed;
+  top: 57px;
+  right: 0;
+  bottom: 0;
+  width: 400px;
+  background: var(--white);
+  border-left: 1px solid var(--border);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.10);
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.28s ease;
+  will-change: transform;
+}
+
+.snipes-panel.open {
+  transform: translateX(0);
+  box-shadow: -8px 0 40px rgba(0, 0, 0, 0.13);
+}
+
+.snipes-panel-header {
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background: var(--white);
+}
+
+.snipes-panel-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.snipes-panel-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.snipes-panel-close {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--subtle);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.snipes-panel-close:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.snipes-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.snipe-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.snipe-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.snipe-card.notified {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.snipe-card-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.snipe-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.snipe-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.snipe-card-index {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.snipe-card-meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.snipe-card-notified {
+  font-size: 11px;
+  font-weight: 600;
+  color: #16a34a;
+  margin-top: 4px;
+}
+
+.snipe-delete-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--muted);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.snipe-delete-btn:hover {
+  background: #fff1f2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.snipes-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  text-align: center;
+  padding: 32px 20px;
+}
+
+.snipes-empty-icon {
+  font-size: 36px;
+  opacity: 0.4;
+}
+
+.snipes-empty-text {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* backdrop when panel is open */
+.snipes-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: transparent;
+}
+
+/* badge on topbar button */
+.snipe-topbar-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--scarlet);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}

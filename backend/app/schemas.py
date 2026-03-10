@@ -95,3 +95,29 @@ class SavedScheduleInfo(BaseModel):
     name: str
     created_at: str
     plan_data: dict
+
+
+class SnipeCreate(BaseModel):
+    course_code: str
+    course_title: str
+    section_index: str
+    section_number: str
+    year: str
+    term: str          # "9"=Fall, "1"=Spring, "7"=Summer, "0"=Winter
+    campus: str = "NB"
+    phone_number: str  # E.164 format, e.g. +17325551234
+
+
+class SnipeOut(BaseModel):
+    id: int
+    course_code: str
+    course_title: str
+    section_index: str
+    section_number: str
+    year: str
+    term: str
+    campus: str
+    phone_number: str
+    active: bool
+    notified_at: Optional[str]
+    created_at: str

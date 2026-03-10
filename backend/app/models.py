@@ -57,3 +57,21 @@ class SavedSchedule(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False, default="My Schedule")
     plan_data: Mapped[Any] = mapped_column(JSON, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+
+
+class Snipe(Base):
+    __tablename__ = "snipes"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
+    course_code: Mapped[str] = mapped_column(String(20), nullable=False)   # e.g. "CS111"
+    course_title: Mapped[str] = mapped_column(String(255), nullable=False)
+    section_index: Mapped[str] = mapped_column(String(10), nullable=False)  # e.g. "08735"
+    section_number: Mapped[str] = mapped_column(String(10), nullable=False) # e.g. "01"
+    year: Mapped[str] = mapped_column(String(6), nullable=False)            # e.g. "2026"
+    term: Mapped[str] = mapped_column(String(4), nullable=False)            # "9"=Fall,"1"=Spring
+    campus: Mapped[str] = mapped_column(String(5), nullable=False, default="NB")
+    phone_number: Mapped[str] = mapped_column(String(20), nullable=False)   # E.164, e.g. +17325551234
+    active: Mapped[bool] = mapped_column(Boolean, default=True)
+    notified_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

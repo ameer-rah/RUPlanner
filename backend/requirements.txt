@@ -13,3 +13,5 @@ bcrypt==4.2.1
 python-jose[cryptography]==3.3.0
 google-auth==2.29.0
 python-dotenv>=1.0.0
+twilio>=9.0.0
+APScheduler>=3.10.0

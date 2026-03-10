@@ -7,18 +7,24 @@ load_dotenv()
 from datetime import datetime, timedelta
 from typing import List
 
-from fastapi import FastAPI, HTTPException, UploadFile, File, Depends
+from fastapi import FastAPI, HTTPException, UploadFile, File, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 import bcrypt
 from google.oauth2 import id_token as google_id_token
 from google.auth.transport import requests as google_requests
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from .database import engine, Base, SessionLocal
 from . import models
-from .schemas import PlanRequest, PlanResponse, ProgramInfo, CourseSearchResult, UserCreate, Token, SaveScheduleRequest, GoogleAuthRequest
+from .schemas import (
+    PlanRequest, PlanResponse, ProgramInfo, CourseSearchResult,
+    UserCreate, Token, SaveScheduleRequest, GoogleAuthRequest,
+    SnipeCreate, SnipeOut,
+)
 from .core.planner import heuristic_plan
+from .core.sniper import poll_snipes, fetch_sections_for_subject
 
 SECRET_KEY = os.getenv("SECRET_KEY", "ru-planner-dev-secret-change-in-production")
 ALGORITHM = "HS256"
@@ -34,10 +40,16 @@ def _verify_password(password: str, hashed: str) -> bool:
 _bearer = HTTPBearer()
 
 
+_scheduler = BackgroundScheduler()
+
+
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     Base.metadata.create_all(bind=engine)
+    _scheduler.add_job(poll_snipes, "interval", minutes=2, id="snipe_poll")
+    _scheduler.start()
     yield
+    _scheduler.shutdown(wait=False)
 
 
 app = FastAPI(title="RU Planner API", lifespan=lifespan)
@@ -343,3 +355,91 @@ def delete_schedule(schedule_id: int, user_id: int = Depends(_get_current_user_i
         db.commit()
     finally:
         db.close()
+
+
+# ── SOC proxy ─────────────────────────────────────────────────────────────────
+
+@app.get("/soc/sections")
+def soc_sections(
+    subject: str = Query(..., description="Subject number, e.g. 198"),
+    year: str = Query("2026"),
+    term: str = Query("9"),
+    campus: str = Query("NB"),
+):
+    """Proxy to Rutgers SOC API — returns sections for a subject with open/closed status."""
+    sections = fetch_sections_for_subject(subject, year, term, campus)
+    return sections
+
+
+# ── Course Sniper endpoints ────────────────────────────────────────────────────
+
+@app.post("/snipes", response_model=SnipeOut)
+def create_snipe(payload: SnipeCreate, user_id: int = Depends(_get_current_user_id)):
+    db = SessionLocal()
+    try:
+        snipe = models.Snipe(
+            user_id=user_id,
+            course_code=payload.course_code,
+            course_title=payload.course_title,
+            section_index=payload.section_index,
+            section_number=payload.section_number,
+            year=payload.year,
+            term=payload.term,
+            campus=payload.campus,
+            phone_number=payload.phone_number,
+        )
+        db.add(snipe)
+        db.commit()
+        db.refresh(snipe)
+        return _snipe_to_out(snipe)
+    finally:
+        db.close()
+
+
+@app.get("/snipes", response_model=List[SnipeOut])
+def list_snipes(user_id: int = Depends(_get_current_user_id)):
+    db = SessionLocal()
+    try:
+        rows = (
+            db.query(models.Snipe)
+            .filter(models.Snipe.user_id == user_id)
+            .order_by(models.Snipe.created_at.desc())
+            .all()
+        )
+        return [_snipe_to_out(r) for r in rows]
+    finally:
+        db.close()
+
+
+@app.delete("/snipes/{snipe_id}", status_code=204)
+def delete_snipe(snipe_id: int, user_id: int = Depends(_get_current_user_id)):
+    db = SessionLocal()
+    try:
+        row = (
+            db.query(models.Snipe)
+            .filter(models.Snipe.id == snipe_id, models.Snipe.user_id == user_id)
+            .first()
+        )
+        if not row:
+            raise HTTPException(status_code=404, detail="Snipe not found")
+        db.delete(row)
+        db.commit()
+    finally:
+        db.close()
+
+
+def _snipe_to_out(s: models.Snipe) -> SnipeOut:
+    return SnipeOut(
+        id=s.id,
+        course_code=s.course_code,
+        course_title=s.course_title,
+        section_index=s.section_index,
+        section_number=s.section_number,
+        year=s.year,
+        term=s.term,
+        campus=s.campus,
+        phone_number=s.phone_number,
+        active=s.active,
+        notified_at=s.notified_at.isoformat() if s.notified_at else None,
+        created_at=s.created_at.isoformat(),
+    )
