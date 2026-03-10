@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 import bcrypt
+import requests as _requests
 from google.oauth2 import id_token as google_id_token
 from google.auth.transport import requests as google_requests
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -38,10 +39,7 @@ def _verify_password(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode(), hashed.encode())
 
 _bearer = HTTPBearer()
-
-
 _scheduler = BackgroundScheduler()
-
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
@@ -50,7 +48,6 @@ async def lifespan(_: FastAPI):
     _scheduler.start()
     yield
     _scheduler.shutdown(wait=False)
-
 
 app = FastAPI(title="RU Planner API", lifespan=lifespan)
 
@@ -61,7 +58,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 _LEVEL_LABEL = {
     "bachelor_bs":           "BS",
@@ -80,7 +76,6 @@ _LEVEL_LABEL = {
     "professional_doctorate":"PsyD",
     "associate":             "AS",
 }
-
 
 @app.get("/programs", response_model=List[ProgramInfo])
 def list_programs() -> List[ProgramInfo]:
@@ -107,7 +102,6 @@ def list_programs() -> List[ProgramInfo]:
     finally:
         db.close()
 
-
 @app.get("/courses", response_model=List[CourseSearchResult])
 def search_courses(q: str = "", limit: int = 20) -> List[CourseSearchResult]:
     if not q:
@@ -131,7 +125,6 @@ def search_courses(q: str = "", limit: int = 20) -> List[CourseSearchResult]:
     finally:
         db.close()
 
-
 @app.post("/plan", response_model=PlanResponse)
 def generate_plan(payload: PlanRequest) -> PlanResponse:
     try:
@@ -139,22 +132,7 @@ def generate_plan(payload: PlanRequest) -> PlanResponse:
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
 
-
 _RU_CODE_RE = re.compile(r'\b\d{2}:\d{3}:\d{3}\b')
-
-_DEPT_MAP = {
-    "198": "CS",
-    "151": "MATH",
-    "152": "MATH",
-    "250": "MATH",
-    "640": "MATH",
-    "642": "MATH",
-    "160": "PHYS",
-    "750": "PHYS",
-    "160": "CHEM",
-    "160": "BIOL",
-    "447": "STAT",
-}
 
 _SUBJECT_DEPT: dict = {
     "01:198": "CS",
@@ -173,15 +151,12 @@ _SUBJECT_DEPT: dict = {
     "01:790": "POLISCI",
     "01:070": "ANTHRO",
     "01:220": "ECON",
-    "01:355": "STAT",
     "01:300": "ENGLISH",
     "01:685": "LINGUISTICS",
 }
 
-
 def _parse_transcript_text(text: str) -> List[str]:
     codes: List[str] = []
-
     for match in _RU_CODE_RE.finditer(text):
         raw = match.group()
         parts = raw.split(":")
@@ -193,25 +168,20 @@ def _parse_transcript_text(text: str) -> List[str]:
                 code = f"{subject}{course_num}"
                 if code not in codes:
                     codes.append(code)
-
     formatted_re = re.compile(r'\b([A-Z]{2,8})(\d{2,4}[A-Z]?)\b')
     for match in formatted_re.finditer(text):
         code = match.group(0).upper()
         if code not in codes:
             codes.append(code)
-
     return codes
-
 
 @app.post("/parse-transcript", response_model=List[str])
 async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are accepted.")
-
     content = await file.read()
     if len(content) > 20 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File too large (max 20 MB).")
-
     try:
         from pypdf import PdfReader
         import io as _io
@@ -219,17 +189,12 @@ async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
         text = "\n".join(page.extract_text() or "" for page in reader.pages)
     except Exception as exc:
         raise HTTPException(status_code=422, detail=f"Could not read PDF: {exc}")
-
     codes = _parse_transcript_text(text)
     return codes
-
-
-# ── Auth helpers ─────────────────────────────────────────────────────────────
 
 def _create_token(user_id: int) -> str:
     expire = datetime.utcnow() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     return jwt.encode({"sub": str(user_id), "exp": expire}, SECRET_KEY, algorithm=ALGORITHM)
-
 
 def _get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(_bearer)) -> int:
     try:
@@ -240,9 +205,6 @@ def _get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(_be
         return int(user_id)
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
-
-
-# ── Auth endpoints ────────────────────────────────────────────────────────────
 
 @app.post("/auth/register", response_model=Token)
 def register(payload: UserCreate) -> Token:
@@ -258,7 +220,6 @@ def register(payload: UserCreate) -> Token:
     finally:
         db.close()
 
-
 @app.post("/auth/login", response_model=Token)
 def login(payload: UserCreate) -> Token:
     db = SessionLocal()
@@ -269,7 +230,6 @@ def login(payload: UserCreate) -> Token:
         return Token(access_token=_create_token(user.id), token_type="bearer")
     finally:
         db.close()
-
 
 @app.post("/auth/google", response_model=Token)
 def google_auth(payload: GoogleAuthRequest) -> Token:
@@ -284,7 +244,6 @@ def google_auth(payload: GoogleAuthRequest) -> Token:
         email = idinfo["email"]
     except ValueError:
         raise HTTPException(status_code=401, detail="Invalid Google token.")
-
     db = SessionLocal()
     try:
         user = db.query(models.User).filter(models.User.email == email).first()
@@ -297,7 +256,6 @@ def google_auth(payload: GoogleAuthRequest) -> Token:
     finally:
         db.close()
 
-
 @app.get("/auth/me")
 def me(user_id: int = Depends(_get_current_user_id)):
     db = SessionLocal()
@@ -308,9 +266,6 @@ def me(user_id: int = Depends(_get_current_user_id)):
         return {"id": user.id, "email": user.email}
     finally:
         db.close()
-
-
-# ── Schedule save/load endpoints ──────────────────────────────────────────────
 
 @app.post("/schedules")
 def save_schedule(payload: SaveScheduleRequest, user_id: int = Depends(_get_current_user_id)):
@@ -323,7 +278,6 @@ def save_schedule(payload: SaveScheduleRequest, user_id: int = Depends(_get_curr
         return {"id": schedule.id, "message": "Schedule saved"}
     finally:
         db.close()
-
 
 @app.get("/schedules")
 def get_schedules(user_id: int = Depends(_get_current_user_id)):
@@ -338,7 +292,6 @@ def get_schedules(user_id: int = Depends(_get_current_user_id)):
         return [{"id": r.id, "name": r.name, "plan_data": r.plan_data, "created_at": r.created_at.isoformat()} for r in rows]
     finally:
         db.close()
-
 
 @app.delete("/schedules/{schedule_id}", status_code=204)
 def delete_schedule(schedule_id: int, user_id: int = Depends(_get_current_user_id)):
@@ -356,19 +309,22 @@ def delete_schedule(schedule_id: int, user_id: int = Depends(_get_current_user_i
     finally:
         db.close()
 
-
-# ── Rate My Professor proxy ───────────────────────────────────────────────────
-
-import requests as _requests
-
 _RMP_URL = "https://www.ratemyprofessors.com/graphql"
-_RMP_SCHOOL_ID = "U2Nob29sLTgyNQ=="   # Rutgers University–New Brunswick (School-825, 6407 profs)
+_RMP_HOME = "https://www.ratemyprofessors.com/"
+_RMP_SCHOOL_ID = "U2Nob29sLTgyNQ=="
 _rmp_cache: dict = {}
+_RMP_HEADERS = {
+    "Authorization": "Basic dGVzdDp0ZXN0",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Origin": "https://www.ratemyprofessors.com",
+    "Referer": "https://www.ratemyprofessors.com/",
+}
+_rmp_session: "_requests.Session | None" = None
 
 _RMP_QUERY = """
-query SearchTeacher($text: String!, $schoolID: ID!) {
+query NewSearchTeachersQuery($text: String!, $schoolID: ID!, $first: Int!) {
   newSearch {
-    teachers(query: {text: $text, schoolID: $schoolID}) {
+    teachers(query: {text: $text, schoolID: $schoolID}, first: $first) {
       edges {
         node {
           firstName
@@ -386,39 +342,48 @@ query SearchTeacher($text: String!, $schoolID: ID!) {
 }
 """
 
+def _get_rmp_session() -> "_requests.Session":
+    global _rmp_session
+    if _rmp_session is None:
+        _rmp_session = _requests.Session()
+        _rmp_session.get(_RMP_HOME, headers=_RMP_HEADERS, timeout=5)
+    return _rmp_session
+
+def _name_matches(query: str, first: str, last: str) -> bool:
+    parts = query.lower().split()
+    first_l, last_l = first.lower(), last.lower()
+    return all(p in first_l or p in last_l for p in parts)
+
 @app.get("/rmp/rating")
-def rmp_rating(name: str = Query(..., description="Professor name, e.g. 'ZHU, HE' or 'He Zhu'")):
-    """Look up a professor's Rate My Professor rating for Rutgers NB."""
-    # Normalise: "LAST, FIRST" → "First Last"
+def rmp_rating(name: str = Query(...)):
     if "," in name:
         parts = [p.strip().title() for p in name.split(",", 1)]
         query_name = f"{parts[1]} {parts[0]}"
     else:
         query_name = name.strip().title()
-
     cache_key = query_name.lower()
     if cache_key in _rmp_cache:
         return _rmp_cache[cache_key]
-
     try:
-        resp = _requests.post(
+        session = _get_rmp_session()
+        resp = session.post(
             _RMP_URL,
-            json={"query": _RMP_QUERY, "variables": {"text": query_name, "schoolID": _RMP_SCHOOL_ID}},
-            headers={
-                "Authorization": "Basic dGVzdDp0ZXN0",
-                "Content-Type": "application/json",
-            },
+            json={"query": _RMP_QUERY, "variables": {"text": query_name, "schoolID": _RMP_SCHOOL_ID, "first": 5}},
+            headers=_RMP_HEADERS,
             timeout=5,
         )
         edges = resp.json().get("data", {}).get("newSearch", {}).get("teachers", {}).get("edges", [])
     except Exception:
         return None
-
-    if not edges:
+    node = None
+    for edge in edges:
+        n = edge["node"]
+        if _name_matches(query_name, n.get("firstName", ""), n.get("lastName", "")):
+            node = n
+            break
+    if node is None:
         _rmp_cache[cache_key] = None
         return None
-
-    node = edges[0]["node"]
     result = {
         "name": f"{node['firstName']} {node['lastName']}",
         "rating": node.get("avgRating"),
@@ -430,22 +395,15 @@ def rmp_rating(name: str = Query(..., description="Professor name, e.g. 'ZHU, HE
     _rmp_cache[cache_key] = result
     return result
 
-
-# ── SOC proxy ─────────────────────────────────────────────────────────────────
-
 @app.get("/soc/sections")
 def soc_sections(
-    subject: str = Query(..., description="Subject number, e.g. 198"),
+    subject: str = Query(...),
     year: str = Query("2026"),
     term: str = Query("9"),
     campus: str = Query("NB"),
 ):
-    """Proxy to Rutgers SOC API — returns sections for a subject with open/closed status."""
     sections = fetch_sections_for_subject(subject, year, term, campus)
     return sections
-
-
-# ── Course Sniper endpoints ────────────────────────────────────────────────────
 
 @app.post("/snipes", response_model=SnipeOut)
 def create_snipe(payload: SnipeCreate, user_id: int = Depends(_get_current_user_id)):
@@ -469,7 +427,6 @@ def create_snipe(payload: SnipeCreate, user_id: int = Depends(_get_current_user_
     finally:
         db.close()
 
-
 @app.get("/snipes", response_model=List[SnipeOut])
 def list_snipes(user_id: int = Depends(_get_current_user_id)):
     db = SessionLocal()
@@ -483,7 +440,6 @@ def list_snipes(user_id: int = Depends(_get_current_user_id)):
         return [_snipe_to_out(r) for r in rows]
     finally:
         db.close()
-
 
 @app.delete("/snipes/{snipe_id}", status_code=204)
 def delete_snipe(snipe_id: int, user_id: int = Depends(_get_current_user_id)):
@@ -500,7 +456,6 @@ def delete_snipe(snipe_id: int, user_id: int = Depends(_get_current_user_id)):
         db.commit()
     finally:
         db.close()
-
 
 def _snipe_to_out(s: models.Snipe) -> SnipeOut:
     return SnipeOut(
