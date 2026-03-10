@@ -26,6 +26,7 @@ export default function AuthPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [authChecked, setAuthChecked] = useState(false);
 
   async function finishAuth(token: string, userEmail: string) {
     localStorage.setItem("ru_planner_token", token);
@@ -34,7 +35,16 @@ export default function AuthPage() {
   }
 
   useEffect(() => {
-    if (!GOOGLE_CLIENT_ID) return;
+    const token = localStorage.getItem("ru_planner_token");
+    if (token) {
+      router.push("/");
+      return;
+    }
+    setAuthChecked(true);
+  }, [router]);
+
+  useEffect(() => {
+    if (!authChecked || !GOOGLE_CLIENT_ID) return;
 
     const script = document.createElement("script");
     script.src = "https://accounts.google.com/gsi/client";
@@ -112,6 +122,8 @@ export default function AuthPage() {
       setLoading(false);
     }
   }
+
+  if (!authChecked) return null;
 
   return (
     <div className="auth-shell">

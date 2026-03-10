@@ -48,16 +48,12 @@ export default function HomePage() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState("");
   const [degreeFilter, setDegreeFilter] = useState<string>("bachelor");
+  const [authChecked, setAuthChecked] = useState(false);
 
   // Tracks current edited terms from PlanEditor (kept in sync via callback)
   const editedTermsRef = useRef<PlanTerm[]>([]);
 
   useEffect(() => {
-    fetch(`${apiBase}/programs`)
-      .then((r) => (r.ok ? r.json() : []))
-      .then((data: ProgramInfo[]) => setPrograms(data))
-      .catch(() => {});
-
     const token = localStorage.getItem("ru_planner_token");
     const email = localStorage.getItem("ru_planner_email");
     if (!token) {
@@ -65,7 +61,15 @@ export default function HomePage() {
       return;
     }
     setUserEmail(email);
+    setAuthChecked(true);
+
+    fetch(`${apiBase}/programs`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: ProgramInfo[]) => setPrograms(data))
+      .catch(() => {});
   }, [router]);
+
+  if (!authChecked) return null;
 
   const DEGREE_FILTERS = [
     { key: "bachelor",      label: "Bachelor's",   levels: new Set(["bachelor_ba","bachelor_bs","bachelor_bfa","bachelor_bm","bachelor_bsba","bachelor_bsla"]) },
