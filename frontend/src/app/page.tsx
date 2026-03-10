@@ -60,6 +60,12 @@ export default function HomePage() {
   // Tracks current edited terms from PlanEditor (kept in sync via callback)
   const editedTermsRef = useRef<PlanTerm[]>([]);
 
+  // Stable callback so PlanEditor doesn't re-render unnecessarily
+  // Must be declared before any early return to satisfy Rules of Hooks
+  const handleTermsChange = useCallback((terms: PlanTerm[]) => {
+    editedTermsRef.current = terms;
+  }, []);
+
   useEffect(() => {
     const token = safeGetStorage("ru_planner_token");
     const email = safeGetStorage("ru_planner_email");
@@ -143,11 +149,6 @@ export default function HomePage() {
     setPlanKey((k) => k + 1); // remount PlanEditor with fresh state
     setStatus("");
   }
-
-  // Stable callback so PlanEditor doesn't re-render unnecessarily
-  const handleTermsChange = useCallback((terms: PlanTerm[]) => {
-    editedTermsRef.current = terms;
-  }, []);
 
   async function handleSave() {
     const token = safeGetStorage("ru_planner_token");
