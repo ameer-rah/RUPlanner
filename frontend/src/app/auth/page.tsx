@@ -92,7 +92,7 @@ export default function AuthPage() {
     };
     document.body.appendChild(script);
     return () => { document.body.removeChild(script); };
-  }, []);
+  }, [authChecked]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
