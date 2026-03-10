@@ -3,7 +3,8 @@ export const metadata = {
   title: "RU Planner",
   description: "Rutgers degree planner",
   icons: {
-    icon: "/RUPlanner_logo.png",
+    icon: [{ url: "/RUPlanner_logo.png", sizes: "any" }],
+    apple: "/RUPlanner_logo.png",
   },
 };
 
