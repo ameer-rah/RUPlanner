@@ -6,6 +6,13 @@ import { getRegistrarCode, getCoursiclUrl } from "../registrar";
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
+function safeGetStorage(key: string): string | null {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+function safeRemoveStorage(key: string) {
+  try { localStorage.removeItem(key); } catch { /* ignore */ }
+}
+
 type PlannedCourse = {
   code: string;
   title: string;
@@ -62,7 +69,7 @@ export default function SchedulesPage() {
   const [confirmId, setConfirmId] = useState<number | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("ru_planner_token");
+    const token = safeGetStorage("ru_planner_token");
     if (!token) {
       router.push("/auth");
       return;
@@ -73,8 +80,8 @@ export default function SchedulesPage() {
     })
       .then((r) => {
         if (r.status === 401) {
-          localStorage.removeItem("ru_planner_token");
-          localStorage.removeItem("ru_planner_email");
+          safeRemoveStorage("ru_planner_token");
+          safeRemoveStorage("ru_planner_email");
           router.push("/auth");
           return [];
         }
@@ -96,7 +103,7 @@ export default function SchedulesPage() {
   }
 
   async function handleDelete(id: number) {
-    const token = localStorage.getItem("ru_planner_token");
+    const token = safeGetStorage("ru_planner_token");
     if (!token) return;
     setDeletingId(id);
     try {
