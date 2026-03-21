@@ -2,8 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { getRegistrarCode, getCoursiclUrl } from "../registrar";
 import CourseSniperModal from "../CourseSniperModal";
+import CourseDetailModal from "../CourseDetailModal";
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
@@ -36,6 +38,8 @@ type SavedSchedule = {
     remaining_courses: string[];
     warnings: string[];
     completion_term: string | null;
+    completed_credits?: number;
+    total_credits?: number;
   };
 };
 
@@ -65,6 +69,25 @@ function termToSocCode(termName: string): { year: string; term: string } | null 
   return { year: match[2], term: codes[match[1]] };
 }
 
+// Returns the single next upcoming term name from a list of term names.
+// "Upcoming" = closest future term that hasn't started yet.
+// Approximate semester start months: Spring=Jan, Summer=May, Fall=Sep, Winter=Dec.
+function getNextUpcomingTerm(termNames: string[]): string | null {
+  const startMonth: Record<string, number> = { Spring: 1, Summer: 5, Fall: 9, Winter: 12 };
+  const now = new Date();
+  const future = termNames
+    .map((name) => {
+      const m = name.match(/^(Fall|Spring|Summer|Winter)\s+(\d{4})$/);
+      if (!m) return null;
+      const start = new Date(parseInt(m[2], 10), startMonth[m[1]] - 1, 1);
+      return start > now ? { name, start } : null;
+    })
+    .filter(Boolean) as { name: string; start: Date }[];
+  if (future.length === 0) return null;
+  future.sort((a, b) => a.start.getTime() - b.start.getTime());
+  return future[0].name;
+}
+
 function getTermClass(term: string) {
   if (term.includes("Fall")) return "plan-term term-fall";
   if (term.includes("Spring")) return "plan-term term-spring";
@@ -73,21 +96,111 @@ function getTermClass(term: string) {
   return "plan-term";
 }
 
-function getTermPillStyle(term: string): React.CSSProperties {
-  if (term.includes("Fall"))
-    return { background: "#fffbeb", color: "#92400e", border: "1px solid #fcd34d" };
-  if (term.includes("Spring"))
-    return { background: "#eff6ff", color: "#1e3a8a", border: "1px solid #93c5fd" };
-  if (term.includes("Summer"))
-    return { background: "#ecfdf5", color: "#065f46", border: "1px solid #6ee7b7" };
-  return { background: "#f5f3ff", color: "#4c1d95", border: "1px solid #c4b5fd" };
+function getSeason(term: string): string {
+  if (term.includes("Fall")) return "fall";
+  if (term.includes("Spring")) return "spring";
+  if (term.includes("Summer")) return "summer";
+  return "winter";
 }
 
 function totalCredits(terms: PlanTerm[]) {
   return terms.reduce((sum, t) => sum + t.total_credits, 0);
 }
 
-// ── Snipes Panel ─────────────────────────────────────────────────────────────
+function getUserInitials(email: string | null): string {
+  if (!email) return "?";
+  return email.charAt(0).toUpperCase();
+}
+
+function UserMenu({ email, onSignOut }: { email: string | null; onSignOut: () => void }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ position: "relative" }}>
+      <button
+        className="topbar-avatar"
+        onClick={() => setOpen((v) => !v)}
+        title={email ?? ""}
+      >
+        {getUserInitials(email)}
+      </button>
+      {open && (
+        <>
+          <div
+            style={{ position: "fixed", inset: 0, zIndex: 199 }}
+            onClick={() => setOpen(false)}
+          />
+          <div style={{
+            position: "absolute", top: "calc(100% + 8px)", right: 0,
+            background: "var(--surface)", border: "1.5px solid var(--border-2)",
+            borderRadius: 12, boxShadow: "var(--shadow-lg)",
+            minWidth: 200, zIndex: 200, overflow: "hidden",
+          }}>
+            <div style={{
+              padding: "12px 16px 10px",
+              borderBottom: "1px solid var(--border)",
+            }}>
+              <div style={{ fontSize: 12, fontWeight: 500, color: "var(--text)" }}>
+                {email ?? ""}
+              </div>
+              <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 2 }}>
+                Signed in
+              </div>
+            </div>
+            <button
+              onClick={() => { setOpen(false); onSignOut(); }}
+              style={{
+                width: "100%", padding: "10px 16px", background: "none", border: "none",
+                textAlign: "left", fontSize: 13, color: "var(--ru-red)", cursor: "pointer",
+                fontFamily: "inherit", fontWeight: 500,
+                transition: "background var(--transition-fast)",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--ru-red-light)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "none"; }}
+            >
+              Sign out
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function formatSavedDate(iso: string) {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "short", day: "numeric", year: "numeric",
+  });
+}
+
+// ── Schedule sidebar item chips ───────────────────────────────────────────────
+
+function ScheduleChips({ terms }: { terms: PlanTerm[] }) {
+  const shown = terms.slice(0, 3);
+  const extra = terms.length - shown.length;
+  return (
+    <div className="schedule-item-chips">
+      {shown.map((t) => {
+        const season = getSeason(t.term);
+        const label = t.term.replace("Spring", "Spr").replace("Summer", "Sum").replace("Winter", "Win");
+        const style: React.CSSProperties =
+          season === "fall" ? { background: "var(--season-fall-bg)", color: "var(--season-fall-text)" } :
+          season === "spring" ? { background: "var(--season-spring-bg)", color: "var(--season-spring-text)" } :
+          season === "summer" ? { background: "var(--season-summer-bg)", color: "var(--season-summer-text)" } :
+          { background: "var(--season-winter-bg)", color: "var(--season-winter-text)" };
+        return (
+          <span key={t.term} className="schedule-item-chip" style={style}>
+            {label}
+          </span>
+        );
+      })}
+      {extra > 0 && (
+        <span className="schedule-item-chip">+{extra}</span>
+      )}
+    </div>
+  );
+}
+
+// ── Sniper Panel ─────────────────────────────────────────────────────────────
 
 function SnipesPanel({
   open, token, snipes, onDelete, onClose,
@@ -99,6 +212,16 @@ function SnipesPanel({
   onClose: () => void;
 }) {
   const [deletingId, setDeletingId] = useState<number | null>(null);
+
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
 
   async function handleDelete(id: number) {
     setDeletingId(id);
@@ -113,19 +236,21 @@ function SnipesPanel({
     }
   }
 
+  const activeSnipes = snipes.filter((s) => s.active && !s.notified_at);
+  const notifiedSnipes = snipes.filter((s) => s.notified_at);
+  const phoneNumbers = [...new Set(snipes.map((s) => s.phone_number).filter(Boolean))];
+
   return (
     <>
-      {/* Invisible backdrop — click to close */}
       {open && <div className="snipes-backdrop" onClick={onClose} />}
 
       <div className={`snipes-panel${open ? " open" : ""}`}>
         {/* Header */}
         <div className="snipes-panel-header">
-          <div>
-            <div className="snipes-panel-title">🎯 Course Sniper</div>
-            <div className="snipes-panel-sub">
-              Get a text the moment a seat opens
-            </div>
+          <div className="snipes-panel-icon">🎯</div>
+          <div className="snipes-panel-info">
+            <div className="snipes-panel-title">Course sniper</div>
+            <div className="snipes-panel-sub">Get a text the moment a seat opens</div>
           </div>
           <button className="snipes-panel-close" onClick={onClose}>✕</button>
         </div>
@@ -137,41 +262,80 @@ function SnipesPanel({
               <div className="snipes-empty-icon">🎯</div>
               <div className="snipes-empty-text">
                 No active snipes yet.<br />
-                Click the 🎯 on any course to watch a section.
+                Click 🎯 on any course to watch a section.
               </div>
             </div>
           ) : (
-            snipes.map((s) => {
-              const termLabel = `${TERM_LABELS[s.term] ?? s.term} ${s.year}`;
-              const wasNotified = !!s.notified_at;
-              return (
-                <div key={s.id} className={`snipe-card${wasNotified ? " notified" : ""}`}>
-                  <div className="snipe-card-icon">{wasNotified ? "✅" : "🎯"}</div>
-                  <div className="snipe-card-body">
-                    <div className="snipe-card-title">
-                      {s.course_code} · Sec {s.section_number}
-                      <span className="snipe-card-index">#{s.section_index}</span>
-                    </div>
-                    <div className="snipe-card-meta">
-                      {termLabel} · {s.phone_number}
-                    </div>
-                    {wasNotified && (
-                      <div className="snipe-card-notified">
-                        ✓ Notified {new Date(s.notified_at!).toLocaleString()}
+            <>
+              {/* Active snipes section */}
+              {activeSnipes.length > 0 && (
+                <>
+                  <div className="snipes-section-label">{activeSnipes.length} active snipe{activeSnipes.length !== 1 ? "s" : ""}</div>
+                  {activeSnipes.map((s) => {
+                    const termLabel = `${TERM_LABELS[s.term] ?? s.term} ${s.year}`;
+                    const timeStr = s.created_at
+                      ? new Date(s.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                      : "";
+                    return (
+                      <div key={s.id} className="snipe-card">
+                        <div className="snipe-dot watching" />
+                        <div className="snipe-card-body">
+                          <div className="snipe-card-title">
+                            {s.course_code} — Section {s.section_number}
+                          </div>
+                          <div className="snipe-card-meta">{termLabel} · {timeStr}</div>
+                        </div>
+                        <span className="snipe-status-badge watching">Watching</span>
+                        <button
+                          className="snipe-delete-btn"
+                          onClick={() => handleDelete(s.id)}
+                          disabled={deletingId === s.id}
+                          title="Remove snipe"
+                        >
+                          {deletingId === s.id ? "…" : "✕"}
+                        </button>
                       </div>
-                    )}
+                    );
+                  })}
+                </>
+              )}
+
+              {/* Phone number block */}
+              {phoneNumbers.length > 0 && (
+                <>
+                  <div className="snipes-section-label" style={{ marginTop: 8 }}>Notify via</div>
+                  <div className="snipe-phone-block">
+                    <div className="snipe-phone-icon">📱</div>
+                    <div>
+                      <div className="snipe-phone-number">{phoneNumbers[0]}</div>
+                      <div className="snipe-phone-label">SMS alerts enabled</div>
+                    </div>
                   </div>
-                  <button
-                    className="snipe-delete-btn"
-                    onClick={() => handleDelete(s.id)}
-                    disabled={deletingId === s.id}
-                    title="Remove snipe"
-                  >
-                    {deletingId === s.id ? "…" : "🗑"}
-                  </button>
-                </div>
-              );
-            })
+                </>
+              )}
+
+              {/* Alert history */}
+              {notifiedSnipes.length > 0 && (
+                <>
+                  <div className="snipes-section-label" style={{ marginTop: 8 }}>Recent alerts</div>
+                  {notifiedSnipes.map((s) => {
+                    const termLabel = `${TERM_LABELS[s.term] ?? s.term} ${s.year}`;
+                    const timeAgo = s.notified_at
+                      ? new Date(s.notified_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                      : "";
+                    return (
+                      <div key={s.id} className="snipe-history-row">
+                        <div className="snipe-history-dot" style={{ background: "#16a34a" }} />
+                        <span className="snipe-history-text">
+                          {s.course_code} §{s.section_number} opened — {termLabel}
+                        </span>
+                        <span className="snipe-history-time">{timeAgo}</span>
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -189,6 +353,7 @@ export default function SchedulesPage() {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [confirmId, setConfirmId] = useState<number | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   const [snipes, setSnipes] = useState<Snipe[]>([]);
   const [snipeModal, setSnipeModal] = useState<{
@@ -196,6 +361,16 @@ export default function SchedulesPage() {
     courseTitle: string;
     year: string;
     term: string;
+  } | null>(null);
+  const [detailModal, setDetailModal] = useState<{
+    courseCode: string;
+    courseTitle: string;
+    credits: number;
+    isElective: boolean;
+    termName: string;
+    socYear: string;
+    socTerm: string;
+    canSnipe: boolean;
   } | null>(null);
   const [showSnipes, setShowSnipes] = useState(false);
 
@@ -207,16 +382,19 @@ export default function SchedulesPage() {
   }, []);
 
   useEffect(() => {
+    router.prefetch("/planner");
     const tok = safeGetStorage("ru_planner_token");
-    if (!tok) { router.push("/auth"); return; }
+    const email = safeGetStorage("ru_planner_email");
+    if (!tok) { router.push("/"); return; }
     setToken(tok);
+    setUserEmail(email);
 
     fetch(`${apiBase}/schedules`, { headers: { Authorization: `Bearer ${tok}` } })
       .then((r) => {
         if (r.status === 401) {
           safeRemoveStorage("ru_planner_token");
           safeRemoveStorage("ru_planner_email");
-          router.push("/auth");
+          router.push("/");
           return [];
         }
         return r.ok ? r.json() : [];
@@ -230,10 +408,10 @@ export default function SchedulesPage() {
     fetchSnipes(tok);
   }, [router, fetchSnipes]);
 
-  function formatDate(iso: string) {
-    return new Date(iso).toLocaleDateString("en-US", {
-      month: "short", day: "numeric", year: "numeric",
-    });
+  function handleSignOut() {
+    safeRemoveStorage("ru_planner_token");
+    safeRemoveStorage("ru_planner_email");
+    router.push("/");
   }
 
   async function handleDelete(id: number) {
@@ -257,33 +435,42 @@ export default function SchedulesPage() {
   }
 
   const selected = schedules.find((s) => s.id === selectedId) ?? null;
-  const activeSnipes = snipes.filter((s) => s.active && !s.notified_at).length;
+  const activeSnipeCount = snipes.filter((s) => s.active && !s.notified_at).length;
+
+  // Parse plan name for title display
+  function parsePlanTitle(name: string): { main: string; grad: string | null } {
+    const dashIdx = name.lastIndexOf("—");
+    if (dashIdx === -1) return { main: name, grad: null };
+    return {
+      main: name.slice(0, dashIdx).trim(),
+      grad: name.slice(dashIdx + 1).trim(),
+    };
+  }
 
   return (
     <div className="schedules-shell">
+      {/* ── Topbar ── */}
       <header className="schedules-topbar">
         <div className="schedules-topbar-logo">
-          <img src="/RUPlanner_logo.png" alt="RU Planner" className="topbar-logo-img" />
-          <span className="logo-text" style={{ color: "var(--text)" }}>RU Planner</span>
+          <img src="/RUPlanner Logo.svg" alt="RU Planner" style={{ height: 36, width: "auto" }} />
         </div>
-        <div style={{ display: "flex", gap: 8 }}>
+        <nav className="topbar-nav">
+          <Link href="/planner" className="topbar-nav-item" prefetch>My Planner</Link>
+          <span className="topbar-nav-item active">Schedules</span>
           <button
-            className="topbar-btn"
+            className="topbar-nav-item"
+            style={{ border: "none", cursor: "pointer" }}
             onClick={() => setShowSnipes((v) => !v)}
-            style={{ position: "relative" }}
           >
-            🎯 My Snipes
-            {activeSnipes > 0 && (
-              <span className="snipe-topbar-badge">{activeSnipes}</span>
-            )}
+            Course Sniper
           </button>
-          <button className="topbar-btn" onClick={() => router.push("/")}>
-            ← Back to planner
-          </button>
+        </nav>
+        <div className="topbar-right">
+          <UserMenu email={userEmail} onSignOut={handleSignOut} />
         </div>
       </header>
 
-      {/* Always-mounted slide-in panel */}
+      {/* Always-mounted slide-in sniper panel */}
       {token && (
         <SnipesPanel
           open={showSnipes}
@@ -294,34 +481,30 @@ export default function SchedulesPage() {
         />
       )}
 
-      {loading ? (
-        <div className="empty-state" style={{ minHeight: "calc(100vh - 57px)" }}>
-          <p className="muted">Loading…</p>
-        </div>
-      ) : schedules.length === 0 ? (
-        <div className="empty-state" style={{ minHeight: "calc(100vh - 57px)" }}>
+      {/* ── Master / detail layout ── */}
+      {!loading && schedules.length === 0 ? (
+        <div
+          className="empty-state"
+          style={{ minHeight: "calc(100vh - var(--topbar-height))", marginTop: "var(--topbar-height)" }}
+        >
           <div className="empty-state-icon">📋</div>
           <p className="empty-state-title">No saved schedules yet</p>
           <p className="empty-state-sub">Generate a degree plan and save it to see it here.</p>
           <button
             className="primary-button"
             style={{ width: "auto", marginTop: 4 }}
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/planner")}
           >
             Generate a plan
           </button>
         </div>
       ) : (
         <div className="schedules-master-detail">
-          {/* ── Left: schedule list ── */}
+          {/* ── Sidebar: schedule list ── */}
           <div className="schedules-list-panel">
             <div className="schedules-list-header">
-              <h1 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>My Schedules</h1>
-              <span style={{
-                fontSize: 11, fontWeight: 600, background: "var(--scarlet)",
-                color: "#fff", borderRadius: 20, padding: "2px 9px",
-              }}>
-                {schedules.length}
+              <span style={{ fontSize: 11, fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.07em", color: "var(--lavender-600)" }}>
+                My Schedules
               </span>
             </div>
 
@@ -335,164 +518,216 @@ export default function SchedulesPage() {
                   <div
                     key={s.id}
                     className={`schedule-list-item${isSelected ? " selected" : ""}`}
-                    onClick={() => setSelectedId(s.id)}
+                    onClick={() => { setSelectedId(s.id); setConfirmId(null); }}
                   >
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div className="schedule-card-name">{s.name}</div>
-                      <div className="schedule-card-meta" style={{ marginTop: 3 }}>
-                        {formatDate(s.created_at)}
-                        &nbsp;·&nbsp;{s.plan_data.terms.length} terms
-                        &nbsp;·&nbsp;{credits} cr
-                      </div>
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 8 }}>
-                        {s.plan_data.terms.slice(0, 6).map((t) => (
-                          <span key={t.term} style={{
-                            fontSize: 10, fontWeight: 600, borderRadius: 4,
-                            padding: "1px 6px", ...getTermPillStyle(t.term),
-                          }}>
-                            {t.term}
-                          </span>
-                        ))}
-                        {s.plan_data.terms.length > 6 && (
-                          <span style={{
-                            fontSize: 10, fontWeight: 600, borderRadius: 4,
-                            padding: "1px 6px", background: "#f1f5f9",
-                            color: "var(--muted)", border: "1px solid var(--border)",
-                          }}>
-                            +{s.plan_data.terms.length - 6}
-                          </span>
-                        )}
-                      </div>
+                    <div className="schedule-card-name">{s.name}</div>
+                    <div className="schedule-card-meta">
+                      {s.plan_data.terms.length} terms · {credits} cr
                     </div>
+                    <ScheduleChips terms={s.plan_data.terms} />
 
-                    <div style={{ flexShrink: 0, marginLeft: 8 }} onClick={(e) => e.stopPropagation()}>
+                    {/* Delete controls */}
+                    <div style={{ marginTop: 8 }} onClick={(e) => e.stopPropagation()}>
                       {isConfirming ? (
-                        <div style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "center" }}>
-                          <span style={{ fontSize: 10, color: "var(--muted)" }}>Delete?</span>
-                          <div style={{ display: "flex", gap: 4 }}>
-                            <button
-                              onClick={() => handleDelete(s.id)}
-                              disabled={deletingId === s.id}
-                              style={{ fontSize: 10, fontWeight: 700, padding: "3px 8px", background: "#dc2626", color: "#fff", border: "none", borderRadius: 4, cursor: "pointer" }}
-                            >
-                              {deletingId === s.id ? "…" : "Yes"}
-                            </button>
-                            <button
-                              onClick={() => setConfirmId(null)}
-                              style={{ fontSize: 10, fontWeight: 600, padding: "3px 8px", background: "var(--white)", color: "var(--text)", border: "1px solid var(--border)", borderRadius: 4, cursor: "pointer" }}
-                            >
-                              No
-                            </button>
-                          </div>
+                        <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                          <span style={{ fontSize: 10, color: "var(--lavender-600)" }}>Delete?</span>
+                          <button
+                            onClick={() => handleDelete(s.id)}
+                            disabled={deletingId === s.id}
+                            style={{
+                              fontSize: 10, fontWeight: 600, padding: "3px 8px",
+                              background: "var(--ru-red)", color: "#fff",
+                              border: "none", borderRadius: 6, cursor: "pointer",
+                            }}
+                          >
+                            {deletingId === s.id ? "…" : "Yes"}
+                          </button>
+                          <button
+                            onClick={() => setConfirmId(null)}
+                            style={{
+                              fontSize: 10, fontWeight: 500, padding: "3px 8px",
+                              background: "#fff", color: "var(--lavender-700)",
+                              border: "1.5px solid var(--lavender-200)", borderRadius: 6, cursor: "pointer",
+                            }}
+                          >
+                            No
+                          </button>
                         </div>
                       ) : (
                         <button
                           onClick={() => setConfirmId(s.id)}
+                          style={{
+                            fontSize: 11, padding: "2px 6px",
+                            background: "none", border: "none",
+                            cursor: "pointer", color: "var(--lavender-600)",
+                            borderRadius: 4, transition: "color 0.12s",
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.color = "var(--ru-red)"; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.color = "var(--lavender-600)"; }}
                           title="Delete schedule"
-                          style={{ fontSize: 13, padding: "4px 6px", background: "none", border: "1px solid transparent", borderRadius: 5, cursor: "pointer", color: "var(--muted)", lineHeight: 1, transition: "all 0.15s" }}
-                          onMouseEnter={(e) => { const b = e.currentTarget; b.style.background = "#fff1f2"; b.style.borderColor = "#fca5a5"; b.style.color = "#dc2626"; }}
-                          onMouseLeave={(e) => { const b = e.currentTarget; b.style.background = "none"; b.style.borderColor = "transparent"; b.style.color = "var(--muted)"; }}
                         >
-                          🗑
+                          Delete
                         </button>
                       )}
                     </div>
                   </div>
                 );
               })}
+
+              {/* New schedule button */}
+              <div style={{ padding: "4px 0 8px" }}>
+                <button className="new-schedule-btn" onClick={() => router.push("/planner")}>
+                  + New schedule
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* ── Right: detail panel ── */}
+          {/* ── Detail panel ── */}
           <div className="schedules-detail-panel">
             {selected ? (
               <>
+                {/* Detail header */}
                 <div className="schedules-detail-header">
-                  <div>
-                    <div style={{ fontSize: 18, fontWeight: 700 }}>{selected.name}</div>
-                    <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 2 }}>
-                      Saved {formatDate(selected.created_at)}
-                      &nbsp;·&nbsp;{selected.plan_data.terms.length} terms
-                      &nbsp;·&nbsp;{totalCredits(selected.plan_data.terms)} total credits
-                      {selected.plan_data.completion_term && (
-                        <span style={{ color: "#16a34a", fontWeight: 600 }}>
-                          &nbsp;· Completes {selected.plan_data.completion_term}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                  {(() => {
+                    const { main, grad } = parsePlanTitle(selected.name);
+                    const credits = totalCredits(selected.plan_data.terms);
+                    return (
+                      <>
+                        <div className="planner-title">
+                          {main}
+                          {grad && <span className="planner-title-grad">— {grad}</span>}
+                        </div>
+                        <div className="planner-subtitle">
+                          Saved {formatSavedDate(selected.created_at)} · {selected.plan_data.terms.length} terms · {credits} total credits
+                        </div>
+
+                        {/* Stats bar */}
+                        <div className="stats-bar" style={{ marginTop: 14 }}>
+                          <div className="stats-bar-item" style={{ paddingLeft: 4 }}>
+                            <span className="stats-bar-number">{credits}</span>
+                            <span className="stats-bar-label">total credits</span>
+                          </div>
+                          <div className="stats-bar-item">
+                            <span className="stats-bar-number">{selected.plan_data.terms.length}</span>
+                            <span className="stats-bar-label">semesters</span>
+                          </div>
+                          <div className="stats-bar-item">
+                            <span className="stats-bar-number">{activeSnipeCount}</span>
+                            <span className="stats-bar-label">active snipes</span>
+                          </div>
+                          {(() => {
+                            const earnedCr = selected.plan_data.completed_credits ?? 0;
+                            const totalCr = selected.plan_data.total_credits ?? credits;
+                            const pct = totalCr > 0 ? Math.round((earnedCr / totalCr) * 100) : 0;
+                            return (
+                              <div className="stats-bar-progress">
+                                <div className="stats-bar-progress-labels">
+                                  <span className="stats-bar-progress-title">Degree progress</span>
+                                  <span className="stats-bar-progress-value">{earnedCr} / {totalCr} cr ({pct}%)</span>
+                                </div>
+                                <div className="stats-bar-progress-track">
+                                  <div className="stats-bar-progress-fill" style={{ width: `${pct}%` }} />
+                                </div>
+                              </div>
+                            );
+                          })()}
+                        </div>
+                      </>
+                    );
+                  })()}
                 </div>
 
-                <div style={{ padding: "20px 24px", overflowY: "auto", flex: 1 }}>
+                {/* Semester grid */}
+                <div className="schedules-detail-content">
                   {selected.plan_data.completion_term && (
-                    <div className="plan-completion" style={{ marginBottom: 16 }}>
+                    <div className="plan-completion" style={{ marginBottom: 12 }}>
                       <span>✓</span>
                       <span>All requirements complete by <strong>{selected.plan_data.completion_term}</strong></span>
                     </div>
                   )}
-                  <div className="plan-grid">
-                    {selected.plan_data.terms.map((term) => (
-                      <div key={term.term} className={getTermClass(term.term)}>
-                        <div className="plan-term-header">
-                          <strong>{term.term}</strong>
-                          <span className="credits-badge">{term.total_credits} cr</span>
-                        </div>
-                        <div className="plan-course-list">
-                          {term.courses.map((course) => {
-                            const soc = termToSocCode(term.term);
-                            const hasRegistrar = !!getRegistrarCode(course.code);
-                            return (
-                              <div key={course.code} className={`plan-course${course.is_elective ? " elective" : ""}`}>
-                                <div className="plan-course-header">
-                                  <a
-                                    className="plan-course-code"
-                                    href={getCoursiclUrl(course.code) ?? undefined}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    title={getRegistrarCode(course.code) ?? course.code}
-                                  >
-                                    {course.code}
-                                  </a>
-                                  {course.is_elective && <span className="elective-badge">ELECTIVE</span>}
 
-                                  {soc && hasRegistrar && token && (
-                                    <button
-                                      title="Snipe a section — get texted when a seat opens"
-                                      onClick={() => setSnipeModal({
-                                        courseCode: course.code,
-                                        courseTitle: course.title,
-                                        year: soc.year,
-                                        term: soc.term,
-                                      })}
-                                      style={{
-                                        marginLeft: "auto",
-                                        background: "none",
-                                        border: "none",
-                                        cursor: "pointer",
-                                        fontSize: 14,
-                                        padding: "1px 4px",
-                                        borderRadius: 4,
-                                        color: "var(--muted)",
-                                        lineHeight: 1,
-                                        transition: "color 0.15s",
-                                      }}
-                                      onMouseEnter={(e) => { e.currentTarget.style.color = "var(--scarlet)"; }}
-                                      onMouseLeave={(e) => { e.currentTarget.style.color = "var(--muted)"; }}
-                                    >
-                                      🎯
-                                    </button>
-                                  )}
+                  <div className="plan-grid">
+                    {(() => {
+                      const nextTerm = getNextUpcomingTerm(selected.plan_data.terms.map((t) => t.term));
+                      return selected.plan_data.terms.map((term) => {
+                      const soc = termToSocCode(term.term);
+                      return (
+                        <div key={term.term} className={getTermClass(term.term)}>
+                          {/* Card header */}
+                          <div className="plan-term-header">
+                            <strong>{term.term}</strong>
+                            <span className="credits-badge">{term.total_credits} cr</span>
+                          </div>
+
+                          {/* Course rows */}
+                          <div className="plan-course-list">
+                            {term.courses.map((course) => {
+                              const hasRegistrar = !!getRegistrarCode(course.code);
+                              const snipeActive = snipes.some(
+                                (sn) => sn.course_code === course.code && sn.active && !sn.notified_at
+                              );
+                              return (
+                                <div
+                                  key={course.code}
+                                  className="plan-course"
+                                  style={{ cursor: soc && hasRegistrar ? "pointer" : "default" }}
+                                  onClick={() => {
+                                    if (!soc || !hasRegistrar || !token) return;
+                                    setDetailModal({
+                                      courseCode: course.code,
+                                      courseTitle: course.title,
+                                      credits: course.credits,
+                                      isElective: course.is_elective,
+                                      termName: term.term,
+                                      socYear: soc.year,
+                                      socTerm: soc.term,
+                                      canSnipe: term.term === nextTerm,
+                                    });
+                                  }}
+                                >
+                                  <div className="plan-course-header">
+                                    <span className="plan-course-code">
+                                      {course.code}
+                                    </span>
+                                    {course.is_elective && (
+                                      <span className="elective-badge">ELEC</span>
+                                    )}
+                                    <span className="plan-course-name">{course.title}</span>
+                                    <span className="plan-course-credits">{course.credits}</span>
+                                    {soc && hasRegistrar && token && term.term === nextTerm && (
+                                      <button
+                                        title="Snipe — get texted when a seat opens"
+                                        className={`course-snipe-btn${snipeActive ? " sniped" : ""}`}
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          setSnipeModal({
+                                            courseCode: course.code,
+                                            courseTitle: course.title,
+                                            year: soc.year,
+                                            term: soc.term,
+                                          });
+                                        }}
+                                      >
+                                        🎯
+                                      </button>
+                                    )}
+                                  </div>
                                 </div>
-                                <div className="plan-course-meta">{course.title} · {course.credits} cr</div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    });
+                    })()}
                   </div>
                 </div>
               </>
+            ) : loading ? (
+              <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <p className="muted" style={{ fontSize: 13 }}>Loading…</p>
+              </div>
             ) : (
               <div className="empty-state" style={{ flex: 1 }}>
                 <p className="muted">Select a schedule to view</p>
@@ -502,6 +737,32 @@ export default function SchedulesPage() {
         </div>
       )}
 
+      {/* Course Detail Modal */}
+      {detailModal && token && (
+        <CourseDetailModal
+          courseCode={detailModal.courseCode}
+          courseTitle={detailModal.courseTitle}
+          credits={detailModal.credits}
+          isElective={detailModal.isElective}
+          termName={detailModal.termName}
+          socYear={detailModal.socYear}
+          socTerm={detailModal.socTerm}
+          token={token}
+          canSnipe={detailModal.canSnipe}
+          onClose={() => setDetailModal(null)}
+          onSnipe={() => {
+            setDetailModal(null);
+            setSnipeModal({
+              courseCode: detailModal.courseCode,
+              courseTitle: detailModal.courseTitle,
+              year: detailModal.socYear,
+              term: detailModal.socTerm,
+            });
+          }}
+        />
+      )}
+
+      {/* Course Sniper Modal */}
       {snipeModal && token && (
         <CourseSniperModal
           courseCode={snipeModal.courseCode}
@@ -510,7 +771,10 @@ export default function SchedulesPage() {
           term={snipeModal.term}
           token={token}
           onClose={() => setSnipeModal(null)}
-          onSniped={() => fetchSnipes(token)}
+          onSniped={() => {
+            const tok = safeGetStorage("ru_planner_token");
+            if (tok) fetchSnipes(tok);
+          }}
         />
       )}
     </div>

@@ -225,7 +225,7 @@ def login(payload: UserCreate) -> Token:
     db = SessionLocal()
     try:
         user = db.query(models.User).filter(models.User.email == payload.email).first()
-        if not user or not _verify_password(payload.password, user.hashed_password):
+        if not user or not user.hashed_password or not _verify_password(payload.password, user.hashed_password):
             raise HTTPException(status_code=401, detail="Invalid email or password")
         return Token(access_token=_create_token(user.id), token_type="bearer")
     finally:

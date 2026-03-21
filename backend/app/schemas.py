@@ -55,6 +55,8 @@ class PlanResponse(BaseModel):
     remaining_courses: List[str]
     warnings: List[str]
     completion_term: Optional[str] = None
+    completed_credits: int = 0   # credits already earned toward this degree
+    total_credits: int = 0       # total credits required for this degree
 
 
 class ProgramInfo(BaseModel):

@@ -725,6 +725,11 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     remaining = [c for c in required if c not in completed]
 
+    # Compute progress: how many required credits the student has already completed
+    completed_in_req = [c for c in required if c in completed]
+    completed_credits_count = sum(catalog.get(c, {}).get("credits", 3) for c in completed_in_req)
+    total_credits_count = sum(catalog.get(c, {}).get("credits", 3) for c in required)
+
     start = request.start_term or current_term()
     grad_term = " ".join(
         w.capitalize() if i == 0 else w for i, w in enumerate(request.target_grad_term.split())
@@ -892,4 +897,6 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         remaining_courses=queue,
         warnings=warnings,
         completion_term=completion_term,
+        completed_credits=completed_credits_count,
+        total_credits=total_credits_count,
     )

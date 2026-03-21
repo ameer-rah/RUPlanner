@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96">
+  <!-- Outer red rounded square -->
+  <rect width="96" height="96" rx="22" fill="#C8102E"/>
+
+  <!-- White card body -->
+  <rect x="14" y="22" width="68" height="54" rx="8" fill="#ffffff"/>
+
+  <!-- Navy header bar -->
+  <rect x="14" y="22" width="68" height="20" rx="8" fill="#2D1B69"/>
+  <!-- Header bar bottom fill (removes bottom radius bleed) -->
+  <rect x="14" y="34" width="68" height="8" fill="#2D1B69"/>
+
+  <!-- Header dots -->
+  <rect x="22" y="27" width="10" height="10" rx="3" fill="#C8102E"/>
+  <rect x="38" y="27" width="10" height="10" rx="3" fill="#C8102E" opacity="0.55"/>
+  <rect x="54" y="27" width="10" height="10" rx="3" fill="#ffffff" opacity="0.3"/>
+  <rect x="70" y="27" width="10" height="10" rx="3" fill="#ffffff" opacity="0.3"/>
+
+  <!-- Checkmark on first dot -->
+  <path d="M25 30 L28.5 33.5 L35 27" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Row 1 course blocks -->
+  <rect x="20" y="48" width="16" height="11" rx="3" fill="#EDE8FF"/>
+  <rect x="40" y="48" width="16" height="11" rx="3" fill="#EDE8FF"/>
+  <rect x="60" y="48" width="16" height="11" rx="3" fill="#FECDD3"/>
+
+  <!-- Row 2 course blocks -->
+  <rect x="20" y="63" width="16" height="11" rx="3" fill="#FECDD3"/>
+  <rect x="40" y="63" width="16" height="11" rx="3" fill="#EDE8FF"/>
+  <rect x="60" y="63" width="16" height="11" rx="3" fill="#EDE8FF"/>
+</svg>
