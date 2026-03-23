@@ -117,6 +117,7 @@ export default function PlannerPage() {
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [saveStatus, setSaveStatus] = useState("");
   const [degreeFilter, setDegreeFilter] = useState<string>("bachelor");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const editedTermsRef = useRef<PlanTerm[]>([]);
 
@@ -203,6 +204,7 @@ export default function PlannerPage() {
     setPlan(data);
     setPlanKey((k) => k + 1);
     setStatus("");
+    setSidebarOpen(false);
   }
 
   async function handleSave() {
@@ -257,14 +259,34 @@ export default function PlannerPage() {
           <Link href="/schedules" className="topbar-nav-item" prefetch>Course Sniper</Link>
         </nav>
         <div className="topbar-right">
+          <button
+            className="mobile-sidebar-btn"
+            onClick={() => setSidebarOpen((v) => !v)}
+            aria-label="Plan settings"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+              <line x1="2" y1="4" x2="14" y2="4"/>
+              <line x1="2" y1="8" x2="14" y2="8"/>
+              <line x1="2" y1="12" x2="14" y2="12"/>
+              <circle cx="5" cy="4" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
+              <circle cx="11" cy="8" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
+              <circle cx="7" cy="12" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
+            </svg>
+          </button>
           <UserMenu email={userEmail} onSignOut={handleSignOut} />
         </div>
       </header>
 
+      {/* Mobile sidebar overlay */}
+      <div
+        className={`mobile-sidebar-overlay${sidebarOpen ? " visible" : ""}`}
+        onClick={() => setSidebarOpen(false)}
+      />
+
       {/* ── App shell ── */}
       <div className="app-shell">
         {/* Sidebar */}
-        <aside className="sidebar">
+        <aside className={`sidebar${sidebarOpen ? " mobile-open" : ""}`}>
           <div className="sidebar-section-label">Plan settings</div>
           <div className="sidebar-body">
             <form className="form" onSubmit={handleSubmit}>

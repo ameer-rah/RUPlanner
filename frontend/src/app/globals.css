@@ -1960,11 +1960,73 @@ body {
 .rmp-badge.ok   { background: rgba(245, 158, 11, 0.12); color: #f59e0b; }
 .rmp-badge.poor { background: var(--ru-red-light); color: var(--ru-red); }
 
+/* ── Mobile sidebar toggle (hidden on desktop) ───────────────────────── */
+
+.mobile-sidebar-btn {
+  display: none;
+}
+
+.mobile-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: var(--topbar-height);
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 149;
+}
+
 /* ── Responsive ──────────────────────────────────────────────────────── */
 
-@media (max-width: 700px) {
-  .schedules-master-detail { flex-direction: column; height: auto; }
+@media (max-width: 768px) {
+  /* Topbar */
+  .topbar { padding: 0 14px; }
+  .topbar-nav { gap: 0; }
+  .topbar-nav-item { padding: 6px 8px; font-size: 13px; }
+  .topbar-logo-img { height: 28px; }
 
+  /* Mobile settings button */
+  .mobile-sidebar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-md);
+    color: var(--text-2);
+    cursor: pointer;
+    font-family: inherit;
+    flex-shrink: 0;
+    transition: background var(--transition-fast);
+  }
+  .mobile-sidebar-btn:hover { background: var(--surface-3); }
+
+  /* Sidebar overlay */
+  .mobile-sidebar-overlay.visible { display: block; }
+
+  /* Sidebar becomes a fixed drawer */
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: var(--topbar-height);
+    bottom: 0;
+    height: calc(100vh - var(--topbar-height));
+    width: min(300px, 90vw);
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+    z-index: 150;
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.mobile-open { transform: translateX(0); }
+
+  /* App shell stacks vertically */
+  .app-shell { display: block; }
+  .main-panel { width: 100%; }
+  .main-content { padding: 16px; }
+
+  /* Schedules */
+  .schedules-master-detail { flex-direction: column; height: auto; }
   .schedules-list-panel {
     width: 100%;
     min-width: unset;
@@ -1972,7 +2034,6 @@ body {
     border-right: none;
     border-bottom: 1px solid var(--border);
   }
-
   .schedules-detail-panel { overflow: visible; }
   .plan-grid { grid-template-columns: 1fr; }
   .landing-h1 { font-size: 32px; }
