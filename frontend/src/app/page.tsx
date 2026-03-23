@@ -169,7 +169,17 @@ export default function AuthPage() {
           </div>
 
           <div className="auth-field">
-            <label className="auth-field-label" htmlFor="password">Password</label>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
+              <label className="auth-field-label" htmlFor="password" style={{ margin: 0 }}>Password</label>
+              {mode === "signin" && (
+                <a href="/forgot-password" style={{ fontSize: 12, color: "var(--text-3)", textDecoration: "none" }}
+                  onMouseOver={e => (e.currentTarget.style.textDecoration = "underline")}
+                  onMouseOut={e => (e.currentTarget.style.textDecoration = "none")}
+                >
+                  Forgot password?
+                </a>
+              )}
+            </div>
             <input
               id="password"
               className="input"

@@ -23,6 +23,7 @@ from .schemas import (
     PlanRequest, PlanResponse, ProgramInfo, CourseSearchResult,
     UserCreate, Token, SaveScheduleRequest, GoogleAuthRequest,
     SnipeCreate, SnipeOut,
+    ForgotPasswordRequest, ResetPasswordRequest,
 )
 from .core.planner import heuristic_plan
 from .core.sniper import poll_snipes, fetch_sections_for_subject
@@ -31,6 +32,8 @@ SECRET_KEY = os.getenv("SECRET_KEY", "ru-planner-dev-secret-change-in-production
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
+RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 def _hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
@@ -266,6 +269,77 @@ def me(user_id: int = Depends(_get_current_user_id)):
         return {"id": user.id, "email": user.email}
     finally:
         db.close()
+
+@app.post("/auth/forgot-password", status_code=200)
+def forgot_password(payload: ForgotPasswordRequest):
+    import secrets
+    db = SessionLocal()
+    try:
+        user = db.query(models.User).filter(models.User.email == payload.email).first()
+        if user:
+            token = secrets.token_urlsafe(32)
+            expires = datetime.utcnow() + timedelta(hours=1)
+            reset_token = models.PasswordResetToken(
+                user_id=user.id, token=token, expires_at=expires
+            )
+            db.add(reset_token)
+            db.commit()
+            if RESEND_API_KEY:
+                import resend as _resend
+                _resend.api_key = RESEND_API_KEY
+                reset_link = f"{FRONTEND_URL}/reset-password?token={token}"
+                _resend.Emails.send({
+                    "from": "RU Planner <noreply@ruplanner.app>",
+                    "to": [user.email],
+                    "subject": "Reset your RU Planner password",
+                    "html": f"""
+                        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px">
+                          <img src="{FRONTEND_URL}/RUPlanner Logo.svg" alt="RU Planner" style="height:36px;margin-bottom:24px" />
+                          <h2 style="margin:0 0 8px;font-size:20px;color:#111">Reset your password</h2>
+                          <p style="margin:0 0 24px;color:#555;font-size:14px;line-height:1.6">
+                            We received a request to reset the password for your RU Planner account.
+                            Click the button below to choose a new password. This link expires in 1 hour.
+                          </p>
+                          <a href="{reset_link}" style="display:inline-block;background:#cc0033;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-size:15px;font-weight:600">
+                            Reset password
+                          </a>
+                          <p style="margin:24px 0 0;color:#888;font-size:12px;line-height:1.6">
+                            If you didn't request this, you can safely ignore this email.
+                            Your password will not change.
+                          </p>
+                        </div>
+                    """,
+                })
+        return {"message": "If that email is registered, a reset link has been sent."}
+    finally:
+        db.close()
+
+
+@app.post("/auth/reset-password", status_code=200)
+def reset_password(payload: ResetPasswordRequest):
+    db = SessionLocal()
+    try:
+        reset_token = (
+            db.query(models.PasswordResetToken)
+            .filter(
+                models.PasswordResetToken.token == payload.token,
+                models.PasswordResetToken.used == False,
+                models.PasswordResetToken.expires_at > datetime.utcnow(),
+            )
+            .first()
+        )
+        if not reset_token:
+            raise HTTPException(status_code=400, detail="Invalid or expired reset link.")
+        if len(payload.new_password) < 6:
+            raise HTTPException(status_code=400, detail="Password must be at least 6 characters.")
+        user = db.query(models.User).filter(models.User.id == reset_token.user_id).first()
+        user.hashed_password = _hash_password(payload.new_password)
+        reset_token.used = True
+        db.commit()
+        return {"message": "Password reset successfully."}
+    finally:
+        db.close()
+
 
 @app.post("/schedules")
 def save_schedule(payload: SaveScheduleRequest, user_id: int = Depends(_get_current_user_id)):

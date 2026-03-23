@@ -87,6 +87,15 @@ class Token(BaseModel):
     token_type: str
 
 
+class ForgotPasswordRequest(BaseModel):
+    email: str
+
+
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str
+
+
 class SaveScheduleRequest(BaseModel):
     name: str = "My Schedule"
     plan_data: dict
