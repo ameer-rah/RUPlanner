@@ -1966,6 +1966,9 @@ body {
   display: none;
 }
 
+.mobile-only-text { display: none; }
+.desktop-only-text { display: block; }
+
 .mobile-sidebar-overlay {
   display: none;
   position: fixed;
@@ -1983,6 +1986,10 @@ body {
   .topbar-nav { gap: 0; }
   .topbar-nav-item { padding: 6px 8px; font-size: 13px; }
   .topbar-logo-img { height: 28px; }
+
+  /* Show/hide mobile vs desktop content */
+  .mobile-only-text { display: block; }
+  .desktop-only-text { display: none; }
 
   /* Mobile settings button */
   .mobile-sidebar-btn {

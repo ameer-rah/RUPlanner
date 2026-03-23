@@ -531,9 +531,19 @@ export default function PlannerPage() {
               <div className="empty-state">
                 <div className="empty-state-icon">🎓</div>
                 <p className="empty-state-title">Build your degree plan</p>
-                <p className="empty-state-sub">
+                <p className="empty-state-sub desktop-only-text">
                   Fill in your major, completed courses, and preferences on the left, then hit Generate.
                 </p>
+                <p className="empty-state-sub mobile-only-text">
+                  Tap the settings icon above to enter your major, completed courses, and preferences, then hit Generate.
+                </p>
+                <button
+                  className="primary-button mobile-only-text"
+                  style={{ marginTop: 20, padding: "12px 28px" }}
+                  onClick={() => setSidebarOpen(true)}
+                >
+                  Get started →
+                </button>
               </div>
             )}
           </div>
