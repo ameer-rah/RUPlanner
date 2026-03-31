@@ -136,7 +136,6 @@ def generate_plan(payload: PlanRequest) -> PlanResponse:
         raise HTTPException(status_code=404, detail=str(exc))
 
 def _word_overlap(a: str, b: str) -> float:
-    """Jaccard word overlap between two strings, ignoring short words."""
     wa = {w for w in re.sub(r"[^a-z\s]", "", a.lower()).split() if len(w) > 2}
     wb = {w for w in re.sub(r"[^a-z\s]", "", b.lower()).split() if len(w) > 2}
     if not wa or not wb:
@@ -145,16 +144,6 @@ def _word_overlap(a: str, b: str) -> float:
 
 
 def _extract_transcript_text(content: bytes) -> str:
-    """
-    Extract text from a Rutgers transcript PDF.
-
-    Two challenges:
-    1. Two-column layout — we crop each page at the midpoint and extract
-       left then right so columns don't get merged into garbled single lines.
-    2. Diagonal watermarks ("UNOFFICIAL COPY OF", "AMEER RAHMAN") — their
-       rotated glyphs get injected into actual data lines by pdfplumber.
-       We filter to upright-only characters before extraction to remove them.
-    """
     import pdfplumber
     import io as _io
     parts: List[str] = []
@@ -163,8 +152,6 @@ def _extract_transcript_text(content: bytes) -> str:
             mid_x = page.width / 2
             for x0, x1 in [(0, mid_x), (mid_x, page.width)]:
                 col = page.crop((x0, 0, x1, page.height))
-                # Drop watermark glyphs (Helvetica-Bold, size 45–75pt).
-                # Actual transcript text is Courier at ~9pt.
                 clean = col.filter(
                     lambda obj: obj["object_type"] != "char" or obj.get("size", 0) < 15
                 )
@@ -214,7 +201,6 @@ async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
     from .transcript_parser import parse_transcript_text
     result = parse_transcript_text(text)
 
-    # Build catalog lookup once: course_number (digits only) -> list of (code, title)
     db = SessionLocal()
     try:
         all_courses = db.query(models.Course).with_entities(
@@ -223,10 +209,9 @@ async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
     finally:
         db.close()
 
-    # Index by numeric course number so we can look up by (dept_code, crs) without a hardcoded mapping
     by_number: dict = {}
     for code, title in all_courses:
-        num = re.sub(r"^[A-Z]+", "", code)  # strip prefix letters -> "112", "203", etc.
+        num = re.sub(r"^[A-Z]+", "", code)
         by_number.setdefault(num, []).append((code, title))
 
     seen: set = set()
@@ -238,7 +223,6 @@ async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
         if len(candidates) == 1:
             best_code = candidates[0][0]
         else:
-            # Multiple courses share the same number — pick by title similarity
             best_code, best_score = max(
                 candidates,
                 key=lambda c: _word_overlap(course.title_raw, c[1]),
@@ -248,8 +232,6 @@ async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
                 if score > best_score:
                     best_score = score
                     best_code = code
-            # Require meaningful title overlap to avoid false positives
-            # (e.g. "EUR FASHION & DESIGN" matching LA232 on just "design")
             if best_score < 0.3:
                 continue
         if best_code not in seen:
