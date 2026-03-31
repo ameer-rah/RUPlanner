@@ -1462,6 +1462,106 @@ body {
 
 .elective-swap-btn:hover { background: rgba(245, 158, 11, 0.2); }
 
+/* ── Course delete button ─────────────────────────────────────────────── */
+
+.course-delete-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--text-3);
+  padding: 0 2px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.plan-course:hover .course-delete-btn { opacity: 1; }
+.course-delete-btn:hover { color: var(--ru-red); background: var(--ru-red-light); }
+
+/* ── Add course button & form ─────────────────────────────────────────── */
+
+.add-course-btn {
+  width: 100%;
+  padding: 7px 12px;
+  background: none;
+  border: none;
+  border-top: 1px dashed var(--border);
+  color: var(--text-3);
+  font-size: 12px;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.add-course-btn:hover { color: var(--ru-red); background: var(--ru-red-light); }
+
+.add-course-form {
+  border-top: 1px dashed var(--border);
+  padding: 8px 10px 6px;
+}
+
+.add-course-row {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.add-course-input {
+  padding: 5px 8px;
+  border: 1px solid var(--border-2);
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: inherit;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color var(--transition-fast);
+  min-width: 0;
+}
+
+.add-course-input:focus { outline: none; border-color: var(--ru-red); }
+
+.add-course-code { width: 100px; flex-shrink: 0; }
+.add-course-title { flex: 1; min-width: 80px; }
+.add-course-credits { width: 48px; flex-shrink: 0; }
+
+.add-course-confirm-btn {
+  padding: 5px 10px;
+  background: var(--ru-red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.add-course-confirm-btn:hover { opacity: 0.85; }
+
+.add-course-cancel-btn {
+  padding: 5px 8px;
+  background: none;
+  border: 1px solid var(--border-2);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-3);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.add-course-cancel-btn:hover { color: var(--ru-red); background: var(--ru-red-light); }
+
+.add-course-error { font-size: 11px; color: var(--ru-red); margin-top: 4px; }
+
 /* ── Modals ──────────────────────────────────────────────────────────── */
 
 .modal-overlay {

@@ -20,6 +20,7 @@ load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 from app.database import engine, SessionLocal, Base
 from app.models import Program  # noqa — registers model with Base
+from sqlalchemy.orm.attributes import flag_modified
 
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
@@ -87,6 +88,7 @@ def seed() -> None:
 
                 if existing:
                     existing.requirements = payload
+                    flag_modified(existing, "requirements")
                     print(f"  UPDATE {school} | {degree_level:<12} | {major_name} ({catalog_year})")
                     updated += 1
                 else:

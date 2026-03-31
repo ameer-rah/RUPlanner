@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CompletedCoursesInput from "../CompletedCoursesInput";
+import TranscriptUpload from "../TranscriptUpload";
 import ProgramSelectInput from "../ProgramSelectInput";
 import PlanEditor, { PlanTerm } from "../PlanEditor";
 
@@ -330,6 +331,11 @@ export default function PlannerPage() {
 
               <div className="sidebar-section">
                 <label className="label">Completed courses</label>
+                <TranscriptUpload
+                  onCoursesDetected={(codes) =>
+                    setCompletedCourses((prev) => [...new Set([...prev, ...codes])])
+                  }
+                />
                 <CompletedCoursesInput value={completedCourses} onChange={setCompletedCourses} />
               </div>
 
@@ -506,7 +512,7 @@ export default function PlannerPage() {
                 )}
 
                 <div className="plan-editor-hint">
-                  Drag courses between terms to reorder · Click <strong>Swap</strong> on electives to pick a different course
+                  Drag courses between terms to reorder · Hover a course to delete it · Click <strong>+ Add course</strong> to add one · Click <strong>Swap</strong> on electives to pick a different course
                 </div>
 
                 <PlanEditor

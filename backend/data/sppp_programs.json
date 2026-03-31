@@ -116,7 +116,7 @@
       "electives": {
         "description": "Two additional Health Administration electives at 300-level or above",
         "count": 1,
-        "min_level_300_plus": 2,
+        "min_level_300_plus": 1,
         "options": [
           "HA483"
         ],

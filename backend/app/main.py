@@ -135,48 +135,69 @@ def generate_plan(payload: PlanRequest) -> PlanResponse:
     except ValueError as exc:
         raise HTTPException(status_code=404, detail=str(exc))
 
-_RU_CODE_RE = re.compile(r'\b\d{2}:\d{3}:\d{3}\b')
+def _word_overlap(a: str, b: str) -> float:
+    """Jaccard word overlap between two strings, ignoring short words."""
+    wa = {w for w in re.sub(r"[^a-z\s]", "", a.lower()).split() if len(w) > 2}
+    wb = {w for w in re.sub(r"[^a-z\s]", "", b.lower()).split() if len(w) > 2}
+    if not wa or not wb:
+        return 0.0
+    return len(wa & wb) / len(wa | wb)
 
-_SUBJECT_DEPT: dict = {
-    "01:198": "CS",
-    "01:640": "MATH",
-    "01:642": "MATH",
-    "01:750": "PHYS",
-    "01:160": "CHEM",
-    "01:119": "BIOL",
-    "01:447": "STAT",
-    "14:332": "ECE",
-    "14:540": "BME",
-    "01:355": "STAT",
-    "01:090": "HNRS",
-    "01:730": "PSYCH",
-    "01:920": "SOC",
-    "01:790": "POLISCI",
-    "01:070": "ANTHRO",
-    "01:220": "ECON",
-    "01:300": "ENGLISH",
-    "01:685": "LINGUISTICS",
-}
 
-def _parse_transcript_text(text: str) -> List[str]:
-    codes: List[str] = []
-    for match in _RU_CODE_RE.finditer(text):
-        raw = match.group()
-        parts = raw.split(":")
-        if len(parts) == 3:
-            school_dept = f"{parts[0]}:{parts[1]}"
-            course_num = parts[2]
-            subject = _SUBJECT_DEPT.get(school_dept)
-            if subject:
-                code = f"{subject}{course_num}"
-                if code not in codes:
-                    codes.append(code)
-    formatted_re = re.compile(r'\b([A-Z]{2,8})(\d{2,4}[A-Z]?)\b')
-    for match in formatted_re.finditer(text):
-        code = match.group(0).upper()
-        if code not in codes:
-            codes.append(code)
-    return codes
+def _extract_transcript_text(content: bytes) -> str:
+    """
+    Extract text from a Rutgers transcript PDF.
+
+    Two challenges:
+    1. Two-column layout — we crop each page at the midpoint and extract
+       left then right so columns don't get merged into garbled single lines.
+    2. Diagonal watermarks ("UNOFFICIAL COPY OF", "AMEER RAHMAN") — their
+       rotated glyphs get injected into actual data lines by pdfplumber.
+       We filter to upright-only characters before extraction to remove them.
+    """
+    import pdfplumber
+    import io as _io
+    parts: List[str] = []
+    with pdfplumber.open(_io.BytesIO(content)) as pdf:
+        for page in pdf.pages:
+            mid_x = page.width / 2
+            for x0, x1 in [(0, mid_x), (mid_x, page.width)]:
+                col = page.crop((x0, 0, x1, page.height))
+                # Drop watermark glyphs (Helvetica-Bold, size 45–75pt).
+                # Actual transcript text is Courier at ~9pt.
+                clean = col.filter(
+                    lambda obj: obj["object_type"] != "char" or obj.get("size", 0) < 15
+                )
+                text = clean.extract_text(x_tolerance=2, y_tolerance=3) or ""
+                if text.strip():
+                    parts.append(text)
+    return "\n".join(parts)
+
+
+@app.post("/parse-transcript-debug")
+async def parse_transcript_debug(file: UploadFile = File(...)) -> dict:
+    content = await file.read()
+    try:
+        text = _extract_transcript_text(content)
+    except Exception as exc:
+        return {"error": str(exc)}
+    from .transcript_parser import parse_transcript_text
+    result = parse_transcript_text(text)
+    return {
+        "raw_text_first_800": text[:800],
+        "total_lines": len(text.splitlines()),
+        "courses_found": len(result.courses),
+        "completed": [
+            {"norm": c.normalized_code, "title": c.title_raw, "grade": c.grade}
+            for c in result.get_completed_courses()
+        ],
+        "in_progress": [
+            {"norm": c.normalized_code, "title": c.title_raw}
+            for c in result.get_in_progress_courses()
+        ],
+        "warnings": result.warnings,
+    }
+
 
 @app.post("/parse-transcript", response_model=List[str])
 async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
@@ -186,13 +207,55 @@ async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
     if len(content) > 20 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File too large (max 20 MB).")
     try:
-        from pypdf import PdfReader
-        import io as _io
-        reader = PdfReader(_io.BytesIO(content))
-        text = "\n".join(page.extract_text() or "" for page in reader.pages)
+        text = _extract_transcript_text(content)
     except Exception as exc:
         raise HTTPException(status_code=422, detail=f"Could not read PDF: {exc}")
-    codes = _parse_transcript_text(text)
+
+    from .transcript_parser import parse_transcript_text
+    result = parse_transcript_text(text)
+
+    # Build catalog lookup once: course_number (digits only) -> list of (code, title)
+    db = SessionLocal()
+    try:
+        all_courses = db.query(models.Course).with_entities(
+            models.Course.code, models.Course.title
+        ).all()
+    finally:
+        db.close()
+
+    # Index by numeric course number so we can look up by (dept_code, crs) without a hardcoded mapping
+    by_number: dict = {}
+    for code, title in all_courses:
+        num = re.sub(r"^[A-Z]+", "", code)  # strip prefix letters -> "112", "203", etc.
+        by_number.setdefault(num, []).append((code, title))
+
+    seen: set = set()
+    codes: List[str] = []
+    for course in result.get_completed_courses():
+        candidates = by_number.get(course.crs, [])
+        if not candidates:
+            continue
+        if len(candidates) == 1:
+            best_code = candidates[0][0]
+        else:
+            # Multiple courses share the same number — pick by title similarity
+            best_code, best_score = max(
+                candidates,
+                key=lambda c: _word_overlap(course.title_raw, c[1]),
+            )[0], 0.0
+            for code, title in candidates:
+                score = _word_overlap(course.title_raw, title)
+                if score > best_score:
+                    best_score = score
+                    best_code = code
+            # Require meaningful title overlap to avoid false positives
+            # (e.g. "EUR FASHION & DESIGN" matching LA232 on just "design")
+            if best_score < 0.3:
+                continue
+        if best_code not in seen:
+            seen.add(best_code)
+            codes.append(best_code)
+
     return codes
 
 def _create_token(user_id: int) -> str:

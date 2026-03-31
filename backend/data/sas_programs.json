@@ -903,7 +903,7 @@
       ],
       "electives": {
         "count": 8,
-        "min_level_300_plus": 4,
+        "min_level_300_plus": 1,
         "options": [
           "WGSS130",
           "WGSS200",
@@ -1015,7 +1015,7 @@
         "At least 2 courses from Global/Non-Western history.",
         "At least 2 courses from European history.",
         "At least 2 courses from U.S. history.",
-        "At least 5 of 12 courses at 300–400 level.",
+        "At least 5 of 12 courses at 300\u2013400 level.",
         "At least 8 courses at Rutgers New Brunswick.",
         "Capstone: HIST401, HIST402, HIST451, or HIST495+HIST496."
       ],
@@ -1066,11 +1066,11 @@
       "constraints": [
         "12 courses total, minimum grade C in each.",
         "At least one course from 4 of 5 historical periods (Medieval, Renaissance, 18th C, 19th C, 20th C+).",
-        "At least one course in African-American Literature at 300–400 level.",
-        "At least one course in Literatures of the Global South at 300–400 level.",
+        "At least one course in African-American Literature at 300\u2013400 level.",
+        "At least one course in Literatures of the Global South at 300\u2013400 level.",
         "At least one course in Literary Theory.",
         "At least one 400-level seminar.",
-        "At least 6 courses at 300–400 level.",
+        "At least 6 courses at 300\u2013400 level.",
         "Max 2 creative writing courses as electives."
       ],
       "notes": []
@@ -1287,7 +1287,7 @@
         "any_from_catalog": false
       },
       "constraints": [
-        "Second major only — must complement a primary SAS major.",
+        "Second major only \u2014 must complement a primary SAS major.",
         "At least 18 credits of 36 must be at 300-level or above.",
         "Max 12 credits double-counted toward another major.",
         "No more than one D grade accepted."
@@ -1382,7 +1382,7 @@
       },
       "constraints": [
         "At least 5 electives at 300-level or above.",
-        "Interdisciplinary — courses may come from multiple departments.",
+        "Interdisciplinary \u2014 courses may come from multiple departments.",
         "Capstone seminar (AMST401) required.",
         "Minimum grade C in all courses."
       ],
@@ -2278,7 +2278,11 @@
           "SOC210",
           "PSYC101",
           "ECON102",
-          "POLS101"
+          "POLS101",
+          "SOC303",
+          "SOC335",
+          "PSYC377",
+          "POLS305"
         ],
         "any_from_catalog": false
       }
@@ -2339,7 +2343,10 @@
           "PUBH240",
           "PUBH356",
           "SOC210",
-          "PSYC101"
+          "PSYC101",
+          "PUBH335",
+          "PUBH395",
+          "PSYC377"
         ],
         "any_from_catalog": false
       }
@@ -2615,7 +2622,7 @@
       ],
       "electives": {
         "count": 2,
-        "min_level_300_plus": 4,
+        "min_level_300_plus": 2,
         "options": [
           "JPN401",
           "JPN402"
@@ -2638,7 +2645,7 @@
       ],
       "electives": {
         "count": 2,
-        "min_level_300_plus": 4,
+        "min_level_300_plus": 2,
         "options": [
           "CHN401",
           "CHN402"
@@ -2661,7 +2668,7 @@
       ],
       "electives": {
         "count": 1,
-        "min_level_300_plus": 4,
+        "min_level_300_plus": 1,
         "options": [
           "KOR401"
         ],
@@ -2683,7 +2690,7 @@
       ],
       "electives": {
         "count": 2,
-        "min_level_300_plus": 4,
+        "min_level_300_plus": 2,
         "options": [
           "RUSS401",
           "RUSS402"
@@ -2706,7 +2713,7 @@
       ],
       "electives": {
         "count": 2,
-        "min_level_300_plus": 4,
+        "min_level_300_plus": 2,
         "options": [
           "PORT401",
           "PORT402"
@@ -2820,7 +2827,7 @@
       ],
       "electives": {
         "count": 4,
-        "min_level_300_plus": 3,
+        "min_level_300_plus": 2,
         "options": [
           "THEA202",
           "THEA203",
@@ -2847,7 +2854,7 @@
       ],
       "electives": {
         "count": 2,
-        "min_level_300_plus": 3,
+        "min_level_300_plus": 2,
         "options": [
           "DANC302",
           "DANC303"
@@ -2869,7 +2876,7 @@
       ],
       "electives": {
         "count": 3,
-        "min_level_300_plus": 4,
+        "min_level_300_plus": 3,
         "options": [
           "CINE302",
           "CINE303",
@@ -3000,7 +3007,8 @@
           "FREN215",
           "FREN216",
           "SPAN302",
-          "SPAN303"
+          "SPAN303",
+          "COMPLIT403"
         ],
         "any_from_catalog": false
       }
@@ -3055,7 +3063,11 @@
           "COMPLIT201",
           "COMPLIT202",
           "RELGS200",
-          "RELGS201"
+          "RELGS201",
+          "COMPLIT301",
+          "COMPLIT302",
+          "HIST301",
+          "HIST302"
         ],
         "any_from_catalog": false
       }
@@ -3105,7 +3117,9 @@
           "KOR101",
           "HIST201",
           "HIST202",
-          "RELGS200"
+          "RELGS200",
+          "HIST301",
+          "HIST302"
         ],
         "any_from_catalog": false
       }
@@ -3246,7 +3260,10 @@
           "RELGS200",
           "RELGS201",
           "HIST201",
-          "HIST202"
+          "HIST202",
+          "MES401",
+          "HIST301",
+          "HIST302"
         ],
         "any_from_catalog": false
       }
@@ -3275,7 +3292,8 @@
           "CS210",
           "CS336",
           "CS344",
-          "STAT291"
+          "STAT291",
+          "CS334"
         ],
         "any_from_catalog": false
       }
@@ -7124,7 +7142,7 @@
     "history_law_minor": {
       "school": "SAS",
       "degree_level": "minor",
-      "major_name": "History — Law and History",
+      "major_name": "History \u2014 Law and History",
       "catalog_year": "2025-2026",
       "required_courses": [
         "HIST101",
@@ -7163,7 +7181,7 @@
     "history_stem_minor": {
       "school": "SAS",
       "degree_level": "minor",
-      "major_name": "History — STEM in Society",
+      "major_name": "History \u2014 STEM in Society",
       "catalog_year": "2025-2026",
       "required_courses": [
         "HIST101",
@@ -7467,7 +7485,7 @@
       "total_credits": 36,
       "description": "The MS in Computer Science requires 36 credits (12 courses). Students complete 2 Category A courses, 2 Category B courses, 4 additional A or B courses, and 4 open courses. An essay or thesis (6 credits) is required.",
       "category_a_courses": {
-        "description": "Theory and Foundations — choose at least 2",
+        "description": "Theory and Foundations \u2014 choose at least 2",
         "options": [
           "CS501",
           "CS508",
@@ -7486,7 +7504,7 @@
         ]
       },
       "category_b_courses": {
-        "description": "Applied and Systems — choose at least 2",
+        "description": "Applied and Systems \u2014 choose at least 2",
         "options": [
           "CS505",
           "CS507",
@@ -7523,7 +7541,7 @@
       "thesis_or_essay": {
         "description": "Students must complete either the Essay Option or Thesis Option (6 credits, equivalent to 2 courses)",
         "essay_option": "Project-based paper with Title, Author(s), Abstract, and References plus public presentation slides",
-        "thesis_option": "Six credits of CS704–CS706 with faculty supervision and committee approval"
+        "thesis_option": "Six credits of CS704\u2013CS706 with faculty supervision and committee approval"
       },
       "constraints": [
         "Total: 36 credits (12 courses).",

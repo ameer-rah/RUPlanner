@@ -123,6 +123,80 @@ function ElectivePicker({
   );
 }
 
+// ── Add Course Form ──────────────────────────────────────────────────────────
+
+function AddCourseForm({
+  onAdd,
+  onClose,
+}: {
+  onAdd: (course: PlannedCourse) => void;
+  onClose: () => void;
+}) {
+  const [code, setCode] = useState("");
+  const [title, setTitle] = useState("");
+  const [credits, setCredits] = useState("3");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const trimmed = code.trim().toUpperCase();
+    if (!trimmed) { setError("Course code is required."); return; }
+    const cr = parseFloat(credits);
+    if (isNaN(cr) || cr <= 0) { setError("Credits must be a positive number."); return; }
+    onAdd({
+      code: trimmed,
+      title: title.trim() || trimmed,
+      credits: cr,
+      is_elective: false,
+      prerequisites: [],
+      elective_options: [],
+    });
+  }
+
+  return (
+    <div className="add-course-form">
+      <form onSubmit={handleSubmit}>
+        <div className="add-course-row">
+          <input
+            autoFocus
+            className="add-course-input add-course-code"
+            placeholder="Code (e.g. CS 111)"
+            value={code}
+            onChange={(e) => { setCode(e.target.value); setError(""); }}
+          />
+          <input
+            className="add-course-input add-course-title"
+            placeholder="Title (optional)"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            className="add-course-input add-course-credits"
+            placeholder="Cr"
+            value={credits}
+            type="number"
+            min="0.5"
+            max="6"
+            step="0.5"
+            onChange={(e) => setCredits(e.target.value)}
+          />
+          <button type="submit" className="add-course-confirm-btn">Add</button>
+          <button type="button" className="add-course-cancel-btn" onClick={onClose}>✕</button>
+        </div>
+        {error && <div className="add-course-error">{error}</div>}
+      </form>
+    </div>
+  );
+}
+
 // ── Main PlanEditor ─────────────────────────────────────────────────────────
 
 export default function PlanEditor({ initialTerms, completedCourses, onTermsChange }: Props) {
@@ -144,6 +218,9 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
     courseIdx: number;
     course: PlannedCourse;
   } | null>(null);
+
+  // add-course form — which term is open
+  const [addingToTerm, setAddingToTerm] = useState<number | null>(null);
 
   const completedSet = useMemo(
     () => new Set(completedCourses.map((c) => c.toUpperCase())),
@@ -301,6 +378,27 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
     setPicker(null);
   }
 
+  // ── Delete / Add course ─────────────────────────────────────────────────
+
+  function handleDeleteCourse(termIdx: number, courseIdx: number) {
+    setTerms((prev) => {
+      const next = prev.map((t) => ({ ...t, courses: [...t.courses] }));
+      const removed = next[termIdx].courses.splice(courseIdx, 1)[0];
+      next[termIdx].total_credits -= removed.credits;
+      return next;
+    });
+  }
+
+  function handleAddCourse(termIdx: number, course: PlannedCourse) {
+    setTerms((prev) => {
+      const next = prev.map((t) => ({ ...t, courses: [...t.courses] }));
+      next[termIdx].courses.push(course);
+      next[termIdx].total_credits += course.credits;
+      return next;
+    });
+    setAddingToTerm(null);
+  }
+
   // ── Render ───────────────────────────────────────────────────────────────
 
   return (
@@ -354,6 +452,13 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                       {course.is_elective && (
                         <span className="elective-badge">ELECTIVE</span>
                       )}
+                      <button
+                        className="course-delete-btn"
+                        title="Remove course"
+                        onClick={() => handleDeleteCourse(termIdx, courseIdx)}
+                      >
+                        ×
+                      </button>
                     </div>
                     <div className="plan-course-meta">
                       {course.title} · {course.credits} cr
@@ -374,8 +479,22 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                   </div>
                 ))}
 
-                {term.courses.length === 0 && (
+                {term.courses.length === 0 && addingToTerm !== termIdx && (
                   <div className="empty-term-hint">Drop a course here</div>
+                )}
+
+                {addingToTerm === termIdx ? (
+                  <AddCourseForm
+                    onAdd={(course) => handleAddCourse(termIdx, course)}
+                    onClose={() => setAddingToTerm(null)}
+                  />
+                ) : (
+                  <button
+                    className="add-course-btn"
+                    onClick={() => setAddingToTerm(termIdx)}
+                  >
+                    + Add course
+                  </button>
                 )}
               </div>
             </div>
