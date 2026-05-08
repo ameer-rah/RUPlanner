@@ -6,7 +6,7 @@ from typing import Dict, List, Optional, Set, Tuple
 
 import networkx as nx
 
-from ..schemas import PlanRequest, PlanResponse, PlannedCourse, TermPlan, ElectiveOption
+from ..schemas import PlanRequest, PlanResponse, PlannedCourse, TermPlan, ElectiveOption, CoreCurriculumBlock, CourseStatus, ProgramSummary
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
@@ -26,6 +26,18 @@ _SCHOOL_CATALOG: Dict[str, str] = {
     "GSAPP": "gsapp_catalog.json",
 }
 
+_SCHOOL_TO_DN_KEY: Dict[str, str] = {
+    "SAS":  "dn_2721",
+    "SEBS": "dn_2742",
+    "RBS":  "dn_2841",
+    "SPPP": "dn_18",
+    "SON":  "dn_37",
+    "SOE":  "dn_29",
+    "SCI":  "dn_2721",   # SC&I students satisfy SAS Core
+    "SMLR": "dn_2721",  # SMLR students satisfy SAS Core
+    "MGSA": "dn_13",
+}
+
 _DEGREE_LEVEL_MAP: Dict[Tuple[str, Optional[str]], str] = {
     ("bachelor", "ba"):   "bachelor_ba",
     ("bachelor", "bs"):   "bachelor_bs",
@@ -39,25 +51,100 @@ _DEGREE_LEVEL_MAP: Dict[Tuple[str, Optional[str]], str] = {
     ("master",        "ma"):  "master_ma",
     ("master",        "mat"): "master_mat",
     ("master",        "meng"):"master_meng",
-    ("doctorate",     None):  "doctorate",
-    ("phd",           None):  "doctorate",
-    ("associate",     None):  "associate",
-    ("concentration", None):  "concentration",
+    ("doctorate",              None):  "doctorate",
+    ("phd",                    None):  "doctorate",
+    ("doctoral",               None):  "doctoral",
+    ("professional_doctorate", None):  "professional_doctorate",
+    ("psyd",                   None):  "professional_doctorate",
+    ("edd",                    None):  "professional_doctorate",
+    ("pharmd",                 None):  "professional_doctorate",
+    ("associate",              None):  "associate",
+    ("concentration",          None):  "concentration",
 }
 
 CATALOG_YEAR = "2025-2026"
 
 _SEASONS = ["Spring", "Summer", "Fall", "Winter"]
 
+# Keys: (school, degree_level, major_name)
+# Values: dict of fields to remove (set to None) or override.
+# Add entries here whenever scraped program data has incorrect fields.
+_PROGRAM_PATCHES: Dict[Tuple[str, str, str], Dict] = {
+    # CS BS has no statistics requirement — was incorrectly scraped.
+    # CS213/CS214 are electives, not required core courses.
+    ("SAS", "bachelor_bs", "Computer Science"): {
+        "statistics_requirement": None,
+        "move_to_electives": ["CS213", "CS214"],
+    },
+    # ChemE's science elective was misclassified under statistics_requirement.
+    ("SOE", "bachelor_bs", "Chemical Engineering"): {
+        "statistics_requirement": None,
+    },
+}
+
+
+def _apply_program_patches(school: str, degree_level: str, major_name: str, requirements: Dict) -> Dict:
+    patch = _PROGRAM_PATCHES.get((school, degree_level, major_name))
+    if not patch:
+        return requirements
+    result = dict(requirements)
+    for field, value in patch.items():
+        if field == "move_to_electives":
+            # Move listed courses out of required_courses and into electives.options
+            to_move = set(value)
+            result["required_courses"] = [c for c in result.get("required_courses", []) if c not in to_move]
+            electives = dict(result.get("electives", {}))
+            options = list(electives.get("options", []))
+            for c in value:
+                if c not in options:
+                    options.append(c)
+            electives["options"] = options
+            result["electives"] = electives
+        elif value is None:
+            result.pop(field, None)
+        else:
+            result[field] = value
+    return result
+
+
+def _apply_track(requirements: Dict, track: Optional[str]) -> Dict:
+    """If the program has a 'tracks' dict and a track was specified, merge that track's
+    requirements on top of the base requirements (track keys take precedence)."""
+    if not track:
+        return requirements
+    tracks = requirements.get("tracks", {})
+    if not tracks or track not in tracks:
+        return requirements
+    base = {k: v for k, v in requirements.items() if k != "tracks"}
+    track_reqs = dict(tracks[track])
+    return {**base, **track_reqs}
+
 
 def _load_catalog_from_db() -> Dict[str, Dict]:
+    return _get_db_catalog()
+
+
+_SAS_CORE_INDEX: Dict[str, List[str]] = {}  # {course_code: [designation, ...]}
+_SAS_CORE_INDEX_LOADED = False
+
+_DB_CATALOG_CACHE: Dict[str, Dict] = {}
+_DB_CATALOG_LOADED = False
+
+_DN_PROGRAMS_CACHE: Dict = {}
+_DN_PROGRAMS_LOADED = False
+
+
+def _get_db_catalog() -> Dict[str, Dict]:
+    global _DB_CATALOG_CACHE, _DB_CATALOG_LOADED
+    if _DB_CATALOG_LOADED:
+        return _DB_CATALOG_CACHE
     try:
         from ..database import SessionLocal
         from ..models import Course
         db = SessionLocal()
         try:
             rows = db.query(Course).all()
-            return {
+            _DB_CATALOG_CACHE = {
                 r.code: {
                     "code": r.code,
                     "title": r.title,
@@ -72,7 +159,114 @@ def _load_catalog_from_db() -> Dict[str, Dict]:
         finally:
             db.close()
     except Exception:
-        return {}
+        _DB_CATALOG_CACHE = {}
+    _DB_CATALOG_LOADED = True
+    return _DB_CATALOG_CACHE
+
+
+def _get_dn_programs() -> Dict:
+    global _DN_PROGRAMS_CACHE, _DN_PROGRAMS_LOADED
+    if _DN_PROGRAMS_LOADED:
+        return _DN_PROGRAMS_CACHE
+    try:
+        dn_path = DATA_DIR / "dn_programs.json"
+        with open(dn_path, "r", encoding="utf-8") as fh:
+            _DN_PROGRAMS_CACHE = json.load(fh)
+    except Exception:
+        _DN_PROGRAMS_CACHE = {}
+    _DN_PROGRAMS_LOADED = True
+    return _DN_PROGRAMS_CACHE
+
+
+def _get_sas_core_index() -> Dict[str, List[str]]:
+    global _SAS_CORE_INDEX, _SAS_CORE_INDEX_LOADED
+    if _SAS_CORE_INDEX_LOADED:
+        return _SAS_CORE_INDEX
+    try:
+        path = DATA_DIR / "sas_core_index.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        _SAS_CORE_INDEX = data.get("index", {})
+    except Exception:
+        _SAS_CORE_INDEX = {}
+    _SAS_CORE_INDEX_LOADED = True
+    return _SAS_CORE_INDEX
+
+
+_BLOCK_TAG_RE = re.compile(r"\[([A-Za-z]+)\]")
+
+def _tags_for_block(title: str) -> Set[str]:
+    """Extract SAS Core designation tags from a block title, e.g. '[WCd]' → {'WCd'}."""
+    return {m.group(1) for m in _BLOCK_TAG_RE.finditer(title)}
+
+
+def _load_core_curriculum(
+    school: str, completed_courses: Set[str]
+) -> Tuple[Optional[str], List[Dict], List[str]]:
+    """Load core curriculum blocks for a school from dn_programs.json.
+
+    Returns (curriculum_name, blocks, required_courses_list).
+    Returns (None, [], []) if no data exists for this school.
+    """
+    dn_key = _SCHOOL_TO_DN_KEY.get(school)
+    if not dn_key:
+        return None, [], []
+
+    dn_data = _get_dn_programs()
+    if not dn_data:
+        return None, [], []
+
+    program = dn_data.get("programs", {}).get(dn_key)
+    if not program:
+        return None, [], []
+
+    curriculum_name: str = program.get("major_name", "Core Curriculum")
+    raw_blocks: List[Dict] = program.get("_raw_blocks", [])
+
+    if not raw_blocks:
+        return None, [], []
+
+    # Schools that share the Rutgers SAS Core designation system (R1-R6, [WCd], [AHp], etc.)
+    # All these schools' blocks use the same tags, so the same index applies.
+    _SAS_CORE_SCHOOLS = {"SAS", "SEBS", "RBS", "SPPP", "SON", "SOE", "SCI", "SMLR"}
+    core_index = _get_sas_core_index() if school in _SAS_CORE_SCHOOLS else {}
+
+    blocks: List[CoreCurriculumBlock] = []
+    all_core_courses: List[str] = []
+
+    for rb in raw_blocks:
+        courses: List[str] = rb.get("courses", [])
+        total: Optional[int] = rb.get("total_courses")
+        block_title: str = rb.get("title", "")
+        block_tags = _tags_for_block(block_title)
+
+        # Expand: any completed course whose SAS Core designations overlap this block counts
+        if block_tags and core_index:
+            for code in completed_courses:
+                desigs = set(core_index.get(code, []))
+                if desigs & block_tags and code not in courses:
+                    courses = list(courses) + [code]
+
+        completed_in_block = [c for c in courses if c in completed_courses]
+        needed = max(0, (total or 0) - len(completed_in_block)) if total is not None else 0
+        blocks.append(
+            CoreCurriculumBlock(
+                title=block_title,
+                total_courses=total,
+                courses=courses,
+                is_elective=rb.get("is_elective", False),
+                completed=completed_in_block,
+                needed=needed,
+            )
+        )
+        # Elective blocks are optional pools — don't schedule them as required.
+        # For required blocks, only add as many courses as the block actually needs.
+        if not rb.get("is_elective", False) and needed > 0:
+            remaining_in_block = [c for c in courses if c not in completed_courses]
+            for c in remaining_in_block[:needed]:
+                if c not in all_core_courses:
+                    all_core_courses.append(c)
+
+    return curriculum_name, blocks, all_core_courses
 
 
 def _term_index(term: str) -> int:
@@ -162,6 +356,18 @@ def _load_requirements_from_db(
                 )
                 .first()
             )
+        # Fallback: generic "master" → any master_* sub-type for this program
+        if row is None and degree_level == "master":
+            row = (
+                db.query(Program)
+                .filter(
+                    Program.school == school,
+                    Program.degree_level.like("master_%"),
+                    Program.major_name == major_name,
+                    Program.catalog_year == catalog_year,
+                )
+                .first()
+            )
         if row is None:
             raise ValueError(
                 f"No program in DB: school={school}, level={degree_level}, "
@@ -173,13 +379,22 @@ def _load_requirements_from_db(
         db.close()
 
 
-def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], str]:
+def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], str, Optional[str]]:
+    """Returns (school, db_level, major_name, track_or_None)."""
     m = re.match(r'^(.+?)\s*\(([^)]+)\)\s*$', entry.strip())
     if not m:
         db_level = _DEGREE_LEVEL_MAP.get((level_raw, None))
-        return "SAS", db_level, entry.strip().title()
+        return "SAS", db_level, entry.strip().title(), None
 
-    major_name = m.group(1).strip()
+    raw_name = m.group(1).strip()
+    # Extract track: "Statistics — Data Science" → base="Statistics", track="Data Science"
+    track: Optional[str] = None
+    if " — " in raw_name:
+        base, track = raw_name.split(" — ", 1)
+        major_name = base.strip()
+        track = track.strip()
+    else:
+        major_name = raw_name
     tokens = [t.strip().upper() for t in m.group(2).split(",")]
 
     _SCHOOLS = {"SAS", "SOE", "RBS", "SPPP", "MGSA", "SCI", "SMLR", "SEBS", "SSW", "SON", "EMSP", "GSE", "GSAPP"}
@@ -201,6 +416,21 @@ def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], 
         "MENG":            "master_meng",
         "PHD":             "doctorate",
         "PSYD":            "professional_doctorate",
+        "EDD":             "professional_doctorate",
+        "PHARMD":          "professional_doctorate",
+        "DNP":             "professional_doctorate",
+        "MCRP":            "master",
+        "MPA":             "master",
+        "MPH":             "master",
+        "MPP":             "master",
+        "MSW":             "master",
+        "MFA":             "master",
+        "MM":              "master",
+        "MAT":             "master_mat",
+        "MBA":             "master",
+        "MLER":            "master",
+        "MHRM":            "master",
+        "MABA":            "master",
         "AS":              "associate",
         "CONCENTRATION":   "concentration",
         "DOCTORAL":        "doctoral",
@@ -210,7 +440,7 @@ def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], 
     if db_level is None:
         db_level = _DEGREE_LEVEL_MAP.get((level_raw, None))
 
-    return school, db_level, major_name
+    return school, db_level, major_name, track
 
 
 def _merge_requirements(programs: List[Dict]) -> Dict:
@@ -270,26 +500,49 @@ def _merge_requirements(programs: List[Dict]) -> Dict:
 def resolve_program(request: PlanRequest) -> Dict:
     level_raw = request.degree_level.strip().lower()
     found: List[Dict] = []
+    individual_programs: List[Dict] = []  # [{reqs, name, type}]
 
     for major_raw in request.majors:
-        school, db_level, major_name = _parse_major_entry(major_raw, level_raw)
+        school, db_level, major_name, track = _parse_major_entry(major_raw, level_raw)
         if not db_level:
             continue
         try:
             reqs = _load_requirements_from_db(school, db_level, major_name, CATALOG_YEAR)
+            reqs = _apply_program_patches(school, db_level, major_name, reqs)
+            reqs = _apply_track(reqs, track)
             found.append(reqs)
+            individual_programs.append({"reqs": reqs, "name": major_name, "type": "major"})
         except ValueError:
             continue
 
     for minor_raw in request.minors:
         if not minor_raw.strip():
             continue
-        school, db_level, major_name = _parse_major_entry(minor_raw, "minor")
+        school, db_level, major_name, track = _parse_major_entry(minor_raw, "minor")
         if not db_level:
             continue
         try:
             reqs = _load_requirements_from_db(school, db_level, major_name, CATALOG_YEAR)
+            reqs = _apply_program_patches(school, db_level, major_name, reqs)
+            reqs = _apply_track(reqs, track)
             found.append(reqs)
+            display_name = f"{major_name} — {track}" if track else major_name
+            individual_programs.append({"reqs": reqs, "name": display_name, "type": "minor"})
+        except ValueError:
+            continue
+
+    for conc_raw in (request.concentrations or []):
+        if not conc_raw.strip():
+            continue
+        school, db_level, major_name, track = _parse_major_entry(conc_raw, "concentration")
+        if not db_level:
+            continue
+        try:
+            reqs = _load_requirements_from_db(school, db_level, major_name, CATALOG_YEAR)
+            reqs = _apply_program_patches(school, db_level, major_name, reqs)
+            reqs = _apply_track(reqs, track)
+            found.append(reqs)
+            individual_programs.append({"reqs": reqs, "name": major_name, "type": "concentration"})
         except ValueError:
             continue
 
@@ -324,6 +577,7 @@ def resolve_program(request: PlanRequest) -> Dict:
     return {
         "catalog": merged_catalog,
         "requirements": merged_reqs,
+        "individual_programs": individual_programs,
     }
 
 
@@ -451,22 +705,163 @@ def _normalize_graduate_requirements(requirements: Dict) -> Tuple[Dict, List[str
     required: List[str] = list(requirements.get("required_courses") or [])
     seen_req: Set[str] = set(required)
 
-    # required_core_courses (e.g. EMSP Medicinal Chemistry, GSAPP MABA)
+    def _add(code: str) -> None:
+        if isinstance(code, str) and code not in seen_req:
+            required.append(code)
+            seen_req.add(code)
+
+    # required_core_courses (list) — e.g. EMSP Medicinal Chemistry, GSAPP MABA
     rcc = requirements.get("required_core_courses")
     if isinstance(rcc, list):
         for c in rcc:
-            if isinstance(c, str) and c not in seen_req:
-                required.append(c)
-                seen_req.add(c)
+            _add(c)
 
-    # foundation_courses, core_required, specialization_required — dicts with a "courses" key
-    for field in ("foundation_courses", "core_required", "specialization_required"):
-        val = requirements.get(field, {})
-        if isinstance(val, dict):
-            for c in val.get("courses", []):
+    # additional_required_courses (list)
+    for c in (requirements.get("additional_required_courses") or []):
+        _add(c)
+
+    # gse_required_courses (dict with "courses" key)
+    gse_rc = requirements.get("gse_required_courses")
+    if isinstance(gse_rc, dict):
+        for c in gse_rc.get("courses", []):
+            _add(c)
+
+    # core_courses — can be either a flat {"required": [...]} (EdD programs)
+    # or a nested semester structure handled in Step 2. Handle the flat case here.
+    cc_val = requirements.get("core_courses", {})
+    if isinstance(cc_val, dict):
+        for c in cc_val.get("courses", []):
+            _add(c)
+        for c in cc_val.get("required", []):
+            _add(c)
+
+    # Fields that are dicts holding course lists under "courses", "required",
+    # a singular "course" key, or nested sub-dicts with their own "courses"/"required".
+    _DICT_COURSE_FIELDS = (
+        "foundation_courses", "core_required", "specialization_required",
+        "required_core", "capstone", "capstone_requirement",
+        "advanced_practicum", "practicum", "practicum_sequence",
+        "required_proseminars", "required_foundational",
+        "studio", "lab_rotation", "research_requirement",
+        "required_research_methods", "concentration_courses",
+        "seminar_field", "curriculum_areas",
+    )
+    for field in _DICT_COURSE_FIELDS:
+        val = requirements.get(field)
+        if not isinstance(val, dict):
+            continue
+        # Direct "courses" list
+        for c in val.get("courses", []):
+            _add(c)
+        # Direct "required" list
+        for c in val.get("required", []):
+            _add(c)
+        # Singular "course" key (e.g. lab_rotation)
+        single = val.get("course")
+        if single:
+            _add(single)
+        # Nested sub-dicts with "courses" or "required" (e.g. MHRM required_core,
+        # GSE EdD concentration_courses certification_option)
+        for subval in val.values():
+            if isinstance(subval, dict):
+                for c in subval.get("courses", []):
+                    _add(c)
+                for c in subval.get("required", []):
+                    _add(c)
+
+    # Sub-elective pools: pick `count` (default 1) from options list.
+    # Used for single-course requirements like seminars, practicum distributions,
+    # capstone options, and choice requirements.
+    _PICK_N_FIELDS = (
+        "seminar_requirement", "advanced_practice_distribution",
+        "advanced_contemporary_policy", "intro_requirement",
+        "writing_requirement", "gateway_requirement",
+        "management_requirement",
+    )
+    for field in _PICK_N_FIELDS:
+        val = requirements.get(field)
+        if isinstance(val, dict) and "options" in val:
+            n = val.get("count", 1)
+            for c in val["options"]:
+                if n <= 0:
+                    break
                 if isinstance(c, str) and c not in seen_req:
-                    required.append(c)
-                    seen_req.add(c)
+                    _add(c)
+                    n -= 1
+
+    # capstone_options (bare list — pick 1)
+    co_opts = requirements.get("capstone_options")
+    if isinstance(co_opts, list):
+        for c in co_opts:
+            if isinstance(c, str) and c not in seen_req:
+                _add(c)
+                break
+
+    # competency_areas / competency_categories: each nested area has count + options → pick 1 per area
+    for comp_field in ("competency_areas", "competency_categories"):
+        comp = requirements.get(comp_field)
+        if not isinstance(comp, dict):
+            continue
+        for area_val in comp.values():
+            if not isinstance(area_val, dict) or "options" not in area_val:
+                continue
+            n = area_val.get("count", 1)
+            for c in area_val["options"]:
+                if n <= 0:
+                    break
+                if isinstance(c, str) and c not in seen_req:
+                    _add(c)
+                    n -= 1
+
+    # curriculum dict (EMSP PharmD): nested by year → semester → "required" list
+    curriculum = requirements.get("curriculum")
+    if isinstance(curriculum, dict):
+        for year_data in curriculum.values():
+            if not isinstance(year_data, dict):
+                continue
+            for sem_data in year_data.values():
+                if isinstance(sem_data, dict):
+                    for c in sem_data.get("required", []):
+                        _add(c)
+                    # writing_elective or similar choice sub-fields
+                    for subval in sem_data.values():
+                        if isinstance(subval, dict) and "options" in subval:
+                            opts = subval["options"]
+                            if opts:
+                                _add(opts[0])
+
+    # ── Step 1b: General scan — any top-level dict value with an "options" list and a
+    # "count" key that we haven't already handled explicitly gets treated as a pick-N pool.
+    # This catches fields like sas_electives, bloustein_electives, planning_specialization,
+    # core_requirement, track_requirement, distribution_requirement, etc.
+    _ALREADY_HANDLED = {
+        "required_courses", "electives", "science_requirement", "statistics_requirement",
+        "sci_intro_requirement", "advanced_core_requirement", "foundation_requirement",
+        "practice_electives", "concept_electives", "diversity_requirement",
+        "required_core_courses", "additional_required_courses", "gse_required_courses",
+        "category_a_courses", "category_b_courses", "core_courses", "tracks",
+        "competency_areas", "competency_categories", "curriculum",
+        # metadata
+        "school", "degree_level", "major_name", "catalog_year", "constraints", "notes",
+        "description", "program_years", "total_credits", "total_credits_approx",
+    } | set(_DICT_COURSE_FIELDS) | set(_PICK_N_FIELDS)
+
+    for field, val in requirements.items():
+        if field in _ALREADY_HANDLED:
+            continue
+        if not isinstance(val, dict) or "options" not in val:
+            continue
+        opts = [o for o in val["options"] if isinstance(o, str)]
+        if not opts:
+            continue
+        n = val.get("count", 1)
+        picked = 0
+        for c in opts:
+            if picked >= n:
+                break
+            if c not in seen_req:
+                _add(c)
+                picked += 1
 
     # ── Step 2: Handle complex structures that hold all courses in non-standard fields ──
     # Only enter these branches when the standard fields above yielded nothing.
@@ -570,6 +965,15 @@ def _normalize_graduate_requirements(requirements: Dict) -> Tuple[Dict, List[str
             if alt in electives:
                 electives["count"] = electives[alt]
                 break
+    # If electives has options but still no count, infer from total_credits
+    if electives and "count" not in electives and electives.get("options"):
+        total_cr = requirements.get("total_credits", 0)
+        if total_cr:
+            used_cr = sum(3 for _ in required)  # approximate 3cr/course
+            remaining_cr = max(0, total_cr - used_cr)
+            electives["count"] = max(1, remaining_cr // 3)
+        else:
+            electives["count"] = len(electives["options"])
     if electives:
         normalized["electives"] = electives
 
@@ -639,6 +1043,25 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             warnings.append(f"Completed course '{code}' not found in catalog — treated as satisfied prereq but may be a typo.")
 
     required: List[str] = list(requirements.get("required_courses", []))
+
+    # Load core curriculum (general education) requirements for the student's school
+    _primary_school = "SAS"
+    if request.majors:
+        _primary_school, _, _, _ = _parse_major_entry(request.majors[0], request.degree_level.strip().lower())
+    core_curriculum_name, core_curriculum_blocks, core_courses = _load_core_curriculum(
+        _primary_school, completed
+    )
+    _core_tag_index = _get_sas_core_index() if _primary_school in {"SAS", "SEBS", "RBS", "SPPP", "SON", "SOE", "SCI", "SMLR"} else {}
+    for c in core_courses:
+        if c not in required:
+            required.append(c)
+    # Warn about open-ended blocks (no known course list)
+    for blk in core_curriculum_blocks:
+        if blk.needed > 0 and not blk.courses:
+            warnings.append(
+                f"Core requirement '{blk.title}' needs {blk.needed} more course(s) "
+                "— select from Degree Navigator (specific options not tracked here)."
+            )
 
     # Build minimal stubs for graduate courses referenced in requirements but absent from catalog.
     # This prevents them from being silently dropped. Title = course code, credits = 3 (standard).
@@ -721,6 +1144,39 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             if c not in completed and c not in full_elective_pool:
                 full_elective_pool.append(c)
 
+    # For each unfulfilled SAS Core block with tag-based requirements, pick real courses to schedule
+    if _core_tag_index:
+        for blk in core_curriculum_blocks:
+            if blk.needed <= 0 or blk.total_courses is None:
+                continue
+            tags = set(re.findall(r'\[([A-Za-z]+)\]', blk.title))
+            if not tags:
+                continue
+            # Count courses already in the plan (required but not completed) that satisfy this block
+            already_covering = sum(
+                1 for c in required
+                if c not in completed and tags.intersection(set(_core_tag_index.get(c, [])))
+            )
+            actual_needed = max(0, blk.needed - already_covering)
+            if actual_needed <= 0:
+                continue
+            req_set = set(required)
+            # Pick lowest-level catalog courses matching any of the block's tags
+            candidates = sorted(
+                [c for c, ctags in _core_tag_index.items()
+                 if tags.intersection(set(ctags)) and c in catalog
+                 and c not in completed and c not in req_set],
+                key=lambda c: int(re.search(r'\d+', c).group()) if re.search(r'\d+', c) else 999
+            )
+            picked = candidates[:actual_needed]
+            for c in picked:
+                required.append(c)
+                elective_set.add(c)
+            # Expose all candidates as swap options
+            for c in candidates:
+                if c not in full_elective_pool:
+                    full_elective_pool.append(c)
+
     _collect_missing_prereqs(required, catalog, completed, required)
 
     remaining = [c for c in required if c not in completed]
@@ -729,6 +1185,31 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     completed_in_req = [c for c in required if c in completed]
     completed_credits_count = sum(catalog.get(c, {}).get("credits", 3) for c in completed_in_req)
     total_credits_count = sum(catalog.get(c, {}).get("credits", 3) for c in required)
+
+    # Build a map of each completed course → the requirement label it satisfies
+    completed_course_map: Dict[str, str] = {}
+    base_required = set(requirements.get("required_courses", []))
+    for c in completed:
+        if c in base_required:
+            completed_course_map[c] = "Required"
+    for c in completed_elec:
+        if c not in completed_course_map:
+            completed_course_map[c] = "Elective"
+    for opt in requirements.get("science_requirement", {}).get("options", []):
+        if isinstance(opt, list):
+            for c in opt:
+                if c in completed and c not in completed_course_map:
+                    completed_course_map[c] = "Science Requirement"
+        elif opt in completed and opt not in completed_course_map:
+            completed_course_map[opt] = "Science Requirement"
+    for c in requirements.get("statistics_requirement", {}).get("options", []):
+        if c in completed and c not in completed_course_map:
+            completed_course_map[c] = "Statistics Requirement"
+    for blk in core_curriculum_blocks:
+        short = blk.title.split(":")[-1].strip()
+        for c in blk.completed:
+            if c not in completed_course_map:
+                completed_course_map[c] = f"Core: {short}"
 
     start = request.start_term or current_term()
     grad_term = " ".join(
@@ -834,6 +1315,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                         credits=course["credits"],
                         is_elective=is_elec,
                         prerequisites=course.get("prerequisites", []),
+                        core_tags=_core_tag_index.get(course["code"], []),
                         elective_options=[
                             ElectiveOption(
                                 code=catalog[c]["code"],
@@ -863,6 +1345,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                                 title=co["title"],
                                 credits=co["credits"],
                                 prerequisites=co.get("prerequisites", []),
+                                core_tags=_core_tag_index.get(co["code"], []),
                             )
                         )
                         term_credits += co["credits"]
@@ -892,6 +1375,65 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     if not queue and last_course_term and last_course_term != grad_term:
         completion_term = last_course_term
 
+    # Build per-program requirement summaries
+    individual_programs = program.get("individual_programs", [])
+    in_progress: Set[str] = {c.strip().upper() for c in (request.completed_courses or []) if c.strip().upper() not in completed}
+    # Collect all planned course codes across all scheduled terms
+    planned_codes: Set[str] = {c.code for term in non_empty_terms for c in term.courses}
+
+    programs_summary: List[ProgramSummary] = []
+    for prog in individual_programs:
+        prog_reqs = prog["reqs"]
+        prog_name = prog["name"]
+        prog_type = prog["type"]
+
+        # Required courses
+        required_items: List[CourseStatus] = []
+        for code in prog_reqs.get("required_courses", []):
+            if code in completed:
+                status = "completed"
+            elif code in in_progress:
+                status = "in_progress"
+            elif code in planned_codes:
+                status = "planned"
+            else:
+                status = "not_scheduled"
+            required_items.append(CourseStatus(code=code, status=status))
+
+        # Electives
+        elec = prog_reqs.get("electives", {})
+        elec_options: Set[str] = set(elec.get("options", []))
+        elec_needed: int = elec.get("count", 0)
+        elec_completed = [c for c in completed if c in elec_options]
+        elec_planned = [c for c in planned_codes if c in elec_options and c not in completed]
+
+        # Science requirement
+        sci_completed: List[str] = []
+        for opt in prog_reqs.get("science_requirement", {}).get("options", []):
+            if isinstance(opt, list):
+                for c in opt:
+                    if c in completed:
+                        sci_completed.append(c)
+            elif opt in completed:
+                sci_completed.append(opt)
+
+        # Stats requirement
+        stats_completed = [
+            c for c in prog_reqs.get("statistics_requirement", {}).get("options", [])
+            if c in completed
+        ]
+
+        programs_summary.append(ProgramSummary(
+            name=prog_name,
+            type=prog_type,
+            required=required_items,
+            electives_needed=elec_needed,
+            electives_completed=elec_completed,
+            electives_planned=elec_planned,
+            science_completed=sci_completed,
+            stats_completed=stats_completed,
+        ))
+
     return PlanResponse(
         terms=non_empty_terms,
         remaining_courses=queue,
@@ -899,4 +1441,8 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         completion_term=completion_term,
         completed_credits=completed_credits_count,
         total_credits=total_credits_count,
+        core_curriculum_name=core_curriculum_name,
+        core_curriculum_blocks=core_curriculum_blocks,
+        completed_course_map=completed_course_map,
+        programs_summary=programs_summary,
     )

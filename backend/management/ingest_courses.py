@@ -229,6 +229,26 @@ _UNIT_SUBJECT_OVERRIDE: dict[str, dict[str, str]] = {
 }
 
 
+def current_terms() -> tuple[int, list[str]]:
+    """Return (year, [term_names]) for the current academic period.
+
+    Logic:
+      Jan–May  → Spring of this calendar year
+      Jun–Jul  → Summer of this calendar year
+      Aug–Dec  → Fall of this calendar year + pre-load next Spring
+    """
+    from datetime import date
+    today = date.today()
+    month = today.month
+    year = today.year
+    if month <= 5:
+        return year, ["spring"]
+    elif month <= 7:
+        return year, ["summer"]
+    else:
+        return year, ["fall", "spring"]
+
+
 def fetch_term(year: int, term_name: str) -> list[dict]:
     """Fetch all courses for one term from the SIS API."""
     code = TERM_CODES[term_name]

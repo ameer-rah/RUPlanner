@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import { getRegistrarCode, getCoursiclUrl } from "./registrar";
 
 export type ElectiveOption = {
@@ -17,6 +17,7 @@ export type PlannedCourse = {
   is_elective: boolean;
   prerequisites: string[];
   elective_options: ElectiveOption[];
+  core_tags?: string[];
 };
 
 export type PlanTerm = {
@@ -125,6 +126,10 @@ function ElectivePicker({
 
 // ── Add Course Form ──────────────────────────────────────────────────────────
 
+const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+
+type CourseResult = { code: string; title: string; credits: number };
+
 function AddCourseForm({
   onAdd,
   onClose,
@@ -132,10 +137,10 @@ function AddCourseForm({
   onAdd: (course: PlannedCourse) => void;
   onClose: () => void;
 }) {
-  const [code, setCode] = useState("");
-  const [title, setTitle] = useState("");
-  const [credits, setCredits] = useState("3");
-  const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<CourseResult[]>([]);
+  const [loading, setLoading] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -145,16 +150,28 @@ function AddCourseForm({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const trimmed = code.trim().toUpperCase();
-    if (!trimmed) { setError("Course code is required."); return; }
-    const cr = parseFloat(credits);
-    if (isNaN(cr) || cr <= 0) { setError("Credits must be a positive number."); return; }
+  const search = useCallback((q: string) => {
+    if (!q.trim()) { setResults([]); return; }
+    setLoading(true);
+    fetch(`${apiBase}/courses?q=${encodeURIComponent(q)}&limit=8`)
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: CourseResult[]) => setResults(data ?? []))
+      .catch(() => setResults([]))
+      .finally(() => setLoading(false));
+  }, []);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value;
+    setQuery(val);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => search(val), 200);
+  }
+
+  function handleSelect(course: CourseResult) {
     onAdd({
-      code: trimmed,
-      title: title.trim() || trimmed,
-      credits: cr,
+      code: course.code,
+      title: course.title,
+      credits: course.credits,
       is_elective: false,
       prerequisites: [],
       elective_options: [],
@@ -163,36 +180,33 @@ function AddCourseForm({
 
   return (
     <div className="add-course-form">
-      <form onSubmit={handleSubmit}>
-        <div className="add-course-row">
-          <input
-            autoFocus
-            className="add-course-input add-course-code"
-            placeholder="Code (e.g. CS 111)"
-            value={code}
-            onChange={(e) => { setCode(e.target.value); setError(""); }}
-          />
-          <input
-            className="add-course-input add-course-title"
-            placeholder="Title (optional)"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            className="add-course-input add-course-credits"
-            placeholder="Cr"
-            value={credits}
-            type="number"
-            min="0.5"
-            max="6"
-            step="0.5"
-            onChange={(e) => setCredits(e.target.value)}
-          />
-          <button type="submit" className="add-course-confirm-btn">Add</button>
-          <button type="button" className="add-course-cancel-btn" onClick={onClose}>✕</button>
+      <div className="add-course-row">
+        <input
+          autoFocus
+          className="add-course-input add-course-search"
+          placeholder="Search by code or title…"
+          value={query}
+          onChange={handleChange}
+        />
+        <button type="button" className="add-course-cancel-btn" onClick={onClose}>✕</button>
+      </div>
+
+      {(results.length > 0 || loading) && (
+        <div className="add-course-results">
+          {loading && <div className="add-course-result-loading">Searching…</div>}
+          {results.map((c) => (
+            <button
+              key={c.code}
+              className="add-course-result-row"
+              onClick={() => handleSelect(c)}
+            >
+              <span className="add-course-result-code">{c.code}</span>
+              <span className="add-course-result-title">{c.title}</span>
+              <span className="add-course-result-credits">{c.credits} cr</span>
+            </button>
+          ))}
         </div>
-        {error && <div className="add-course-error">{error}</div>}
-      </form>
+      )}
     </div>
   );
 }
@@ -439,16 +453,9 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                   >
                     <div className="plan-course-header">
                       <span className="drag-handle" title="Drag to move">⠿</span>
-                      <a
-                        className="plan-course-code"
-                        href={getCoursiclUrl(course.code) ?? undefined}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        title={getRegistrarCode(course.code) ?? course.code}
-                      >
+                      <span className="plan-course-code">
                         {course.code}
-                      </a>
+                      </span>
                       {course.is_elective && (
                         <span className="elective-badge">ELECTIVE</span>
                       )}
@@ -463,6 +470,13 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                     <div className="plan-course-meta">
                       {course.title} · {course.credits} cr
                     </div>
+                    {course.core_tags && course.core_tags.length > 0 && (
+                      <div className="plan-course-tags">
+                        {course.core_tags.map((tag) => (
+                          <span key={tag} className="core-tag">{tag}</span>
+                        ))}
+                      </div>
+                    )}
                     {course.prerequisites.length > 0 && (
                       <div className="plan-course-prereqs">
                         Prereqs: {course.prerequisites.join(", ")}

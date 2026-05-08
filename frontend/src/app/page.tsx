@@ -34,6 +34,7 @@ export default function AuthPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
+  const [googleReady, setGoogleReady] = useState(false);
 
   async function finishAuth(token: string, userEmail: string) {
     safeSetStorage("ru_planner_token", token);
@@ -50,56 +51,62 @@ export default function AuthPage() {
     setAuthChecked(true);
   }, [router]);
 
+  // Load the GSI script immediately — don't wait for authChecked so the
+  // download runs in parallel with the auth check instead of after it.
   useEffect(() => {
-    if (!authChecked || !GOOGLE_CLIENT_ID) return;
-
+    if (!GOOGLE_CLIENT_ID) return;
+    if (window.google) { setGoogleReady(true); return; }
     const script = document.createElement("script");
     script.src = "https://accounts.google.com/gsi/client";
     script.async = true;
-    script.onload = () => {
-      window.google?.accounts.id.initialize({
-        client_id: GOOGLE_CLIENT_ID,
-        callback: async (response: { credential: string }) => {
-          setError("");
-          setLoading(true);
-          try {
-            const res = await fetch(`${apiBase}/auth/google`, {
-              method: "POST",
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify({ credential: response.credential }),
-            });
-            if (!res.ok) {
-              const data = await res.json().catch(() => ({ detail: "Google sign-in failed." }));
-              setError(data.detail ?? "Google sign-in failed.");
-              return;
-            }
-            const { access_token } = await res.json();
-            const meRes = await fetch(`${apiBase}/auth/me`, {
-              headers: { Authorization: `Bearer ${access_token}` },
-            });
-            const me = meRes.ok ? await meRes.json() : { email: "user" };
-            await finishAuth(access_token, me.email);
-          } catch {
-            setError("Could not connect to server.");
-          } finally {
-            setLoading(false);
-          }
-        },
-      });
-
-      const btn = document.getElementById("google-signin-btn");
-      if (btn) {
-        window.google?.accounts.id.renderButton(btn, {
-          theme: "white",
-          size: "large",
-          width: btn.offsetWidth || 308,
-          text: "continue_with",
-        });
-      }
-    };
+    script.onload = () => setGoogleReady(true);
     document.body.appendChild(script);
-    return () => { document.body.removeChild(script); };
-  }, [authChecked]);
+  }, []);
+
+  // Initialize and render the button once both the script and auth check are ready.
+  useEffect(() => {
+    if (!authChecked || !googleReady || !GOOGLE_CLIENT_ID) return;
+
+    window.google?.accounts.id.initialize({
+      client_id: GOOGLE_CLIENT_ID,
+      callback: async (response: { credential: string }) => {
+        setError("");
+        setLoading(true);
+        try {
+          const res = await fetch(`${apiBase}/auth/google`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ credential: response.credential }),
+          });
+          if (!res.ok) {
+            const data = await res.json().catch(() => ({ detail: "Google sign-in failed." }));
+            setError(data.detail ?? "Google sign-in failed.");
+            return;
+          }
+          const { access_token } = await res.json();
+          const meRes = await fetch(`${apiBase}/auth/me`, {
+            headers: { Authorization: `Bearer ${access_token}` },
+          });
+          const me = meRes.ok ? await meRes.json() : { email: "user" };
+          await finishAuth(access_token, me.email);
+        } catch {
+          setError("Could not connect to server.");
+        } finally {
+          setLoading(false);
+        }
+      },
+    });
+
+    const btn = document.getElementById("google-signin-btn");
+    if (btn) {
+      window.google?.accounts.id.renderButton(btn, {
+        theme: "white",
+        size: "large",
+        width: btn.offsetWidth || 308,
+        text: "continue_with",
+      });
+    }
+  }, [authChecked, googleReady]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

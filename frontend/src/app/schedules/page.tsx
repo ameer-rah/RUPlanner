@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { Suspense } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { getRegistrarCode, getCoursiclUrl } from "../registrar";
-import CourseSniperModal from "../CourseSniperModal";
 import CourseDetailModal from "../CourseDetailModal";
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
@@ -43,25 +43,6 @@ type SavedSchedule = {
   };
 };
 
-type Snipe = {
-  id: number;
-  course_code: string;
-  course_title: string;
-  section_index: string;
-  section_number: string;
-  year: string;
-  term: string;
-  campus: string;
-  phone_number: string;
-  active: boolean;
-  notified_at: string | null;
-  created_at: string;
-};
-
-const TERM_LABELS: Record<string, string> = {
-  "9": "Fall", "1": "Spring", "7": "Summer", "0": "Winter",
-};
-
 function termToSocCode(termName: string): { year: string; term: string } | null {
   const match = termName.match(/^(Fall|Spring|Summer|Winter)\s+(\d{4})$/);
   if (!match) return null;
@@ -69,24 +50,6 @@ function termToSocCode(termName: string): { year: string; term: string } | null 
   return { year: match[2], term: codes[match[1]] };
 }
 
-// Returns the single next upcoming term name from a list of term names.
-// "Upcoming" = closest future term that hasn't started yet.
-// Approximate semester start months: Spring=Jan, Summer=May, Fall=Sep, Winter=Dec.
-function getNextUpcomingTerm(termNames: string[]): string | null {
-  const startMonth: Record<string, number> = { Spring: 1, Summer: 5, Fall: 9, Winter: 12 };
-  const now = new Date();
-  const future = termNames
-    .map((name) => {
-      const m = name.match(/^(Fall|Spring|Summer|Winter)\s+(\d{4})$/);
-      if (!m) return null;
-      const start = new Date(parseInt(m[2], 10), startMonth[m[1]] - 1, 1);
-      return start > now ? { name, start } : null;
-    })
-    .filter(Boolean) as { name: string; start: Date }[];
-  if (future.length === 0) return null;
-  future.sort((a, b) => a.start.getTime() - b.start.getTime());
-  return future[0].name;
-}
 
 function getTermClass(term: string) {
   if (term.includes("Fall")) return "plan-term term-fall";
@@ -200,152 +163,9 @@ function ScheduleChips({ terms }: { terms: PlanTerm[] }) {
   );
 }
 
-// ── Sniper Panel ─────────────────────────────────────────────────────────────
-
-function SnipesPanel({
-  open, token, snipes, onDelete, onClose,
-}: {
-  open: boolean;
-  token: string;
-  snipes: Snipe[];
-  onDelete: (id: number) => void;
-  onClose: () => void;
-}) {
-  const [deletingId, setDeletingId] = useState<number | null>(null);
-
-  // Close on Escape
-  useEffect(() => {
-    if (!open) return;
-    function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [open, onClose]);
-
-  async function handleDelete(id: number) {
-    setDeletingId(id);
-    try {
-      await fetch(`${apiBase}/snipes/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      onDelete(id);
-    } finally {
-      setDeletingId(null);
-    }
-  }
-
-  const activeSnipes = snipes.filter((s) => s.active && !s.notified_at);
-  const notifiedSnipes = snipes.filter((s) => s.notified_at);
-  const phoneNumbers = [...new Set(snipes.map((s) => s.phone_number).filter(Boolean))];
-
-  return (
-    <>
-      {open && <div className="snipes-backdrop" onClick={onClose} />}
-
-      <div className={`snipes-panel${open ? " open" : ""}`}>
-        {/* Header */}
-        <div className="snipes-panel-header">
-          <div className="snipes-panel-icon">🎯</div>
-          <div className="snipes-panel-info">
-            <div className="snipes-panel-title">Course sniper</div>
-            <div className="snipes-panel-sub">Get a text the moment a seat opens</div>
-          </div>
-          <button className="snipes-panel-close" onClick={onClose}>✕</button>
-        </div>
-
-        {/* Body */}
-        <div className="snipes-panel-body">
-          {snipes.length === 0 ? (
-            <div className="snipes-empty">
-              <div className="snipes-empty-icon">🎯</div>
-              <div className="snipes-empty-text">
-                No active snipes yet.<br />
-                Click 🎯 on any course to watch a section.
-              </div>
-            </div>
-          ) : (
-            <>
-              {/* Active snipes section */}
-              {activeSnipes.length > 0 && (
-                <>
-                  <div className="snipes-section-label">{activeSnipes.length} active snipe{activeSnipes.length !== 1 ? "s" : ""}</div>
-                  {activeSnipes.map((s) => {
-                    const termLabel = `${TERM_LABELS[s.term] ?? s.term} ${s.year}`;
-                    const timeStr = s.created_at
-                      ? new Date(s.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })
-                      : "";
-                    return (
-                      <div key={s.id} className="snipe-card">
-                        <div className="snipe-dot watching" />
-                        <div className="snipe-card-body">
-                          <div className="snipe-card-title">
-                            {s.course_code} — Section {s.section_number}
-                          </div>
-                          <div className="snipe-card-meta">{termLabel} · {timeStr}</div>
-                        </div>
-                        <span className="snipe-status-badge watching">Watching</span>
-                        <button
-                          className="snipe-delete-btn"
-                          onClick={() => handleDelete(s.id)}
-                          disabled={deletingId === s.id}
-                          title="Remove snipe"
-                        >
-                          {deletingId === s.id ? "…" : "✕"}
-                        </button>
-                      </div>
-                    );
-                  })}
-                </>
-              )}
-
-              {/* Phone number block */}
-              {phoneNumbers.length > 0 && (
-                <>
-                  <div className="snipes-section-label" style={{ marginTop: 8 }}>Notify via</div>
-                  <div className="snipe-phone-block">
-                    <div className="snipe-phone-icon">📱</div>
-                    <div>
-                      <div className="snipe-phone-number">{phoneNumbers[0]}</div>
-                      <div className="snipe-phone-label">SMS alerts enabled</div>
-                    </div>
-                  </div>
-                </>
-              )}
-
-              {/* Alert history */}
-              {notifiedSnipes.length > 0 && (
-                <>
-                  <div className="snipes-section-label" style={{ marginTop: 8 }}>Recent alerts</div>
-                  {notifiedSnipes.map((s) => {
-                    const termLabel = `${TERM_LABELS[s.term] ?? s.term} ${s.year}`;
-                    const timeAgo = s.notified_at
-                      ? new Date(s.notified_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })
-                      : "";
-                    return (
-                      <div key={s.id} className="snipe-history-row">
-                        <div className="snipe-history-dot" style={{ background: "#16a34a" }} />
-                        <span className="snipe-history-text">
-                          {s.course_code} §{s.section_number} opened — {termLabel}
-                        </span>
-                        <span className="snipe-history-time">{timeAgo}</span>
-                      </div>
-                    );
-                  })}
-                </>
-              )}
-            </>
-          )}
-        </div>
-      </div>
-    </>
-  );
-}
-
 // ── Main Page ─────────────────────────────────────────────────────────────────
 
-export default function SchedulesPage() {
+function SchedulesPageContent() {
   const router = useRouter();
   const [schedules, setSchedules] = useState<SavedSchedule[]>([]);
   const [loading, setLoading] = useState(true);
@@ -355,13 +175,6 @@ export default function SchedulesPage() {
   const [token, setToken] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
-  const [snipes, setSnipes] = useState<Snipe[]>([]);
-  const [snipeModal, setSnipeModal] = useState<{
-    courseCode: string;
-    courseTitle: string;
-    year: string;
-    term: string;
-  } | null>(null);
   const [detailModal, setDetailModal] = useState<{
     courseCode: string;
     courseTitle: string;
@@ -370,16 +183,7 @@ export default function SchedulesPage() {
     termName: string;
     socYear: string;
     socTerm: string;
-    canSnipe: boolean;
   } | null>(null);
-  const [showSnipes, setShowSnipes] = useState(false);
-
-  const fetchSnipes = useCallback((tok: string) => {
-    fetch(`${apiBase}/snipes`, { headers: { Authorization: `Bearer ${tok}` } })
-      .then((r) => (r.ok ? r.json() : []))
-      .then((data: Snipe[]) => setSnipes(data ?? []))
-      .catch(() => {});
-  }, []);
 
   useEffect(() => {
     router.prefetch("/planner");
@@ -404,9 +208,7 @@ export default function SchedulesPage() {
         if (data?.length > 0) setSelectedId(data[0].id);
       })
       .finally(() => setLoading(false));
-
-    fetchSnipes(tok);
-  }, [router, fetchSnipes]);
+  }, [router]);
 
   function handleSignOut() {
     safeRemoveStorage("ru_planner_token");
@@ -435,7 +237,6 @@ export default function SchedulesPage() {
   }
 
   const selected = schedules.find((s) => s.id === selectedId) ?? null;
-  const activeSnipeCount = snipes.filter((s) => s.active && !s.notified_at).length;
 
   // Parse plan name for title display
   function parsePlanTitle(name: string): { main: string; grad: string | null } {
@@ -457,29 +258,12 @@ export default function SchedulesPage() {
         <nav className="topbar-nav">
           <Link href="/planner" className="topbar-nav-item" prefetch>My Planner</Link>
           <span className="topbar-nav-item active">Schedules</span>
-          <button
-            className="topbar-nav-item"
-            style={{ border: "none", cursor: "pointer" }}
-            onClick={() => setShowSnipes((v) => !v)}
-          >
-            Course Sniper
-          </button>
+          <Link href="/sniper" className="topbar-nav-item">Course Sniper</Link>
         </nav>
         <div className="topbar-right">
           <UserMenu email={userEmail} onSignOut={handleSignOut} />
         </div>
       </header>
-
-      {/* Always-mounted slide-in sniper panel */}
-      {token && (
-        <SnipesPanel
-          open={showSnipes}
-          token={token}
-          snipes={snipes}
-          onDelete={(id) => setSnipes((prev) => prev.filter((s) => s.id !== id))}
-          onClose={() => setShowSnipes(false)}
-        />
-      )}
 
       {/* ── Master / detail layout ── */}
       {!loading && schedules.length === 0 ? (
@@ -612,10 +396,6 @@ export default function SchedulesPage() {
                             <span className="stats-bar-number">{selected.plan_data.terms.length}</span>
                             <span className="stats-bar-label">semesters</span>
                           </div>
-                          <div className="stats-bar-item">
-                            <span className="stats-bar-number">{activeSnipeCount}</span>
-                            <span className="stats-bar-label">active snipes</span>
-                          </div>
                           {(() => {
                             const earnedCr = selected.plan_data.completed_credits ?? 0;
                             const totalCr = selected.plan_data.total_credits ?? credits;
@@ -648,9 +428,7 @@ export default function SchedulesPage() {
                   )}
 
                   <div className="plan-grid">
-                    {(() => {
-                      const nextTerm = getNextUpcomingTerm(selected.plan_data.terms.map((t) => t.term));
-                      return selected.plan_data.terms.map((term) => {
+                    {selected.plan_data.terms.map((term) => {
                       const soc = termToSocCode(term.term);
                       return (
                         <div key={term.term} className={getTermClass(term.term)}>
@@ -664,9 +442,6 @@ export default function SchedulesPage() {
                           <div className="plan-course-list">
                             {term.courses.map((course) => {
                               const hasRegistrar = !!getRegistrarCode(course.code);
-                              const snipeActive = snipes.some(
-                                (sn) => sn.course_code === course.code && sn.active && !sn.notified_at
-                              );
                               return (
                                 <div
                                   key={course.code}
@@ -682,7 +457,6 @@ export default function SchedulesPage() {
                                       termName: term.term,
                                       socYear: soc.year,
                                       socTerm: soc.term,
-                                      canSnipe: term.term === nextTerm,
                                     });
                                   }}
                                 >
@@ -695,23 +469,6 @@ export default function SchedulesPage() {
                                     )}
                                     <span className="plan-course-name">{course.title}</span>
                                     <span className="plan-course-credits">{course.credits}</span>
-                                    {soc && hasRegistrar && token && term.term === nextTerm && (
-                                      <button
-                                        title="Snipe — get texted when a seat opens"
-                                        className={`course-snipe-btn${snipeActive ? " sniped" : ""}`}
-                                        onClick={(e) => {
-                                          e.stopPropagation();
-                                          setSnipeModal({
-                                            courseCode: course.code,
-                                            courseTitle: course.title,
-                                            year: soc.year,
-                                            term: soc.term,
-                                          });
-                                        }}
-                                      >
-                                        🎯
-                                      </button>
-                                    )}
                                   </div>
                                 </div>
                               );
@@ -719,8 +476,7 @@ export default function SchedulesPage() {
                           </div>
                         </div>
                       );
-                    });
-                    })()}
+                    })}
                   </div>
                 </div>
               </>
@@ -748,35 +504,19 @@ export default function SchedulesPage() {
           socYear={detailModal.socYear}
           socTerm={detailModal.socTerm}
           token={token}
-          canSnipe={detailModal.canSnipe}
+          canSnipe={false}
           onClose={() => setDetailModal(null)}
-          onSnipe={() => {
-            setDetailModal(null);
-            setSnipeModal({
-              courseCode: detailModal.courseCode,
-              courseTitle: detailModal.courseTitle,
-              year: detailModal.socYear,
-              term: detailModal.socTerm,
-            });
-          }}
-        />
-      )}
-
-      {/* Course Sniper Modal */}
-      {snipeModal && token && (
-        <CourseSniperModal
-          courseCode={snipeModal.courseCode}
-          courseTitle={snipeModal.courseTitle}
-          year={snipeModal.year}
-          term={snipeModal.term}
-          token={token}
-          onClose={() => setSnipeModal(null)}
-          onSniped={() => {
-            const tok = safeGetStorage("ru_planner_token");
-            if (tok) fetchSnipes(tok);
-          }}
+          onSnipe={() => {}}
         />
       )}
     </div>
+  );
+}
+
+export default function SchedulesPage() {
+  return (
+    <Suspense>
+      <SchedulesPageContent />
+    </Suspense>
   );
 }

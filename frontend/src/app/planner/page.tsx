@@ -14,6 +14,32 @@ type ProgramInfo = {
   major_name: string;
   catalog_year: string;
   display_name: string;
+  tracks: string[];
+};
+
+type CoreCurriculumBlock = {
+  title: string;
+  total_courses: number | null;
+  courses: string[];
+  is_elective: boolean;
+  completed: string[];
+  needed: number;
+};
+
+type CourseStatus = {
+  code: string;
+  status: "completed" | "in_progress" | "planned" | "not_scheduled";
+};
+
+type ProgramSummary = {
+  name: string;
+  type: "major" | "minor";
+  required: CourseStatus[];
+  electives_needed: number;
+  electives_completed: string[];
+  electives_planned: string[];
+  science_completed: string[];
+  stats_completed: string[];
 };
 
 type PlanResponse = {
@@ -23,6 +49,10 @@ type PlanResponse = {
   completion_term: string | null;
   completed_credits: number;
   total_credits: number;
+  core_curriculum_name?: string;
+  core_curriculum_blocks: CoreCurriculumBlock[];
+  completed_course_map?: Record<string, string>;
+  programs_summary?: ProgramSummary[];
 };
 
 function safeGetStorage(key: string): string | null {
@@ -102,11 +132,187 @@ function UserMenu({ email, onSignOut }: { email: string | null; onSignOut: () =>
   );
 }
 
+function blockStatusIcon(block: CoreCurriculumBlock): { icon: string; color: string } {
+  if (!block.total_courses) return { icon: "○", color: "var(--text-3)" };
+  if (block.needed === 0) return { icon: "✓", color: "#22c55e" };
+  if (block.completed.length > 0) return { icon: "◑", color: "#f59e0b" };
+  return { icon: "○", color: "var(--text-3)" };
+}
+
+function blockShortTitle(title: string): string {
+  // Strip leading "R# : " prefix and keep the rest
+  return title.replace(/^R\d+\s*:\s*/, "");
+}
+
+function CollapsiblePanel({ title, badge, defaultOpen = false, children }: {
+  title: string;
+  badge?: string;
+  defaultOpen?: boolean;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div style={{
+      background: "var(--surface)",
+      border: "1.5px solid var(--border-2)",
+      borderRadius: 14,
+      marginBottom: 16,
+      overflow: "hidden",
+    }}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "14px 20px",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          gap: 8,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>{title}</span>
+          {badge && (
+            <span style={{ fontSize: 11, background: "var(--border-2)", color: "var(--text-3)", borderRadius: 99, padding: "1px 8px", fontWeight: 600 }}>
+              {badge}
+            </span>
+          )}
+        </div>
+        <span style={{ fontSize: 11, color: "var(--text-3)", transform: open ? "rotate(180deg)" : "none", transition: "transform 0.15s" }}>▼</span>
+      </button>
+      {open && (
+        <div style={{ padding: "0 20px 16px" }}>
+          {children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CoreCurriculumPanel({ name, blocks }: { name: string; blocks: CoreCurriculumBlock[] }) {
+  if (!blocks.length) return null;
+  const doneCount = blocks.filter((b) => b.needed === 0).length;
+  const badge = `${doneCount}/${blocks.length} complete`;
+  return (
+    <CollapsiblePanel title={name} badge={badge}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        {blocks.map((blk, i) => {
+          const { icon, color } = blockStatusIcon(blk);
+          const short = blockShortTitle(blk.title);
+          const isOpen = blk.needed > 0 && blk.courses.length === 0;
+          return (
+            <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+              <span style={{ fontSize: 15, color, lineHeight: "20px", flexShrink: 0, minWidth: 16 }}>
+                {icon}
+              </span>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 12, color: "var(--text)", fontWeight: 500, lineHeight: "18px" }}>
+                  {short}
+                </div>
+                <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 2 }}>
+                  {blk.total_courses != null ? (
+                    blk.needed === 0
+                      ? "Complete"
+                      : isOpen
+                      ? <em>Select {blk.needed} more from Degree Navigator</em>
+                      : `${blk.completed.length}/${blk.total_courses} · ${blk.needed} more needed`
+                  ) : (
+                    blk.completed.length > 0
+                      ? `${blk.completed.length} completed`
+                      : "See Degree Navigator"
+                  )}
+                  {blk.completed.length > 0 && (
+                    <span style={{ marginLeft: 6, color: "var(--text-3)" }}>
+                      ({blk.completed.join(", ")})
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </CollapsiblePanel>
+  );
+}
+
+function CourseChip({ code, status }: { code: string; status: "completed" | "in_progress" | "planned" | "not_scheduled" }) {
+  const style =
+    status === "completed"     ? { background: "#dcfce7", color: "#166534", borderColor: "#bbf7d0" } :
+    status === "in_progress"   ? { background: "#fef3c7", color: "#92400e", borderColor: "#fde68a" } :
+    status === "planned"       ? { background: "var(--surface-2,#f3f4f6)", color: "var(--text-2)", borderColor: "var(--border-2)" } :
+                                 { background: "#fff1f2", color: "#9f1239", borderColor: "#fecdd3" };
+  return <span className="plan-completed-chip" style={style}>{code}</span>;
+}
+
+function ReqRow({ label, items }: { label: string; items: CourseStatus[] }) {
+  if (!items.length) return null;
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
+      <span style={{ fontSize: 10, fontWeight: 600, color: "var(--text-3)", minWidth: 120, flexShrink: 0, textTransform: "uppercase", letterSpacing: "0.05em", paddingTop: 3 }}>
+        {label}
+      </span>
+      <div className="plan-completed-chips" style={{ margin: 0, flexWrap: "wrap" }}>
+        {items.map((cs) => <CourseChip key={cs.code} code={cs.code} status={cs.status} />)}
+      </div>
+    </div>
+  );
+}
+
+function ProgramRequirementsPanel({ prog }: { prog: ProgramSummary }) {
+  const doneCount = prog.required.filter((c) => c.status === "completed" || c.status === "in_progress").length;
+  const totalReq = prog.required.length;
+  const elecDone = prog.electives_completed.length;
+  const elecNeeded = prog.electives_needed;
+  const allDone = doneCount === totalReq && elecDone >= elecNeeded;
+  const badge = allDone ? "Complete" : `${doneCount}/${totalReq} req · ${elecDone}/${elecNeeded} elec`;
+
+  const typeLabel = prog.type === "major" ? "Major" : prog.type === "minor" ? "Minor" : "Concentration";
+
+  return (
+    <CollapsiblePanel title={`${typeLabel}: ${prog.name}`} badge={badge} defaultOpen>
+      <div style={{ marginBottom: 4 }}>
+        <div style={{ fontSize: 11, color: "var(--text-3)", marginBottom: 6 }}>
+          <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#dcfce7", border: "1px solid #bbf7d0", marginRight: 4 }} />completed&nbsp;
+          <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#fef3c7", border: "1px solid #fde68a", marginRight: 4, marginLeft: 8 }} />in progress&nbsp;
+          <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "var(--surface-2,#f3f4f6)", border: "1px solid var(--border-2)", marginRight: 4, marginLeft: 8 }} />planned&nbsp;
+          <span style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: "#fff1f2", border: "1px solid #fecdd3", marginRight: 4, marginLeft: 8 }} />not scheduled
+        </div>
+      </div>
+
+      <ReqRow label="Required" items={prog.required} />
+
+      {prog.science_completed.length > 0 && (
+        <ReqRow label="Science Req" items={prog.science_completed.map((c) => ({ code: c, status: "completed" as const }))} />
+      )}
+      {prog.stats_completed.length > 0 && (
+        <ReqRow label="Stats Req" items={prog.stats_completed.map((c) => ({ code: c, status: "completed" as const }))} />
+      )}
+
+      {elecNeeded > 0 && (
+        <ReqRow
+          label={`Electives (${elecDone}/${elecNeeded})`}
+          items={[
+            ...prog.electives_completed.map((c) => ({ code: c, status: "completed" as const })),
+            ...prog.electives_planned.map((c) => ({ code: c, status: "planned" as const })),
+          ]}
+        />
+      )}
+    </CollapsiblePanel>
+  );
+}
+
 export default function PlannerPage() {
   const router = useRouter();
   const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
   const [selectedMinors, setSelectedMinors] = useState<string[]>([]);
+  // Maps minor display_name → chosen track (only for minors that have tracks)
+  const [selectedMinorTracks, setSelectedMinorTracks] = useState<Record<string, string>>({});
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
+  const [inProgressCourses, setInProgressCourses] = useState<string[]>([]);
   const [startTerm, setStartTerm] = useState("Fall 2026");
   const [targetGradTerm, setTargetGradTerm] = useState("Spring 2028");
   const [maxCredits, setMaxCredits] = useState(15);
@@ -143,13 +349,12 @@ export default function PlannerPage() {
   }, [router]);
 
   const DEGREE_FILTERS = [
-    { key: "bachelor",      label: "Bachelor's",    levels: new Set(["bachelor_ba","bachelor_bs","bachelor_bfa","bachelor_bm","bachelor_bsba","bachelor_bsla"]) },
-    { key: "master",        label: "Master's",      levels: new Set(["master","master_ms","master_ma","master_mat","master_meng"]) },
-    { key: "concentration", label: "Concentration", levels: new Set(["concentration"]) },
+    { key: "bachelor", label: "Bachelor's", levels: new Set(["bachelor_ba","bachelor_bs","bachelor_bfa","bachelor_bm","bachelor_bsba","bachelor_bsla"]) },
+    { key: "master",   label: "Master's",   levels: new Set(["master","master_ms","master_ma","master_mat","master_meng"]) },
   ];
   const activeFilter = DEGREE_FILTERS.find((f) => f.key === degreeFilter)!;
   const majorPrograms = programs.filter(
-    (p) => p.degree_level !== "minor" && activeFilter.levels.has(p.degree_level)
+    (p) => p.degree_level !== "minor" && p.degree_level !== "concentration" && activeFilter.levels.has(p.degree_level)
   );
   const minorPrograms = programs.filter((p) => p.degree_level === "minor");
 
@@ -178,8 +383,17 @@ export default function PlannerPage() {
     const payload = {
       degree_level: degreeFilter,
       majors: selectedMajors,
-      minors: selectedMinors,
-      completed_courses: completedCourses,
+      minors: selectedMinors.map((m) => {
+        const track = selectedMinorTracks[m];
+        const prog = minorPrograms.find((p) => p.display_name === m);
+        if (track && prog) {
+          // "Statistics (Minor, SAS)" → "Statistics — Data Science (Minor, SAS)"
+          return m.replace(prog.major_name, `${prog.major_name} — ${track}`);
+        }
+        return m;
+      }),
+      concentrations: [],
+      completed_courses: [...new Set([...completedCourses, ...inProgressCourses])],
       start_term: startTerm.trim() || undefined,
       target_grad_term: targetGradTerm,
       max_credits_per_term: maxCredits,
@@ -257,7 +471,7 @@ export default function PlannerPage() {
         <nav className="topbar-nav">
           <span className="topbar-nav-item active">My Planner</span>
           <Link href="/schedules" className="topbar-nav-item" prefetch>Schedules</Link>
-          <Link href="/schedules" className="topbar-nav-item" prefetch>Course Sniper</Link>
+          <Link href="/sniper" className="topbar-nav-item" prefetch>Course Sniper</Link>
         </nav>
         <div className="topbar-right">
           <button
@@ -288,7 +502,7 @@ export default function PlannerPage() {
       <div className="app-shell">
         {/* Sidebar */}
         <aside className={`sidebar${sidebarOpen ? " mobile-open" : ""}`}>
-          <div className="sidebar-section-label">Plan settings</div>
+
           <div className="sidebar-body">
             <form className="form" onSubmit={handleSubmit}>
               <div className="sidebar-section">
@@ -324,9 +538,39 @@ export default function PlannerPage() {
                 <ProgramSelectInput
                   programs={minorPrograms}
                   value={selectedMinors}
-                  onChange={setSelectedMinors}
+                  onChange={(next) => {
+                    setSelectedMinors(next);
+                    // Remove track state for any minors that were deselected
+                    setSelectedMinorTracks((prev) => {
+                      const kept: Record<string, string> = {};
+                      for (const m of next) if (prev[m]) kept[m] = prev[m];
+                      return kept;
+                    });
+                  }}
                   placeholder="Search minors…"
                 />
+                {/* Track selector — appears per-minor when tracks exist */}
+                {selectedMinors.map((minorName) => {
+                  const prog = minorPrograms.find((p) => p.display_name === minorName);
+                  if (!prog || !prog.tracks || prog.tracks.length === 0) return null;
+                  return (
+                    <div key={minorName} style={{ marginTop: 6, display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ fontSize: 11, color: "var(--text-3)", flexShrink: 0 }}>
+                        {prog.major_name} track:
+                      </span>
+                      <select
+                        value={selectedMinorTracks[minorName] ?? ""}
+                        onChange={(e) => setSelectedMinorTracks((prev) => ({ ...prev, [minorName]: e.target.value }))}
+                        style={{ fontSize: 12, padding: "3px 6px", borderRadius: 6, border: "1px solid var(--border-2)", background: "var(--surface)", color: "var(--text)", flex: 1 }}
+                      >
+                        <option value="">Select track…</option>
+                        {prog.tracks.map((t) => (
+                          <option key={t} value={t}>{t}</option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="sidebar-section">
@@ -334,6 +578,9 @@ export default function PlannerPage() {
                 <TranscriptUpload
                   onCoursesDetected={(codes) =>
                     setCompletedCourses((prev) => [...new Set([...prev, ...codes])])
+                  }
+                  onInProgressDetected={(codes) =>
+                    setInProgressCourses((prev) => [...new Set([...prev, ...codes])])
                   }
                 />
                 <CompletedCoursesInput value={completedCourses} onChange={setCompletedCourses} />
@@ -498,17 +745,15 @@ export default function PlannerPage() {
                     <ul>{plan.remaining_courses.map((c) => <li key={c}>{c}</li>)}</ul>
                   </div>
                 )}
-                {completedCourses.length > 0 && (
-                  <div className="plan-completed" style={{ marginBottom: 12 }}>
-                    <div className="plan-completed-label">
-                      {completedCourses.length} completed course{completedCourses.length !== 1 ? "s" : ""} applied
-                    </div>
-                    <div className="plan-completed-chips">
-                      {completedCourses.map((code) => (
-                        <span key={code} className="plan-completed-chip">{code}</span>
-                      ))}
-                    </div>
-                  </div>
+                {(plan.programs_summary ?? []).map((prog, i) => (
+                  <ProgramRequirementsPanel key={i} prog={prog} />
+                ))}
+
+                {plan.core_curriculum_blocks?.length > 0 && (
+                  <CoreCurriculumPanel
+                    name={plan.core_curriculum_name ?? "Core Curriculum"}
+                    blocks={plan.core_curriculum_blocks}
+                  />
                 )}
 
                 <div className="plan-editor-hint">

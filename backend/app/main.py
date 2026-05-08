@@ -24,9 +24,15 @@ from .schemas import (
     UserCreate, Token, SaveScheduleRequest, GoogleAuthRequest,
     SnipeCreate, SnipeOut,
     ForgotPasswordRequest, ResetPasswordRequest,
+    TranscriptResult,
 )
 from .core.planner import heuristic_plan
 from .core.sniper import poll_snipes, fetch_sections_for_subject
+
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from management.ingest_courses import ingest, current_terms
 
 SECRET_KEY = os.getenv("SECRET_KEY", "ru-planner-dev-secret-change-in-production")
 ALGORITHM = "HS256"
@@ -35,8 +41,10 @@ GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
+_BCRYPT_ROUNDS = int(os.getenv("BCRYPT_ROUNDS", "12"))
+
 def _hash_password(password: str) -> str:
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(_BCRYPT_ROUNDS)).decode()
 
 def _verify_password(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode(), hashed.encode())
@@ -44,19 +52,35 @@ def _verify_password(password: str, hashed: str) -> bool:
 _bearer = HTTPBearer()
 _scheduler = BackgroundScheduler()
 
+def _run_course_ingest() -> None:
+    """Run course ingestion for the current academic terms."""
+    year, terms = current_terms()
+    print(f"[course-ingest] Fetching {terms} {year}...")
+    ingest(year=year, terms=terms)
+
+
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     Base.metadata.create_all(bind=engine)
     _scheduler.add_job(poll_snipes, "interval", minutes=2, id="snipe_poll")
+    _scheduler.add_job(_run_course_ingest, "interval", hours=24, id="course_ingest")
     _scheduler.start()
+    # Run once at startup so the DB is always fresh on boot.
+    _run_course_ingest()
     yield
     _scheduler.shutdown(wait=False)
 
 app = FastAPI(title="RU Planner API", lifespan=lifespan)
 
+_ALLOWED_ORIGINS = list({
+    o.strip().rstrip("/")
+    for o in os.getenv("ALLOWED_ORIGINS", FRONTEND_URL).split(",")
+    if o.strip()
+})
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -99,6 +123,7 @@ def list_programs() -> List[ProgramInfo]:
                     f"{r.major_name}"
                     f" ({_LEVEL_LABEL.get(r.degree_level, r.degree_level)}, {r.school})"
                 ),
+                tracks=list((r.requirements or {}).get("tracks", {}).keys()),
             )
             for r in rows
         ]
@@ -186,8 +211,33 @@ async def parse_transcript_debug(file: UploadFile = File(...)) -> dict:
     }
 
 
-@app.post("/parse-transcript", response_model=List[str])
-async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
+# Maps Rutgers 3-digit subject codes → catalog course prefix.
+# Derived from scrape_requirements.SUBJECT_TO_PREFIX.
+_RUTGERS_DEPT_TO_PREFIX: dict = {
+    "198": "CS",     "640": "MATH",   "960": "STAT",   "750": "PHYS",
+    "160": "CHEM",   "920": "SOC",    "830": "PSYC",   "790": "POLS",
+    "730": "PHIL",   "447": "LING",   "070": "ANTH",   "082": "ANTH",
+    "776": "POLS",   "563": "ARTH",   "450": "GEOG",   "460": "GEOSC",
+    "165": "BIOC",   "694": "MCB",    "115": "BIO",    "118": "BIO",
+    "190": "ECON",   "175": "COMMUN", "185": "COGS",   "016": "AFRS",
+    "986": "WGSS",   "195": "CRIM",   "377": "ENVST",  "090": "AMST",
+    "098": "ASIAN",  "940": "SPAN",   "420": "FREN",   "910": "SOCWK",
+    "840": "THEA",   "700": "MUSIC",  "887": "DANC",   "219": "EXER",
+    "501": "PUBH",   "560": "PUBP",   "762": "RELIG",  "490": "ITAL",
+    "506": "HIST",   "358": "ENGL",   "351": "ENGL",   "354": "FILM",
+    "508": "HIST",   "510": "HIST",   "512": "HIST",   "359": "ENGL",
+    "355": "EXPOS",  # Expository Writing / Composition
+    # SOE
+    "440": "ECE",    "550": "MAE",    "540": "ISE",    "443": "BME",
+    "155": "CEE",    "160": "CHEM",
+    # RBS
+    "010": "ACCT",   "620": "FIN",    "630": "MGMT",   "610": "MKTG",
+    "390": "SCM",    "136": "BAIT",
+}
+
+
+@app.post("/parse-transcript", response_model=TranscriptResult)
+async def parse_transcript(file: UploadFile = File(...)) -> TranscriptResult:
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are accepted.")
     content = await file.read()
@@ -209,36 +259,63 @@ async def parse_transcript(file: UploadFile = File(...)) -> List[str]:
     finally:
         db.close()
 
-    by_number: dict = {}
+    # Build lookup indexes
+    by_number: dict = {}           # {course_num: [(code, title)]}
+    by_prefix_num: dict = {}       # {(prefix, course_num): [(code, title)]}
     for code, title in all_courses:
         num = re.sub(r"^[A-Z]+", "", code)
+        prefix = re.sub(r"\d.*", "", code)
         by_number.setdefault(num, []).append((code, title))
+        by_prefix_num.setdefault((prefix, num), []).append((code, title))
+
+    def _resolve_code(dept: str, crs_raw: str, title_raw: str) -> str | None:
+        crs_num = re.sub(r"\D", "", crs_raw)
+        rutgers_prefix = _RUTGERS_DEPT_TO_PREFIX.get(dept, "")
+        if rutgers_prefix:
+            dept_candidates = by_prefix_num.get((rutgers_prefix, crs_num), [])
+            if len(dept_candidates) == 1:
+                return dept_candidates[0][0]
+            if dept_candidates:
+                best_code, best_score = None, 0.0
+                for code, title in dept_candidates:
+                    score = _word_overlap(title_raw, title)
+                    if score > best_score:
+                        best_score, best_code = score, code
+                if best_score >= 0.15:
+                    return best_code
+        all_candidates = by_number.get(crs_num, [])
+        if len(all_candidates) == 1:
+            return all_candidates[0][0]
+        if all_candidates:
+            best_code, best_score = None, 0.0
+            for code, title in all_candidates:
+                score = _word_overlap(title_raw, title)
+                if score > best_score:
+                    best_score, best_code = score, code
+            if best_score >= 0.3:
+                return best_code
+        return None
 
     seen: set = set()
-    codes: List[str] = []
-    for course in result.get_completed_courses():
-        candidates = by_number.get(course.crs, [])
-        if not candidates:
-            continue
-        if len(candidates) == 1:
-            best_code = candidates[0][0]
-        else:
-            best_code, best_score = max(
-                candidates,
-                key=lambda c: _word_overlap(course.title_raw, c[1]),
-            )[0], 0.0
-            for code, title in candidates:
-                score = _word_overlap(course.title_raw, title)
-                if score > best_score:
-                    best_score = score
-                    best_code = code
-            if best_score < 0.3:
-                continue
-        if best_code not in seen:
-            seen.add(best_code)
-            codes.append(best_code)
+    matched: List[str] = []
+    in_progress: List[str] = []
+    inferred: dict = {}
 
-    return codes
+    for course in result.get_completed_courses():
+        best_code = _resolve_code(course.dept, course.crs, course.title_raw)
+        if best_code and course.is_transfer:
+            inferred[best_code] = f"Transfer: {course.dept} {course.crs} — {course.title_raw}"
+        if best_code and best_code not in seen:
+            seen.add(best_code)
+            matched.append(best_code)
+
+    for course in result.get_in_progress_courses():
+        best_code = _resolve_code(course.dept, course.crs, course.title_raw)
+        if best_code and best_code not in seen:
+            seen.add(best_code)
+            in_progress.append(best_code)
+
+    return TranscriptResult(matched=matched, in_progress=in_progress, inferred=inferred)
 
 def _create_token(user_id: int) -> str:
     expire = datetime.utcnow() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
@@ -514,14 +591,49 @@ def rmp_rating(name: str = Query(...)):
     _rmp_cache[cache_key] = result
     return result
 
+@app.get("/soc/section-by-index")
+def soc_section_by_index(
+    index: str = Query(...),
+    year: str = Query(...),
+    term: str = Query(...),
+    campus: str = Query("NB"),
+):
+    url = f"https://sis.rutgers.edu/soc/api/courses.json?year={year}&term={term}&campus={campus}&level=U"
+    try:
+        resp = _requests.get(url, timeout=15)
+        resp.raise_for_status()
+        courses = resp.json()
+    except Exception:
+        raise HTTPException(status_code=502, detail="Could not reach Rutgers SOC API.")
+    for course in courses:
+        for sec in course.get("sections", []):
+            if str(sec.get("index", "")) == index:
+                subject = str(course.get("subject", "")).zfill(3)
+                prefix = _RUTGERS_DEPT_TO_PREFIX.get(subject, subject)
+                course_num = str(course.get("courseNumber", "")).lstrip("0") or "0"
+                return {
+                    "course_code": f"{prefix}{course_num}",
+                    "course_title": course.get("expandedTitle") or course.get("title", ""),
+                    "section_number": sec.get("number", ""),
+                    "section_index": index,
+                    "open_status": sec.get("openStatus", False),
+                    "instructors": [i.get("name", "") for i in sec.get("instructors", [])],
+                    "meeting_times": sec.get("meetingTimes", []),
+                }
+    raise HTTPException(status_code=404, detail="Section index not found for this term.")
+
+
 @app.get("/soc/sections")
 def soc_sections(
     subject: str = Query(...),
     year: str = Query("2026"),
     term: str = Query("9"),
     campus: str = Query("NB"),
+    courseNumber: str = Query(None),
 ):
     sections = fetch_sections_for_subject(subject, year, term, campus)
+    if courseNumber:
+        sections = [s for s in sections if s["courseNumber"] == courseNumber]
     return sections
 
 @app.post("/snipes", response_model=SnipeOut)
@@ -575,6 +687,20 @@ def delete_snipe(snipe_id: int, user_id: int = Depends(_get_current_user_id)):
         db.commit()
     finally:
         db.close()
+
+@app.post("/admin/ingest-courses")
+def admin_ingest_courses():
+    """Trigger an on-demand course data refresh from the Rutgers SIS API."""
+    from .database import SessionLocal as _SL
+    year, terms = current_terms()
+    ingest(year=year, terms=terms)
+    db = _SL()
+    try:
+        total = db.query(models.Course).count()
+    finally:
+        db.close()
+    return {"year": year, "terms": terms, "total_in_db": total}
+
 
 def _snipe_to_out(s: models.Snipe) -> SnipeOut:
     return SnipeOut(

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 
 class CourseInput(BaseModel):
@@ -17,6 +17,7 @@ class PlanRequest(BaseModel):
     degree_level: str = Field("bachelor", description="Associate, Bachelor, or Master")
     majors: List[str]
     minors: List[str]
+    concentrations: List[str] = Field(default=[], description="Optional concentration programs to layer on top of the major.")
     completed_courses: List[str]
     target_grad_term: str = Field(..., description="e.g., Spring 2028")
     start_term: Optional[str] = Field(None, description="First term to schedule; defaults to current term if omitted")
@@ -42,6 +43,7 @@ class PlannedCourse(BaseModel):
     is_elective: bool = False
     prerequisites: List[str] = []
     elective_options: List[ElectiveOption] = []
+    core_tags: List[str] = []
 
 
 class TermPlan(BaseModel):
@@ -50,13 +52,48 @@ class TermPlan(BaseModel):
     total_credits: int
 
 
+class CoreCurriculumBlock(BaseModel):
+    title: str
+    total_courses: Optional[int]
+    courses: List[str]
+    is_elective: bool
+    completed: List[str]
+    needed: int
+
+
+class TranscriptResult(BaseModel):
+    matched: List[str]
+    in_progress: List[str] = []     # courses currently enrolled in (no grade yet)
+    inferred: Dict[str, str] = {}   # {rutgers_code: "Transfer: ORIG DEPT NUM — Title"}
+
+
+class CourseStatus(BaseModel):
+    code: str
+    status: str  # "completed" | "in_progress" | "planned" | "not_scheduled"
+
+
+class ProgramSummary(BaseModel):
+    name: str
+    type: str  # "major" | "minor" | "concentration"
+    required: List[CourseStatus] = []
+    electives_needed: int = 0
+    electives_completed: List[str] = []
+    electives_planned: List[str] = []
+    science_completed: List[str] = []
+    stats_completed: List[str] = []
+
+
 class PlanResponse(BaseModel):
     terms: List[TermPlan]
     remaining_courses: List[str]
     warnings: List[str]
     completion_term: Optional[str] = None
-    completed_credits: int = 0   # credits already earned toward this degree
-    total_credits: int = 0       # total credits required for this degree
+    completed_credits: int = 0
+    total_credits: int = 0
+    core_curriculum_name: Optional[str] = None
+    core_curriculum_blocks: List[CoreCurriculumBlock] = []
+    completed_course_map: Dict[str, str] = {}  # {course_code: requirement_label}
+    programs_summary: List["ProgramSummary"] = []
 
 
 class ProgramInfo(BaseModel):
@@ -65,6 +102,7 @@ class ProgramInfo(BaseModel):
     major_name: str
     catalog_year: str
     display_name: str
+    tracks: List[str] = []
 
 
 class CourseSearchResult(BaseModel):

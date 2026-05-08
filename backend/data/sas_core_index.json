@@ -1,0 +1,2866 @@
+{
+  "index": {
+    "AFRS220": [
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "AFRS222": [
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "AFRS303": [
+      "CE"
+    ],
+    "AFRS304": [
+      "CE"
+    ],
+    "AFRS363": [
+      "AHp",
+      "CCD",
+      "SOEHS"
+    ],
+    "AGECO292": [
+      "SOEHS",
+      "WCd"
+    ],
+    "AGECO293": [
+      "SOEHS",
+      "WCd"
+    ],
+    "AGECO294": [
+      "SOEHS",
+      "WCd"
+    ],
+    "AGECO295": [
+      "SOEHS",
+      "WCd"
+    ],
+    "AGECO296": [
+      "SOEHS",
+      "WCd"
+    ],
+    "AGECO297": [
+      "SOEHS",
+      "WCd"
+    ],
+    "AMST101": [
+      "SOEHS"
+    ],
+    "AMST102": [
+      "SOEHS"
+    ],
+    "AMST201": [
+      "SOEHS"
+    ],
+    "AMST401": [
+      "SOEHS"
+    ],
+    "ANTH100": [
+      "SOEHS"
+    ],
+    "ANTH101": [
+      "SCL",
+      "SOEHS"
+    ],
+    "ANTH102": [
+      "HST",
+      "NS",
+      "SOEHS"
+    ],
+    "ANTH104": [
+      "SOEHS"
+    ],
+    "ANTH105": [
+      "HST",
+      "SOEHS"
+    ],
+    "ANTH108": [
+      "AHq",
+      "SOEHS"
+    ],
+    "ANTH111": [
+      "CCD",
+      "CCO",
+      "NS",
+      "SOEHS"
+    ],
+    "ANTH112": [
+      "HST",
+      "SOEHS"
+    ],
+    "ANTH201": [
+      "NS",
+      "SOEHS"
+    ],
+    "ANTH203": [
+      "CCO",
+      "SOEHS"
+    ],
+    "ANTH207": [
+      "ITR",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "ANTH212": [
+      "NS",
+      "SOEHS"
+    ],
+    "ANTH213": [
+      "SOEHS"
+    ],
+    "ANTH217": [
+      "AHo",
+      "SOEHS"
+    ],
+    "ANTH218": [
+      "SOEHS"
+    ],
+    "ANTH223": [
+      "CCD",
+      "SOEHS"
+    ],
+    "ANTH224": [
+      "CCD",
+      "SOEHS"
+    ],
+    "ANTH225": [
+      "CCD",
+      "SOEHS"
+    ],
+    "ANTH242": [
+      "CCD",
+      "SOEHS"
+    ],
+    "ANTH244": [
+      "SOEHS"
+    ],
+    "ANTH248": [
+      "CCD",
+      "SOEHS"
+    ],
+    "ANTH303": [
+      "CCD",
+      "SOEHS"
+    ],
+    "ANTH307": [
+      "SOEHS"
+    ],
+    "ANTH316": [
+      "QQ"
+    ],
+    "ANTH325": [
+      "SOEHS"
+    ],
+    "ANTH326": [
+      "SOEHS"
+    ],
+    "ANTH327": [
+      "SOEHS"
+    ],
+    "ANTH328": [
+      "SOEHS"
+    ],
+    "ANTH331": [
+      "SOEHS"
+    ],
+    "ANTH333": [
+      "SOEHS"
+    ],
+    "ANTH356": [
+      "SOEHS"
+    ],
+    "ANTH362": [
+      "SOEHS"
+    ],
+    "ANTH367": [
+      "SOEHS"
+    ],
+    "ANTH376": [
+      "SOEHS"
+    ],
+    "ANTH386": [
+      "CE"
+    ],
+    "ANTH402": [
+      "SOEHS"
+    ],
+    "ANTH406": [
+      "SOEHS"
+    ],
+    "ANTH417": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "ARTH101": [
+      "AHp",
+      "CCO",
+      "SOEHS"
+    ],
+    "ARTH105": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "ARTH106": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "ARTH202": [
+      "SOEHS"
+    ],
+    "ARTH203": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "ARTH204": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "ARTH205": [
+      "SOEHS"
+    ],
+    "ARTH206": [
+      "SOEHS"
+    ],
+    "ARTH214": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "ARTH215": [
+      "SOEHS"
+    ],
+    "ARTH220": [
+      "AHo"
+    ],
+    "ARTH230": [
+      "CCD",
+      "SOEHS"
+    ],
+    "ARTH276": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "ARTH328": [
+      "SOEHS"
+    ],
+    "ARTH332": [
+      "AHp",
+      "CCD",
+      "SOEHS"
+    ],
+    "ARTH341": [
+      "SOEHS"
+    ],
+    "ARTH351": [
+      "SOEHS"
+    ],
+    "ARTH362": [
+      "SOEHS"
+    ],
+    "ARTH366": [
+      "SOEHS"
+    ],
+    "ARTH373": [
+      "SOEHS"
+    ],
+    "ARTH377": [
+      "SOEHS"
+    ],
+    "ARTH382": [
+      "SOEHS"
+    ],
+    "ARTH383": [
+      "SOEHS"
+    ],
+    "ARTH391": [
+      "SOEHS"
+    ],
+    "ARTH447": [
+      "CE"
+    ],
+    "ARTH448": [
+      "CE"
+    ],
+    "ARTH491": [
+      "WCd"
+    ],
+    "ARTH492": [
+      "WCd"
+    ],
+    "ARTH495": [
+      "CE"
+    ],
+    "ARTH496": [
+      "CE"
+    ],
+    "BIO103": [
+      "NS"
+    ],
+    "BIO115": [
+      "NS"
+    ],
+    "BIO116": [
+      "NS"
+    ],
+    "BIO150": [
+      "CCO",
+      "NS"
+    ],
+    "BIO154": [
+      "CCO",
+      "NS"
+    ],
+    "BIO155": [
+      "CCO",
+      "NS"
+    ],
+    "BIO160": [
+      "CCO",
+      "NS"
+    ],
+    "BIO199": [
+      "NS"
+    ],
+    "CHEM126": [
+      "NS"
+    ],
+    "CHEM127": [
+      "CCO",
+      "NS"
+    ],
+    "CHEM128": [
+      "NS"
+    ],
+    "CHEM159": [
+      "NS"
+    ],
+    "CHEM160": [
+      "NS"
+    ],
+    "CHEM161": [
+      "NS"
+    ],
+    "CHEM162": [
+      "NS"
+    ],
+    "CHEM163": [
+      "NS"
+    ],
+    "CHEM164": [
+      "NS"
+    ],
+    "CHEM165": [
+      "NS"
+    ],
+    "CHEM166": [
+      "NS"
+    ],
+    "CHEM493": [
+      "CE"
+    ],
+    "CHEM494": [
+      "CE"
+    ],
+    "CHN100": [
+      "CCO",
+      "SCL",
+      "SOEHS"
+    ],
+    "CHN101": [
+      "SOEHS"
+    ],
+    "CHN102": [
+      "SOEHS"
+    ],
+    "CHN103": [
+      "SOEHS"
+    ],
+    "CHN104": [
+      "SOEHS"
+    ],
+    "CHN131": [
+      "AHq",
+      "SOEHS"
+    ],
+    "CHN132": [
+      "SOEHS"
+    ],
+    "CHN133": [
+      "SOEHS"
+    ],
+    "CHN134": [
+      "SOEHS"
+    ],
+    "CHN146": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "CHN201": [
+      "HST",
+      "SOEHS"
+    ],
+    "CHN202": [
+      "HST",
+      "SOEHS"
+    ],
+    "CHN206": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "CHN208": [
+      "HST",
+      "SOEHS"
+    ],
+    "CHN210": [
+      "SOEHS"
+    ],
+    "CHN211": [
+      "SOEHS"
+    ],
+    "CHN220": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "CHN261": [
+      "HST",
+      "SOEHS"
+    ],
+    "CHN269": [
+      "CCD",
+      "HST",
+      "SOEHS"
+    ],
+    "CHN270": [
+      "HST",
+      "SOEHS"
+    ],
+    "CHN282": [
+      "CCD",
+      "HST",
+      "SOEHS"
+    ],
+    "CHN289": [
+      "AHq",
+      "SOEHS"
+    ],
+    "CHN324": [
+      "SOEHS"
+    ],
+    "CHN341": [
+      "SOEHS"
+    ],
+    "CHN346": [
+      "SOEHS"
+    ],
+    "CHN352": [
+      "SOEHS"
+    ],
+    "CHN355": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "CHN387": [
+      "SOEHS"
+    ],
+    "CHN405": [
+      "SOEHS"
+    ],
+    "CHN460": [
+      "CE"
+    ],
+    "CHN464": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "CINE201": [
+      "AHp",
+      "SOEHS"
+    ],
+    "CINE202": [
+      "AHp",
+      "SOEHS"
+    ],
+    "CINE266": [
+      "SOEHS"
+    ],
+    "CINE306": [
+      "AHp",
+      "SOEHS"
+    ],
+    "CINE321": [
+      "AHp",
+      "CCD",
+      "SOEHS"
+    ],
+    "CINE349": [
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "CINE365": [
+      "SOEHS"
+    ],
+    "CINE398": [
+      "CE"
+    ],
+    "CINE420": [
+      "WCr"
+    ],
+    "CINE425": [
+      "WCd"
+    ],
+    "COMPLIT101": [
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT120": [
+      "SOEHS",
+      "WCr"
+    ],
+    "COMPLIT135": [
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT140": [
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT150": [
+      "SOEHS"
+    ],
+    "COMPLIT201": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT203": [
+      "AHp",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "COMPLIT204": [
+      "AHp",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "COMPLIT221": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT227": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT232": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT233": [
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "COMPLIT235": [
+      "AHp",
+      "SOEHS",
+      "WCr"
+    ],
+    "COMPLIT240": [
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT243": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT244": [
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT260": [
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT265": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT270": [
+      "AHo",
+      "AHp",
+      "CCD",
+      "CCO",
+      "SOEHS"
+    ],
+    "COMPLIT272": [
+      "AHp",
+      "CCO",
+      "SOEHS"
+    ],
+    "COMPLIT277": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT296": [
+      "AHo",
+      "CCO",
+      "SOEHS"
+    ],
+    "COMPLIT301": [
+      "AHo",
+      "SOEHS"
+    ],
+    "COMPLIT303": [
+      "CCD",
+      "SOEHS"
+    ],
+    "COMPLIT307": [
+      "AHo",
+      "AHp",
+      "CCD",
+      "CCO",
+      "SOEHS"
+    ],
+    "COMPLIT312": [
+      "AHo",
+      "SOEHS"
+    ],
+    "COMPLIT314": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "COMPLIT315": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT348": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "COMPLIT351": [
+      "SOEHS"
+    ],
+    "COMPLIT354": [
+      "SOEHS"
+    ],
+    "COMPLIT358": [
+      "SOEHS"
+    ],
+    "COMPLIT361": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT363": [
+      "AHp",
+      "CCD",
+      "SOEHS"
+    ],
+    "COMPLIT369": [
+      "CCD",
+      "WCd"
+    ],
+    "COMPLIT373": [
+      "AHo",
+      "CCD",
+      "SOEHS"
+    ],
+    "COMPLIT374": [
+      "AHo",
+      "HST",
+      "SOEHS"
+    ],
+    "COMPLIT382": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "COMPLIT430": [
+      "SOEHS",
+      "WCd"
+    ],
+    "CRIM201": [
+      "SCL",
+      "SOEHS"
+    ],
+    "CRIM202": [
+      "SOEHS"
+    ],
+    "CRIM203": [
+      "SOEHS"
+    ],
+    "CRIM204": [
+      "SOEHS"
+    ],
+    "CRIM301": [
+      "SOEHS"
+    ],
+    "CRIM307": [
+      "QQ"
+    ],
+    "CRIM309": [
+      "SOEHS"
+    ],
+    "CRIM310": [
+      "SOEHS"
+    ],
+    "CRIM315": [
+      "CCD"
+    ],
+    "CRIM322": [
+      "SOEHS"
+    ],
+    "CRIM327": [
+      "SOEHS"
+    ],
+    "CRIM406": [
+      "CE"
+    ],
+    "CRIM407": [
+      "CE"
+    ],
+    "CRIM408": [
+      "CE"
+    ],
+    "CS107": [
+      "ITR",
+      "QR"
+    ],
+    "CS110": [
+      "ITR",
+      "QR"
+    ],
+    "CS111": [
+      "ITR",
+      "QQ",
+      "QR"
+    ],
+    "CS142": [
+      "CCO",
+      "ITR",
+      "QQ",
+      "QR"
+    ],
+    "CS170": [
+      "ITR",
+      "QR"
+    ],
+    "CS405": [
+      "CCO",
+      "WCd"
+    ],
+    "ECON102": [
+      "ECN",
+      "SCL",
+      "SOEHS"
+    ],
+    "ECON103": [
+      "SOEHS"
+    ],
+    "ECON110": [
+      "QQ",
+      "QR"
+    ],
+    "ECON300": [
+      "SOEHS"
+    ],
+    "ECON301": [
+      "SOEHS"
+    ],
+    "ECON320": [
+      "SOEHS"
+    ],
+    "ECON321": [
+      "SOEHS"
+    ],
+    "ECON390": [
+      "SOEHS"
+    ],
+    "ECON395": [
+      "SOEHS"
+    ],
+    "ECON397": [
+      "CE"
+    ],
+    "ECON432": [
+      "SOEHS"
+    ],
+    "ECON438": [
+      "SOEHS"
+    ],
+    "ECON439": [
+      "SOEHS"
+    ],
+    "ECON440": [
+      "SOEHS"
+    ],
+    "ECON441": [
+      "SOEHS"
+    ],
+    "ECON460": [
+      "SOEHS"
+    ],
+    "EXPOS101": [
+      "WC"
+    ],
+    "EXPOS103": [
+      "WC"
+    ],
+    "EXPOS104": [
+      "WC"
+    ],
+    "EXPOS201": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS202": [
+      "WCr"
+    ],
+    "EXPOS203": [
+      "SOEHS",
+      "WCr"
+    ],
+    "EXPOS301": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS302": [
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS303": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS315": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS322": [
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS342": [
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS352": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS355": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS375": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS397": [
+      "CE"
+    ],
+    "EXPOS398": [
+      "CE"
+    ],
+    "EXPOS410": [
+      "AHr",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXPOS425": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "EXSC161": [
+      "CE"
+    ],
+    "EXSC275": [
+      "QQ",
+      "QR"
+    ],
+    "EXSC304": [
+      "CE"
+    ],
+    "EXSC324": [
+      "CE"
+    ],
+    "EXSC327": [
+      "CE"
+    ],
+    "EXSC340": [
+      "CE"
+    ],
+    "EXSC417": [
+      "CE"
+    ],
+    "EXSC493": [
+      "CE"
+    ],
+    "EXSC497": [
+      "CE"
+    ],
+    "EXSC498": [
+      "CE"
+    ],
+    "FREN101": [
+      "SOEHS"
+    ],
+    "FREN102": [
+      "SOEHS"
+    ],
+    "FREN105": [
+      "AHq",
+      "SOEHS"
+    ],
+    "FREN121": [
+      "SOEHS"
+    ],
+    "FREN131": [
+      "SOEHS"
+    ],
+    "FREN132": [
+      "AHq",
+      "SOEHS"
+    ],
+    "FREN161": [
+      "CCD",
+      "SOEHS",
+      "WCd"
+    ],
+    "FREN213": [
+      "AHq",
+      "SOEHS"
+    ],
+    "FREN214": [
+      "AHp",
+      "AHq",
+      "SOEHS",
+      "WCd"
+    ],
+    "FREN215": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "FREN216": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "FREN217": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "FREN218": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "FREN230": [
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "FREN242": [
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "FREN281": [
+      "AHp",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "FREN303": [
+      "SOEHS"
+    ],
+    "FREN306": [
+      "AHp",
+      "SOEHS"
+    ],
+    "FREN324": [
+      "SOEHS"
+    ],
+    "FREN351": [
+      "SOEHS"
+    ],
+    "FREN360": [
+      "CCD",
+      "WCd"
+    ],
+    "GENET203": [
+      "ITR"
+    ],
+    "GENET302": [
+      "ITR"
+    ],
+    "GENET303": [
+      "ITR"
+    ],
+    "GENET315": [
+      "ITR"
+    ],
+    "GENET354": [
+      "CCO"
+    ],
+    "GENET384": [
+      "CCO"
+    ],
+    "GENET406": [
+      "ITR"
+    ],
+    "GENET407": [
+      "ITR"
+    ],
+    "GENET408": [
+      "ITR"
+    ],
+    "GENET409": [
+      "ITR"
+    ],
+    "GENET410": [
+      "WCd",
+      "WCr"
+    ],
+    "GENET414": [
+      "WCr"
+    ],
+    "GENET415": [
+      "WCd"
+    ],
+    "GENET430": [
+      "WCd",
+      "WCr"
+    ],
+    "GENET460": [
+      "WCd"
+    ],
+    "GENET488": [
+      "CE"
+    ],
+    "GEOG101": [
+      "CCO",
+      "NS"
+    ],
+    "GEOG102": [
+      "CCO",
+      "NS",
+      "SOEHS"
+    ],
+    "GEOG103": [
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "GEOG205": [
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "GEOG208": [
+      "CCO",
+      "ITR"
+    ],
+    "GEOG211": [
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "GEOG214": [
+      "CCO",
+      "SCL",
+      "SOEHS"
+    ],
+    "GEOG241": [
+      "SCL",
+      "SOEHS"
+    ],
+    "GEOG306": [
+      "NS"
+    ],
+    "GEOG309": [
+      "SOEHS",
+      "WCd"
+    ],
+    "GEOG311": [
+      "SOEHS"
+    ],
+    "GEOG320": [
+      "QQ",
+      "QR"
+    ],
+    "GEOG321": [
+      "ITR",
+      "QR"
+    ],
+    "GEOG322": [
+      "ITR",
+      "WCd"
+    ],
+    "GEOG335": [
+      "SOEHS"
+    ],
+    "GEOG343": [
+      "SCL"
+    ],
+    "GEOG355": [
+      "ITR",
+      "WCd"
+    ],
+    "GEOG363": [
+      "CCD",
+      "SOEHS"
+    ],
+    "GEOG370": [
+      "CCO",
+      "ITR",
+      "SOEHS"
+    ],
+    "GEOG470": [
+      "SOEHS"
+    ],
+    "GEOG485": [
+      "CE"
+    ],
+    "GEOG486": [
+      "CE"
+    ],
+    "GEOSC100": [
+      "NS"
+    ],
+    "GEOSC101": [
+      "NS"
+    ],
+    "GEOSC111": [
+      "CCO",
+      "NS"
+    ],
+    "GEOSC116": [
+      "NS"
+    ],
+    "GEOSC120": [
+      "CCO",
+      "NS"
+    ],
+    "GEOSC201": [
+      "NS"
+    ],
+    "GEOSC202": [
+      "NS"
+    ],
+    "GEOSC206": [
+      "NS"
+    ],
+    "GEOSC212": [
+      "NS"
+    ],
+    "GEOSC224": [
+      "CCO",
+      "NS"
+    ],
+    "GEOSC225": [
+      "NS"
+    ],
+    "GERM101": [
+      "SOEHS"
+    ],
+    "GERM102": [
+      "SOEHS"
+    ],
+    "GERM105": [
+      "SOEHS"
+    ],
+    "GERM131": [
+      "AHq",
+      "SOEHS"
+    ],
+    "GERM132": [
+      "AHq",
+      "SOEHS"
+    ],
+    "GERM135": [
+      "SOEHS"
+    ],
+    "GERM227": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "GERM231": [
+      "SOEHS"
+    ],
+    "GERM232": [
+      "SOEHS",
+      "WCd"
+    ],
+    "GERM277": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "GERM301": [
+      "AHp",
+      "WCd"
+    ],
+    "GERM302": [
+      "AHp",
+      "WCd"
+    ],
+    "GERM304": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "GERM309": [
+      "AHo",
+      "CCD",
+      "SOEHS"
+    ],
+    "GERM349": [
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "GERM354": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "GERM371": [
+      "AHo",
+      "HST",
+      "SOEHS"
+    ],
+    "HIST103": [
+      "HST",
+      "SOEHS"
+    ],
+    "HIST210": [
+      "SOEHS"
+    ],
+    "HIST221": [
+      "CCD",
+      "HST",
+      "SOEHS"
+    ],
+    "HIST225": [
+      "SOEHS"
+    ],
+    "HIST229": [
+      "HST",
+      "SOEHS"
+    ],
+    "HIST235": [
+      "HST",
+      "SOEHS"
+    ],
+    "HIST237": [
+      "CCO",
+      "HST"
+    ],
+    "HIST240": [
+      "SOEHS"
+    ],
+    "HIST242": [
+      "SOEHS"
+    ],
+    "HIST263": [
+      "HST",
+      "SOEHS"
+    ],
+    "HIST264": [
+      "CCD",
+      "SOEHS"
+    ],
+    "HIST268": [
+      "CCD",
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "HIST300": [
+      "SOEHS"
+    ],
+    "HIST301": [
+      "SOEHS"
+    ],
+    "HIST303": [
+      "SOEHS"
+    ],
+    "HIST305": [
+      "SOEHS"
+    ],
+    "HIST306": [
+      "SOEHS"
+    ],
+    "HIST310": [
+      "HST",
+      "SOEHS"
+    ],
+    "HIST313": [
+      "SOEHS"
+    ],
+    "HIST316": [
+      "SOEHS"
+    ],
+    "HIST318": [
+      "SOEHS"
+    ],
+    "HIST347": [
+      "SOEHS"
+    ],
+    "HIST348": [
+      "SOEHS"
+    ],
+    "HIST351": [
+      "HST",
+      "SOEHS",
+      "WCd"
+    ],
+    "HIST354": [
+      "SOEHS"
+    ],
+    "HIST360": [
+      "HST",
+      "SOEHS",
+      "WCd"
+    ],
+    "HIST388": [
+      "HST",
+      "SOEHS"
+    ],
+    "ITAL101": [
+      "SOEHS"
+    ],
+    "ITAL102": [
+      "SOEHS"
+    ],
+    "ITAL105": [
+      "AHq",
+      "SOEHS"
+    ],
+    "ITAL106": [
+      "AHq",
+      "SOEHS"
+    ],
+    "ITAL121": [
+      "SOEHS"
+    ],
+    "ITAL131": [
+      "SOEHS"
+    ],
+    "ITAL132": [
+      "AHq",
+      "SOEHS"
+    ],
+    "ITAL231": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "ITAL232": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "ITAL250": [
+      "AHq",
+      "SOEHS",
+      "WCd"
+    ],
+    "ITAL256": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "ITAL270": [
+      "SOEHS"
+    ],
+    "ITAL315": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "ITAL345": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "ITAL346": [
+      "SOEHS"
+    ],
+    "ITAL391": [
+      "AHo",
+      "AHp"
+    ],
+    "ITAL496": [
+      "WCd"
+    ],
+    "JPN101": [
+      "SOEHS"
+    ],
+    "JPN102": [
+      "SOEHS"
+    ],
+    "JPN201": [
+      "SOEHS"
+    ],
+    "JPN202": [
+      "AHq",
+      "SOEHS"
+    ],
+    "JPN210": [
+      "SOEHS"
+    ],
+    "JPN215": [
+      "AHp",
+      "CCO",
+      "SOEHS"
+    ],
+    "JPN301": [
+      "SOEHS"
+    ],
+    "JPN302": [
+      "SOEHS"
+    ],
+    "JPN313": [
+      "SOEHS"
+    ],
+    "JPN320": [
+      "SOEHS"
+    ],
+    "JPN362": [
+      "SOEHS"
+    ],
+    "JPN401": [
+      "SOEHS"
+    ],
+    "KOR101": [
+      "SOEHS"
+    ],
+    "KOR102": [
+      "SOEHS"
+    ],
+    "KOR103": [
+      "SOEHS"
+    ],
+    "KOR105": [
+      "SOEHS"
+    ],
+    "KOR120": [
+      "SOEHS"
+    ],
+    "KOR201": [
+      "SOEHS"
+    ],
+    "KOR202": [
+      "AHq",
+      "SOEHS"
+    ],
+    "KOR203": [
+      "AHq",
+      "SOEHS"
+    ],
+    "KOR210": [
+      "HST",
+      "SOEHS",
+      "WCr"
+    ],
+    "KOR220": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "KOR230": [
+      "SOEHS"
+    ],
+    "KOR301": [
+      "SOEHS"
+    ],
+    "KOR302": [
+      "SOEHS"
+    ],
+    "KOR320": [
+      "SOEHS"
+    ],
+    "KOR380": [
+      "SOEHS"
+    ],
+    "KOR401": [
+      "SOEHS"
+    ],
+    "KOR420": [
+      "SOEHS"
+    ],
+    "KOR450": [
+      "SOEHS"
+    ],
+    "LING101": [
+      "AHq",
+      "SOEHS"
+    ],
+    "LING201": [
+      "AHq",
+      "QR",
+      "SOEHS"
+    ],
+    "LING215": [
+      "SOEHS"
+    ],
+    "LING305": [
+      "SOEHS"
+    ],
+    "LING315": [
+      "SOEHS"
+    ],
+    "LING325": [
+      "SOEHS"
+    ],
+    "LING350": [
+      "SOEHS"
+    ],
+    "LING445": [
+      "QQ"
+    ],
+    "MATH103": [
+      "QQ",
+      "QR"
+    ],
+    "MATH104": [
+      "QQ",
+      "QR"
+    ],
+    "MATH106": [
+      "QQ",
+      "QR"
+    ],
+    "MATH107": [
+      "QQ",
+      "QR"
+    ],
+    "MATH110": [
+      "QQ",
+      "QR"
+    ],
+    "MATH112": [
+      "QQ",
+      "QR"
+    ],
+    "MATH115": [
+      "QQ",
+      "QR"
+    ],
+    "MATH130": [
+      "QQ",
+      "QR"
+    ],
+    "MATH135": [
+      "QQ",
+      "QR"
+    ],
+    "MATH151": [
+      "QQ",
+      "QR"
+    ],
+    "MATH152": [
+      "QQ",
+      "QR"
+    ],
+    "MATH251": [
+      "ITR"
+    ],
+    "MCB214": [
+      "ITR"
+    ],
+    "MCB215": [
+      "ITR"
+    ],
+    "MCB315": [
+      "ITR"
+    ],
+    "MCB316": [
+      "ITR"
+    ],
+    "MCB495": [
+      "WCd",
+      "WCr"
+    ],
+    "MUS101": [
+      "HST",
+      "SOEHS"
+    ],
+    "MUS102": [
+      "HST",
+      "SOEHS"
+    ],
+    "MUS112": [
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "MUS115": [
+      "HST",
+      "SOEHS"
+    ],
+    "MUS203": [
+      "HST",
+      "SOEHS"
+    ],
+    "MUS216": [
+      "CCD",
+      "HST",
+      "SOEHS"
+    ],
+    "MUS220": [
+      "HST",
+      "SOEHS"
+    ],
+    "MUS226": [
+      "CCO",
+      "HST",
+      "SOEHS"
+    ],
+    "MUS227": [
+      "CCD",
+      "CCO",
+      "SOEHS"
+    ],
+    "MUS233": [
+      "CCO",
+      "HST",
+      "SOEHS"
+    ],
+    "MUS249": [
+      "CCO",
+      "HST",
+      "SOEHS"
+    ],
+    "MUS271": [
+      "HST",
+      "SOEHS"
+    ],
+    "MUS272": [
+      "HST",
+      "SOEHS"
+    ],
+    "MUS301": [
+      "SOEHS"
+    ],
+    "MUS302": [
+      "SOEHS"
+    ],
+    "MUS314": [
+      "SOEHS"
+    ],
+    "MUS363": [
+      "SOEHS"
+    ],
+    "MUS388": [
+      "SOEHS"
+    ],
+    "MUS401": [
+      "WCd",
+      "WCr"
+    ],
+    "MUS451": [
+      "CE"
+    ],
+    "MUS495": [
+      "WCd",
+      "WCr"
+    ],
+    "PHIL101": [
+      "AHo",
+      "SOEHS"
+    ],
+    "PHIL103": [
+      "AHo",
+      "SOEHS"
+    ],
+    "PHIL104": [
+      "AHo",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "PHIL105": [
+      "AHo",
+      "SOEHS"
+    ],
+    "PHIL107": [
+      "AHo",
+      "SOEHS"
+    ],
+    "PHIL109": [
+      "QQ",
+      "QR",
+      "SOEHS"
+    ],
+    "PHIL140": [
+      "SOEHS"
+    ],
+    "PHIL201": [
+      "QR",
+      "SOEHS"
+    ],
+    "PHIL210": [
+      "SOEHS"
+    ],
+    "PHIL215": [
+      "SOEHS"
+    ],
+    "PHIL218": [
+      "AHo",
+      "SOEHS"
+    ],
+    "PHIL220": [
+      "SOEHS"
+    ],
+    "PHIL225": [
+      "AHo",
+      "SOEHS"
+    ],
+    "PHIL248": [
+      "SOEHS"
+    ],
+    "PHIL249": [
+      "SOEHS"
+    ],
+    "PHIL253": [
+      "AHo",
+      "CCD",
+      "CCO",
+      "SOEHS"
+    ],
+    "PHIL256": [
+      "CCD",
+      "SOEHS"
+    ],
+    "PHIL263": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "PHIL265": [
+      "SOEHS"
+    ],
+    "PHIL268": [
+      "SOEHS"
+    ],
+    "PHIL295": [
+      "SOEHS"
+    ],
+    "PHIL296": [
+      "SOEHS"
+    ],
+    "PHIL301": [
+      "SOEHS"
+    ],
+    "PHIL302": [
+      "SOEHS"
+    ],
+    "PHIL304": [
+      "SOEHS"
+    ],
+    "PHIL307": [
+      "SOEHS"
+    ],
+    "PHIL308": [
+      "SOEHS"
+    ],
+    "PHIL315": [
+      "SOEHS"
+    ],
+    "PHIL319": [
+      "SOEHS"
+    ],
+    "PHIL320": [
+      "SOEHS"
+    ],
+    "PHIL328": [
+      "SOEHS"
+    ],
+    "PHIL329": [
+      "SOEHS"
+    ],
+    "PHIL341": [
+      "SOEHS"
+    ],
+    "PHIL342": [
+      "SOEHS"
+    ],
+    "PHIL344": [
+      "AHo",
+      "HST",
+      "SOEHS"
+    ],
+    "PHIL345": [
+      "SOEHS"
+    ],
+    "PHIL347": [
+      "SOEHS"
+    ],
+    "PHIL348": [
+      "SOEHS"
+    ],
+    "PHIL362": [
+      "SOEHS"
+    ],
+    "PHIL366": [
+      "SOEHS"
+    ],
+    "PHIL367": [
+      "SOEHS"
+    ],
+    "PHIL368": [
+      "AHo",
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "PHIL369": [
+      "AHo",
+      "HST",
+      "SOEHS"
+    ],
+    "PHIL371": [
+      "SOEHS"
+    ],
+    "PHIL397": [
+      "WCd",
+      "WCr"
+    ],
+    "PHIL401": [
+      "SOEHS"
+    ],
+    "PHIL405": [
+      "SOEHS"
+    ],
+    "PHIL409": [
+      "SOEHS"
+    ],
+    "PHIL413": [
+      "SOEHS"
+    ],
+    "PHIL415": [
+      "SOEHS"
+    ],
+    "PHIL416": [
+      "SOEHS"
+    ],
+    "PHIL418": [
+      "SOEHS"
+    ],
+    "PHIL424": [
+      "SOEHS"
+    ],
+    "PHIL425": [
+      "SOEHS"
+    ],
+    "PHIL426": [
+      "SOEHS"
+    ],
+    "PHYS106": [
+      "NS"
+    ],
+    "PHYS109": [
+      "NS"
+    ],
+    "PHYS110": [
+      "NS"
+    ],
+    "PHYS140": [
+      "CCO",
+      "NS"
+    ],
+    "PHYS194": [
+      "NS"
+    ],
+    "PHYS202": [
+      "NS"
+    ],
+    "PHYS203": [
+      "NS"
+    ],
+    "PHYS204": [
+      "NS"
+    ],
+    "PHYS227": [
+      "NS"
+    ],
+    "PHYS228": [
+      "NS"
+    ],
+    "PHYS271": [
+      "NS"
+    ],
+    "PHYS272": [
+      "NS"
+    ],
+    "POLS101": [
+      "GVT",
+      "SCL",
+      "SOEHS"
+    ],
+    "POLS102": [
+      "GVT",
+      "SCL",
+      "SOEHS"
+    ],
+    "POLS103": [
+      "GVT",
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "POLS104": [
+      "GVT",
+      "SCL",
+      "SOEHS"
+    ],
+    "POLS106": [
+      "GVT",
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "POLS280": [
+      "SOEHS"
+    ],
+    "POLS292": [
+      "SOEHS"
+    ],
+    "POLS300": [
+      "ITR",
+      "QQ"
+    ],
+    "POLS301": [
+      "SOEHS"
+    ],
+    "POLS302": [
+      "SOEHS"
+    ],
+    "POLS303": [
+      "SOEHS"
+    ],
+    "POLS304": [
+      "SOEHS"
+    ],
+    "POLS305": [
+      "SOEHS"
+    ],
+    "POLS306": [
+      "SOEHS"
+    ],
+    "POLS307": [
+      "QQ",
+      "SOEHS"
+    ],
+    "POLS308": [
+      "SOEHS"
+    ],
+    "POLS310": [
+      "SOEHS"
+    ],
+    "POLS311": [
+      "SOEHS"
+    ],
+    "POLS312": [
+      "SOEHS"
+    ],
+    "POLS313": [
+      "CCO",
+      "SOEHS"
+    ],
+    "POLS316": [
+      "SOEHS"
+    ],
+    "POLS317": [
+      "SOEHS"
+    ],
+    "POLS318": [
+      "CCO",
+      "SOEHS"
+    ],
+    "POLS319": [
+      "SOEHS"
+    ],
+    "POLS322": [
+      "SOEHS"
+    ],
+    "POLS323": [
+      "SOEHS"
+    ],
+    "POLS324": [
+      "SOEHS"
+    ],
+    "POLS327": [
+      "SOEHS"
+    ],
+    "POLS328": [
+      "SOEHS"
+    ],
+    "POLS329": [
+      "SOEHS"
+    ],
+    "POLS330": [
+      "SOEHS"
+    ],
+    "POLS331": [
+      "SOEHS"
+    ],
+    "POLS332": [
+      "SOEHS"
+    ],
+    "POLS333": [
+      "CCD",
+      "SOEHS"
+    ],
+    "POLS334": [
+      "SOEHS"
+    ],
+    "POLS335": [
+      "SOEHS"
+    ],
+    "POLS338": [
+      "SOEHS"
+    ],
+    "POLS340": [
+      "SOEHS"
+    ],
+    "POLS341": [
+      "SOEHS"
+    ],
+    "POLS343": [
+      "SOEHS"
+    ],
+    "POLS345": [
+      "SOEHS"
+    ],
+    "POLS347": [
+      "CCD",
+      "SOEHS"
+    ],
+    "POLS351": [
+      "SOEHS"
+    ],
+    "POLS352": [
+      "SOEHS"
+    ],
+    "POLS353": [
+      "CCO",
+      "SOEHS"
+    ],
+    "POLS356": [
+      "CCD",
+      "CE",
+      "SOEHS"
+    ],
+    "POLS357": [
+      "SOEHS"
+    ],
+    "POLS359": [
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "POLS360": [
+      "SOEHS"
+    ],
+    "POLS361": [
+      "SOEHS"
+    ],
+    "POLS364": [
+      "SOEHS"
+    ],
+    "POLS365": [
+      "SOEHS"
+    ],
+    "POLS366": [
+      "SOEHS"
+    ],
+    "POLS371": [
+      "SOEHS"
+    ],
+    "POLS372": [
+      "SOEHS"
+    ],
+    "POLS373": [
+      "SOEHS"
+    ],
+    "POLS375": [
+      "SOEHS"
+    ],
+    "POLS376": [
+      "SOEHS"
+    ],
+    "POLS378": [
+      "SOEHS"
+    ],
+    "POLS381": [
+      "SOEHS"
+    ],
+    "POLS386": [
+      "SOEHS"
+    ],
+    "POLS391": [
+      "QQ"
+    ],
+    "POLS395": [
+      "WCd"
+    ],
+    "POLS401": [
+      "SOEHS"
+    ],
+    "POLS404": [
+      "SOEHS"
+    ],
+    "POLS406": [
+      "SOEHS"
+    ],
+    "POLS409": [
+      "SOEHS"
+    ],
+    "POLS426": [
+      "SOEHS"
+    ],
+    "POLS429": [
+      "SOEHS"
+    ],
+    "POLS457": [
+      "SOEHS",
+      "WCd"
+    ],
+    "POLS472": [
+      "SOEHS"
+    ],
+    "POLS481": [
+      "CE"
+    ],
+    "POLS482": [
+      "CE"
+    ],
+    "POLS483": [
+      "WCd",
+      "WCr"
+    ],
+    "POLS485": [
+      "CE"
+    ],
+    "POLS488": [
+      "CE"
+    ],
+    "POLS491": [
+      "CE"
+    ],
+    "POLS492": [
+      "CE"
+    ],
+    "PORT101": [
+      "SOEHS"
+    ],
+    "PORT102": [
+      "SOEHS"
+    ],
+    "PORT391": [
+      "SOEHS"
+    ],
+    "PORT392": [
+      "SOEHS"
+    ],
+    "PSYC101": [
+      "SCL",
+      "SOEHS"
+    ],
+    "PSYC123": [
+      "CCO",
+      "HST",
+      "SOEHS"
+    ],
+    "PSYC200": [
+      "QQ",
+      "QR"
+    ],
+    "PSYC220": [
+      "SOEHS"
+    ],
+    "PSYC230": [
+      "SOEHS"
+    ],
+    "PSYC271": [
+      "SOEHS"
+    ],
+    "PSYC301": [
+      "SOEHS"
+    ],
+    "PSYC302": [
+      "WCd",
+      "WCr"
+    ],
+    "PSYC303": [
+      "SOEHS"
+    ],
+    "PSYC305": [
+      "SOEHS"
+    ],
+    "PSYC306": [
+      "WCd",
+      "WCr"
+    ],
+    "PSYC308": [
+      "SOEHS"
+    ],
+    "PSYC311": [
+      "SOEHS"
+    ],
+    "PSYC312": [
+      "WCd",
+      "WCr"
+    ],
+    "PSYC314": [
+      "WCd",
+      "WCr"
+    ],
+    "PSYC320": [
+      "SOEHS"
+    ],
+    "PSYC321": [
+      "SOEHS"
+    ],
+    "PSYC322": [
+      "WCd",
+      "WCr"
+    ],
+    "PSYC325": [
+      "SOEHS"
+    ],
+    "PSYC331": [
+      "SOEHS"
+    ],
+    "PSYC332": [
+      "WCd",
+      "WCr"
+    ],
+    "PSYC333": [
+      "SOEHS"
+    ],
+    "PSYC335": [
+      "SOEHS"
+    ],
+    "PSYC338": [
+      "SOEHS"
+    ],
+    "PSYC339": [
+      "SOEHS"
+    ],
+    "PSYC341": [
+      "WCd",
+      "WCr"
+    ],
+    "PSYC346": [
+      "SOEHS"
+    ],
+    "PSYC351": [
+      "SOEHS"
+    ],
+    "PSYC360": [
+      "SOEHS"
+    ],
+    "PSYC362": [
+      "SOEHS"
+    ],
+    "PSYC373": [
+      "SOEHS"
+    ],
+    "PSYC375": [
+      "SOEHS"
+    ],
+    "PSYC377": [
+      "SOEHS"
+    ],
+    "PSYC379": [
+      "SOEHS"
+    ],
+    "PSYC382": [
+      "CE"
+    ],
+    "PSYC383": [
+      "CE"
+    ],
+    "PSYC388": [
+      "CE"
+    ],
+    "PSYC389": [
+      "CE"
+    ],
+    "PSYC394": [
+      "CE"
+    ],
+    "PSYC398": [
+      "CE"
+    ],
+    "PSYC493": [
+      "CE"
+    ],
+    "PSYC494": [
+      "CE"
+    ],
+    "RELGS101": [
+      "AHo",
+      "CCO",
+      "SOEHS"
+    ],
+    "RELGS105": [
+      "AHo",
+      "CCD",
+      "SOEHS"
+    ],
+    "RELGS111": [
+      "SOEHS"
+    ],
+    "RELGS112": [
+      "AHo",
+      "SOEHS"
+    ],
+    "RELGS115": [
+      "SOEHS"
+    ],
+    "RELGS118": [
+      "SCL",
+      "SOEHS"
+    ],
+    "RELGS123": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS201": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS206": [
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS208": [
+      "SOEHS"
+    ],
+    "RELGS211": [
+      "AHo",
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS212": [
+      "AHo",
+      "HST",
+      "SCL",
+      "SOEHS"
+    ],
+    "RELGS220": [
+      "CCD",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS226": [
+      "AHo",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS229": [
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS285": [
+      "SOEHS"
+    ],
+    "RELGS286": [
+      "SOEHS"
+    ],
+    "RELGS301": [
+      "SOEHS"
+    ],
+    "RELGS305": [
+      "HST",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "RELGS306": [
+      "CCD",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS307": [
+      "SOEHS"
+    ],
+    "RELGS310": [
+      "SOEHS"
+    ],
+    "RELGS311": [
+      "SOEHS",
+      "WCr"
+    ],
+    "RELGS314": [
+      "HST",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "RELGS316": [
+      "HST",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "RELGS319": [
+      "HST",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "RELGS324": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "RELGS331": [
+      "AHo",
+      "SOEHS",
+      "WCd"
+    ],
+    "RELGS351": [
+      "SOEHS"
+    ],
+    "RELGS352": [
+      "SCL",
+      "SOEHS",
+      "WCd"
+    ],
+    "RELGS357": [
+      "SOEHS"
+    ],
+    "RELGS358": [
+      "SOEHS"
+    ],
+    "RELGS363": [
+      "SOEHS"
+    ],
+    "RELGS368": [
+      "AHo",
+      "AHp",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS369": [
+      "AHo",
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS372": [
+      "AHo",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "RELGS378": [
+      "AHp",
+      "SOEHS",
+      "WCr"
+    ],
+    "RELGS380": [
+      "HST",
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "RELGS381": [
+      "HST",
+      "SOEHS"
+    ],
+    "RELGS385": [
+      "SOEHS"
+    ],
+    "RELGS388": [
+      "SOEHS"
+    ],
+    "RUSS101": [
+      "SOEHS"
+    ],
+    "RUSS102": [
+      "SOEHS"
+    ],
+    "RUSS201": [
+      "SOEHS"
+    ],
+    "RUSS202": [
+      "AHq",
+      "SOEHS"
+    ],
+    "RUSS207": [
+      "SOEHS"
+    ],
+    "RUSS208": [
+      "AHq",
+      "SOEHS"
+    ],
+    "RUSS260": [
+      "AHp",
+      "SOEHS"
+    ],
+    "RUSS268": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "RUSS272": [
+      "AHp",
+      "CCO",
+      "SOEHS"
+    ],
+    "RUSS301": [
+      "SOEHS"
+    ],
+    "RUSS302": [
+      "SOEHS"
+    ],
+    "RUSS326": [
+      "AHo",
+      "SOEHS"
+    ],
+    "RUSS331": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "RUSS348": [
+      "AHo",
+      "AHp",
+      "SOEHS",
+      "WCd"
+    ],
+    "RUSS349": [
+      "SOEHS",
+      "WCd",
+      "WCr"
+    ],
+    "RUSS404": [
+      "SOEHS"
+    ],
+    "RUSS407": [
+      "SOEHS"
+    ],
+    "RUSS488": [
+      "SOEHS"
+    ],
+    "SOC101": [
+      "SCL",
+      "SOEHS"
+    ],
+    "SOC103": [
+      "CCD",
+      "SCL",
+      "SOEHS"
+    ],
+    "SOC108": [
+      "CCD",
+      "SCL",
+      "SOEHS"
+    ],
+    "SOC210": [
+      "SCL",
+      "SOEHS"
+    ],
+    "SOC215": [
+      "CCD",
+      "SCL",
+      "SOEHS"
+    ],
+    "SOC220": [
+      "SOEHS"
+    ],
+    "SOC222": [
+      "SCL",
+      "SOEHS"
+    ],
+    "SOC225": [
+      "CCO",
+      "SCL",
+      "SOEHS"
+    ],
+    "SOC227": [
+      "SOEHS"
+    ],
+    "SOC232": [
+      "SOEHS"
+    ],
+    "SOC248": [
+      "SOEHS"
+    ],
+    "SOC272": [
+      "SOEHS"
+    ],
+    "SOC303": [
+      "SOEHS"
+    ],
+    "SOC304": [
+      "SOEHS"
+    ],
+    "SOC306": [
+      "SOEHS"
+    ],
+    "SOC307": [
+      "SOEHS"
+    ],
+    "SOC311": [
+      "QQ"
+    ],
+    "SOC312": [
+      "ITR",
+      "QQ",
+      "QR"
+    ],
+    "SOC315": [
+      "SOEHS"
+    ],
+    "SOC316": [
+      "SOEHS",
+      "WCd"
+    ],
+    "SOC324": [
+      "SOEHS"
+    ],
+    "SOC335": [
+      "SOEHS"
+    ],
+    "SOC349": [
+      "SOEHS"
+    ],
+    "SOC359": [
+      "SOEHS"
+    ],
+    "SOC482": [
+      "CE"
+    ],
+    "SOC498": [
+      "WCr"
+    ],
+    "SOCW155": [
+      "AHq"
+    ],
+    "STAT142": [
+      "CCO",
+      "ITR",
+      "QQ",
+      "QR"
+    ],
+    "STAT211": [
+      "ITR",
+      "QQ",
+      "QR"
+    ],
+    "STAT212": [
+      "ITR",
+      "QQ",
+      "QR"
+    ],
+    "STAT285": [
+      "ITR",
+      "QQ",
+      "QR"
+    ],
+    "STAT379": [
+      "QR"
+    ],
+    "STAT401": [
+      "ITR",
+      "QQ",
+      "QR"
+    ],
+    "WGSS101": [
+      "CCD",
+      "CCO",
+      "SOEHS"
+    ],
+    "WGSS130": [
+      "CCD",
+      "CCO",
+      "SOEHS"
+    ],
+    "WGSS200": [
+      "SOEHS"
+    ],
+    "WGSS201": [
+      "SCL",
+      "SOEHS"
+    ],
+    "WGSS202": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "WGSS206": [
+      "SOEHS"
+    ],
+    "WGSS232": [
+      "AHo",
+      "AHp",
+      "SOEHS"
+    ],
+    "WGSS235": [
+      "CCD",
+      "CCO",
+      "SOEHS"
+    ],
+    "WGSS240": [
+      "SOEHS"
+    ],
+    "WGSS255": [
+      "SOEHS"
+    ],
+    "WGSS257": [
+      "SOEHS"
+    ],
+    "WGSS258": [
+      "SOEHS"
+    ],
+    "WGSS259": [
+      "SOEHS"
+    ],
+    "WGSS301": [
+      "SOEHS"
+    ],
+    "WGSS302": [
+      "SOEHS"
+    ],
+    "WGSS303": [
+      "SOEHS"
+    ],
+    "WGSS307": [
+      "SOEHS"
+    ],
+    "WGSS308": [
+      "SOEHS"
+    ],
+    "WGSS315": [
+      "AHp",
+      "CCD",
+      "SOEHS"
+    ],
+    "WGSS317": [
+      "CCD",
+      "CCO",
+      "SOEHS"
+    ],
+    "WGSS318": [
+      "SOEHS"
+    ],
+    "WGSS336": [
+      "SOEHS"
+    ],
+    "WGSS344": [
+      "SOEHS"
+    ],
+    "WGSS349": [
+      "SOEHS"
+    ],
+    "WGSS405": [
+      "SOEHS"
+    ],
+    "WGSS407": [
+      "SOEHS"
+    ],
+    "WGSS408": [
+      "SOEHS"
+    ],
+    "WGSS409": [
+      "SOEHS"
+    ],
+    "WGSS412": [
+      "SOEHS"
+    ],
+    "WGSS413": [
+      "SOEHS"
+    ],
+    "WGSS414": [
+      "SOEHS"
+    ],
+    "WGSS422": [
+      "CE"
+    ],
+    "WGSS426": [
+      "CE",
+      "SOEHS"
+    ],
+    "WGSS430": [
+      "CE"
+    ],
+    "WGSS431": [
+      "SOEHS",
+      "WCd"
+    ],
+    "WGSS447": [
+      "CCD",
+      "CE",
+      "SOEHS"
+    ],
+    "WGSS465": [
+      "SOEHS"
+    ],
+    "WGSS499": [
+      "CE"
+    ]
+  },
+  "terms": [
+    "9",
+    "1",
+    "7"
+  ],
+  "year": "2025"
+}

@@ -79,16 +79,12 @@ export default function CourseSniperModal({
       setLoading(false);
       return;
     }
-    fetch(`${apiBase}/soc/sections?subject=${subject}&year=${year}&term=${term}&campus=${campus}`, {
+    fetch(`${apiBase}/soc/sections?subject=${subject}&year=${year}&term=${term}&campus=${campus}&courseNumber=${courseNumber}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => (r.ok ? r.json() : Promise.reject("SOC fetch failed")))
       .then((data: Section[]) => {
-        // Filter to this specific course number
-        const filtered = data.filter(
-          (s) => s.courseNumber === courseNumber
-        );
-        setSections(filtered);
+        setSections(data);
       })
       .catch(() => setError("Could not load sections. The SOC may be unavailable."))
       .finally(() => setLoading(false));

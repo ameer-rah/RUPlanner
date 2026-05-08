@@ -254,6 +254,10 @@ def _try_parse_course_line(
             grade   = pr_flag
             pr_flag = ""
 
+    # Transfer block courses have no grade column — they are completed by definition
+    if is_transfer and grade == "":
+        grade = "TR"
+
     is_in_progress = (grade == "")
     is_retake      = pr_flag in ("E", "R")
     passed         = _grade_is_passing(grade, pr_flag)

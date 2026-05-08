@@ -123,11 +123,11 @@ export default function CourseDetailModal({
       setLoading(false);
       return;
     }
-    fetch(`${apiBase}/soc/sections?subject=${subject}&year=${socYear}&term=${socTerm}&campus=NB`, {
+    fetch(`${apiBase}/soc/sections?subject=${subject}&year=${socYear}&term=${socTerm}&campus=NB&courseNumber=${courseNumber}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((data: Section[]) => setSections(data.filter((s) => s.courseNumber === courseNumber)))
+      .then((data: Section[]) => setSections(data))
       .catch(() => setError("Could not load sections."))
       .finally(() => setLoading(false));
   }, [subject, courseNumber, socYear, socTerm, token]);
