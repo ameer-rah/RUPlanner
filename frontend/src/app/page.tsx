@@ -6,6 +6,19 @@ import { useRouter } from "next/navigation";
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 
+async function fetchWithRetry(url: string, options: RequestInit, retries = 2): Promise<Response> {
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const res = await fetch(url, { ...options, signal: AbortSignal.timeout(8000) });
+      if (res.ok || res.status < 500) return res;
+    } catch (e) {
+      if (i === retries) throw e;
+      await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+    }
+  }
+  throw new Error("Request failed after retries");
+}
+
 function safeGetStorage(key: string): string | null {
   try { return localStorage.getItem(key); } catch { return null; }
 }
@@ -73,7 +86,7 @@ export default function AuthPage() {
         setError("");
         setLoading(true);
         try {
-          const res = await fetch(`${apiBase}/auth/google`, {
+          const res = await fetchWithRetry(`${apiBase}/auth/google`, {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ credential: response.credential }),
@@ -84,7 +97,7 @@ export default function AuthPage() {
             return;
           }
           const { access_token } = await res.json();
-          const meRes = await fetch(`${apiBase}/auth/me`, {
+          const meRes = await fetchWithRetry(`${apiBase}/auth/me`, {
             headers: { Authorization: `Bearer ${access_token}` },
           });
           const me = meRes.ok ? await meRes.json() : { email: "user" };
@@ -116,7 +129,7 @@ export default function AuthPage() {
     const endpoint = mode === "signin" ? "/auth/login" : "/auth/register";
 
     try {
-      const res = await fetch(`${apiBase}${endpoint}`, {
+      const res = await fetchWithRetry(`${apiBase}${endpoint}`, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email, password }),

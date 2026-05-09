@@ -104,6 +104,12 @@ async def _global_exception_handler(request: Request, exc: Exception) -> JSONRes
     logger.error("Unhandled exception on %s %s", request.method, request.url.path, exc_info=exc)
     return JSONResponse(status_code=500, content={"detail": "An internal error occurred. Please try again."})
 
+
+@app.get("/health")
+def health() -> dict:
+    return {"status": "ok"}
+
+
 _LEVEL_LABEL = {
     "bachelor_bs":           "BS",
     "bachelor_ba":           "BA",

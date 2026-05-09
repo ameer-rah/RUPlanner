@@ -17,12 +17,14 @@ services:
       - ruplanner_db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
+      interval: 2s
+      timeout: 3s
+      retries: 15
+      start_period: 5s
 
   backend:
     build: ./backend
+    restart: always
     env_file: ./backend/.env
     ports:
       - "8000:8000"
