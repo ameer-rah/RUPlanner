@@ -2,10 +2,10 @@
 
 ## Reporting a vulnerability
 
-Please report security issues privately by emailing the project owner.
-Do not open a public issue for security-sensitive reports.
+Please report security issues privately via GitHub's built-in private vulnerability reporting
+(Security tab → "Report a vulnerability"). Do not open a public issue for security-sensitive reports.
 
-Report isssues to this email: ruplanner.rutgers@gmail.com
+Alternatively, you can email the project owner at ruplanner [dot] rutgers [at] gmail [dot] com.
 
 ## Supported versions
 

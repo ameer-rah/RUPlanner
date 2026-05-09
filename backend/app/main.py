@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import logging
 import os
 import re
 from dotenv import load_dotenv
@@ -7,8 +8,9 @@ load_dotenv()
 from datetime import datetime, timedelta
 from typing import List
 
-from fastapi import FastAPI, HTTPException, UploadFile, File, Depends, Query
+from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 import bcrypt
@@ -16,6 +18,11 @@ import requests as _requests
 from google.oauth2 import id_token as google_id_token
 from google.auth.transport import requests as google_requests
 from apscheduler.schedulers.background import BackgroundScheduler
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+
+logger = logging.getLogger(__name__)
 
 from .database import engine, Base, SessionLocal
 from . import models
@@ -34,7 +41,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from management.ingest_courses import ingest, current_terms
 
-SECRET_KEY = os.getenv("SECRET_KEY", "ru-planner-dev-secret-change-in-production")
+SECRET_KEY = os.getenv("SECRET_KEY") or "ru-planner-dev-secret-change-in-production"
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 30
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
@@ -51,6 +59,7 @@ def _verify_password(password: str, hashed: str) -> bool:
 
 _bearer = HTTPBearer()
 _scheduler = BackgroundScheduler()
+_limiter = Limiter(key_func=get_remote_address)
 
 def _run_course_ingest() -> None:
     """Run course ingestion for the current academic terms."""
@@ -71,6 +80,8 @@ async def lifespan(_: FastAPI):
     _scheduler.shutdown(wait=False)
 
 app = FastAPI(title="RU Planner API", lifespan=lifespan)
+app.state.limiter = _limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 _ALLOWED_ORIGINS = list({
     o.strip().rstrip("/")
@@ -82,9 +93,15 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=_ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "DELETE"],
+    allow_headers=["Authorization", "Content-Type"],
 )
+
+
+@app.exception_handler(Exception)
+async def _global_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    logger.error("Unhandled exception on %s %s", request.method, request.url.path, exc_info=exc)
+    return JSONResponse(status_code=500, content={"detail": "An internal error occurred. Please try again."})
 
 _LEVEL_LABEL = {
     "bachelor_bs":           "BS",
@@ -154,11 +171,12 @@ def search_courses(q: str = "", limit: int = 20) -> List[CourseSearchResult]:
         db.close()
 
 @app.post("/plan", response_model=PlanResponse)
-def generate_plan(payload: PlanRequest) -> PlanResponse:
+@_limiter.limit("20/minute")
+def generate_plan(request: Request, payload: PlanRequest) -> PlanResponse:
     try:
         return heuristic_plan(payload)
     except ValueError as exc:
-        raise HTTPException(status_code=404, detail=str(exc))
+        raise HTTPException(status_code=422, detail=str(exc))
 
 def _word_overlap(a: str, b: str) -> float:
     wa = {w for w in re.sub(r"[^a-z\s]", "", a.lower()).split() if len(w) > 2}
@@ -688,7 +706,12 @@ def delete_snipe(snipe_id: int, user_id: int = Depends(_get_current_user_id)):
     finally:
         db.close()
 
-@app.post("/admin/ingest-courses")
+def _require_admin(credentials: HTTPAuthorizationCredentials = Depends(_bearer)) -> None:
+    if not ADMIN_TOKEN or credentials.credentials != ADMIN_TOKEN:
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+
+@app.post("/admin/ingest-courses", dependencies=[Depends(_require_admin)])
 def admin_ingest_courses():
     """Trigger an on-demand course data refresh from the Rutgers SIS API."""
     from .database import SessionLocal as _SL

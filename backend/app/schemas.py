@@ -1,5 +1,8 @@
-from pydantic import BaseModel, Field
-from typing import Dict, List, Optional
+import re
+from pydantic import BaseModel, Field, field_validator
+from typing import Annotated, Dict, List, Optional
+
+_COURSE_CODE_RE = re.compile(r"^[A-Z]{1,8}\d{1,4}[A-Z]?$")
 
 
 class CourseInput(BaseModel):
@@ -15,25 +18,47 @@ class ElectiveOption(BaseModel):
 
 class PlanRequest(BaseModel):
     degree_level: str = Field("bachelor", description="Associate, Bachelor, or Master")
-    majors: List[str]
-    minors: List[str]
-    concentrations: List[str] = Field(default=[], description="Optional concentration programs to layer on top of the major.")
-    completed_courses: List[str]
-    target_grad_term: str = Field(..., description="e.g., Spring 2028")
-    start_term: Optional[str] = Field(None, description="First term to schedule; defaults to current term if omitted")
-    max_credits_per_term: int = 15
+    majors: Annotated[List[str], Field(max_length=5)]
+    minors: Annotated[List[str], Field(max_length=5)]
+    concentrations: Annotated[List[str], Field(default=[], max_length=5, description="Optional concentration programs to layer on top of the major.")]
+    completed_courses: Annotated[List[str], Field(max_length=200)]
+    target_grad_term: str = Field(..., max_length=20, description="e.g., Spring 2028")
+    start_term: Optional[str] = Field(None, max_length=20, description="First term to schedule; defaults to current term if omitted")
+    max_credits_per_term: int = Field(default=15, ge=1, le=24)
     summer_max_credits: int = Field(
-        default=12,
+        default=12, ge=0, le=18,
         description="Maximum total credits allowed in any Summer term (SAS policy: no more than 12 credits).",
     )
     winter_max_credits: int = Field(
-        default=4,
+        default=4, ge=0, le=9,
         description="Maximum credits allowed in any Winter term (SAS policy: max 4 credits for one course, or two 1–1.5 credit courses up to 3 credits).",
     )
-    preferred_seasons: List[str] = Field(
-        default=["Spring", "Fall"],
-        description="Seasons in which the student wants to enroll (Spring, Summer, Fall, Winter). Defaults to Spring and Fall.",
-    )
+    preferred_seasons: Annotated[List[str], Field(default=["Spring", "Fall"], max_length=4, description="Seasons in which the student wants to enroll (Spring, Summer, Fall, Winter). Defaults to Spring and Fall.")]
+
+    @field_validator("completed_courses", mode="before")
+    @classmethod
+    def validate_course_codes(cls, v: list) -> list:
+        for code in v:
+            if not isinstance(code, str) or not _COURSE_CODE_RE.match(code):
+                raise ValueError(f"Invalid course code: {code!r}")
+        return v
+
+    @field_validator("preferred_seasons", mode="before")
+    @classmethod
+    def validate_seasons(cls, v: list) -> list:
+        valid = {"Spring", "Summer", "Fall", "Winter"}
+        for s in v:
+            if s not in valid:
+                raise ValueError(f"Invalid season: {s!r}")
+        return v
+
+    @field_validator("degree_level", mode="before")
+    @classmethod
+    def validate_degree_level(cls, v: str) -> str:
+        valid = {"associate", "bachelor", "master", "doctorate"}
+        if v.lower() not in valid:
+            raise ValueError(f"Invalid degree level: {v!r}")
+        return v
 
 
 class PlannedCourse(BaseModel):
