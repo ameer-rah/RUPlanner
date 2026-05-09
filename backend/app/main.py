@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import asyncio
 import logging
 import os
 import re
@@ -171,10 +172,20 @@ def search_courses(q: str = "", limit: int = 20) -> List[CourseSearchResult]:
         db.close()
 
 @app.post("/plan", response_model=PlanResponse)
-@_limiter.limit("20/minute")
-def generate_plan(request: Request, payload: PlanRequest) -> PlanResponse:
+@_limiter.limit("10/minute")
+async def generate_plan(
+    request: Request,
+    payload: PlanRequest,
+    user_id: int = Depends(_get_current_user_id),
+) -> PlanResponse:
     try:
-        return heuristic_plan(payload)
+        loop = asyncio.get_event_loop()
+        return await asyncio.wait_for(
+            loop.run_in_executor(None, heuristic_plan, payload),
+            timeout=30.0,
+        )
+    except asyncio.TimeoutError:
+        raise HTTPException(status_code=504, detail="Plan generation timed out.")
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc))
 

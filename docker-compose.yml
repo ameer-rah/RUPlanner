@@ -2,6 +2,8 @@ version: "3.9"
 
 services:
   db:
+    # Pin to a specific digest in production to prevent supply-chain drift.
+    # Run: docker pull postgres:15 && docker inspect postgres:15 --format='{{index .RepoDigests 0}}'
     image: postgres:15
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -32,6 +34,9 @@ services:
     build:
       context: ./frontend
       args:
+        # In production, set NEXT_PUBLIC_API_BASE_URL to your HTTPS backend URL
+        # (e.g. https://api.ruplanner.app) — never use http:// in production
+        # as it exposes session tokens and plan data to network interception.
         NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
     ports:
       - "3000:3000"

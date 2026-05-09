@@ -3,6 +3,7 @@ from pydantic import BaseModel, Field, field_validator
 from typing import Annotated, Dict, List, Optional
 
 _COURSE_CODE_RE = re.compile(r"^[A-Z]{1,8}\d{1,4}[A-Z]?$")
+_PROGRAM_NAME_RE = re.compile(r"^[A-Za-z0-9 ,.\-&/'()]+$")
 
 
 class CourseInput(BaseModel):
@@ -22,6 +23,16 @@ class PlanRequest(BaseModel):
     minors: Annotated[List[str], Field(max_length=5)]
     concentrations: Annotated[List[str], Field(default=[], max_length=5, description="Optional concentration programs to layer on top of the major.")]
     completed_courses: Annotated[List[str], Field(max_length=200)]
+
+    @field_validator("majors", "minors", "concentrations", mode="before")
+    @classmethod
+    def validate_program_names(cls, v: list) -> list:
+        for name in v:
+            if not isinstance(name, str) or len(name) > 200:
+                raise ValueError(f"Invalid program name: {name!r}")
+            if not _PROGRAM_NAME_RE.match(name):
+                raise ValueError(f"Program name contains disallowed characters: {name!r}")
+        return v
     target_grad_term: str = Field(..., max_length=20, description="e.g., Spring 2028")
     start_term: Optional[str] = Field(None, max_length=20, description="First term to schedule; defaults to current term if omitted")
     max_credits_per_term: int = Field(default=15, ge=1, le=24)
