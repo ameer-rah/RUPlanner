@@ -408,12 +408,7 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
   }
 
   function handleDeleteCourse(termIdx: number, courseIdx: number) {
-    const course = terms[termIdx].courses[courseIdx];
-    if (completedSet.has(course.code.toUpperCase())) {
-      setConfirmDelete({ termIdx, courseIdx });
-      return;
-    }
-    _doDelete(termIdx, courseIdx);
+    setConfirmDelete({ termIdx, courseIdx });
   }
 
   useEffect(() => {
@@ -481,7 +476,9 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                       )}
                       {confirmDelete?.termIdx === termIdx && confirmDelete?.courseIdx === courseIdx ? (
                         <div style={{ display: "flex", alignItems: "center", gap: 5, marginLeft: "auto" }} onClick={(e) => e.stopPropagation()}>
-                          <span style={{ fontSize: 10, color: "#f59e0b", fontWeight: 600, whiteSpace: "nowrap" }}>Completed — remove?</span>
+                          <span style={{ fontSize: 10, color: completedSet.has(course.code.toUpperCase()) ? "#f59e0b" : "var(--text-3)", fontWeight: 600, whiteSpace: "nowrap" }}>
+                            {completedSet.has(course.code.toUpperCase()) ? "Already completed — remove?" : "Remove from plan?"}
+                          </span>
                           <button style={{ fontSize: 10, padding: "1px 6px", borderRadius: 3, background: "rgba(204,17,51,0.15)", color: "#cc1133", border: "1px solid rgba(204,17,51,0.3)", cursor: "pointer", fontFamily: "inherit" }} onClick={() => _doDelete(termIdx, courseIdx)}>Remove</button>
                           <button style={{ fontSize: 10, padding: "1px 6px", borderRadius: 3, background: "var(--surface-3)", color: "var(--text-2)", border: "1px solid var(--border-2)", cursor: "pointer", fontFamily: "inherit" }} onClick={(e) => { e.stopPropagation(); setConfirmDelete(null); }}>Keep</button>
                         </div>
