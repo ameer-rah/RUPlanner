@@ -1,28 +1,41 @@
 {
   "catalog_year": "2025-2026",
   "programs": {
-
     "accounting_bsba": {
       "school": "RBS",
       "degree_level": "bachelor_bsba",
       "major_name": "Accounting",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
-        "ACCT272", "ACCT275",
-        "PROF301", "PROF302", "PROF303",
+        "EXPOS101",
+        "MATH135",
+        "ECON102",
+        "ECON103",
+        "STAT285",
+        "CS170",
+        "ACCT272",
+        "ACCT275",
+        "PROF301",
+        "PROF302",
+        "PROF303",
         "ACCT458",
-        "BAIT385", "BAIT386",
+        "BAIT385",
+        "BAIT386",
         "BLAW320",
         "FIN300",
-        "MGMT301", "MGMT302", "MGMT492",
+        "MGMT301",
+        "MGMT302",
+        "MGMT492",
         "MKTG301",
         "SCM301",
-        "ACCT325", "ACCT326",
+        "ACCT325",
+        "ACCT326",
         "ACCT451",
-        "ACCT415", "ACCT421",
+        "ACCT415",
+        "ACCT421",
         "ACCT401",
-        "ACCT416", "ACCT422"
+        "ACCT416",
+        "ACCT422"
       ],
       "electives": {
         "count": 0,
@@ -37,32 +50,59 @@
       ],
       "notes": []
     },
-
     "finance_bsba": {
       "school": "RBS",
       "degree_level": "bachelor_bsba",
       "major_name": "Finance",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
-        "ACCT272", "ACCT275",
-        "PROF301", "PROF302", "PROF303",
-        "BAIT370", "BAIT385", "BAIT386",
+        "EXPOS101",
+        "MATH135",
+        "ECON102",
+        "ECON103",
+        "STAT285",
+        "CS170",
+        "ACCT272",
+        "ACCT275",
+        "PROF301",
+        "PROF302",
+        "PROF303",
+        "BAIT370",
+        "BAIT385",
+        "BAIT386",
         "BLAW320",
         "FIN300",
-        "MGMT301", "MGMT302", "MGMT492",
+        "MGMT301",
+        "MGMT302",
+        "MGMT492",
         "MKTG301",
         "SCM301",
-        "FIN380", "FIN420", "FIN400"
+        "FIN380",
+        "FIN420",
+        "FIN400"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "FIN440", "ACCT472", "FIN410", "FIN460", "FIN331",
-          "FIN450", "FIN490", "FIN320", "FIN415", "FIN375",
-          "FIN385", "FIN465", "FIN435", "FIN480", "FIN430",
-          "FIN491", "FIN445", "ACCT325"
+          "FIN440",
+          "ACCT472",
+          "FIN410",
+          "FIN460",
+          "FIN331",
+          "FIN450",
+          "FIN490",
+          "FIN320",
+          "FIN415",
+          "FIN375",
+          "FIN385",
+          "FIN460",
+          "FIN435",
+          "FIN480",
+          "FIN430",
+          "FIN491",
+          "FIN445",
+          "ACCT325"
         ],
         "any_from_catalog": false
       },
@@ -75,32 +115,58 @@
       ],
       "notes": []
     },
-
     "marketing_bsba": {
       "school": "RBS",
       "degree_level": "bachelor_bsba",
       "major_name": "Marketing",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
-        "ACCT272", "ACCT275",
-        "PROF301", "PROF302", "PROF303",
-        "BAIT370", "BAIT385", "BAIT386",
+        "EXPOS101",
+        "MATH135",
+        "ECON102",
+        "ECON103",
+        "STAT285",
+        "CS170",
+        "ACCT272",
+        "ACCT275",
+        "PROF301",
+        "PROF302",
+        "PROF303",
+        "BAIT370",
+        "BAIT385",
+        "BAIT386",
         "BLAW320",
         "FIN300",
-        "MGMT301", "MGMT302", "MGMT492",
+        "MGMT301",
+        "MGMT302",
+        "MGMT492",
         "MKTG301",
         "SCM301",
-        "MKTG374", "MKTG385", "MKTG452"
+        "MKTG374",
+        "MKTG385",
+        "MKTG452"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "MKTG482", "MKTG498", "MKTG370", "MKTG497", "MKTG371",
-          "MKTG363", "MKTG489", "MKTG428", "MKTG499", "MKTG369",
-          "MKTG368", "MKTG401", "MKTG372", "MKTG488", "MKTG481",
-          "MKTG480", "MKTG485"
+          "MKTG452",
+          "MKTG498",
+          "MKTG370",
+          "MKTG497",
+          "MKTG371",
+          "MKTG363",
+          "MKTG489",
+          "MKTG428",
+          "MKTG499",
+          "MKTG369",
+          "MKTG368",
+          "MKTG401",
+          "MKTG371",
+          "MKTG488",
+          "MKTG481",
+          "MKTG480",
+          "MKTG485"
         ],
         "any_from_catalog": false
       },
@@ -112,30 +178,47 @@
       ],
       "notes": []
     },
-
     "leadership_management_bsba": {
       "school": "RBS",
       "degree_level": "bachelor_bsba",
       "major_name": "Leadership and Management",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
-        "ACCT272", "ACCT275",
-        "PROF301", "PROF302", "PROF303",
-        "BAIT370", "BAIT385", "BAIT386",
+        "EXPOS101",
+        "MATH135",
+        "ECON102",
+        "ECON103",
+        "STAT285",
+        "CS170",
+        "ACCT272",
+        "ACCT275",
+        "PROF301",
+        "PROF302",
+        "PROF303",
+        "BAIT370",
+        "BAIT385",
+        "BAIT386",
         "BLAW320",
         "FIN300",
-        "MGMT301", "MGMT302", "MGMT492",
+        "MGMT301",
+        "MGMT302",
+        "MGMT492",
         "MKTG301",
         "SCM301",
-        "MGMT369", "MGMT410"
+        "MGMT369",
+        "MGMT410"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "MGMT362", "MGMT330", "MGMT320", "MGMT350",
-          "MGMT370", "MGMT430", "MGMT471"
+          "MGMT362",
+          "MGMT330",
+          "MGMT320",
+          "MGMT350",
+          "MGMT362",
+          "MGMT430",
+          "MGMT471"
         ],
         "any_from_catalog": false
       },
@@ -148,32 +231,60 @@
       ],
       "notes": []
     },
-
     "supply_chain_management_bsba": {
       "school": "RBS",
       "degree_level": "bachelor_bsba",
       "major_name": "Supply Chain Management",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
-        "ACCT272", "ACCT275",
-        "PROF301", "PROF302", "PROF303",
-        "BAIT370", "BAIT385", "BAIT386",
+        "EXPOS101",
+        "MATH135",
+        "ECON102",
+        "ECON103",
+        "STAT285",
+        "CS170",
+        "ACCT272",
+        "ACCT275",
+        "PROF301",
+        "PROF302",
+        "PROF303",
+        "BAIT370",
+        "BAIT385",
+        "BAIT386",
         "BLAW320",
         "FIN300",
-        "MGMT301", "MGMT302", "MGMT492",
+        "MGMT301",
+        "MGMT302",
+        "MGMT492",
         "MKTG301",
         "SCM301",
-        "SCM305", "SCM330", "SCM310", "SCM380", "SCM420"
+        "SCM305",
+        "SCM330",
+        "SCM310",
+        "SCM380",
+        "SCM420"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "SCM430", "SCM440", "SCM460", "SCM410", "SCM455",
-          "SCM465", "SCM450", "SCM470", "SCM475", "SCM491",
-          "SCM340", "MKTG370", "MGMT350", "MKTG369", "MKTG368",
-          "MKTG385", "MKTG401"
+          "SCM430",
+          "SCM440",
+          "SCM460",
+          "SCM410",
+          "SCM455",
+          "SCM460",
+          "SCM450",
+          "SCM470",
+          "SCM475",
+          "SCM491",
+          "SCM340",
+          "MKTG370",
+          "MGMT350",
+          "MKTG369",
+          "MKTG368",
+          "MKTG385",
+          "MKTG401"
         ],
         "any_from_catalog": false
       },
@@ -187,30 +298,51 @@
       ],
       "notes": []
     },
-
     "business_analytics_it_bsba": {
       "school": "RBS",
       "degree_level": "bachelor_bsba",
       "major_name": "Business Analytics and Information Technology",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "EXPOS101", "MATH135", "ECON102", "ECON103", "STAT285", "CS170",
-        "ACCT272", "ACCT275",
-        "PROF301", "PROF302", "PROF303",
-        "BAIT370", "BAIT385", "BAIT386",
+        "EXPOS101",
+        "MATH135",
+        "ECON102",
+        "ECON103",
+        "STAT285",
+        "CS170",
+        "ACCT272",
+        "ACCT275",
+        "PROF301",
+        "PROF302",
+        "PROF303",
+        "BAIT370",
+        "BAIT385",
+        "BAIT386",
         "BLAW320",
         "FIN300",
-        "MGMT301", "MGMT302", "MGMT492",
+        "MGMT301",
+        "MGMT302",
+        "MGMT492",
         "MKTG301",
         "SCM301",
-        "BAIT388", "BAIT485", "BAIT470", "BAIT400"
+        "BAIT388",
+        "BAIT485",
+        "BAIT470",
+        "BAIT400"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 1,
         "options": [
-          "BAIT494", "BAIT465", "BAIT471", "BAIT487", "BAIT486",
-          "BAIT440", "BAIT405", "BAIT455", "BAIT450"
+          "BAIT494",
+          "BAIT465",
+          "BAIT471",
+          "BAIT487",
+          "BAIT486",
+          "BAIT440",
+          "BAIT405",
+          "BAIT455",
+          "BAIT450"
         ],
         "any_from_catalog": false
       },
@@ -224,20 +356,24 @@
       ],
       "notes": []
     },
-
     "business_analytics_concentration": {
       "school": "RBS",
       "degree_level": "concentration",
       "major_name": "Business Analytics",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BAIT400", "BAIT485"
+        "BAIT400",
+        "BAIT485"
       ],
       "electives": {
         "count": 1,
         "min_level_300_plus": 1,
         "options": [
-          "BAIT494", "BAIT450", "BAIT487", "BAIT486", "BAIT405"
+          "BAIT494",
+          "BAIT450",
+          "BAIT487",
+          "BAIT486",
+          "BAIT405"
         ],
         "any_from_catalog": false
       },
@@ -247,21 +383,28 @@
       ],
       "notes": []
     },
-
     "entrepreneurship_concentration": {
       "school": "RBS",
       "degree_level": "concentration",
       "major_name": "Entrepreneurship",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ENT302", "ENT303"
+        "ENT302",
+        "ENT303"
       ],
       "electives": {
         "count": 1,
         "min_level_300_plus": 0,
         "options": [
-          "ENT340", "ENT496", "ENT355", "ENT352", "ENT486",
-          "MKTG369", "ENT310", "ENT360", "ENT342"
+          "ENT340",
+          "ENT496",
+          "ENT340",
+          "ENT340",
+          "PROF486",
+          "MKTG369",
+          "ENT310",
+          "ENT340",
+          "ENT340"
         ],
         "any_from_catalog": false
       },
@@ -271,14 +414,15 @@
       ],
       "notes": []
     },
-
     "finance_concentration": {
       "school": "RBS",
       "degree_level": "concentration",
       "major_name": "Finance",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "FIN380", "FIN400", "FIN420"
+        "FIN380",
+        "FIN400",
+        "FIN420"
       ],
       "electives": {
         "count": 0,
@@ -292,21 +436,28 @@
       ],
       "notes": []
     },
-
     "global_business_concentration": {
       "school": "RBS",
       "degree_level": "concentration",
       "major_name": "Global Business",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "MGMT402", "MGMT369"
+        "MGMT402",
+        "MGMT369"
       ],
       "electives": {
         "count": 1,
         "min_level_300_plus": 1,
         "options": [
-          "MGMT320", "MGMT479", "MGMT410", "FIN320", "FIN375",
-          "MKTG371", "MGMT370", "MGMT350", "SCM305"
+          "MGMT320",
+          "MGMT479",
+          "MGMT410",
+          "FIN320",
+          "FIN375",
+          "MKTG371",
+          "MGMT362",
+          "MGMT350",
+          "SCM305"
         ],
         "any_from_catalog": false
       },
@@ -316,7 +467,6 @@
       ],
       "notes": []
     },
-
     "leadership_skills_concentration": {
       "school": "RBS",
       "degree_level": "concentration",
@@ -329,7 +479,12 @@
         "count": 2,
         "min_level_300_plus": 2,
         "options": [
-          "MGMT362", "MGMT350", "MGMT320", "MGMT370", "MGMT430", "MGMT330"
+          "MGMT362",
+          "MGMT350",
+          "MGMT320",
+          "MGMT362",
+          "MGMT430",
+          "MGMT330"
         ],
         "any_from_catalog": false
       },
@@ -340,20 +495,23 @@
       ],
       "notes": []
     },
-
     "management_information_systems_concentration": {
       "school": "RBS",
       "degree_level": "concentration",
       "major_name": "Management Information Systems",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BAIT470", "BAIT388"
+        "BAIT470",
+        "BAIT388"
       ],
       "electives": {
         "count": 1,
         "min_level_300_plus": 1,
         "options": [
-          "BAIT494", "BAIT465", "BAIT471", "BAIT450"
+          "BAIT494",
+          "BAIT465",
+          "BAIT471",
+          "BAIT450"
         ],
         "any_from_catalog": false
       },
@@ -363,14 +521,16 @@
       ],
       "notes": []
     },
-
     "real_estate_concentration": {
       "school": "RBS",
       "degree_level": "concentration",
       "major_name": "Real Estate",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "RE350", "RE380", "RE470", "RE432"
+        "RE350",
+        "RE380",
+        "RE470",
+        "RE432"
       ],
       "electives": {
         "count": 0,
@@ -385,20 +545,23 @@
       ],
       "notes": []
     },
-
     "professional_selling_concentration": {
       "school": "RBS",
       "degree_level": "concentration",
       "major_name": "Professional Selling",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "MKTG485", "MKTG401"
+        "MKTG485",
+        "MKTG401"
       ],
       "electives": {
         "count": 1,
         "min_level_300_plus": 0,
         "options": [
-          "MGMT350", "MKTG368", "MKTG369", "MKTG370"
+          "MGMT350",
+          "MKTG368",
+          "MKTG369",
+          "MKTG370"
         ],
         "any_from_catalog": false
       },
@@ -409,28 +572,72 @@
       ],
       "notes": []
     },
-
     "mba_fulltime": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "MBA (Full-Time)",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GACCT502", "GECON521", "GFIN522", "GMGT540", "GMKT550",
-        "GSCM564", "GETH623", "GMIS504", "GSTAT575", "GMGT589"
+        "GACCT502",
+        "GECON521",
+        "GFIN522",
+        "GMGT540",
+        "GMKT550",
+        "ISE564",
+        "GETH623",
+        "GMIS504",
+        "STAT575",
+        "GMGT589"
       ],
       "electives": {
         "count": 6,
         "options": [
-          "GINT543", "GMGT672", "GSCM650", "GFIN603", "GFIN604",
-          "GFIN605", "GFIN609", "GFIN611", "GFIN658", "GFIN681",
-          "GECON591", "GSCM607", "GSCM608", "GSCM640", "GSCM641",
-          "GSCM659", "GSCM661", "GSCM663", "GSCM669", "GSCM672",
-          "GSCM676", "GSCM679", "GMKT604", "GMKT609", "GMKT601",
-          "GMKT606", "GMKT610", "GMKT613", "GMKT615", "GMKT632",
-          "GMKT655", "GMKT677", "GMGT601", "GMGT603", "GMGT604",
-          "GMGT606", "GMGT617", "GMGT624", "GMGT654", "GMGT679",
-          "GIIB621", "GIIB670", "GRE632", "GRE650", "GRE630", "GFIN695"
+          "GINT543",
+          "MGMT672",
+          "SCM650",
+          "FIN603",
+          "FIN604",
+          "FIN605",
+          "FIN609",
+          "FIN611",
+          "FIN658",
+          "GFIN681",
+          "GECON591",
+          "SCM607",
+          "SCM608",
+          "SCM640",
+          "SCM641",
+          "SCM659",
+          "SCM661",
+          "GSCM663",
+          "GSCM669",
+          "GSCM672",
+          "SCM676",
+          "SCM679",
+          "MKTG604",
+          "MKTG609",
+          "GMKT601",
+          "MGMT606",
+          "GMKT610",
+          "MKTG613",
+          "GMKT615",
+          "GMKT632",
+          "GMKT655",
+          "GMKT677",
+          "GMGT601",
+          "MGMT603",
+          "MGMT604",
+          "MGMT606",
+          "MGMT617",
+          "GMGT624",
+          "MGMT654",
+          "MGMT679",
+          "GIIB621",
+          "GIIB670",
+          "RE632",
+          "GRE650",
+          "ECON630",
+          "GFIN695"
         ],
         "any_from_catalog": false
       },
@@ -439,29 +646,71 @@
         "Choose a concentration: Finance, Supply Chain, Marketing, Analytics & Information Management, AI, Entrepreneurship, Strategy & Leadership, Global Business, Real Estate, Pharmaceutical Management."
       ]
     },
-
     "mba_parttime": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "MBA (Professional — Part-Time)",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GACCT577", "GECON581", "GFIN587", "GMGT585", "GMKT586",
-        "GSCM580", "GETH628"
+        "ACCT577",
+        "HUMEC581",
+        "FIN587",
+        "MGMT585",
+        "MKTG586",
+        "SCM580",
+        "EPIB628"
       ],
       "electives": {
         "count": 10,
         "options": [
-          "GMIS504", "GMGT588", "GBLAW592", "GIIB621", "GSTAT575",
-          "GINT543", "GMGT672", "GSCM650", "GFIN603", "GFIN604",
-          "GFIN605", "GFIN609", "GFIN611", "GFIN658", "GFIN681",
-          "GECON591", "GSCM607", "GSCM608", "GSCM640", "GSCM641",
-          "GSCM659", "GSCM661", "GSCM663", "GSCM669", "GSCM672",
-          "GSCM676", "GSCM679", "GMKT604", "GMKT609", "GMKT601",
-          "GMKT606", "GMKT610", "GMKT615", "GMKT632", "GMKT655",
-          "GMKT677", "GMGT601", "GMGT603", "GMGT604", "GMGT606",
-          "GMGT617", "GMGT624", "GMGT654", "GMGT679", "GIIB670",
-          "GRE632", "GRE650", "GFIN695"
+          "GMIS504",
+          "MGMT588",
+          "BLAW592",
+          "GIIB621",
+          "STAT575",
+          "GINT543",
+          "MGMT672",
+          "SCM650",
+          "FIN603",
+          "FIN604",
+          "FIN605",
+          "FIN609",
+          "FIN611",
+          "FIN658",
+          "GFIN681",
+          "GECON591",
+          "SCM607",
+          "SCM608",
+          "SCM640",
+          "SCM641",
+          "SCM659",
+          "SCM661",
+          "GSCM663",
+          "GSCM669",
+          "GSCM672",
+          "SCM676",
+          "SCM679",
+          "MKTG604",
+          "MKTG609",
+          "GMKT601",
+          "GMKT606",
+          "GMKT610",
+          "GMKT615",
+          "GMKT632",
+          "GMKT655",
+          "GMKT677",
+          "GMGT601",
+          "MGMT603",
+          "MGMT604",
+          "MGMT606",
+          "MGMT617",
+          "GMGT624",
+          "MGMT654",
+          "MGMT679",
+          "GIIB670",
+          "RE632",
+          "GRE650",
+          "ACCT695"
         ],
         "any_from_catalog": false
       },
@@ -470,7 +719,6 @@
         "Part-time evening program (~3 years average)."
       ]
     },
-
     "ms_supply_chain_management": {
       "school": "RBS",
       "degree_level": "master",
@@ -480,9 +728,21 @@
       "electives": {
         "count": 10,
         "options": [
-          "GSCM586", "GSCM602", "GSCM610", "GSCM618", "GSCM637",
-          "GSCM639", "GSCM643", "GSCM680", "GSCM689", "GSCM690",
-          "GSCM693", "GSCM694", "GSCM698", "GSCM699", "GMKT606"
+          "SCM586",
+          "GSCM602",
+          "GSCM610",
+          "GSCM618",
+          "GSCM637",
+          "GSCM639",
+          "GSCM643",
+          "MGMT680",
+          "GSCM689",
+          "GSCM690",
+          "GSCM693",
+          "GSCM694",
+          "GSCM698",
+          "GSCM699",
+          "MGMT606"
         ],
         "any_from_catalog": false
       },
@@ -491,22 +751,38 @@
         "No prerequisite requirements. All courses are open to enrolled students."
       ]
     },
-
     "ms_supply_chain_analytics": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "MS in Supply Chain Analytics",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GSCM607", "GSCM586", "GSCM601"
+        "SCM607",
+        "SCM586",
+        "SCM601"
       ],
       "electives": {
         "count": 10,
         "options": [
-          "GSCM649", "GSCM650", "GSCM608", "GSCM640", "GSCM659",
-          "GSCM661", "GSCM663", "GSCM676", "GSCM672", "GSCM679",
-          "GBAN603", "GSTAT608", "GSTAT641", "GBAN650", "GBAN646",
-          "GBAN660", "GBAN641", "GSCM696", "GMGT617"
+          "SCM649",
+          "SCM650",
+          "SCM608",
+          "SCM640",
+          "SCM659",
+          "SCM661",
+          "GSCM663",
+          "SCM676",
+          "GSCM672",
+          "SCM679",
+          "MGMT603",
+          "STAT608",
+          "STAT641",
+          "SCM650",
+          "GBAN646",
+          "CS660",
+          "SCM641",
+          "SCM696",
+          "MGMT617"
         ],
         "any_from_catalog": false
       },
@@ -515,19 +791,27 @@
         "STEM-designated program."
       ]
     },
-
     "master_financial_analysis": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "Master of Financial Analysis",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GACCT577", "GFINA591", "GFINA658", "GFINA587", "GFINA603", "GFINA581"
+        "ACCT577",
+        "GFINA591",
+        "FIN658",
+        "FIN587",
+        "FIN603",
+        "GFINA581"
       ],
       "electives": {
         "count": 5,
         "options": [
-          "GFINA611", "GFINA609", "GFINA613", "GFINA685", "GFINA608"
+          "FIN611",
+          "FIN609",
+          "FIN613",
+          "GFINA685",
+          "FIN608"
         ],
         "any_from_catalog": false
       },
@@ -536,21 +820,36 @@
         "Full-time track; part-time option available with same courses."
       ]
     },
-
     "master_quantitative_finance": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "Master of Quantitative Finance",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GQF611", "GQF654", "GQF604", "GQF571", "GQF662",
-        "GQF510", "GQF614", "GQF615", "GQF609", "GMATH563"
+        "FIN611",
+        "STAT654",
+        "FIN604",
+        "GQF571",
+        "GQF662",
+        "GQF510",
+        "GQF614",
+        "GQF615",
+        "FIN609",
+        "STAT563"
       ],
       "electives": {
         "count": 5,
         "options": [
-          "GQF603", "GQF670", "GQF686", "GQF695", "GFIN605",
-          "GFIN658", "GBAN650", "GACCT645", "GFINA613", "GFIN681"
+          "FIN603",
+          "GQF670",
+          "GQF686",
+          "STAT695",
+          "FIN605",
+          "FIN658",
+          "GBAN650",
+          "ACCT645",
+          "FIN613",
+          "STAT681"
         ],
         "any_from_catalog": false
       },
@@ -559,7 +858,6 @@
         "STEM-designated program."
       ]
     },
-
     "ms_information_technology_analytics": {
       "school": "RBS",
       "degree_level": "master",
@@ -569,9 +867,20 @@
       "electives": {
         "count": 10,
         "options": [
-          "GBAN643", "GBAN603", "GBAN641", "GBAN650", "GBAN605",
-          "GBAN645", "GBAN646", "GBAN631", "GBAN635", "GBAN660",
-          "GBAN640", "GSTAT641", "GSTAT646", "GSCM659"
+          "CS643",
+          "GBAN603",
+          "GBAN641",
+          "GBAN650",
+          "GBAN605",
+          "GBAN645",
+          "STAT646",
+          "GBAN631",
+          "GBAN635",
+          "CS660",
+          "GBAN640",
+          "STAT641",
+          "STAT646",
+          "SCM659"
         ],
         "any_from_catalog": false
       },
@@ -579,19 +888,28 @@
         "30 total credits. Choose 3 foundation courses then 3+ from one concentration (Operations Research/AI-ML/Cybersecurity)."
       ]
     },
-
     "ms_digital_marketing": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "MS in Digital Marketing",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GMKT590", "GMKT630", "GMKT639", "GMKT638", "GMKT629", "GMKT634"
+        "GMKT590",
+        "GMKT630",
+        "GMKT639",
+        "GMKT638",
+        "GMKT629",
+        "GMKT634"
       ],
       "electives": {
         "count": 3,
         "options": [
-          "GMKT637", "GMKT631", "GMKT635", "GMKT633", "GMKT636", "GMKT632"
+          "GMKT637",
+          "GMKT631",
+          "GMKT635",
+          "GMKT633",
+          "GMKT636",
+          "GMKT632"
         ],
         "any_from_catalog": false
       },
@@ -599,19 +917,30 @@
         "30 total credits: 21 required core + 9 electives."
       ]
     },
-
     "ms_marketing_analytics_insights": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "MS in Marketing Analytics and Insights",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GMKT586", "GMKT604", "GMKT679", "GMKT685", "GBAN641", "GBAN646", "GMKT691"
+        "MKTG586",
+        "MKTG604",
+        "MKTG679",
+        "GMKT685",
+        "STAT641",
+        "STAT646",
+        "GMKT691"
       ],
       "electives": {
         "count": 3,
         "options": [
-          "GMKT655", "GMKT677", "GMKT604", "GBAN603", "GBAN635", "GBAN660", "GMKT678"
+          "GMKT655",
+          "GMKT677",
+          "MKTG604",
+          "GBAN603",
+          "GBAN635",
+          "CS660",
+          "GMKT678"
         ],
         "any_from_catalog": false
       },
@@ -620,20 +949,31 @@
         "Prerequisites: Marketing Management is pre/co-requisite for several core courses."
       ]
     },
-
     "macc_accounting_analytics": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "MAcc — Accounting and Analytics",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GACCT645", "GACCT531", "GACCT660", "GACCT630", "GACCT695"
+        "ACCT645",
+        "ACCT531",
+        "ACCT660",
+        "ACCT630",
+        "ACCT695"
       ],
       "electives": {
         "count": 5,
         "options": [
-          "GACCT635", "GACCT627", "GACCT688", "GACCT678", "GACCT684",
-          "GACCT686", "GACCT604", "GETH619", "GACCT551", "GACCT631"
+          "GACCT635",
+          "GACCT627",
+          "GACCT688",
+          "GACCT678",
+          "GACCT684",
+          "GACCT686",
+          "GACCT604",
+          "EPIB619",
+          "GACCT551",
+          "GACCT631"
         ],
         "any_from_catalog": false
       },
@@ -643,20 +983,32 @@
         "Minimum 15 STEM credits required for degree certification."
       ]
     },
-
     "macc_taxation": {
       "school": "RBS",
       "degree_level": "master",
       "major_name": "MAcc — Taxation",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GACCT603", "GACCT605", "GACCT615", "GACCT616", "GETH619", "GBLAW592"
+        "GACCT603",
+        "GACCT605",
+        "GACCT615",
+        "ACCT616",
+        "EPIB619",
+        "BLAW592"
       ],
       "electives": {
         "count": 4,
         "options": [
-          "GACCT618", "GACCT626", "GACCT629", "GACCT631", "GACCT620",
-          "GACCT671", "GACCT625", "GACCT657", "GACCT619", "GACCT649"
+          "GACCT618",
+          "GACCT626",
+          "GACCT629",
+          "GACCT631",
+          "GACCT620",
+          "GACCT671",
+          "GACCT625",
+          "GACCT657",
+          "GACCT619",
+          "GACCT649"
         ],
         "any_from_catalog": false
       },
@@ -666,6 +1018,5 @@
         "All electives require GACCT603 as prerequisite."
       ]
     }
-
   }
 }

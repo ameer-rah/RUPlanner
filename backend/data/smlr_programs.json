@@ -18,7 +18,7 @@
         "LSER345",
         "LSER364",
         "LSER376",
-        "LER315"
+        "DISA315"
       ],
       "electives": {
         "description": "Three additional courses from HRM or LER offerings (no more than 3 LER total across required + electives)",
@@ -34,24 +34,24 @@
           "LER312",
           "LER314",
           "LER316",
-          "LER318",
+          "HRM318",
           "LER319",
-          "LER325",
-          "LER326",
+          "HRM325",
+          "HRM326",
           "LER338",
-          "LER350",
+          "LSER350",
           "LER360",
-          "LER363",
-          "LER367",
-          "LER368",
-          "LER375",
+          "LSER364",
+          "DISA367",
+          "LER587",
+          "LER587",
           "LER377",
-          "LER385",
-          "LER401",
+          "LER587",
+          "LER587",
           "LER402",
-          "LER403",
-          "LER404",
-          "LER450"
+          "LER587",
+          "LER587",
+          "LER587"
         ],
         "any_from_catalog": false
       },
@@ -132,12 +132,12 @@
         "min_level_200_plus": 9,
         "options": [
           "LER201",
-          "LER202",
-          "LER203",
-          "LER207",
+          "DISA202",
+          "DISA203",
+          "DISA207",
           "LER215",
           "LER220",
-          "LER230",
+          "DISA230",
           "LER240",
           "LER250",
           "LER265",
@@ -145,57 +145,57 @@
           "LER295",
           "LER297",
           "LER298",
-          "LER300",
-          "LER301",
+          "DISA300",
+          "DISA301",
           "LER302",
           "LER303",
           "LER304",
           "LER307",
-          "LER308",
+          "LSER308",
           "LER309",
-          "LER310",
-          "LER311",
-          "LER312",
-          "LER313",
-          "LER314",
-          "LER315",
-          "LER316",
-          "LER317",
-          "LER318",
+          "DISA310",
+          "HRM311",
+          "HRM312",
+          "HRM313",
+          "DISA314",
+          "DISA315",
+          "DISA316",
+          "HRM317",
+          "HRM318",
           "LER319",
           "LER320",
-          "LER321",
-          "LER322",
-          "LER325",
-          "LER326",
+          "HRM321",
+          "HRM322",
+          "DISA325",
+          "HRM326",
           "LER330",
-          "LER335",
+          "HRM335",
           "LER336",
           "LER337",
           "LER338",
-          "LER340",
-          "LER350",
-          "LER355",
-          "LER357",
+          "DISA340",
+          "LSER350",
+          "DISA355",
+          "HRM357",
           "LER359",
           "LER360",
-          "LER361",
+          "DISA361",
           "LER362",
-          "LER363",
+          "DISA363",
           "LER366",
           "LER367",
           "LER368",
-          "LER375",
+          "LER587",
           "LER377",
-          "LER378",
-          "LER385",
-          "LER401",
-          "LER402",
+          "LER587",
+          "LER587",
+          "DISA401",
+          "ECON402",
           "LER403",
           "LER404",
-          "LER407",
-          "LER450",
-          "LER470",
+          "LER587",
+          "LER587",
+          "LER587",
           "LSER345",
           "LSER364",
           "LSER376",
@@ -229,7 +229,7 @@
       "major_name": "Labor and Employment Relations",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "LER315",
+        "DISA315",
         "LER395"
       ],
       "intro_requirement": {
@@ -269,11 +269,11 @@
         "options": [
           "LER201",
           "LER202",
-          "LER203",
+          "DISA203",
           "LER207",
           "LER215",
-          "LER220",
-          "LER230",
+          "LER587",
+          "DISA230",
           "LER240",
           "LER250",
           "LER265",
@@ -287,48 +287,48 @@
           "LER303",
           "LER304",
           "LER307",
-          "LER308",
+          "LSER308",
           "LER309",
           "LER310",
           "LER311",
           "LER312",
           "LER313",
-          "LER314",
-          "LER316",
-          "LER317",
-          "LER318",
+          "DISA314",
+          "DISA316",
+          "HRM317",
+          "HRM318",
           "LER319",
           "LER320",
-          "LER321",
-          "LER322",
-          "LER325",
-          "LER326",
+          "HRM321",
+          "HRM322",
+          "HRM325",
+          "DISA326",
           "LER330",
-          "LER335",
+          "HRM335",
           "LER336",
           "LER337",
           "LER338",
-          "LER340",
-          "LER350",
-          "LER355",
+          "DISA340",
+          "LSER350",
+          "DISA355",
           "LER357",
           "LER359",
           "LER360",
-          "LER361",
+          "DISA361",
           "LER362",
-          "LER363",
+          "DISA363",
           "LER366",
           "LER367",
           "LER368",
-          "LER375",
+          "LER587",
           "LER377",
           "LER378",
-          "LER385",
-          "LER402",
+          "LER587",
+          "ECON402",
           "LER403",
           "LER404",
           "LER407",
-          "LER470",
+          "LER587",
           "LSER345",
           "LSER364",
           "LSER376"
@@ -365,7 +365,7 @@
       "competency_areas": {
         "description": "One course from each of six competency areas (18 credits total)",
         "law": {
-          "description": "Law \u2014 choose one (3 credits)",
+          "description": "Law — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER550",
@@ -374,7 +374,7 @@
           ]
         },
         "workforce_diversity": {
-          "description": "Workforce Diversity \u2014 choose one (3 credits)",
+          "description": "Workforce Diversity — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER541",
@@ -384,7 +384,7 @@
           ]
         },
         "institutional_variety": {
-          "description": "Institutional Variety \u2014 choose one (3 credits)",
+          "description": "Institutional Variety — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER562",
@@ -393,7 +393,7 @@
           ]
         },
         "economic_policy": {
-          "description": "Economic Policy \u2014 choose one (3 credits)",
+          "description": "Economic Policy — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER527",
@@ -401,7 +401,7 @@
           ]
         },
         "finance": {
-          "description": "Finance \u2014 choose one (3 credits)",
+          "description": "Finance — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER538",
@@ -409,7 +409,7 @@
           ]
         },
         "research_methods": {
-          "description": "Research Methods \u2014 choose one (3 credits)",
+          "description": "Research Methods — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER501",
@@ -435,59 +435,59 @@
           "MLER512",
           "MLER513",
           "MLER515",
-          "MLER516",
+          "LSER516",
           "MLER520",
           "MLER525",
           "MLER526",
-          "MLER528",
+          "SW528",
           "MLER530",
           "MLER535",
           "MLER541",
           "MLER543",
           "MLER544",
-          "MLER550",
+          "HRM550",
           "MLER551",
-          "MLER555",
+          "PPOL555",
           "MLER556",
-          "MLER557",
+          "HA557",
           "MLER558",
           "MLER559",
           "MLER562",
           "MLER563",
-          "MLER565",
-          "MLER566",
+          "HRM565",
+          "HRM566",
           "MLER567",
           "MLER569",
           "MLER570",
           "MLER575",
           "MLER581",
           "MLER603",
-          "MLER604",
+          "MGMT604",
           "MLER612",
           "MLER690",
           "MLER694",
           "MLER695",
-          "MHRM533",
-          "MHRM540",
-          "MHRM542",
-          "MHRM550",
+          "HRM533",
+          "HRM540",
+          "HRM542",
+          "HRM550",
           "MHRM551",
           "MHRM552",
-          "MHRM553",
+          "SW553",
           "MHRM554",
           "MHRM555",
           "MHRM556",
-          "MHRM565",
-          "MHRM566",
-          "MHRM635",
-          "MHRM665"
+          "HRM565",
+          "HRM566",
+          "HRM635",
+          "HRM665"
         ],
         "any_from_catalog": false
       },
       "specializations": {
         "description": "Students may align their five electives around one of four optional specialization tracks",
         "diversity_and_workplace_inclusion": {
-          "description": "Diversity and Workplace Inclusion \u2014 Employment Law is required; choose electives from track list",
+          "description": "Diversity and Workplace Inclusion — Employment Law is required; choose electives from track list",
           "required_in_competency": [
             "MHRM566"
           ],
@@ -501,7 +501,7 @@
           ]
         },
         "organizational_leadership_and_change": {
-          "description": "Organizational Leadership and Change \u2014 choose electives from track list",
+          "description": "Organizational Leadership and Change — choose electives from track list",
           "recommended_electives": [
             "MLER543",
             "MLER556",
@@ -512,7 +512,7 @@
           ]
         },
         "labor_relations": {
-          "description": "Labor Relations \u2014 Collective Bargaining (MLER560) and Financial Analysis (MLER538) are required",
+          "description": "Labor Relations — Collective Bargaining (MLER560) and Financial Analysis (MLER538) are required",
           "required_in_core_or_competency": [
             "MLER560",
             "MLER538"
@@ -528,7 +528,7 @@
           ]
         },
         "labor_and_community_leadership": {
-          "description": "Labor and Community Leadership \u2014 choose electives from track list",
+          "description": "Labor and Community Leadership — choose electives from track list",
           "recommended_electives": [
             "MLER513",
             "MLER559",
@@ -540,7 +540,7 @@
         }
       },
       "constraints": [
-        "Total credits: 39 (13 courses \u00d7 3 credits each).",
+        "Total credits: 39 (13 courses × 3 credits each).",
         "MLER500 (Introductory Seminar) must be taken in the first or second semester.",
         "Minimum of 6 elective credits must come from the MLER department (38:578 prefix).",
         "Students interested in employer-side HR may take up to 3 electives from the MHRM program.",
@@ -556,7 +556,7 @@
     "mler_master_online": {
       "school": "SMLR",
       "degree_level": "master",
-      "major_name": "Labor and Employment Relations (MLER) \u2014 Online Professional",
+      "major_name": "Labor and Employment Relations (MLER) — Online Professional",
       "catalog_year": "2025-2026",
       "total_credits": 36,
       "description": "100% online MLER designed for working professionals enrolled part-time. Requires 12 courses (36 credits) split across four required foundational courses, four competency-category courses, and four electives.",
@@ -572,7 +572,7 @@
       "competency_categories": {
         "description": "One course from each of four competency categories (12 credits)",
         "law": {
-          "description": "Law \u2014 choose one (3 credits)",
+          "description": "Law — choose one (3 credits)",
           "count": 1,
           "options": [
             "MHRM566",
@@ -581,7 +581,7 @@
           ]
         },
         "workforce_diversity": {
-          "description": "Workforce Diversity \u2014 choose one (3 credits)",
+          "description": "Workforce Diversity — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER510",
@@ -589,7 +589,7 @@
           ]
         },
         "research_methods": {
-          "description": "Research Methods \u2014 choose one (3 credits)",
+          "description": "Research Methods — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER501",
@@ -598,7 +598,7 @@
           ]
         },
         "institutional_variety": {
-          "description": "Institutional Variety \u2014 choose one (3 credits)",
+          "description": "Institutional Variety — choose one (3 credits)",
           "count": 1,
           "options": [
             "MLER612",
@@ -622,11 +622,11 @@
           "MLER543",
           "MLER544",
           "MLER551",
-          "MLER555",
+          "PPOL555",
           "MLER556",
           "MLER559",
           "MLER562",
-          "MLER565",
+          "HRM565",
           "MLER567",
           "MLER569",
           "MLER603",
@@ -636,8 +636,8 @@
         "any_from_catalog": false
       },
       "constraints": [
-        "Total credits: 36 (12 courses \u00d7 3 credits each).",
-        "100% online; no minimum course load per semester \u2014 part-time friendly.",
+        "Total credits: 36 (12 courses × 3 credits each).",
+        "100% online; no minimum course load per semester — part-time friendly.",
         "Designed for working professionals; no GRE/GMAT required.",
         "Minimum GPA of 3.0 required to remain in good standing."
       ],
@@ -657,7 +657,7 @@
       "required_core": {
         "description": "Twelve required core courses (36 credits)",
         "hr_strategy": {
-          "description": "HR Strategy sequence \u2014 four courses, taken in order (12 credits)",
+          "description": "HR Strategy sequence — four courses, taken in order (12 credits)",
           "courses": [
             "MHRM580",
             "MHRM590",
@@ -666,14 +666,14 @@
           ]
         },
         "hr_decision_making": {
-          "description": "HR Decision Making \u2014 two courses (6 credits)",
+          "description": "HR Decision Making — two courses (6 credits)",
           "courses": [
             "MHRM540",
             "MHRM542"
           ]
         },
         "hr_functional": {
-          "description": "HR Functional Areas \u2014 three courses (9 credits)",
+          "description": "HR Functional Areas — three courses (9 credits)",
           "courses": [
             "MHRM533",
             "MHRM634",
@@ -681,7 +681,7 @@
           ]
         },
         "hr_context": {
-          "description": "HR Context Areas \u2014 three courses (9 credits)",
+          "description": "HR Context Areas — three courses (9 credits)",
           "courses": [
             "MHRM565",
             "MHRM566",
@@ -693,16 +693,16 @@
         "description": "Four elective courses (12 credits); HR Analytics concentration requires MHRM550 and MHRM650",
         "count": 4,
         "options": [
-          "MHRM550",
-          "MHRM650",
+          "HRM550",
+          "HRM650",
           "MHRM551",
           "MHRM552",
-          "MHRM553",
+          "SW553",
           "MHRM554",
           "MHRM555",
           "MHRM556",
           "MLER505",
-          "MLER510",
+          "HA510",
           "MLER515",
           "MLER520",
           "MLER525",
@@ -710,11 +710,11 @@
           "MLER538",
           "MLER543",
           "MLER544",
-          "MLER550",
+          "HRM550",
           "MLER551",
           "MLER556",
           "MLER567",
-          "MLER569"
+          "ACE569"
         ],
         "any_from_catalog": false
       },
@@ -728,7 +728,7 @@
       },
       "constraints": [
         "Total credits: 48 (12 core + 4 electives, all 3 credits each).",
-        "MHRM580 \u2192 MHRM590 \u2192 MHRM680 \u2192 MHRM690 must be completed in sequence.",
+        "MHRM580 → MHRM590 → MHRM680 → MHRM690 must be completed in sequence.",
         "MHRM680 additionally requires MHRM540 as a prerequisite.",
         "MHRM635 requires completion of MHRM542.",
         "MHRM550 (Analytics I) requires grade of B+ or higher in MHRM542.",
@@ -745,7 +745,7 @@
     "mhrm_master_online": {
       "school": "SMLR",
       "degree_level": "master",
-      "major_name": "Human Resource Management (MHRM) \u2014 Online Professional",
+      "major_name": "Human Resource Management (MHRM) — Online Professional",
       "catalog_year": "2025-2026",
       "description": "100% online MHRM for HR professionals and managers/supervisors with 4+ years of experience. Completable in as few as 18 months. Consists of 8 required core HR courses, a capstone, and 3 electives.",
       "required_core": {
@@ -771,16 +771,16 @@
         "description": "Three elective courses",
         "count": 3,
         "options": [
-          "MHRM550",
-          "MHRM650",
+          "HRM550",
+          "HRM650",
           "MHRM551",
           "MHRM552",
           "MHRM553",
           "MHRM554",
           "MHRM555",
           "MHRM556",
-          "MHRM634",
-          "MHRM635"
+          "HRM634",
+          "HRM635"
         ],
         "any_from_catalog": false
       },

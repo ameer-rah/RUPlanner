@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 from datetime import datetime, timedelta
-from typing import List
+from typing import List, Optional
 
 from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -158,9 +158,15 @@ def _create_token(user_id: int) -> str:
     expire = datetime.utcnow() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     return jwt.encode({"sub": str(user_id), "exp": expire}, SECRET_KEY, algorithm=ALGORITHM)
 
-def _get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(_bearer)) -> int:
+def _get_current_user_id(
+    request: Request,
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(HTTPBearer(auto_error=False)),
+) -> int:
+    token = credentials.credentials if credentials else request.cookies.get("ru_planner_token")
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
     try:
-        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id = payload.get("sub")
         if user_id is None:
             raise HTTPException(status_code=401, detail="Invalid token")
@@ -387,12 +393,16 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
         raise HTTPException(status_code=502, detail=f"AI service error: {exc}")
 
     raw = msg.content[0].text.strip()
-    if raw.startswith("```"):
-        raw = re.sub(r"^```[a-z]*\n?", "", raw).rstrip("`").strip()
+    # Extract the JSON object regardless of preamble text or markdown fences.
+    start = raw.find("{")
+    end = raw.rfind("}")
+    if start != -1 and end != -1:
+        raw = raw[start:end + 1]
 
     try:
         data = _json.loads(raw)
     except _json.JSONDecodeError:
+        logger.error("Transcript parse: Claude returned non-JSON: %s", raw[:500])
         raise HTTPException(status_code=502, detail="AI returned an unreadable response. Please try again.")
 
     # Build CourseDetail list; resolve raw_code → rutgers_code via DB when Claude couldn't.
@@ -474,7 +484,7 @@ def register(request: Request, payload: UserCreate, response: Response) -> Token
             value=token,
             httponly=True,
             secure=True,
-            samesite="strict",
+            samesite="none",
             max_age=7 * 24 * 60 * 60
         )
         return Token(access_token=token, token_type="bearer")
@@ -495,7 +505,7 @@ def login(request: Request, payload: UserCreate, response: Response) -> Token:
             value=token,
             httponly=True,
             secure=True,
-            samesite="strict",
+            samesite="none",
             max_age=7 * 24 * 60 * 60
         )
         return Token(access_token=token, token_type="bearer")
@@ -530,7 +540,7 @@ def google_auth(request: Request, payload: GoogleAuthRequest, response: Response
             value=token,
             httponly=True,
             secure=True,
-            samesite="strict",
+            samesite="none",
             max_age=7 * 24 * 60 * 60
         )
         return Token(access_token=token, token_type="bearer")
@@ -547,6 +557,12 @@ def me(user_id: int = Depends(_get_current_user_id)):
         return {"id": user.id, "email": user.email}
     finally:
         db.close()
+
+@app.post("/auth/logout")
+def logout(response: Response) -> dict:
+    response.delete_cookie(key="ru_planner_token", httponly=True, secure=True, samesite="none")
+    return {"status": "ok"}
+
 
 @app.post("/auth/forgot-password", status_code=200)
 @_limiter.limit("3/minute")

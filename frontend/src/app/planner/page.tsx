@@ -369,9 +369,12 @@ export default function PlannerPage() {
     );
   }
 
-  function handleSignOut() {
+  async function handleSignOut() {
     safeRemoveStorage("ru_planner_token");
     safeRemoveStorage("ru_planner_email");
+    try {
+      await fetch(`${apiBase}/auth/logout`, { method: "POST", credentials: "include" });
+    } catch {}
     router.push("/");
   }
 

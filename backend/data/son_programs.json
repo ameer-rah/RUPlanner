@@ -49,7 +49,7 @@
         ]
       },
       "electives": {
-        "description": "Liberal Arts and Science elective requirements \u2014 courses outside nursing to fulfill degree breadth",
+        "description": "Liberal Arts and Science elective requirements — courses outside nursing to fulfill degree breadth",
         "count": 0,
         "options": [],
         "any_from_catalog": true,
@@ -117,7 +117,7 @@
     "nursing_msn_fnp": {
       "school": "SON",
       "degree_level": "master",
-      "major_name": "Nursing (MSN) \u2014 Family Nurse Practitioner",
+      "major_name": "Nursing (MSN) — Family Nurse Practitioner",
       "catalog_year": "2025-2026",
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
@@ -148,7 +148,7 @@
         "Total credits: 45 (core + specialization + elective).",
         "MSN500, MSN501, and MSN502 (Advanced Assessment, Pathophysiology, Pharmacology) must be completed before MSN530.",
         "MSN530 (Diagnostic Reasoning) must be completed before any FNP specialization courses.",
-        "FNP specialization courses must be taken in sequence (MSN540 \u2192 MSN541 \u2192 MSN542 \u2192 MSN543 \u2192 MSN544 \u2192 MSN545).",
+        "FNP specialization courses must be taken in sequence (MSN540 → MSN541 → MSN542 → MSN543 → MSN544 → MSN545).",
         "Minimum 500 supervised clinical hours required (distributed across FNP practicum courses).",
         "Minimum GPA of 3.0 required to remain in good standing.",
         "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program.",
@@ -173,7 +173,7 @@
     "nursing_msn_agpcnp": {
       "school": "SON",
       "degree_level": "master",
-      "major_name": "Nursing (MSN) \u2014 Adult-Gerontology Primary Care NP",
+      "major_name": "Nursing (MSN) — Adult-Gerontology Primary Care NP",
       "catalog_year": "2025-2026",
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
@@ -214,7 +214,7 @@
         "Total credits: 45 (core + specialization + electives).",
         "MSN500, MSN501, and MSN502 must be completed before MSN530.",
         "MSN530 must be completed before any AGPC NP specialization courses.",
-        "AGPC NP courses must be taken in sequence (MSN550 \u2192 MSN551 \u2192 MSN552 \u2192 MSN553).",
+        "AGPC NP courses must be taken in sequence (MSN550 → MSN551 → MSN552 → MSN553).",
         "Minimum 500 supervised clinical hours required.",
         "Minimum GPA of 3.0 required to remain in good standing.",
         "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program."
@@ -228,7 +228,7 @@
     "nursing_msn_pmhnp": {
       "school": "SON",
       "degree_level": "master",
-      "major_name": "Nursing (MSN) \u2014 Psychiatric-Mental Health NP",
+      "major_name": "Nursing (MSN) — Psychiatric-Mental Health NP",
       "catalog_year": "2025-2026",
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
@@ -268,7 +268,7 @@
         "Total credits: 45 (core + specialization + electives).",
         "MSN500, MSN501, and MSN502 must be completed before MSN530.",
         "MSN530 must be completed before any PMHNP specialization courses.",
-        "PMHNP courses must be taken in sequence (MSN560 \u2192 MSN561 \u2192 MSN562 \u2192 MSN563).",
+        "PMHNP courses must be taken in sequence (MSN560 → MSN561 → MSN562 → MSN563).",
         "Minimum 500 supervised clinical hours required across PMHNP practicum courses.",
         "Minimum GPA of 3.0 required to remain in good standing.",
         "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program."
@@ -282,7 +282,7 @@
     "nursing_msn_educator": {
       "school": "SON",
       "degree_level": "master",
-      "major_name": "Nursing (MSN) \u2014 Nurse Educator",
+      "major_name": "Nursing (MSN) — Nurse Educator",
       "catalog_year": "2025-2026",
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
@@ -318,7 +318,7 @@
       "constraints": [
         "Total credits: 36 (core + specialization + electives).",
         "MSN503 (Nursing Theory) must be completed before MSN570.",
-        "MSN570 \u2192 MSN571 \u2192 MSN572 must be taken in sequence.",
+        "MSN570 → MSN571 → MSN572 must be taken in sequence.",
         "MSN572 (Nurse Educator Practicum) requires 150 supervised educational practicum hours.",
         "Minimum GPA of 3.0 required to remain in good standing.",
         "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program."
@@ -332,7 +332,7 @@
     "nursing_msn_administrator": {
       "school": "SON",
       "degree_level": "master",
-      "major_name": "Nursing (MSN) \u2014 Nurse Administrator",
+      "major_name": "Nursing (MSN) — Nurse Administrator",
       "catalog_year": "2025-2026",
       "core_required": {
         "description": "MSN core courses required for all specializations (18 credits)",
@@ -359,8 +359,8 @@
         "description": "Choose two graduate nursing electives (6 credits)",
         "count": 2,
         "options": [
-          "MSN530",
-          "MSN570",
+          "HA530",
+          "HA570",
           "MSN571"
         ],
         "any_from_catalog": false
@@ -368,7 +368,7 @@
       "constraints": [
         "Total credits: 36 (core + specialization + electives).",
         "MSN580 (Nursing Administration) must be completed before MSN581 and MSN582.",
-        "MSN580 \u2192 MSN581 \u2192 MSN582 must be taken in sequence.",
+        "MSN580 → MSN581 → MSN582 must be taken in sequence.",
         "MSN582 (Nurse Administrator Practicum) requires 150 supervised administrative practicum hours.",
         "Minimum GPA of 3.0 required to remain in good standing.",
         "Applicants must hold an active RN license and a BSN from a CCNE- or ACEN-accredited program."

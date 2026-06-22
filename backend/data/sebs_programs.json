@@ -1,7 +1,6 @@
 {
   "catalog_year": "2025-2026",
   "programs": {
-
     "agricultural_business_management_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -21,7 +20,7 @@
         "AGECO220",
         "AGECO256",
         "AGECO301",
-        "AGECO315",
+        "AGECO325",
         "AGECO330",
         "AGECO351",
         "AGECO455",
@@ -31,8 +30,15 @@
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "AGECO400", "AGECO420", "AGECO430", "AGECO460", "AGECO470", "AGECO480",
-          "ENVSCI201", "EENR101", "PLSC100"
+          "AGECO400",
+          "AGECO420",
+          "AGECO430",
+          "AGECO460",
+          "AGECO470",
+          "AGECO492",
+          "ENVSCI201",
+          "EENR101",
+          "PROF100"
         ],
         "any_from_catalog": false
       },
@@ -53,7 +59,6 @@
         "Internship strongly recommended; AGECO480 (Agricultural Entrepreneurship) satisfies entrepreneurship elective."
       ]
     },
-
     "animal_science_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -76,22 +81,31 @@
         "CHEM308",
         "GENET302",
         "ANSC101",
-        "ANSC200",
+        "ANSC142",
         "ANSC201",
         "ANSC210",
         "ANSC220",
-        "ANSC301",
-        "ANSC311",
-        "ANSC370",
+        "ANSC300",
+        "ANSC310",
+        "ANSC300",
         "ANSC492"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "ANSC211", "ANSC320", "ANSC330", "ANSC340", "ANSC380",
-          "ANSC400", "ANSC410", "ANSC420", "ANSC430",
-          "PBIO201", "MICROB316", "NUTRSCI101"
+          "ANSC210",
+          "ANSC310",
+          "ANSC330",
+          "ANSC330",
+          "ANSC380",
+          "ANSC400",
+          "ANSC410",
+          "ANSC430",
+          "ANSC430",
+          "PBIO201",
+          "MICROB201",
+          "NUTRSCI102"
         ],
         "any_from_catalog": false
       },
@@ -112,7 +126,6 @@
         "Pre-veterinary students should complete additional upper-level biology and chemistry courses."
       ]
     },
-
     "biochemistry_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -140,18 +153,28 @@
         "CHEM308",
         "CHEM309",
         "CHEM310",
-        "MCB380",
+        "MCB390",
         "MCB381",
-        "MCB207",
+        "MCB214",
         "GENET302"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "MCB301", "MCB407", "MCB408", "MCB411", "MCB412", "MCB413", "MCB420", "MCB421",
-          "CHEM341", "CHEM348", "CHEM351",
-          "MICROB380", "BIOTECH301"
+          "MCB301",
+          "MCB407",
+          "MCB408",
+          "MCB411",
+          "MCB412",
+          "MCB413",
+          "MCB421",
+          "MCB421",
+          "CHEM341",
+          "CHEM348",
+          "CHEM351",
+          "MICROB390",
+          "BCHEM301"
         ],
         "any_from_catalog": false
       },
@@ -173,16 +196,17 @@
         "Research experience (MCB/CHEM independent research credits) strongly encouraged."
       ]
     },
-
     "bioenvironmental_engineering_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
       "major_name": "Bioenvironmental Engineering",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ENG101", "ENG102",
+        "ENG101",
+        "ENG102",
         "EXPOS101",
-        "CHEM159", "CHEM171",
+        "CHEM159",
+        "CHEM171",
         "MATH151",
         "PHYS123",
         "CHEM160",
@@ -209,16 +233,23 @@
         "BSYSE320",
         "BSYSE400",
         "BSYSE410",
-        "BSYSE492"
+        "BSYSE491"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "BSYSE330", "BSYSE340", "BSYSE420",
-          "ENVSCI381", "ENVSCI401", "ENVSCI410",
-          "CEE387", "CEE429", "MAE351",
-          "EENR335", "PLSC220"
+          "BSYSE330",
+          "BSYSE340",
+          "BSYSE420",
+          "ENVSCI380",
+          "ENVSCI401",
+          "ENVSCI411",
+          "CEE387",
+          "CEE429",
+          "MAE351",
+          "EENR325",
+          "PPOL220"
         ],
         "any_from_catalog": false
       },
@@ -241,7 +272,6 @@
         "Combines elements of Civil, Environmental, and Biological engineering."
       ]
     },
-
     "biotechnology_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -255,7 +285,7 @@
         "BIO115",
         "BIO117",
         "BIO116",
-        "BIO118",
+        "BIO117",
         "CHEM161",
         "CHEM162",
         "CHEM171",
@@ -263,22 +293,30 @@
         "CHEM307",
         "CHEM308",
         "GENET302",
-        "MCB201",
-        "BIOTECH115",
+        "MCB301",
+        "BIO115",
         "BIOTECH210",
-        "BIOTECH215",
-        "BIOTECH301",
-        "BIOTECH311",
-        "BIOTECH492"
+        "MCB215",
+        "MCB301",
+        "CHEM311",
+        "MCB492"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "BIOTECH320", "BIOTECH330", "BIOTECH400", "BIOTECH410", "BIOTECH420", "BIOTECH430",
-          "MICROB380", "MICROB391",
-          "MCB380", "MCB301",
-          "ANSC400", "PBIO410"
+          "BIOTECH320",
+          "BIOTECH330",
+          "BIOTECH400",
+          "GENET410",
+          "BIOTECH420",
+          "GENET430",
+          "MICROB390",
+          "MICROB390",
+          "MCB390",
+          "MCB301",
+          "ANSC400",
+          "PBIO411"
         ],
         "any_from_catalog": false
       },
@@ -301,14 +339,13 @@
         "Research thesis option available for students with 3.0+ GPA."
       ]
     },
-
     "climate_and_society_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
       "major_name": "Climate and Society",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "SEBS101",
+        "ENVSCI101",
         "EXPOS101",
         "MATH151",
         "STAT211",
@@ -321,23 +358,34 @@
         "ENVSCI202",
         "ENVSCI303",
         "METEOR101",
-        "METEOR121",
+        "METEOR102",
         "METEOR431",
-        "METEOR450",
+        "METEOR451",
         "ENVSCI430",
         "EENR101",
-        "HUMEC410",
-        "ECON201"
+        "ECON410",
+        "ECON102"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "ENVSCI311", "ENVSCI381", "ENVSCI410", "ENVSCI420", "ENVSCI492",
-          "METEOR400", "METEOR440",
-          "EENR325", "EENR400", "EENR430",
-          "HUMEC401", "HUMEC415", "HUMEC420", "HUMEC430",
-          "AGECO330", "AGECO351"
+          "ENVSCI310",
+          "ENVSCI380",
+          "ENVSCI411",
+          "ENVSCI421",
+          "ENVSCI497",
+          "METEOR400",
+          "METEOR444",
+          "EENR325",
+          "EENR400",
+          "EENR430",
+          "HUMEC401",
+          "HUMEC415",
+          "HUMEC420",
+          "HUMEC430",
+          "AGECO330",
+          "AGECO351"
         ],
         "any_from_catalog": false
       },
@@ -358,14 +406,13 @@
         "Research or internship experience strongly recommended."
       ]
     },
-
     "ecology_evolution_natural_resources_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
       "major_name": "Ecology, Evolution, and Natural Resources",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "SEBS101",
+        "EPIB101",
         "EXPOS101",
         "MATH115",
         "STAT211",
@@ -377,23 +424,39 @@
         "CHEM162",
         "CHEM171",
         "EENR101",
-        "EENR201",
         "EENR202",
-        "EENR220",
+        "EENR202",
+        "EENR320",
         "EENR300",
-        "EENR305",
+        "EENR308",
         "EENR350",
-        "EENR492"
+        "EENR490"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 4,
         "options": [
-          "EENR315", "EENR325", "EENR330", "EENR335", "EENR340",
-          "EENR400", "EENR405", "EENR410", "EENR415", "EENR420", "EENR430",
-          "ENVSCI201", "ENVSCI202", "ENVSCI311", "ENVSCI381", "ENVSCI385",
-          "MARINE200", "MARINE220", "METEOR101",
-          "PBIO201", "PLSC220"
+          "EENR320",
+          "EENR325",
+          "EENR320",
+          "EENR325",
+          "EENR320",
+          "EENR400",
+          "EENR406",
+          "EENR410",
+          "EENR414",
+          "EENR419",
+          "EENR430",
+          "ENVSCI201",
+          "ENVSCI202",
+          "ENVSCI310",
+          "ENVSCI380",
+          "ENVSCI385",
+          "MARINE200",
+          "MARINE220",
+          "METEOR101",
+          "PBIO201",
+          "PPOL220"
         ],
         "any_from_catalog": false
       },
@@ -415,7 +478,6 @@
         "Many students pursue careers in wildlife management, conservation, environmental consulting, or graduate study."
       ]
     },
-
     "environmental_and_business_economics_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -427,7 +489,7 @@
         "MATH115",
         "STAT211",
         "ECON201",
-        "ECON202",
+        "ECON212",
         "ACCT272",
         "BIO103",
         "CHEM161",
@@ -444,10 +506,20 @@
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "AGECO430", "AGECO455", "AGECO460", "AGECO470", "AGECO480",
-          "ECON300", "ECON301", "ECON320", "ECON321",
-          "ENVSCI201", "ENVSCI311", "ENVSCI381",
-          "EENR410", "HUMEC410"
+          "AGECO430",
+          "AGECO455",
+          "AGECO492",
+          "AGECO470",
+          "AGECO492",
+          "ECON300",
+          "ECON301",
+          "ECON320",
+          "ECON321",
+          "ENVSCI201",
+          "ENVSCI312",
+          "ENVSCI380",
+          "EENR410",
+          "ECON410"
         ],
         "any_from_catalog": false
       },
@@ -468,18 +540,17 @@
         "Students are encouraged to minor in Public Policy or Statistics."
       ]
     },
-
     "environmental_policy_institutions_behavior_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
       "major_name": "Environmental Policy, Institutions, and Behavior",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "SEBS101",
+        "EPIB101",
         "EXPOS101",
         "MATH115",
         "STAT211",
-        "ECON201",
+        "ECON102",
         "BIO103",
         "CHEM161",
         "ENVSCI101",
@@ -493,17 +564,25 @@
         "HUMEC410",
         "HUMEC415",
         "HUMEC420",
-        "HUMEC492"
+        "AGECO492"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "HUMEC430", "HUMEC320", "HUMEC350",
-          "ENVSCI381", "ENVSCI385", "ENVSCI420", "ENVSCI430",
-          "EENR325", "EENR405",
-          "AGECO330", "AGECO351",
-          "ECON300", "ECON301"
+          "HUMEC430",
+          "HUMEC320",
+          "HUMEC350",
+          "ENVSCI380",
+          "ENVSCI380",
+          "ENVSCI421",
+          "ENVSCI430",
+          "EENR325",
+          "EENR403",
+          "AGECO330",
+          "AGECO351",
+          "ECON300",
+          "ECON301"
         ],
         "any_from_catalog": false
       },
@@ -525,14 +604,13 @@
         "Internship with an environmental organization or government agency strongly recommended."
       ]
     },
-
     "environmental_sciences_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
       "major_name": "Environmental Sciences",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "SEBS101",
+        "ENVSCI101",
         "EXPOS101",
         "MATH151",
         "STAT211",
@@ -547,20 +625,31 @@
         "ENVSCI201",
         "ENVSCI202",
         "ENVSCI303",
-        "ENVSCI311",
-        "ENVSCI381",
-        "ENVSCI385",
-        "ENVSCI492"
+        "ENVSCI310",
+        "ENVSCI380",
+        "ENVSCI380",
+        "ENVSCI499"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "ENVSCI401", "ENVSCI410", "ENVSCI420", "ENVSCI430",
-          "EENR300", "EENR325", "EENR335", "EENR340", "EENR400", "EENR430",
-          "MARINE200", "MARINE210",
-          "METEOR101", "METEOR431",
-          "PLSC220", "MICROB400"
+          "ENVSCI401",
+          "ENVSCI411",
+          "ENVSCI421",
+          "ENVSCI430",
+          "EENR300",
+          "EENR325",
+          "EENR325",
+          "EENR320",
+          "EENR400",
+          "EENR430",
+          "MARINE200",
+          "PBIO210",
+          "METEOR101",
+          "METEOR431",
+          "PPOL220",
+          "MICROB390"
         ],
         "any_from_catalog": false
       },
@@ -583,7 +672,6 @@
         "Students are encouraged to pursue undergraduate research opportunities."
       ]
     },
-
     "food_science_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -604,29 +692,34 @@
         "CHEM163",
         "CHEM307",
         "CHEM308",
-        "MICROB316",
+        "MICROB390",
         "MICROB317",
-        "FS100",
-        "FS203",
-        "FS204",
+        "FS105",
+        "FS202",
+        "FS202",
         "FS205",
         "FS206",
         "FS215",
         "FS301",
         "FS302",
-        "FS303",
+        "FS301",
         "FS370",
         "FS380",
-        "FS404",
-        "FS492"
+        "FS405",
+        "FS493"
       ],
       "electives": {
         "count": 2,
         "min_level_300_plus": 2,
         "options": [
-          "FS400", "FS405", "FS410", "FS491",
-          "NUTRSCI101", "NUTRSCI204",
-          "MICROB380", "MICROB405"
+          "FS405",
+          "FS405",
+          "FS410",
+          "FS493",
+          "NUTRSCI102",
+          "NUTRSCI201",
+          "MICROB390",
+          "MICROB390"
         ],
         "any_from_catalog": false
       },
@@ -648,7 +741,6 @@
         "Students interested in regulatory careers should take FS405."
       ]
     },
-
     "human_ecology_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -659,7 +751,7 @@
         "EXPOS101",
         "MATH115",
         "STAT211",
-        "ECON201",
+        "ECON102",
         "BIO103",
         "ENVSCI101",
         "HUMEC101",
@@ -676,10 +768,20 @@
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "HUMEC330", "HUMEC350", "HUMEC410", "HUMEC415", "HUMEC420", "HUMEC430",
-          "ENVSCI201", "ENVSCI311", "ENVSCI381",
-          "EENR101", "EENR325", "EENR410",
-          "AGECO103", "AGECO351"
+          "HUMEC330",
+          "HUMEC350",
+          "HUMEC410",
+          "HUMEC415",
+          "HUMEC420",
+          "HUMEC430",
+          "ENVSCI201",
+          "ENVSCI312",
+          "ENVSCI380",
+          "EENR101",
+          "EENR325",
+          "EENR410",
+          "AGECO103",
+          "AGECO351"
         ],
         "any_from_catalog": false
       },
@@ -700,7 +802,6 @@
         "Students may pursue a concentration in Environmental Education or Family and Consumer Science."
       ]
     },
-
     "landscape_architecture_bsla": {
       "school": "SEBS",
       "degree_level": "bachelor_bsla",
@@ -717,31 +818,36 @@
         "ENVSCI201",
         "LA101",
         "LA102",
-        "LA201",
+        "LA200",
         "LA202",
         "LA203",
         "LA204",
         "LA205",
         "LA301",
-        "LA302",
-        "LA303",
-        "LA304",
-        "LA310",
-        "LA311",
-        "LA401",
+        "LA301",
+        "LA301",
+        "LA301",
+        "LA301",
+        "LA301",
+        "LA431",
         "LA402",
         "LA410",
-        "LA420",
-        "LA490",
-        "LA491"
+        "LA431",
+        "LA499",
+        "LA499"
       ],
       "electives": {
         "count": 2,
         "min_level_300_plus": 2,
         "options": [
-          "EENR315", "EENR325", "EENR400",
-          "ENVSCI381", "ENVSCI385",
-          "PLSC220", "PBIO201", "PBIO320"
+          "EENR320",
+          "EENR325",
+          "EENR400",
+          "ENVSCI380",
+          "ENVSCI385",
+          "PPOL220",
+          "PBIO201",
+          "PBIO321"
         ],
         "any_from_catalog": false
       },
@@ -764,7 +870,6 @@
         "Students with a prior bachelor's degree may be eligible for the MLA (Master of Landscape Architecture) accelerated path."
       ]
     },
-
     "marine_sciences_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -786,7 +891,7 @@
         "CHEM162",
         "CHEM171",
         "CHEM307",
-        "MARINE100",
+        "GEOSC100",
         "MARINE200",
         "MARINE210",
         "MARINE220",
@@ -800,10 +905,18 @@
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "MARINE340", "MARINE350", "MARINE400", "MARINE410", "MARINE420", "MARINE430",
-          "ENVSCI201", "ENVSCI303",
-          "EENR201", "EENR340",
-          "METEOR101", "METEOR210"
+          "MARINE340",
+          "MARINE350",
+          "MARINE400",
+          "MARINE410",
+          "MARINE420",
+          "MARINE430",
+          "ENVSCI201",
+          "ENVSCI303",
+          "EENR202",
+          "EENR340",
+          "METEOR101",
+          "METEOR211"
         ],
         "any_from_catalog": false
       },
@@ -826,14 +939,13 @@
         "MARINE360 (Marine Field Methods) involves mandatory weekend field trips."
       ]
     },
-
     "meteorology_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
       "major_name": "Meteorology",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "SEBS101",
+        "METEOR101",
         "EXPOS101",
         "MATH151",
         "MATH152",
@@ -844,24 +956,31 @@
         "PHYS124",
         "PHYS227",
         "PHYS229",
-        "METEOR121",
-        "METEOR210",
-        "METEOR221",
-        "METEOR231",
+        "METEOR101",
+        "METEOR211",
+        "METEOR211",
+        "METEOR323",
         "METEOR301",
-        "METEOR311",
-        "METEOR321",
-        "METEOR331",
-        "METEOR341",
-        "METEOR492"
+        "METEOR211",
+        "METEOR323",
+        "METEOR431",
+        "METEOR323",
+        "METEOR493"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "METEOR400", "METEOR410", "METEOR421", "METEOR431", "METEOR440", "METEOR450",
-          "ENVSCI430", "ENVSCI201",
-          "EENR335", "MARINE330"
+          "METEOR400",
+          "METEOR414",
+          "METEOR431",
+          "METEOR431",
+          "METEOR444",
+          "METEOR451",
+          "ENVSCI430",
+          "ENVSCI201",
+          "EENR335",
+          "MARINE330"
         ],
         "any_from_catalog": false
       },
@@ -888,14 +1007,13 @@
         "METEOR421 (Numerical Weather Prediction) requires programming background (CS101 or equivalent recommended)."
       ]
     },
-
     "microbiology_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
       "major_name": "Microbiology",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "SEBS101",
+        "MICROB101",
         "EXPOS101",
         "MATH151",
         "STAT211",
@@ -912,21 +1030,29 @@
         "CHEM307",
         "CHEM308",
         "GENET302",
-        "MCB201",
-        "MICROB316",
+        "MICROB201",
+        "MCB316",
         "MICROB317",
-        "MICROB380",
         "MICROB390",
-        "MICROB391",
+        "MICROB390",
+        "MICROB390",
         "MICROB492"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "MICROB400", "MICROB405", "MICROB407", "MICROB410", "MICROB415", "MICROB420",
-          "MCB380", "MCB301", "MCB407",
-          "BIOTECH301", "BIOTECH311"
+          "MICROB390",
+          "MICROB405",
+          "MCB407",
+          "MICROB401",
+          "MICROB415",
+          "MICROB420",
+          "MCB381",
+          "MCB301",
+          "MCB407",
+          "MCB301",
+          "CHEM311"
         ],
         "any_from_catalog": false
       },
@@ -951,7 +1077,6 @@
         "Research credit (independent study) available for 3.0+ GPA students."
       ]
     },
-
     "nutritional_sciences_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -965,31 +1090,37 @@
         "BIO115",
         "BIO117",
         "BIO116",
-        "BIO118",
+        "BIO120",
         "CHEM161",
         "CHEM162",
         "CHEM171",
         "CHEM163",
         "CHEM307",
         "CHEM308",
-        "MICROB316",
-        "FS215",
-        "NUTRSCI101",
-        "NUTRSCI204",
-        "NUTRSCI310",
+        "MICROB201",
+        "FS201",
+        "NUTRSCI102",
+        "NUTRSCI201",
+        "NUTRSCI301",
         "NUTRSCI320",
-        "NUTRSCI330",
-        "NUTRSCI340",
-        "NUTRSCI350",
-        "NUTRSCI492"
+        "NUTRSCI345",
+        "NUTRSCI345",
+        "NUTRSCI345",
+        "NUTRSCI493"
       ],
       "electives": {
         "count": 2,
         "min_level_300_plus": 2,
         "options": [
-          "NUTRSCI360", "NUTRSCI400", "NUTRSCI410", "NUTRSCI420", "NUTRSCI430",
-          "FS203", "FS301", "FS404",
-          "MICROB380"
+          "NUTRSCI360",
+          "NUTRSCI400",
+          "NUTRSCI410",
+          "NUTRSCI410",
+          "NUTRSCI430",
+          "FS201",
+          "FS301",
+          "FS405",
+          "MICROB390"
         ],
         "any_from_catalog": false
       },
@@ -1013,7 +1144,6 @@
         "Research opportunities available through Rutgers Center for Lipid Research and other labs."
       ]
     },
-
     "plant_biology_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -1027,30 +1157,38 @@
         "BIO115",
         "BIO117",
         "BIO116",
-        "BIO118",
+        "BIO120",
         "CHEM161",
         "CHEM162",
         "CHEM171",
         "CHEM307",
         "GENET302",
-        "PBIO101",
+        "PBIO102",
         "PBIO201",
         "PBIO202",
-        "PBIO220",
-        "PBIO301",
+        "PBIO210",
+        "PBIO302",
         "PBIO310",
-        "PBIO320",
+        "PBIO321",
         "PBIO330",
-        "PBIO492"
+        "PBIO495"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "PBIO400", "PBIO410", "PBIO420", "PBIO430",
-          "EENR201", "EENR220", "EENR315", "EENR325",
-          "MICROB316", "BIOTECH301",
-          "MCB380", "MCB201"
+          "PBIO400",
+          "PBIO411",
+          "PBIO420",
+          "PBIO430",
+          "EENR202",
+          "EENR220",
+          "EENR320",
+          "EENR325",
+          "MICROB316",
+          "MCB301",
+          "MCB381",
+          "MCB301"
         ],
         "any_from_catalog": false
       },
@@ -1074,7 +1212,6 @@
         "The greenhouse facilities and botanical gardens provide hands-on research opportunities."
       ]
     },
-
     "plant_science_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -1092,11 +1229,11 @@
         "CHEM162",
         "CHEM171",
         "GENET302",
-        "PLSC100",
+        "BIO115",
         "PLSC200",
         "PLSC220",
         "PLSC300",
-        "PLSC310",
+        "PBIO310",
         "PLSC320",
         "PLSC330",
         "PLSC492"
@@ -1105,10 +1242,18 @@
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "PLSC230", "PLSC340", "PLSC350",
-          "PLSC400", "PLSC410", "PLSC420",
-          "PBIO201", "PBIO220", "PBIO320",
-          "EENR330", "AGECO103", "TURF200"
+          "PLSC230",
+          "PLSC340",
+          "PLSC350",
+          "PLSC400",
+          "GENET410",
+          "PLSC420",
+          "PBIO201",
+          "PBIO221",
+          "PBIO321",
+          "EENR320",
+          "AGECO103",
+          "TURF300"
         ],
         "any_from_catalog": false
       },
@@ -1133,7 +1278,6 @@
         "Prepares students for careers in crop production, extension services, plant breeding, and sustainable agriculture."
       ]
     },
-
     "turfgrass_science_bs": {
       "school": "SEBS",
       "degree_level": "bachelor_bs",
@@ -1156,19 +1300,26 @@
         "TURF200",
         "TURF210",
         "TURF300",
-        "TURF310",
+        "TURF301",
         "TURF320",
         "TURF400",
-        "TURF492"
+        "TURF400"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "TURF330", "TURF410",
-          "PLSC300", "PLSC330", "PLSC340", "PLSC350", "PLSC420",
-          "AGECO103", "AGECO220", "AGECO455",
-          "EENR330"
+          "TURF330",
+          "TURF400",
+          "POLS300",
+          "PLSC330",
+          "LA340",
+          "POLS350",
+          "PLSC420",
+          "AGECO103",
+          "AGECO220",
+          "AGECO455",
+          "EENR320"
         ],
         "any_from_catalog": false
       },
@@ -1192,6 +1343,5 @@
         "Students interested in the business side should add AGECO electives."
       ]
     }
-
   }
 }
