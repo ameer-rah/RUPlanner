@@ -927,7 +927,12 @@ export default function PlannerPage() {
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({ detail: "Unknown error" }));
-      setStatus(`Error: ${err.detail ?? "Failed to generate plan."}`);
+      const detail = typeof err.detail === "string"
+        ? err.detail
+        : Array.isArray(err.detail)
+        ? err.detail.map((e: { msg?: string }) => e.msg ?? JSON.stringify(e)).join("; ")
+        : "Failed to generate plan.";
+      setStatus(`Error: ${detail}`);
       return;
     }
 

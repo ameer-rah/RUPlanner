@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field, field_validator
 from typing import Annotated, Dict, List, Optional
 
 _COURSE_CODE_RE = re.compile(r"^[A-Z]{1,8}\d{1,4}[A-Z]?$")
-_PROGRAM_NAME_RE = re.compile(r"^[A-Za-z0-9 ,.\-&/'()]+$")
+_PROGRAM_NAME_RE = re.compile(r"^[A-Za-z0-9 ,.\-&/'()–—]+$")
 
 
 class CourseInput(BaseModel):
