@@ -1015,7 +1015,7 @@
         "At least 2 courses from Global/Non-Western history.",
         "At least 2 courses from European history.",
         "At least 2 courses from U.S. history.",
-        "At least 5 of 12 courses at 300–400 level.",
+        "At least 5 of 12 courses at 300\u2013400 level.",
         "At least 8 courses at Rutgers New Brunswick.",
         "Capstone: HIST401, HIST402, HIST451, or HIST495+HIST496."
       ],
@@ -1066,11 +1066,11 @@
       "constraints": [
         "12 courses total, minimum grade C in each.",
         "At least one course from 4 of 5 historical periods (Medieval, Renaissance, 18th C, 19th C, 20th C+).",
-        "At least one course in African-American Literature at 300–400 level.",
-        "At least one course in Literatures of the Global South at 300–400 level.",
+        "At least one course in African-American Literature at 300\u2013400 level.",
+        "At least one course in Literatures of the Global South at 300\u2013400 level.",
         "At least one course in Literary Theory.",
         "At least one 400-level seminar.",
-        "At least 6 courses at 300–400 level.",
+        "At least 6 courses at 300\u2013400 level.",
         "Max 2 creative writing courses as electives."
       ],
       "notes": []
@@ -1287,7 +1287,7 @@
         "any_from_catalog": false
       },
       "constraints": [
-        "Second major only — must complement a primary SAS major.",
+        "Second major only \u2014 must complement a primary SAS major.",
         "At least 18 credits of 36 must be at 300-level or above.",
         "Max 12 credits double-counted toward another major.",
         "No more than one D grade accepted."
@@ -1382,7 +1382,7 @@
       },
       "constraints": [
         "At least 5 electives at 300-level or above.",
-        "Interdisciplinary — courses may come from multiple departments.",
+        "Interdisciplinary \u2014 courses may come from multiple departments.",
         "Capstone seminar (AMST401) required.",
         "Minimum grade C in all courses."
       ],
@@ -7142,7 +7142,7 @@
     "history_law_minor": {
       "school": "SAS",
       "degree_level": "minor",
-      "major_name": "History — Law and History",
+      "major_name": "History \u2014 Law and History",
       "catalog_year": "2025-2026",
       "required_courses": [
         "HIST103",
@@ -7181,7 +7181,7 @@
     "history_stem_minor": {
       "school": "SAS",
       "degree_level": "minor",
-      "major_name": "History — STEM in Society",
+      "major_name": "History \u2014 STEM in Society",
       "catalog_year": "2025-2026",
       "required_courses": [
         "HIST103",
@@ -7485,7 +7485,7 @@
       "total_credits": 36,
       "description": "The MS in Computer Science requires 36 credits (12 courses). Students complete 2 Category A courses, 2 Category B courses, 4 additional A or B courses, and 4 open courses. An essay or thesis (6 credits) is required.",
       "category_a_courses": {
-        "description": "Theory and Foundations — choose at least 2",
+        "description": "Theory and Foundations \u2014 choose at least 2",
         "options": [
           "CS501",
           "CS508",
@@ -7504,7 +7504,7 @@
         ]
       },
       "category_b_courses": {
-        "description": "Applied and Systems — choose at least 2",
+        "description": "Applied and Systems \u2014 choose at least 2",
         "options": [
           "CS505",
           "CS507",
@@ -7541,7 +7541,7 @@
       "thesis_or_essay": {
         "description": "Students must complete either the Essay Option or Thesis Option (6 credits, equivalent to 2 courses)",
         "essay_option": "Project-based paper with Title, Author(s), Abstract, and References plus public presentation slides",
-        "thesis_option": "Six credits of CS704–CS706 with faculty supervision and committee approval"
+        "thesis_option": "Six credits of CS704\u2013CS706 with faculty supervision and committee approval"
       },
       "constraints": [
         "Total: 36 credits (12 courses).",
@@ -7556,7 +7556,59 @@
       "notes": [
         "Study plans available: General CS, Massive Data Analytics, AI/Machine Learning, Robotics, Systems/Security, Vision/Visualization/Graphics.",
         "Source: https://www.cs.rutgers.edu/academics/graduate/m-s-program"
-      ]
+      ],
+      "required_courses": [],
+      "electives": {
+        "description": "Choose 10 courses from Category A (Theory) and Category B (Applied). At least 2 from each category.",
+        "count": 10,
+        "options": [
+          "CS501",
+          "CS508",
+          "CS509",
+          "CS510",
+          "CS512",
+          "CS513",
+          "CS514",
+          "CS521",
+          "CS522",
+          "CS529",
+          "CS538",
+          "CS540",
+          "CS550",
+          "CS596",
+          "CS505",
+          "CS507",
+          "CS515",
+          "CS516",
+          "CS518",
+          "CS519",
+          "CS520",
+          "CS523",
+          "CS525",
+          "CS526",
+          "CS527",
+          "CS530",
+          "CS532",
+          "CS533",
+          "CS534",
+          "CS535",
+          "CS536",
+          "CS539",
+          "CS541",
+          "CS543",
+          "CS544",
+          "CS545",
+          "CS546",
+          "CS547",
+          "CS552",
+          "CS553",
+          "CS560",
+          "CS562",
+          "CS580",
+          "CS598"
+        ],
+        "any_from_catalog": false
+      }
     },
     "statistics_biostatistics_ms": {
       "school": "SAS",
@@ -7674,7 +7726,41 @@
       ],
       "notes": [
         "Source: https://economics.rutgers.edu/academics/graduate/ma-program"
-      ]
+      ],
+      "required_courses": [
+        "ECON551",
+        "ECON552",
+        "ECON560",
+        "ECON585",
+        "ECON586"
+      ],
+      "electives": {
+        "description": "Econometrics choice + track-specific electives (doctoral prep or data analytics)",
+        "count": 4,
+        "options": [
+          "ECON600",
+          "ECON601",
+          "ECON604",
+          "ECON606",
+          "ECON620",
+          "ECON624",
+          "ECON628",
+          "ECON642",
+          "ECON644",
+          "ECON608",
+          "ECON609",
+          "ECON610",
+          "ECON570",
+          "ECON571",
+          "ECON630",
+          "ECON631",
+          "ECON422",
+          "ECON423",
+          "ECON424",
+          "ECON716"
+        ],
+        "any_from_catalog": false
+      }
     }
   }
 }

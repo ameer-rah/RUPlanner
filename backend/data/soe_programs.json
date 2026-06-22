@@ -956,7 +956,7 @@
         "any_from_catalog": false
       },
       "constraints": [
-        "No fixed upper-division curriculum — junior/senior courses are developed with a faculty adviser.",
+        "No fixed upper-division curriculum \u2014 junior/senior courses are developed with a faculty adviser.",
         "10 engineering electives required (3+ credits each, from approved engineering/technical list).",
         "36 credits of technical electives required (can include CS, math, science, other engineering).",
         "4 H/SS electives required (12 credits); at least one must be economics.",
@@ -1198,7 +1198,93 @@
       ],
       "notes": [
         "Source: https://www.ece.rutgers.edu/admissions/graduate-program/master-science-degree"
-      ]
+      ],
+      "required_courses": [],
+      "electives": {
+        "description": "Choose 10 courses from your specialization track (Communications, Signal Processing, Machine Learning, Systems & Controls, Computer Engineering, Software Engineering, or Electronic Devices)",
+        "count": 10,
+        "options": [
+          "ECE541",
+          "ECE542",
+          "ECE543",
+          "ECE544",
+          "ECE545",
+          "ECE546",
+          "ECE548",
+          "ECE549",
+          "ECE501",
+          "ECE505",
+          "ECE506",
+          "ECE509",
+          "ECE515",
+          "ECE519",
+          "ECE521",
+          "ECE525",
+          "ECE539",
+          "ECE557",
+          "ECE558",
+          "ECE559",
+          "ECE530",
+          "ECE561",
+          "ECE510",
+          "ECE512",
+          "ECE532",
+          "ECE533",
+          "ECE579",
+          "ECE443",
+          "ECE516",
+          "ECE518",
+          "ECE531",
+          "ECE566",
+          "ECE571",
+          "ECE573",
+          "ECE590",
+          "ECE595",
+          "ECE640",
+          "CS520",
+          "CS530",
+          "CS533",
+          "CS535",
+          "CS536",
+          "ECE508",
+          "ECE514",
+          "ECE563",
+          "ECE564",
+          "CS510",
+          "CS521",
+          "CS522",
+          "CS524",
+          "ECE507",
+          "ECE567",
+          "ECE568",
+          "ECE569",
+          "ECE574",
+          "ECE576",
+          "ECE577",
+          "ECE578",
+          "CS515",
+          "CS518",
+          "CS519",
+          "CS512",
+          "ECE503",
+          "CS508",
+          "CS543",
+          "CS544",
+          "CS546",
+          "CS553",
+          "ECE580",
+          "ECE581",
+          "ECE583",
+          "ECE587",
+          "ECE589",
+          "ECE599",
+          "ECE591",
+          "ECE592",
+          "ECE594",
+          "ECE598"
+        ],
+        "any_from_catalog": false
+      }
     },
     "mechanical_aerospace_engineering_ms": {
       "school": "SOE",
@@ -1299,10 +1385,10 @@
       },
       "tracks": {
         "taught_masters": {
-          "description": "All 30 credits through coursework and a final paper presentation (12–24 months)"
+          "description": "All 30 credits through coursework and a final paper presentation (12\u201324 months)"
         },
         "research_masters": {
-          "description": "24 credits of coursework + 6 credits of thesis research under MSE graduate faculty supervision (18–24 months). Thesis writing and defense required."
+          "description": "24 credits of coursework + 6 credits of thesis research under MSE graduate faculty supervision (18\u201324 months). Thesis writing and defense required."
         }
       },
       "constraints": [
