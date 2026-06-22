@@ -493,16 +493,27 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
     <>
       {dragError && <div className="drag-error-toast">⚠ {dragError}</div>}
 
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
-        <button
-          style={{ fontSize: 13, padding: "7px 16px", borderRadius: 8, background: "var(--surface-2)", color: "var(--text-2)", border: "1px solid var(--border-2)", cursor: "pointer", fontFamily: "inherit", fontWeight: 600, transition: "background 150ms, border-color 150ms" }}
-          onMouseOver={e => { (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-3)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.25)"; }}
-          onMouseOut={e => { (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-2)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border-2)"; }}
-          onClick={() => setShowAddModal(true)}
-        >
-          + Add course
-        </button>
-      </div>
+      <button
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "14px 20px",
+          background: "var(--surface)",
+          border: "1.5px solid var(--border-2)",
+          borderRadius: 14,
+          cursor: "pointer",
+          fontFamily: "inherit",
+          marginBottom: 16,
+          transition: "background 150ms",
+        }}
+        onMouseOver={e => { (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-2)"; }}
+        onMouseOut={e => { (e.currentTarget as HTMLButtonElement).style.background = "var(--surface)"; }}
+        onClick={() => setShowAddModal(true)}
+      >
+        <span style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>+ Add course</span>
+      </button>
 
       {showAddModal && (
         <AddCourseModal
