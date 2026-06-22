@@ -130,12 +130,6 @@ function UserMenu({ email, onSignOut }: { email: string | null; onSignOut: () =>
   );
 }
 
-function blockStatusIcon(block: CoreCurriculumBlock): { icon: string; color: string } {
-  if (!block.total_courses) return { icon: "○", color: "var(--text-3)" };
-  if (block.needed === 0) return { icon: "✓", color: "#22c55e" };
-  if (block.completed.length > 0) return { icon: "◑", color: "#f59e0b" };
-  return { icon: "○", color: "var(--text-3)" };
-}
 
 function blockShortTitle(title: string): string {
   // Strip leading "R# : " prefix and keep the rest
@@ -290,11 +284,25 @@ function CoreBlockRow({ block }: { block: CoreCurriculumBlock }) {
   );
 }
 
-function CoreCurriculumPanel({ name, blocks }: { name: string; blocks: CoreCurriculumBlock[] }) {
+function CoreCurriculumPanel({ name, blocks, terms }: { name: string; blocks: CoreCurriculumBlock[]; terms: PlanTerm[] }) {
   if (!blocks.length) return null;
-  const doneCount = blocks.filter((b) => b.needed === 0).length;
-  const pct = Math.round((doneCount / blocks.length) * 100);
-  const badge = `${doneCount}/${blocks.length} complete`;
+
+  // Recompute block completion live using core_tags on each course in the current plan
+  const allPlanCourses = terms.flatMap((t) => t.courses);
+  const liveBlocks = blocks.map((block) => {
+    const blockTags = new Set([...block.title.matchAll(/\[([A-Za-z]+)\]/g)].map((m) => m[1]));
+    if (blockTags.size === 0 || block.total_courses == null) return block;
+    const preCompleted = new Set(block.completed);
+    const planSatisfying = allPlanCourses
+      .filter((c) => !preCompleted.has(c.code) && (c.core_tags ?? []).some((tag) => blockTags.has(tag)))
+      .map((c) => c.code);
+    const totalSatisfied = preCompleted.size + planSatisfying.length;
+    return { ...block, needed: Math.max(0, block.total_courses - totalSatisfied) };
+  });
+
+  const doneCount = liveBlocks.filter((b) => b.needed === 0).length;
+  const pct = Math.round((doneCount / liveBlocks.length) * 100);
+  const badge = `${doneCount}/${liveBlocks.length} complete`;
   return (
     <CollapsiblePanel title={name} badge={badge}>
       <div style={{ marginBottom: 16 }}>
@@ -307,7 +315,7 @@ function CoreCurriculumPanel({ name, blocks }: { name: string; blocks: CoreCurri
         </div>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-        {blocks.map((blk, i) => (
+        {liveBlocks.map((blk, i) => (
           <CoreBlockRow key={i} block={blk} />
         ))}
       </div>
@@ -403,9 +411,11 @@ export default function PlannerPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const editedTermsRef = useRef<PlanTerm[]>([]);
+  const [editedTerms, setEditedTerms] = useState<PlanTerm[]>([]);
 
   const handleTermsChange = useCallback((terms: PlanTerm[]) => {
     editedTermsRef.current = terms;
+    setEditedTerms(terms);
   }, []);
 
   useEffect(() => {
@@ -504,6 +514,7 @@ export default function PlannerPage() {
 
     const data = (await res.json()) as PlanResponse;
     editedTermsRef.current = data.terms;
+    setEditedTerms(data.terms);
     setPlan(data);
     setPlanKey((k) => k + 1);
     setStatus("");
@@ -837,6 +848,7 @@ export default function PlannerPage() {
                   <CoreCurriculumPanel
                     name={plan.core_curriculum_name ?? "Core Curriculum"}
                     blocks={plan.core_curriculum_blocks}
+                    terms={editedTerms}
                   />
                 )}
 
