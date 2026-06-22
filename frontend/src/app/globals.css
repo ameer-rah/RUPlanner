@@ -134,11 +134,12 @@
 .wizard-right {
   flex: 1;
   background: var(--surface);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: stretch;
 }
 
 @media (max-width: 768px) {

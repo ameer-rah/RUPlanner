@@ -389,7 +389,7 @@ function ProgramRequirementsPanel({ prog }: { prog: ProgramSummary }) {
   );
 }
 
-const WIZARD_STEPS = ["Degree", "Program", "Start", "Schedule", "Transcript"];
+const WIZARD_STEPS = ["Degree", "Program", "Start", "Schedule", "Transcript", "Generate"];
 
 type WizardProps = {
   step: number; onStepChange: (s: number) => void;
@@ -428,15 +428,17 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
     ? (degreeFilter === "master" ? "Graduate programs" : "Undergraduate programs")
     : step === 1 && selectedMajors[0]
     ? selectedMajors[0].split("(")[0].trim()
+    : step === 5
+    ? "Your plan is ready to generate"
     : "Your degree plan";
 
   return (
-    <div style={{ width: "100%", height: "100%", padding: "48px 40px", display: "flex", flexDirection: "column", gap: 0 }}>
+    <div style={{ width: "100%", minHeight: "100%", padding: "48px 40px", display: "flex", flexDirection: "column", gap: 0 }}>
       <div style={{ marginBottom: 28 }}>
         <div style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Preview</div>
         <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text)", letterSpacing: "-0.02em" }}>{label}</div>
       </div>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14, overflow: "hidden" }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
         {previewData.map((sem) => (
           <div
             key={sem.term}
@@ -635,7 +637,8 @@ function WizardStepContent({
     </div>
   );
 
-  return (
+  // step 4 — Transcript
+  if (step === 4) return (
     <div>
       <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
         What have you completed?
@@ -648,6 +651,35 @@ function WizardStepContent({
         onInProgressDetected={(codes) => setInProgressCourses((prev) => [...new Set([...prev, ...codes])])}
       />
       <CompletedCoursesInput value={completedCourses} onChange={setCompletedCourses} />
+    </div>
+  );
+
+  // step 5 — Generate (review + submit)
+  const rows: { label: string; value: string }[] = [
+    { label: "Degree", value: degreeFilter === "master" ? "Master's" : "Bachelor's" },
+    { label: "Major", value: selectedMajors.join(", ") || "—" },
+    { label: "Start", value: startTerm || "—" },
+    { label: "Graduation", value: targetGradTerm || "—" },
+    { label: "Max credits / term", value: String(maxCredits) },
+    { label: "Semesters", value: preferredSeasons.join(", ") || "—" },
+    { label: "Completed courses", value: completedCourses.length > 0 ? `${completedCourses.length} courses` : "None added" },
+  ];
+  return (
+    <div>
+      <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+        Ready to generate your plan.
+      </p>
+      <p style={{ fontSize: 14, color: "var(--text-3)", marginBottom: 28, lineHeight: 1.5 }}>
+        Review your selections below, then hit generate.
+      </p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 1, borderRadius: 12, overflow: "hidden", border: "1.5px solid var(--border-2)" }}>
+        {rows.map((row) => (
+          <div key={row.label} style={{ display: "flex", justifyContent: "space-between", padding: "11px 16px", background: "var(--surface-2)", gap: 12 }}>
+            <span style={{ fontSize: 13, color: "var(--text-3)", flexShrink: 0 }}>{row.label}</span>
+            <span style={{ fontSize: 13, color: "var(--text)", fontWeight: 600, textAlign: "right" }}>{row.value}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
