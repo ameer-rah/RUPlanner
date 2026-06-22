@@ -649,7 +649,7 @@
     "mba_parttime": {
       "school": "RBS",
       "degree_level": "master",
-      "major_name": "MBA (Professional — Part-Time)",
+      "major_name": "MBA (Professional \u2014 Part-Time)",
       "catalog_year": "2025-2026",
       "required_courses": [
         "ACCT577",
@@ -749,46 +749,6 @@
       "constraints": [
         "30 total credits. Choose any 10 of the 15 listed courses.",
         "No prerequisite requirements. All courses are open to enrolled students."
-      ]
-    },
-    "ms_supply_chain_analytics": {
-      "school": "RBS",
-      "degree_level": "master",
-      "major_name": "MS in Supply Chain Analytics",
-      "catalog_year": "2025-2026",
-      "required_courses": [
-        "SCM607",
-        "SCM586",
-        "SCM601"
-      ],
-      "electives": {
-        "count": 10,
-        "options": [
-          "SCM649",
-          "SCM650",
-          "SCM608",
-          "SCM640",
-          "SCM659",
-          "SCM661",
-          "GSCM663",
-          "SCM676",
-          "GSCM672",
-          "SCM679",
-          "MGMT603",
-          "STAT608",
-          "STAT641",
-          "SCM650",
-          "GBAN646",
-          "CS660",
-          "SCM641",
-          "SCM696",
-          "MGMT617"
-        ],
-        "any_from_catalog": false
-      },
-      "constraints": [
-        "33 total credits: 9 core + 3 experiential + 21 electives (min 2 SCM + min 3 analytics).",
-        "STEM-designated program."
       ]
     },
     "master_financial_analysis": {
@@ -952,7 +912,7 @@
     "macc_accounting_analytics": {
       "school": "RBS",
       "degree_level": "master",
-      "major_name": "MAcc — Accounting and Analytics",
+      "major_name": "MAcc \u2014 Accounting and Analytics",
       "catalog_year": "2025-2026",
       "required_courses": [
         "ACCT645",
@@ -986,7 +946,7 @@
     "macc_taxation": {
       "school": "RBS",
       "degree_level": "master",
-      "major_name": "MAcc — Taxation",
+      "major_name": "MAcc \u2014 Taxation",
       "catalog_year": "2025-2026",
       "required_courses": [
         "GACCT603",
