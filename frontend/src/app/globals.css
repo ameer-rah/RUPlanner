@@ -1127,8 +1127,119 @@ body {
 
 .program-select-empty { padding: 12px; color: var(--text-3); font-size: 13px; }
 
-/* ── Auth page ───────────────────────────────────────────────────────── */
+/* ── Auth page — split-screen layout ─────────────────────────────────── */
 
+.auth-split {
+  display: flex;
+  min-height: 100vh;
+}
+
+.auth-split-left {
+  flex: 1;
+  background: #000;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 72px;
+  max-width: 580px;
+}
+
+.auth-split-right {
+  width: 480px;
+  flex-shrink: 0;
+  background: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 56px;
+}
+
+.auth-split-logo {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 44px;
+}
+
+.auth-split-heading {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #fff;
+  margin: 0 0 16px;
+}
+
+.auth-split-sub {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.65;
+  margin: 0 0 40px;
+  max-width: 400px;
+}
+
+.auth-split-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-split-feature {
+  font-size: 13px;
+  color: #777;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.4;
+}
+
+.auth-split-feature::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ru-red);
+  flex-shrink: 0;
+}
+
+.auth-split-footer {
+  font-size: 12px;
+  color: #333;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* Right panel card — borderless, transparent, left-aligned */
+.auth-split-right .auth-card {
+  width: 100%;
+  max-width: 340px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.auth-split-right .auth-heading {
+  font-size: 22px;
+  text-align: left;
+}
+
+.auth-split-right .auth-sub {
+  text-align: left;
+}
+
+.auth-split-right .auth-switch {
+  text-align: left;
+}
+
+/* Fallback — legacy centered layout (forgot-password, reset-password pages) */
 .auth-shell {
   min-height: 100vh;
   background: var(--bg);
@@ -2115,6 +2226,28 @@ body {
 /* ── Responsive ──────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
+  /* Split auth layout — stack vertically */
+  .auth-split { flex-direction: column; }
+  .auth-split-left {
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 48px 28px 36px;
+    justify-content: flex-start;
+  }
+  .auth-split-heading { font-size: 28px; }
+  .auth-split-logo { height: 36px; margin-bottom: 28px; }
+  .auth-split-features { display: none; }
+  .auth-split-sub { margin-bottom: 0; }
+  .auth-split-footer { display: none; }
+  .auth-split-right {
+    width: 100%;
+    padding: 36px 28px 60px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .auth-split-right .auth-card { max-width: 100%; }
+
   .topbar { padding: 0 14px; }
   .topbar-nav { gap: 0; }
   .topbar-nav-item { padding: 5px 8px; font-size: 13px; }

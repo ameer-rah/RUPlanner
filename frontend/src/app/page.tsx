@@ -6,6 +6,14 @@ import { useRouter } from "next/navigation";
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.ruplanner.com";
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 
+const FEATURES = [
+  "6,500+ Rutgers courses with prerequisites",
+  "AI-built, prereq-aware semester schedule",
+  "Course seat sniper with SMS alerts",
+  "RateMyProfessors ratings built in",
+  "Transcript upload to auto-detect completed courses",
+];
+
 async function fetchWithRetry(url: string, options: RequestInit, retries = 2): Promise<Response> {
   for (let i = 0; i <= retries; i++) {
     try {
@@ -62,8 +70,6 @@ export default function AuthPage() {
     checkAuth();
   }, [router]);
 
-  // Load the GSI script immediately — don't wait for authChecked so the
-  // download runs in parallel with the auth check instead of after it.
   useEffect(() => {
     if (!GOOGLE_CLIENT_ID) return;
     if (window.google) { setGoogleReady(true); return; }
@@ -74,7 +80,6 @@ export default function AuthPage() {
     document.body.appendChild(script);
   }, []);
 
-  // Initialize and render the button once both the script and auth check are ready.
   useEffect(() => {
     if (!authChecked || !googleReady || !GOOGLE_CLIENT_ID) return;
 
@@ -145,99 +150,122 @@ export default function AuthPage() {
   if (!authChecked) return null;
 
   return (
-    <div className="auth-shell">
-      <div className="auth-card">
-        <img src="/RUPlanner Logo.svg" alt="RU Planner" className="auth-logo-img" />
+    <div className="auth-split">
+      {/* ── Left: brand panel ── */}
+      <div className="auth-split-left">
+        <img src="/RUPlanner Logo.svg" alt="RU Planner" className="auth-split-logo" />
 
-        <h1 className="auth-heading">
-          {mode === "signin" ? "Sign in to RU Planner" : "Create your account"}
+        <h1 className="auth-split-heading">
+          Plan your Rutgers<br />degree in minutes.
         </h1>
-        <p className="auth-sub">
-          {mode === "signin"
-            ? "Welcome back! Please sign in to continue."
-            : "Sign up to save and manage your degree plans."}
+
+        <p className="auth-split-sub">
+          Prerequisite-aware semester plans, course sniping,
+          and professor ratings — all in one place.
         </p>
 
-        {GOOGLE_CLIENT_ID && (
-          <>
-            <div id="google-signin-btn" style={{ width: "100%", minHeight: 44, marginBottom: 16 }} />
-            <div className="auth-divider"><span>or</span></div>
-          </>
-        )}
+        <ul className="auth-split-features">
+          {FEATURES.map(f => (
+            <li key={f} className="auth-split-feature">{f}</li>
+          ))}
+        </ul>
 
-        <form onSubmit={handleSubmit} style={{ textAlign: "left" }}>
-          <div className="auth-field">
-            <label className="auth-field-label" htmlFor="email">Email address</label>
-            <input
-              id="email"
-              className="input"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="youremail@rutgers.edu"
-              required
-              autoComplete="email"
-            />
-          </div>
+        <p className="auth-split-footer">Free for all Rutgers students.</p>
+      </div>
 
-          <div className="auth-field">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
-              <label className="auth-field-label" htmlFor="password" style={{ margin: 0 }}>Password</label>
-              {mode === "signin" && (
-                <a href="/forgot-password" style={{ fontSize: 12, color: "var(--text-3)", textDecoration: "none" }}
-                  onMouseOver={e => (e.currentTarget.style.textDecoration = "underline")}
-                  onMouseOut={e => (e.currentTarget.style.textDecoration = "none")}
-                >
-                  Forgot password?
-                </a>
-              )}
-            </div>
-            <input
-              id="password"
-              className="input"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder={mode === "signup" ? "Create a password (min 12 chars)" : "Your password"}
-              required
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
-              minLength={mode === "signup" ? 12 : undefined}
-            />
-            {mode === "signup" && (
-              <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 4 }}>
-                Must include uppercase, lowercase, number, and special character
-              </div>
-            )}
-          </div>
+      {/* ── Right: auth form ── */}
+      <div className="auth-split-right">
+        <div className="auth-card">
+          <h1 className="auth-heading">
+            {mode === "signin" ? "Sign in" : "Create account"}
+          </h1>
+          <p className="auth-sub" style={{ marginBottom: 24 }}>
+            {mode === "signin"
+              ? "Welcome back."
+              : "Start planning your degree."}
+          </p>
 
-          {error && (
-            <p className="auth-error" style={{ marginBottom: 14 }}>{error}</p>
+          {GOOGLE_CLIENT_ID && (
+            <>
+              <div id="google-signin-btn" style={{ width: "100%", minHeight: 44, marginBottom: 16 }} />
+              <div className="auth-divider"><span>or</span></div>
+            </>
           )}
 
-          <button
-            className="primary-button"
-            type="submit"
-            disabled={loading}
-            style={{ width: "100%" }}
-          >
-            {loading
-              ? "Please wait…"
-              : mode === "signin"
-              ? "Continue →"
-              : "Create account →"}
-          </button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <div className="auth-field">
+              <label className="auth-field-label" htmlFor="email">Email</label>
+              <input
+                id="email"
+                className="input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="youremail@rutgers.edu"
+                required
+                autoComplete="email"
+              />
+            </div>
 
-        <p className="auth-switch">
-          {mode === "signin" ? "Don't have an account? " : "Already have an account? "}
-          <button
-            className="auth-switch-btn"
-            type="button"
-            onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setError(""); }}
-          >
-            {mode === "signin" ? "Sign up" : "Sign in"}
-          </button>
-        </p>
+            <div className="auth-field">
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
+                <label className="auth-field-label" htmlFor="password" style={{ margin: 0 }}>Password</label>
+                {mode === "signin" && (
+                  <a href="/forgot-password" style={{ fontSize: 12, color: "var(--text-3)", textDecoration: "none" }}
+                    onMouseOver={e => (e.currentTarget.style.textDecoration = "underline")}
+                    onMouseOut={e => (e.currentTarget.style.textDecoration = "none")}
+                  >
+                    Forgot?
+                  </a>
+                )}
+              </div>
+              <input
+                id="password"
+                className="input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder={mode === "signup" ? "Min 12 characters" : "Your password"}
+                required
+                autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                minLength={mode === "signup" ? 12 : undefined}
+              />
+              {mode === "signup" && (
+                <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 4 }}>
+                  Must include uppercase, lowercase, number, and special character
+                </div>
+              )}
+            </div>
+
+            {error && (
+              <p className="auth-error" style={{ marginBottom: 14 }}>{error}</p>
+            )}
+
+            <button
+              className="primary-button"
+              type="submit"
+              disabled={loading}
+              style={{ width: "100%" }}
+            >
+              {loading
+                ? "Please wait…"
+                : mode === "signin"
+                ? "Continue →"
+                : "Create account →"}
+            </button>
+          </form>
+
+          <p className="auth-switch">
+            {mode === "signin" ? "Don't have an account? " : "Already have an account? "}
+            <button
+              className="auth-switch-btn"
+              type="button"
+              onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setError(""); }}
+            >
+              {mode === "signin" ? "Sign up" : "Sign in"}
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );
