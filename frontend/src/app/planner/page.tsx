@@ -1050,25 +1050,51 @@ export default function PlannerPage() {
             onClick={() => setSidebarOpen(false)}
           />
           <div className="app-shell">
-            {/* Compact sidebar for re-generation */}
+            {/* Sidebar: plan summary + actions */}
             <aside className={`sidebar${sidebarOpen ? " mobile-open" : ""}`}>
               <div className="sidebar-body">
-                <div style={{ marginBottom: 14 }}>
-                  <button
-                    type="button"
-                    onClick={() => { setPlan(null); setWizardStep(0); setStatus(""); }}
-                    style={{
-                      width: "100%", padding: "10px 14px", borderRadius: 10,
-                      border: "1px solid var(--border-2)", background: "var(--surface-2)",
-                      color: "var(--text-2)", fontSize: 13, fontWeight: 600,
-                      cursor: "pointer", fontFamily: "inherit", textAlign: "left",
-                      display: "flex", alignItems: "center", gap: 8,
-                    }}
-                  >
-                    ← New plan
-                  </button>
+                {/* Plan summary */}
+                <div style={{ marginBottom: 20 }}>
+                  <div style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase", marginBottom: 10 }}>Current plan</div>
+                  {[
+                    { label: "Degree", value: degreeFilter === "master" ? "Master's" : "Bachelor's" },
+                    { label: "Major", value: selectedMajors[0]?.split("(")[0].trim() ?? "—" },
+                    { label: "Graduation", value: targetGradTerm || "—" },
+                    { label: "Start", value: startTerm || "—" },
+                    { label: "Completed", value: completedCourses.length > 0 ? `${completedCourses.length} courses` : "None" },
+                  ].map((row) => (
+                    <div key={row.label} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderBottom: "1px solid var(--border)" }}>
+                      <span style={{ fontSize: 12, color: "var(--text-3)" }}>{row.label}</span>
+                      <span style={{ fontSize: 12, color: "var(--text)", fontWeight: 600, textAlign: "right", maxWidth: "60%" }}>{row.value}</span>
+                    </div>
+                  ))}
                 </div>
-                <FullPageWizard {...wizardProps} compact />
+
+                {/* Actions */}
+                <button
+                  type="button"
+                  onClick={() => { setPlan(null); setWizardStep(0); setStatus(""); }}
+                  style={{
+                    width: "100%", padding: "11px 14px", borderRadius: 10, marginBottom: 8,
+                    border: "none", background: "var(--ru-red)",
+                    color: "#fff", fontSize: 13, fontWeight: 700,
+                    cursor: "pointer", fontFamily: "inherit",
+                  }}
+                >
+                  Build new plan
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setPlan(null); setWizardStep(4); setStatus(""); }}
+                  style={{
+                    width: "100%", padding: "10px 14px", borderRadius: 10,
+                    border: "1px solid var(--border-2)", background: "var(--surface-2)",
+                    color: "var(--text-2)", fontSize: 13, fontWeight: 600,
+                    cursor: "pointer", fontFamily: "inherit",
+                  }}
+                >
+                  Edit settings
+                </button>
               </div>
             </aside>
 

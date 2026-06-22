@@ -120,19 +120,23 @@
 .wizard-fullpage {
   display: flex;
   height: calc(100vh - var(--topbar-height));
+  margin-top: var(--topbar-height);
 }
 .wizard-left {
-  width: 520px;
-  min-width: 400px;
-  padding: 56px 52px 40px;
+  width: 480px;
+  min-width: 380px;
+  max-width: 480px;
+  padding: 48px 44px 36px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   border-right: 1px solid var(--border);
   background: var(--bg);
+  flex-shrink: 0;
 }
 .wizard-right {
   flex: 1;
+  min-width: 0;
   background: var(--surface);
   overflow-y: auto;
   overflow-x: hidden;
