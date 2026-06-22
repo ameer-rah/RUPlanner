@@ -236,6 +236,9 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
   // add-course form — which term is open
   const [addingToTerm, setAddingToTerm] = useState<number | null>(null);
 
+  // completed-course removal guard
+  const [confirmDelete, setConfirmDelete] = useState<{ termIdx: number; courseIdx: number } | null>(null);
+
   const completedSet = useMemo(
     () => new Set(completedCourses.map((c) => c.toUpperCase())),
     [completedCourses]
@@ -394,7 +397,8 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
 
   // ── Delete / Add course ─────────────────────────────────────────────────
 
-  function handleDeleteCourse(termIdx: number, courseIdx: number) {
+  function _doDelete(termIdx: number, courseIdx: number) {
+    setConfirmDelete(null);
     setTerms((prev) => {
       const next = prev.map((t) => ({ ...t, courses: [...t.courses] }));
       const removed = next[termIdx].courses.splice(courseIdx, 1)[0];
@@ -402,6 +406,22 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
       return next;
     });
   }
+
+  function handleDeleteCourse(termIdx: number, courseIdx: number) {
+    const course = terms[termIdx].courses[courseIdx];
+    if (completedSet.has(course.code.toUpperCase())) {
+      setConfirmDelete({ termIdx, courseIdx });
+      return;
+    }
+    _doDelete(termIdx, courseIdx);
+  }
+
+  useEffect(() => {
+    if (!confirmDelete) return;
+    const handler = () => setConfirmDelete(null);
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, [confirmDelete]);
 
   function handleAddCourse(termIdx: number, course: PlannedCourse) {
     setTerms((prev) => {
@@ -459,13 +479,21 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                       {course.is_elective && (
                         <span className="elective-badge">ELECTIVE</span>
                       )}
-                      <button
-                        className="course-delete-btn"
-                        title="Remove course"
-                        onClick={() => handleDeleteCourse(termIdx, courseIdx)}
-                      >
-                        ×
-                      </button>
+                      {confirmDelete?.termIdx === termIdx && confirmDelete?.courseIdx === courseIdx ? (
+                        <div style={{ display: "flex", alignItems: "center", gap: 5, marginLeft: "auto" }} onClick={(e) => e.stopPropagation()}>
+                          <span style={{ fontSize: 10, color: "#f59e0b", fontWeight: 600, whiteSpace: "nowrap" }}>Completed — remove?</span>
+                          <button style={{ fontSize: 10, padding: "1px 6px", borderRadius: 3, background: "rgba(204,17,51,0.15)", color: "#cc1133", border: "1px solid rgba(204,17,51,0.3)", cursor: "pointer", fontFamily: "inherit" }} onClick={() => _doDelete(termIdx, courseIdx)}>Remove</button>
+                          <button style={{ fontSize: 10, padding: "1px 6px", borderRadius: 3, background: "var(--surface-3)", color: "var(--text-2)", border: "1px solid var(--border-2)", cursor: "pointer", fontFamily: "inherit" }} onClick={(e) => { e.stopPropagation(); setConfirmDelete(null); }}>Keep</button>
+                        </div>
+                      ) : (
+                        <button
+                          className="course-delete-btn"
+                          title="Remove course"
+                          onClick={() => handleDeleteCourse(termIdx, courseIdx)}
+                        >
+                          ×
+                        </button>
+                      )}
                     </div>
                     <div className="plan-course-meta">
                       {course.title} · {course.credits} cr
