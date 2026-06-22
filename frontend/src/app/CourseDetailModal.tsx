@@ -42,7 +42,6 @@ type Props = {
   termName: string;   // e.g. "Fall 2026"
   socYear: string;    // e.g. "2026"
   socTerm: string;    // e.g. "9"
-  token: string;
   canSnipe: boolean;
   onSnipe: () => void;
   onClose: () => void;
@@ -106,7 +105,7 @@ function RatingBar({ value, max, color }: { value: number; max: number; color: s
 
 export default function CourseDetailModal({
   courseCode, courseTitle, credits, isElective, termName,
-  socYear, socTerm, token, canSnipe, onSnipe, onClose,
+  socYear, socTerm, canSnipe, onSnipe, onClose,
 }: Props) {
   const [sections, setSections] = useState<Section[]>([]);
   const [loading, setLoading] = useState(true);
@@ -124,13 +123,13 @@ export default function CourseDetailModal({
       return;
     }
     fetch(`${apiBase}/soc/sections?subject=${subject}&year=${socYear}&term=${socTerm}&campus=NB&courseNumber=${courseNumber}`, {
-      headers: { Authorization: `Bearer ${token}` },
+      credentials: 'include',
     })
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((data: Section[]) => setSections(data))
       .catch(() => setError("Could not load sections."))
       .finally(() => setLoading(false));
-  }, [subject, courseNumber, socYear, socTerm, token]);
+  }, [subject, courseNumber, socYear, socTerm]);
 
   // Fetch RMP for the first instructor once sections load
   useEffect(() => {

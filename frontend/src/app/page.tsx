@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.ruplanner.com";
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 
 async function fetchWithRetry(url: string, options: RequestInit, retries = 2): Promise<Response> {
   for (let i = 0; i <= retries; i++) {
     try {
-      const res = await fetch(url, { ...options, signal: AbortSignal.timeout(8000) });
+      const res = await fetch(url, { ...options, credentials: 'include', signal: AbortSignal.timeout(8000) });
       if (res.ok || res.status < 500) return res;
     } catch (e) {
       if (i === retries) throw e;
@@ -17,13 +17,6 @@ async function fetchWithRetry(url: string, options: RequestInit, retries = 2): P
     }
   }
   throw new Error("Request failed after retries");
-}
-
-function safeGetStorage(key: string): string | null {
-  try { return localStorage.getItem(key); } catch { return null; }
-}
-function safeSetStorage(key: string, value: string) {
-  try { localStorage.setItem(key, value); } catch { /* ignore */ }
 }
 
 declare global {
@@ -49,19 +42,24 @@ export default function AuthPage() {
   const [authChecked, setAuthChecked] = useState(false);
   const [googleReady, setGoogleReady] = useState(false);
 
-  async function finishAuth(token: string, userEmail: string) {
-    safeSetStorage("ru_planner_token", token);
-    safeSetStorage("ru_planner_email", userEmail);
+  async function finishAuth() {
     router.push("/planner");
   }
 
   useEffect(() => {
-    const token = safeGetStorage("ru_planner_token");
-    if (token) {
-      router.push("/planner");
-      return;
+    async function checkAuth() {
+      try {
+        const res = await fetch(`${apiBase}/auth/me`, { credentials: 'include' });
+        if (res.ok) {
+          router.push("/planner");
+          return;
+        }
+      } catch (e) {
+        // Not authenticated
+      }
+      setAuthChecked(true);
     }
-    setAuthChecked(true);
+    checkAuth();
   }, [router]);
 
   // Load the GSI script immediately — don't wait for authChecked so the
@@ -96,12 +94,7 @@ export default function AuthPage() {
             setError(data.detail ?? "Google sign-in failed.");
             return;
           }
-          const { access_token } = await res.json();
-          const meRes = await fetchWithRetry(`${apiBase}/auth/me`, {
-            headers: { Authorization: `Bearer ${access_token}` },
-          });
-          const me = meRes.ok ? await meRes.json() : { email: "user" };
-          await finishAuth(access_token, me.email);
+          await finishAuth();
         } catch {
           setError("Could not connect to server.");
         } finally {
@@ -141,8 +134,7 @@ export default function AuthPage() {
         return;
       }
 
-      const { access_token } = await res.json();
-      await finishAuth(access_token, email);
+      await finishAuth();
     } catch {
       setError("Could not connect to server.");
     } finally {
@@ -206,11 +198,16 @@ export default function AuthPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder={mode === "signup" ? "Create a password (min 6 chars)" : "Your password"}
+              placeholder={mode === "signup" ? "Create a password (min 12 chars)" : "Your password"}
               required
               autoComplete={mode === "signin" ? "current-password" : "new-password"}
-              minLength={mode === "signup" ? 6 : undefined}
+              minLength={mode === "signup" ? 12 : undefined}
             />
+            {mode === "signup" && (
+              <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 4 }}>
+                Must include uppercase, lowercase, number, and special character
+              </div>
+            )}
           </div>
 
           {error && (

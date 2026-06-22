@@ -4,7 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.ruplanner.com";
+const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+
+function safeGetStorage(key: string): string | null {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+function safeRemoveStorage(key: string) {
+  try { localStorage.removeItem(key); } catch { }
+}
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -157,6 +164,7 @@ function UserMenu({ email, onSignOut }: { email: string | null; onSignOut: () =>
 
 function SnipeCard({ snipe, onDelete }: { snipe: Snipe; onDelete: (id: number) => void }) {
   const [deleting, setDeleting] = useState(false);
+  const token = safeGetStorage("ru_planner_token");
   const termName = `${({ "1": "Spring", "7": "Summer", "9": "Fall", "0": "Winter" } as Record<string, string>)[snipe.term] ?? snipe.term} ${snipe.year}`;
   const inactive = !!snipe.notified_at;
 
@@ -165,7 +173,7 @@ function SnipeCard({ snipe, onDelete }: { snipe: Snipe; onDelete: (id: number) =
     try {
       await fetch(`${apiBase}/snipes/${snipe.id}`, {
         method: "DELETE",
-        credentials: 'include',
+        headers: { Authorization: `Bearer ${token}` },
       });
       onDelete(snipe.id);
     } finally {
@@ -224,6 +232,7 @@ function SnipeCard({ snipe, onDelete }: { snipe: Snipe; onDelete: (id: number) =
 
 export default function SniperPage() {
   const router = useRouter();
+  const [token, setToken] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [snipes, setSnipes] = useState<Snipe[]>([]);
 
@@ -240,23 +249,20 @@ export default function SniperPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`${apiBase}/auth/me`, { credentials: 'include' })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((user) => {
-        if (!user) {
-          router.push("/");
-          return;
-        }
-        setUserEmail(user.email);
-        return fetch(`${apiBase}/snipes`, { credentials: 'include' });
-      })
-      .then((r) => (r && r.ok ? r.json() : []))
+    const tok = safeGetStorage("ru_planner_token");
+    const email = safeGetStorage("ru_planner_email");
+    if (!tok) { router.push("/"); return; }
+    setToken(tok);
+    setUserEmail(email);
+    fetch(`${apiBase}/snipes`, { headers: { Authorization: `Bearer ${tok}` } })
+      .then((r) => (r.ok ? r.json() : []))
       .then((data: Snipe[]) => setSnipes(data ?? []))
       .catch(() => {});
   }, [router]);
 
   function handleSignOut() {
-    fetch(`${apiBase}/auth/logout`, { method: 'POST', credentials: 'include' }).catch(() => {});
+    safeRemoveStorage("ru_planner_token");
+    safeRemoveStorage("ru_planner_email");
     router.push("/");
   }
 
@@ -269,7 +275,7 @@ export default function SniperPage() {
     try {
       const r = await fetch(
         `${apiBase}/soc/section-by-index?index=${encodeURIComponent(idx)}&year=${selectedTerm.year}&term=${selectedTerm.term}`,
-        { credentials: 'include' }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       if (r.status === 404) {
         setLookupError("Section not found — check the index and selected term.");
@@ -285,7 +291,7 @@ export default function SniperPage() {
   }
 
   async function handleSnipe() {
-    if (!sectionInfo) return;
+    if (!sectionInfo || !token) return;
     const phoneClean = phone.trim();
     if (!phoneClean.match(/^\+1\d{10}$|^\d{10}$/)) {
       setSubmitError("Enter a valid US phone number (10 digits or +1XXXXXXXXXX).");
@@ -297,8 +303,7 @@ export default function SniperPage() {
     try {
       const r = await fetch(`${apiBase}/snipes`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: 'include',
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
           course_code: sectionInfo.course_code,
           course_title: sectionInfo.course_title,

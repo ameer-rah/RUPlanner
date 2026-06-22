@@ -11,7 +11,7 @@ from typing import List
 
 from fastapi import FastAPI, HTTPException, Request, UploadFile, File, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 import bcrypt
@@ -22,6 +22,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+from cryptography.fernet import Fernet
 
 logger = logging.getLogger(__name__)
 
@@ -42,10 +43,18 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from management.ingest_courses import ingest, current_terms
 
-SECRET_KEY = os.getenv("SECRET_KEY") or "ru-planner-dev-secret-change-in-production"
-ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    import sys
+    print("ERROR: SECRET_KEY environment variable must be set", file=sys.stderr)
+    sys.exit(1)
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN")
+if not ADMIN_TOKEN:
+    import sys
+    print("ERROR: ADMIN_TOKEN environment variable must be set", file=sys.stderr)
+    sys.exit(1)
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_DAYS = 30
+ACCESS_TOKEN_EXPIRE_DAYS = 7
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
 RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
@@ -57,6 +66,46 @@ def _hash_password(password: str) -> str:
 
 def _verify_password(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode(), hashed.encode())
+
+def _validate_password_strength(password: str) -> str | None:
+    if len(password) < 12:
+        return "Password must be at least 12 characters long."
+    if not re.search(r"[a-z]", password):
+        return "Password must contain lowercase letters."
+    if not re.search(r"[A-Z]", password):
+        return "Password must contain uppercase letters."
+    if not re.search(r"\d", password):
+        return "Password must contain numbers."
+    if not re.search(r"[!@#$%^&*\-_=+]", password):
+        return "Password must contain special characters (!@#$%^&*-_=+)."
+    return None
+
+# Phone number encryption for sniper feature
+_PHONE_ENCRYPTION_KEY = os.getenv("PHONE_ENCRYPTION_KEY")
+_phone_cipher = None
+if _PHONE_ENCRYPTION_KEY:
+    try:
+        _phone_cipher = Fernet(_PHONE_ENCRYPTION_KEY.encode())
+    except Exception:
+        logger.warning("Invalid PHONE_ENCRYPTION_KEY; phone numbers will be stored unencrypted")
+
+def _encrypt_phone(phone: str) -> str:
+    if not _phone_cipher:
+        return phone
+    try:
+        return _phone_cipher.encrypt(phone.encode()).decode()
+    except Exception as exc:
+        logger.error("Phone encryption failed: %s", exc)
+        return phone
+
+def _decrypt_phone(encrypted: str) -> str:
+    if not _phone_cipher:
+        return encrypted
+    try:
+        return _phone_cipher.decrypt(encrypted.encode()).decode()
+    except Exception as exc:
+        logger.error("Phone decryption failed: %s", exc)
+        return encrypted
 
 _bearer = HTTPBearer()
 _scheduler = BackgroundScheduler()
@@ -104,6 +153,20 @@ async def _global_exception_handler(request: Request, exc: Exception) -> JSONRes
     logger.error("Unhandled exception on %s %s", request.method, request.url.path, exc_info=exc)
     return JSONResponse(status_code=500, content={"detail": "An internal error occurred. Please try again."})
 
+
+def _create_token(user_id: int) -> str:
+    expire = datetime.utcnow() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
+    return jwt.encode({"sub": str(user_id), "exp": expire}, SECRET_KEY, algorithm=ALGORITHM)
+
+def _get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(_bearer)) -> int:
+    try:
+        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("sub")
+        if user_id is None:
+            raise HTTPException(status_code=401, detail="Invalid token")
+        return int(user_id)
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
 
 @app.get("/health")
 def health() -> dict:
@@ -155,9 +218,12 @@ def list_programs() -> List[ProgramInfo]:
         db.close()
 
 @app.get("/courses", response_model=List[CourseSearchResult])
-def search_courses(q: str = "", limit: int = 20) -> List[CourseSearchResult]:
+@_limiter.limit("20/minute")
+def search_courses(request: Request, q: str = Query("", max_length=100), limit: int = Query(20, ge=1, le=100)) -> List[CourseSearchResult]:
     if not q:
         return []
+    if not re.match(r"^[a-zA-Z0-9\s\-]+$", q):
+        raise HTTPException(status_code=400, detail="Invalid search query")
     db = SessionLocal()
     try:
         pattern = f"{q}%"
@@ -221,31 +287,6 @@ def _extract_transcript_text(content: bytes) -> str:
     return "\n".join(parts)
 
 
-@app.post("/parse-transcript-debug")
-async def parse_transcript_debug(file: UploadFile = File(...)) -> dict:
-    content = await file.read()
-    try:
-        text = _extract_transcript_text(content)
-    except Exception as exc:
-        return {"error": str(exc)}
-    from .transcript_parser import parse_transcript_text
-    result = parse_transcript_text(text)
-    return {
-        "raw_text_first_800": text[:800],
-        "total_lines": len(text.splitlines()),
-        "courses_found": len(result.courses),
-        "completed": [
-            {"norm": c.normalized_code, "title": c.title_raw, "grade": c.grade}
-            for c in result.get_completed_courses()
-        ],
-        "in_progress": [
-            {"norm": c.normalized_code, "title": c.title_raw}
-            for c in result.get_in_progress_courses()
-        ],
-        "warnings": result.warnings,
-    }
-
-
 # Maps Rutgers 3-digit subject codes → catalog course prefix.
 # Derived from scrape_requirements.SUBJECT_TO_PREFIX.
 _RUTGERS_DEPT_TO_PREFIX: dict = {
@@ -271,17 +312,39 @@ _RUTGERS_DEPT_TO_PREFIX: dict = {
 }
 
 
+_MAX_PDF_BYTES = 5 * 1024 * 1024   # 5 MB
+_MAX_PDF_PAGES = 20
+
 @app.post("/parse-transcript", response_model=TranscriptResult)
-async def parse_transcript(file: UploadFile = File(...)) -> TranscriptResult:
+@_limiter.limit("5/minute")
+async def parse_transcript(request: Request, file: UploadFile = File(...)) -> TranscriptResult:
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are accepted.")
+    if file.content_type and file.content_type not in ("application/pdf", "application/octet-stream"):
+        raise HTTPException(status_code=400, detail="Invalid file type. Only PDF accepted.")
     content = await file.read()
-    if len(content) > 20 * 1024 * 1024:
-        raise HTTPException(status_code=413, detail="File too large (max 20 MB).")
+    if len(content) > _MAX_PDF_BYTES:
+        raise HTTPException(status_code=413, detail=f"File too large (max {_MAX_PDF_BYTES // 1024 // 1024} MB).")
     try:
-        text = _extract_transcript_text(content)
+        from pypdf import PdfReader
+        import io as _io2
+        reader = PdfReader(_io2.BytesIO(content))
+        if len(reader.pages) > _MAX_PDF_PAGES:
+            raise HTTPException(status_code=400, detail=f"PDF too long (max {_MAX_PDF_PAGES} pages).")
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid or corrupted PDF file.")
+    try:
+        loop = asyncio.get_event_loop()
+        text = await asyncio.wait_for(
+            loop.run_in_executor(None, _extract_transcript_text, content),
+            timeout=10.0,
+        )
+    except asyncio.TimeoutError:
+        raise HTTPException(status_code=504, detail="PDF parsing took too long.")
     except Exception as exc:
-        raise HTTPException(status_code=422, detail=f"Could not read PDF: {exc}")
+        raise HTTPException(status_code=422, detail=f"Could not read PDF: {type(exc).__name__}")
 
     from .transcript_parser import parse_transcript_text
     result = parse_transcript_text(text)
@@ -352,47 +415,57 @@ async def parse_transcript(file: UploadFile = File(...)) -> TranscriptResult:
 
     return TranscriptResult(matched=matched, in_progress=in_progress, inferred=inferred)
 
-def _create_token(user_id: int) -> str:
-    expire = datetime.utcnow() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
-    return jwt.encode({"sub": str(user_id), "exp": expire}, SECRET_KEY, algorithm=ALGORITHM)
-
-def _get_current_user_id(credentials: HTTPAuthorizationCredentials = Depends(_bearer)) -> int:
-    try:
-        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
-        user_id = payload.get("sub")
-        if user_id is None:
-            raise HTTPException(status_code=401, detail="Invalid token")
-        return int(user_id)
-    except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid token")
-
 @app.post("/auth/register", response_model=Token)
-def register(payload: UserCreate) -> Token:
+@_limiter.limit("3/minute")
+def register(request: Request, payload: UserCreate, response: Response) -> Token:
     db = SessionLocal()
     try:
+        strength_error = _validate_password_strength(payload.password)
+        if strength_error:
+            raise HTTPException(status_code=400, detail=strength_error)
         if db.query(models.User).filter(models.User.email == payload.email).first():
             raise HTTPException(status_code=400, detail="Email already registered")
         user = models.User(email=payload.email, hashed_password=_hash_password(payload.password))
         db.add(user)
         db.commit()
         db.refresh(user)
-        return Token(access_token=_create_token(user.id), token_type="bearer")
+        token = _create_token(user.id)
+        response.set_cookie(
+            key="ru_planner_token",
+            value=token,
+            httponly=True,
+            secure=True,
+            samesite="strict",
+            max_age=7 * 24 * 60 * 60
+        )
+        return Token(access_token=token, token_type="bearer")
     finally:
         db.close()
 
 @app.post("/auth/login", response_model=Token)
-def login(payload: UserCreate) -> Token:
+@_limiter.limit("5/minute")
+def login(request: Request, payload: UserCreate, response: Response) -> Token:
     db = SessionLocal()
     try:
         user = db.query(models.User).filter(models.User.email == payload.email).first()
         if not user or not user.hashed_password or not _verify_password(payload.password, user.hashed_password):
             raise HTTPException(status_code=401, detail="Invalid email or password")
-        return Token(access_token=_create_token(user.id), token_type="bearer")
+        token = _create_token(user.id)
+        response.set_cookie(
+            key="ru_planner_token",
+            value=token,
+            httponly=True,
+            secure=True,
+            samesite="strict",
+            max_age=7 * 24 * 60 * 60
+        )
+        return Token(access_token=token, token_type="bearer")
     finally:
         db.close()
 
 @app.post("/auth/google", response_model=Token)
-def google_auth(payload: GoogleAuthRequest) -> Token:
+@_limiter.limit("5/minute")
+def google_auth(request: Request, payload: GoogleAuthRequest, response: Response) -> Token:
     if not GOOGLE_CLIENT_ID:
         raise HTTPException(status_code=500, detail="Google auth is not configured on the server.")
     try:
@@ -412,7 +485,16 @@ def google_auth(payload: GoogleAuthRequest) -> Token:
             db.add(user)
             db.commit()
             db.refresh(user)
-        return Token(access_token=_create_token(user.id), token_type="bearer")
+        token = _create_token(user.id)
+        response.set_cookie(
+            key="ru_planner_token",
+            value=token,
+            httponly=True,
+            secure=True,
+            samesite="strict",
+            max_age=7 * 24 * 60 * 60
+        )
+        return Token(access_token=token, token_type="bearer")
     finally:
         db.close()
 
@@ -428,11 +510,18 @@ def me(user_id: int = Depends(_get_current_user_id)):
         db.close()
 
 @app.post("/auth/forgot-password", status_code=200)
-def forgot_password(payload: ForgotPasswordRequest):
+@_limiter.limit("3/minute")
+def forgot_password(request: Request, payload: ForgotPasswordRequest):
     import secrets
     db = SessionLocal()
     try:
         user = db.query(models.User).filter(models.User.email == payload.email).first()
+        import hashlib
+        logger.info(
+            "Password reset requested for email_hash=%s from ip=%s",
+            hashlib.sha256(payload.email.lower().encode()).hexdigest()[:12],
+            request.client.host if request.client else "unknown",
+        )
         if user:
             token = secrets.token_urlsafe(32)
             expires = datetime.utcnow() + timedelta(hours=1)
@@ -467,6 +556,7 @@ def forgot_password(payload: ForgotPasswordRequest):
                         </div>
                     """,
                 })
+            logger.info("Password reset email sent for user_id=%s", user.id)
         return {"message": "If that email is registered, a reset link has been sent."}
     finally:
         db.close()
@@ -474,6 +564,9 @@ def forgot_password(payload: ForgotPasswordRequest):
 
 @app.post("/auth/reset-password", status_code=200)
 def reset_password(payload: ResetPasswordRequest):
+    strength_error = _validate_password_strength(payload.new_password)
+    if strength_error:
+        raise HTTPException(status_code=400, detail=strength_error)
     db = SessionLocal()
     try:
         reset_token = (
@@ -487,12 +580,11 @@ def reset_password(payload: ResetPasswordRequest):
         )
         if not reset_token:
             raise HTTPException(status_code=400, detail="Invalid or expired reset link.")
-        if len(payload.new_password) < 6:
-            raise HTTPException(status_code=400, detail="Password must be at least 6 characters.")
         user = db.query(models.User).filter(models.User.id == reset_token.user_id).first()
         user.hashed_password = _hash_password(payload.new_password)
         reset_token.used = True
         db.commit()
+        logger.info("Password reset completed for user_id=%s", user.id)
         return {"message": "Password reset successfully."}
     finally:
         db.close()
@@ -545,7 +637,6 @@ _RMP_HOME = "https://www.ratemyprofessors.com/"
 _RMP_SCHOOL_ID = "U2Nob29sLTgyNQ=="
 _rmp_cache: dict = {}
 _RMP_HEADERS = {
-    "Authorization": "Basic dGVzdDp0ZXN0",
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Origin": "https://www.ratemyprofessors.com",
     "Referer": "https://www.ratemyprofessors.com/",
@@ -586,7 +677,8 @@ def _name_matches(query: str, first: str, last: str) -> bool:
     return all(p in first_l or p in last_l for p in parts)
 
 @app.get("/rmp/rating")
-def rmp_rating(name: str = Query(...)):
+@_limiter.limit("10/minute")
+def rmp_rating(request: Request, name: str = Query(..., max_length=100)):
     if "," in name:
         parts = [p.strip().title() for p in name.split(",", 1)]
         query_name = f"{parts[1]} {parts[0]}"
@@ -627,11 +719,13 @@ def rmp_rating(name: str = Query(...)):
     return result
 
 @app.get("/soc/section-by-index")
+@_limiter.limit("20/minute")
 def soc_section_by_index(
-    index: str = Query(...),
-    year: str = Query(...),
-    term: str = Query(...),
-    campus: str = Query("NB"),
+    request: Request,
+    index: str = Query(..., min_length=1, max_length=10, pattern=r"^\d+$"),
+    year: str = Query(..., pattern=r"^\d{4}$"),
+    term: str = Query(..., pattern=r"^\d$"),
+    campus: str = Query("NB", pattern=r"^[A-Z]{2,3}$"),
 ):
     url = f"https://sis.rutgers.edu/soc/api/courses.json?year={year}&term={term}&campus={campus}&level=U"
     try:
@@ -672,9 +766,11 @@ def soc_sections(
     return sections
 
 @app.post("/snipes", response_model=SnipeOut)
-def create_snipe(payload: SnipeCreate, user_id: int = Depends(_get_current_user_id)):
+@_limiter.limit("10/minute")
+def create_snipe(request: Request, payload: SnipeCreate, user_id: int = Depends(_get_current_user_id)):
     db = SessionLocal()
     try:
+        encrypted_phone = _encrypt_phone(payload.phone_number)
         snipe = models.Snipe(
             user_id=user_id,
             course_code=payload.course_code,
@@ -684,7 +780,7 @@ def create_snipe(payload: SnipeCreate, user_id: int = Depends(_get_current_user_
             year=payload.year,
             term=payload.term,
             campus=payload.campus,
-            phone_number=payload.phone_number,
+            phone_number=encrypted_phone,
         )
         db.add(snipe)
         db.commit()
@@ -752,7 +848,7 @@ def _snipe_to_out(s: models.Snipe) -> SnipeOut:
         year=s.year,
         term=s.term,
         campus=s.campus,
-        phone_number=s.phone_number,
+        phone_number=_decrypt_phone(s.phone_number),
         active=s.active,
         notified_at=s.notified_at.isoformat() if s.notified_at else None,
         created_at=s.created_at.isoformat(),

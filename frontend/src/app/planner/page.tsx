@@ -55,15 +55,12 @@ type PlanResponse = {
   programs_summary?: ProgramSummary[];
 };
 
-function safeGetStorage(key: string): string | null {
-  try { return localStorage.getItem(key); } catch { return null; }
-}
-function safeRemoveStorage(key: string) {
-  try { localStorage.removeItem(key); } catch { /* ignore */ }
-}
-
 const ALL_SEASONS = ["Spring", "Summer", "Fall", "Winter"];
-const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.ruplanner.com";
+
+function safeRemoveStorage(key: string) {
+  try { localStorage.removeItem(key); } catch {}
+}
 
 function getSeasonBtnClass(season: string, active: boolean) {
   if (!active) return "season-btn";
@@ -334,18 +331,26 @@ export default function PlannerPage() {
 
   useEffect(() => {
     router.prefetch("/schedules");
-    const token = safeGetStorage("ru_planner_token");
-    const email = safeGetStorage("ru_planner_email");
-    if (!token) {
-      router.push("/");
-      return;
-    }
-    setUserEmail(email);
+    async function checkAuthAndLoadPrograms() {
+      try {
+        const meRes = await fetch(`${apiBase}/auth/me`, { credentials: 'include' });
+        if (!meRes.ok) {
+          router.push("/");
+          return;
+        }
+        const me = await meRes.json();
+        setUserEmail(me.email);
 
-    fetch(`${apiBase}/programs`)
-      .then((r) => (r.ok ? r.json() : []))
-      .then((data: ProgramInfo[]) => setPrograms(data))
-      .catch(() => {});
+        const programsRes = await fetch(`${apiBase}/programs`, { credentials: 'include' });
+        if (programsRes.ok) {
+          const data = await programsRes.json();
+          setPrograms(data);
+        }
+      } catch {
+        router.push("/");
+      }
+    }
+    checkAuthAndLoadPrograms();
   }, [router]);
 
   const DEGREE_FILTERS = [
@@ -406,6 +411,7 @@ export default function PlannerPage() {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
+      credentials: 'include',
     });
 
     if (!res.ok) {
@@ -423,11 +429,6 @@ export default function PlannerPage() {
   }
 
   async function handleSave() {
-    const token = safeGetStorage("ru_planner_token");
-    if (!token) {
-      router.push("/");
-      return;
-    }
     if (!plan) return;
 
     setSaveStatus("Saving…");
@@ -440,8 +441,9 @@ export default function PlannerPage() {
 
     const res = await fetch(`${apiBase}/schedules`, {
       method: "POST",
-      headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({ name, plan_data }),
+      credentials: 'include',
     });
 
     if (res.status === 401) {

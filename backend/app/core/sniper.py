@@ -9,6 +9,7 @@ from datetime import datetime
 
 import requests as http_requests
 from twilio.rest import Client as TwilioClient
+from cryptography.fernet import Fernet
 
 from ..database import SessionLocal
 from .. import models
@@ -23,6 +24,24 @@ TERM_LABELS = {"9": "Fall", "1": "Spring", "7": "Summer", "0": "Winter"}
 
 SOC_OPEN_URL = "https://sis.rutgers.edu/soc/api/openSections.json"
 SOC_COURSES_URL = "https://sis.rutgers.edu/soc/api/courses.json"
+
+# Phone number encryption
+_PHONE_ENCRYPTION_KEY = os.getenv("PHONE_ENCRYPTION_KEY")
+_phone_cipher = None
+if _PHONE_ENCRYPTION_KEY:
+    try:
+        _phone_cipher = Fernet(_PHONE_ENCRYPTION_KEY.encode())
+    except Exception:
+        log.warning("Invalid PHONE_ENCRYPTION_KEY; phone numbers may be encrypted incorrectly")
+
+def _decrypt_phone(encrypted: str) -> str:
+    if not _phone_cipher:
+        return encrypted
+    try:
+        return _phone_cipher.decrypt(encrypted.encode()).decode()
+    except Exception as exc:
+        log.error("Phone decryption failed: %s", exc)
+        return encrypted
 
 
 def _twilio_client() -> TwilioClient | None:
@@ -143,7 +162,8 @@ def poll_snipes() -> None:
                     f"for {term_label} {year} just opened. "
                     f"Register NOW at webreg.rutgers.edu before it fills!"
                 )
-                sent = send_sms(snipe.phone_number, msg)
+                decrypted_phone = _decrypt_phone(snipe.phone_number)
+                sent = send_sms(decrypted_phone, msg)
                 if sent:
                     snipe.notified_at = datetime.utcnow()
                     log.info(

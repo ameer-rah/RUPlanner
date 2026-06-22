@@ -7,8 +7,14 @@ import Link from "next/link";
 import { getRegistrarCode, getCoursiclUrl } from "../registrar";
 import CourseDetailModal from "../CourseDetailModal";
 
-const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.ruplanner.com";
+const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
+function safeGetStorage(key: string): string | null {
+  try { return localStorage.getItem(key); } catch { return null; }
+}
+function safeRemoveStorage(key: string) {
+  try { localStorage.removeItem(key); } catch { /* ignore */ }
+}
 
 type PlannedCourse = {
   code: string;
@@ -166,6 +172,7 @@ function SchedulesPageContent() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [confirmId, setConfirmId] = useState<number | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
   const [detailModal, setDetailModal] = useState<{
@@ -180,22 +187,17 @@ function SchedulesPageContent() {
 
   useEffect(() => {
     router.prefetch("/planner");
-    fetch(`${apiBase}/auth/me`, { credentials: 'include' })
+    const tok = safeGetStorage("ru_planner_token");
+    const email = safeGetStorage("ru_planner_email");
+    if (!tok) { router.push("/"); return; }
+    setToken(tok);
+    setUserEmail(email);
+
+    fetch(`${apiBase}/schedules`, { headers: { Authorization: `Bearer ${tok}` } })
       .then((r) => {
-        if (!r.ok) {
-          router.push("/");
-          return null;
-        }
-        return r.json();
-      })
-      .then((user) => {
-        if (!user) return;
-        setUserEmail(user.email);
-        return fetch(`${apiBase}/schedules`, { credentials: 'include' });
-      })
-      .then((r) => {
-        if (!r) return [];
         if (r.status === 401) {
+          safeRemoveStorage("ru_planner_token");
+          safeRemoveStorage("ru_planner_email");
           router.push("/");
           return [];
         }
@@ -209,16 +211,19 @@ function SchedulesPageContent() {
   }, [router]);
 
   function handleSignOut() {
-    fetch(`${apiBase}/auth/logout`, { method: 'POST', credentials: 'include' }).catch(() => {});
+    safeRemoveStorage("ru_planner_token");
+    safeRemoveStorage("ru_planner_email");
     router.push("/");
   }
 
   async function handleDelete(id: number) {
+    const tok = safeGetStorage("ru_planner_token");
+    if (!tok) return;
     setDeletingId(id);
     try {
       await fetch(`${apiBase}/schedules/${id}`, {
         method: "DELETE",
-        credentials: 'include',
+        headers: { Authorization: `Bearer ${tok}` },
       });
       setSchedules((prev) => {
         const next = prev.filter((s) => s.id !== id);
@@ -443,7 +448,7 @@ function SchedulesPageContent() {
                                   className="plan-course"
                                   style={{ cursor: soc && hasRegistrar ? "pointer" : "default" }}
                                   onClick={() => {
-                                    if (!soc || !hasRegistrar) return;
+                                    if (!soc || !hasRegistrar || !token) return;
                                     setDetailModal({
                                       courseCode: course.code,
                                       courseTitle: course.title,
@@ -489,7 +494,7 @@ function SchedulesPageContent() {
       )}
 
       {/* Course Detail Modal */}
-      {detailModal && (
+      {detailModal && token && (
         <CourseDetailModal
           courseCode={detailModal.courseCode}
           courseTitle={detailModal.courseTitle}
@@ -498,6 +503,7 @@ function SchedulesPageContent() {
           termName={detailModal.termName}
           socYear={detailModal.socYear}
           socTerm={detailModal.socTerm}
+          token={token}
           canSnipe={false}
           onClose={() => setDetailModal(null)}
           onSnipe={() => {}}
