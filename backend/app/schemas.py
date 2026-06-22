@@ -95,6 +95,7 @@ class CoreCurriculumBlock(BaseModel):
     is_elective: bool
     completed: List[str]
     needed: int
+    available_courses: List[str] = []
 
 
 class CourseDetail(BaseModel):

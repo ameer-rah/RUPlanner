@@ -24,6 +24,7 @@ type CoreCurriculumBlock = {
   is_elective: boolean;
   completed: string[];
   needed: number;
+  available_courses: string[];
 };
 
 type CourseStatus = {
@@ -189,48 +190,126 @@ function CollapsiblePanel({ title, badge, defaultOpen = false, children }: {
   );
 }
 
+function CoreBlockRow({ block }: { block: CoreCurriculumBlock }) {
+  const [expanded, setExpanded] = useState(false);
+  const short = blockShortTitle(block.title);
+  const isComplete = block.needed === 0;
+  const isPartial = !isComplete && block.completed.length > 0;
+  const isOpenBlock = !isComplete && block.courses.length === 0;
+
+  const badgeStyle = isComplete
+    ? { background: "rgba(34,197,94,0.12)", color: "#4ade80", border: "1px solid rgba(34,197,94,0.2)" }
+    : isPartial
+    ? { background: "rgba(245,158,11,0.12)", color: "#f59e0b", border: "1px solid rgba(245,158,11,0.2)" }
+    : { background: "var(--surface-2)", color: "var(--text-3)", border: "1px solid var(--border-2)" };
+
+  const badgeText = isComplete ? "Complete" : isPartial ? "Partial" : "Not Started";
+
+  return (
+    <div style={{
+      background: isComplete ? "rgba(34,197,94,0.03)" : "var(--surface-2)",
+      border: `1px solid ${isComplete ? "rgba(34,197,94,0.15)" : "var(--border)"}`,
+      borderRadius: 10,
+      overflow: "hidden",
+      transition: "border-color 150ms",
+    }}>
+      <button
+        onClick={() => !isComplete && setExpanded((v) => !v)}
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "10px 14px",
+          background: "none",
+          border: "none",
+          cursor: isComplete ? "default" : "pointer",
+          gap: 10,
+          textAlign: "left",
+        }}
+      >
+        <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text)", flex: 1 }}>{short}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, padding: "2px 8px", borderRadius: 99, letterSpacing: "0.04em", textTransform: "uppercase" as const, ...badgeStyle }}>
+            {badgeText}
+          </span>
+          {!isComplete && (
+            <span style={{ fontSize: 10, color: "var(--text-3)", display: "inline-block", transform: expanded ? "rotate(180deg)" : "none", transition: "transform 0.15s" }}>▼</span>
+          )}
+        </div>
+      </button>
+
+      {!isComplete && expanded && (
+        <div style={{ padding: "0 14px 12px" }}>
+          {block.completed.length > 0 && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 8 }}>
+              {block.completed.map((code) => (
+                <span key={code} style={{ fontSize: 11, fontWeight: 600, padding: "2px 7px", borderRadius: 4, background: "rgba(34,197,94,0.12)", color: "#4ade80", border: "1px solid rgba(34,197,94,0.2)" }}>
+                  {code}
+                </span>
+              ))}
+            </div>
+          )}
+          <div style={{ fontSize: 11, color: "var(--text-3)", marginBottom: 8 }}>
+            {isOpenBlock
+              ? `Need ${block.needed} more — select from Degree Navigator`
+              : `Need ${block.needed} more course${block.needed !== 1 ? "s" : ""}`}
+          </div>
+          {!isOpenBlock && block.available_courses.length > 0 && (
+            <>
+              <div style={{ fontSize: 10, color: "var(--text-3)", marginBottom: 5, textTransform: "uppercase" as const, letterSpacing: "0.05em", fontWeight: 600 }}>
+                Courses that satisfy this
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                {block.available_courses.slice(0, 30).map((code) => (
+                  <span key={code} style={{ fontSize: 11, fontWeight: 500, padding: "2px 7px", borderRadius: 4, background: "var(--surface-3)", color: "var(--text-2)", border: "1px solid var(--border-2)" }}>
+                    {code}
+                  </span>
+                ))}
+                {block.available_courses.length > 30 && (
+                  <span style={{ fontSize: 11, color: "var(--text-3)", alignSelf: "center" }}>
+                    +{block.available_courses.length - 30} more
+                  </span>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
+      {isComplete && block.completed.length > 0 && (
+        <div style={{ padding: "0 14px 10px", display: "flex", flexWrap: "wrap", gap: 4 }}>
+          {block.completed.map((code) => (
+            <span key={code} style={{ fontSize: 11, fontWeight: 600, padding: "2px 7px", borderRadius: 4, background: "rgba(34,197,94,0.12)", color: "#4ade80", border: "1px solid rgba(34,197,94,0.2)" }}>
+              {code}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function CoreCurriculumPanel({ name, blocks }: { name: string; blocks: CoreCurriculumBlock[] }) {
   if (!blocks.length) return null;
   const doneCount = blocks.filter((b) => b.needed === 0).length;
+  const pct = Math.round((doneCount / blocks.length) * 100);
   const badge = `${doneCount}/${blocks.length} complete`;
   return (
     <CollapsiblePanel title={name} badge={badge}>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        {blocks.map((blk, i) => {
-          const { icon, color } = blockStatusIcon(blk);
-          const short = blockShortTitle(blk.title);
-          const isOpen = blk.needed > 0 && blk.courses.length === 0;
-          return (
-            <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-              <span style={{ fontSize: 15, color, lineHeight: "20px", flexShrink: 0, minWidth: 16 }}>
-                {icon}
-              </span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 12, color: "var(--text)", fontWeight: 500, lineHeight: "18px" }}>
-                  {short}
-                </div>
-                <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 2 }}>
-                  {blk.total_courses != null ? (
-                    blk.needed === 0
-                      ? "Complete"
-                      : isOpen
-                      ? <em>Select {blk.needed} more from Degree Navigator</em>
-                      : `${blk.completed.length}/${blk.total_courses} · ${blk.needed} more needed`
-                  ) : (
-                    blk.completed.length > 0
-                      ? `${blk.completed.length} completed`
-                      : "See Degree Navigator"
-                  )}
-                  {blk.completed.length > 0 && (
-                    <span style={{ marginLeft: 6, color: "var(--text-3)" }}>
-                      ({blk.completed.join(", ")})
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "var(--text-3)", marginBottom: 5 }}>
+          <span>Overall completion</span>
+          <span>{pct}%</span>
+        </div>
+        <div style={{ height: 4, background: "var(--surface-3)", borderRadius: 99, overflow: "hidden" }}>
+          <div style={{ height: "100%", width: `${pct}%`, background: "var(--ru-red)", borderRadius: 99, transition: "width 0.4s cubic-bezier(0.4,0,0.2,1)" }} />
+        </div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {blocks.map((blk, i) => (
+          <CoreBlockRow key={i} block={blk} />
+        ))}
       </div>
     </CollapsiblePanel>
   );

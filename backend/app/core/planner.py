@@ -1052,6 +1052,32 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         _primary_school, completed
     )
     _core_tag_index = _get_sas_core_index() if _primary_school in {"SAS", "SEBS", "RBS", "SPPP", "SON", "SOE", "SCI", "SMLR"} else {}
+
+    # Build available_courses per incomplete block so the UI can show what satisfies each requirement
+    if _core_tag_index:
+        _tag_to_courses: dict[str, list[str]] = {}
+        for _code, _tags in _core_tag_index.items():
+            for _tag in _tags:
+                _tag_to_courses.setdefault(_tag, []).append(_code)
+
+        def _sort_by_level(codes: list[str]) -> list[str]:
+            def _level(c: str) -> int:
+                m = re.search(r"\d+", c)
+                return int(m.group()) if m else 9999
+            return sorted(codes, key=_level)
+
+        for blk in core_curriculum_blocks:
+            if blk.needed > 0:
+                _block_tags = _tags_for_block(blk.title)
+                _avail: list[str] = []
+                _seen: set[str] = set()
+                for _tag in _block_tags:
+                    for _c in _tag_to_courses.get(_tag, []):
+                        if _c not in completed and _c not in _seen:
+                            _avail.append(_c)
+                            _seen.add(_c)
+                object.__setattr__(blk, "available_courses", _sort_by_level(_avail))
+
     for c in core_courses:
         if c not in required:
             required.append(c)
