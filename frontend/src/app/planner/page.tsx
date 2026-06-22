@@ -255,20 +255,20 @@ function CoreBlockRow({ block }: { block: CoreCurriculumBlock }) {
               ? `Need ${block.needed} more — select from Degree Navigator`
               : `Need ${block.needed} more course${block.needed !== 1 ? "s" : ""}`}
           </div>
-          {!isOpenBlock && block.available_courses.length > 0 && (
+          {!isOpenBlock && (block.available_courses ?? []).length > 0 && (
             <>
               <div style={{ fontSize: 10, color: "var(--text-3)", marginBottom: 5, textTransform: "uppercase" as const, letterSpacing: "0.05em", fontWeight: 600 }}>
                 Courses that satisfy this
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
-                {block.available_courses.slice(0, 30).map((code) => (
+                {(block.available_courses ?? []).slice(0, 30).map((code) => (
                   <span key={code} style={{ fontSize: 11, fontWeight: 500, padding: "2px 7px", borderRadius: 4, background: "var(--surface-3)", color: "var(--text-2)", border: "1px solid var(--border-2)" }}>
                     {code}
                   </span>
                 ))}
-                {block.available_courses.length > 30 && (
+                {(block.available_courses ?? []).length > 30 && (
                   <span style={{ fontSize: 11, color: "var(--text-3)", alignSelf: "center" }}>
-                    +{block.available_courses.length - 30} more
+                    +{(block.available_courses ?? []).length - 30} more
                   </span>
                 )}
               </div>
