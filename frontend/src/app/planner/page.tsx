@@ -433,7 +433,7 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
     : "Your degree plan";
 
   return (
-    <div style={{ width: "100%", minHeight: "100%", padding: "48px 40px", display: "flex", flexDirection: "column", gap: 0 }}>
+    <div style={{ width: "100%", minHeight: "100%", padding: "32px 40px 48px", display: "flex", flexDirection: "column", gap: 0 }}>
       <div style={{ marginBottom: 28 }}>
         <div style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Preview</div>
         <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text)", letterSpacing: "-0.02em" }}>{label}</div>
@@ -716,7 +716,7 @@ function FullPageWizard(props: WizardProps & { compact?: boolean }) {
         {step < total - 1 ? (
           <button type="button" className="primary-button" disabled={!canAdvance()} onClick={() => onStepChange(step + 1)}>Next →</button>
         ) : (
-          <button className="primary-button" type="submit">Generate my plan</button>
+          <button type="button" className="primary-button" onClick={() => onSubmit({ preventDefault: () => {} })}>Generate my plan</button>
         )}
         {step > 0 && (
           <button type="button" onClick={() => onStepChange(step - 1)} style={{ width: "100%", padding: "10px 0", borderRadius: 10, border: "1px solid var(--border-2)", background: "transparent", color: "var(--text-2)", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
@@ -773,7 +773,11 @@ function FullPageWizard(props: WizardProps & { compact?: boolean }) {
               Next →
             </button>
           ) : (
-            <button className="primary-button" type="submit">
+            <button
+              type="button"
+              className="primary-button"
+              onClick={() => onSubmit({ preventDefault: () => {} })}
+            >
               Generate my plan
             </button>
           )}
