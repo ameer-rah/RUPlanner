@@ -56,7 +56,7 @@
           "MAE435",
           "MAE474",
           "MAE477",
-          "MAE420",
+          "MAE401",
           "ECE221",
           "ECE252",
           "ISE303",
@@ -128,7 +128,7 @@
           "BME455",
           "BME465",
           "BME470",
-          "BME475"
+          "BME470"
         ],
         "any_from_catalog": false
       },
@@ -180,7 +180,7 @@
         "CHE415",
         "CHE422",
         "CHE416",
-        "CHE427",
+        "CHE428",
         "CHE428"
       ],
       "electives": {
@@ -263,7 +263,7 @@
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "CEE301",
+          "CEE305",
           "CEE331",
           "CEE382",
           "CEE406",
@@ -271,9 +271,9 @@
           "CEE413",
           "CEE426",
           "CEE431",
-          "CEE434",
           "CEE438",
-          "CEE443",
+          "CEE438",
+          "CEE448",
           "CEE448",
           "CEE474",
           "CEE491",
@@ -338,33 +338,33 @@
         "count": 5,
         "min_level_300_plus": 5,
         "options": [
-          "ECE302",
+          "ECE301",
           "ECE322",
-          "ECE343",
+          "ECE345",
           "ECE370",
-          "ECE375",
-          "ECE401",
-          "ECE403",
-          "ECE407",
-          "ECE412",
-          "ECE415",
+          "ECE376",
+          "ECE402",
+          "ECE402",
+          "ECE417",
+          "ECE411",
+          "ECE417",
           "ECE417",
           "ECE421",
           "ECE423",
           "ECE424",
-          "ECE428",
+          "ECE423",
           "ECE435",
           "ECE436",
           "ECE443",
-          "ECE447",
+          "ECE448",
           "ECE451",
-          "ECE453",
+          "ECE452",
           "ECE456",
           "ECE460",
           "ECE472",
-          "ECE474",
+          "ECE472",
           "ECE479",
-          "ECE482",
+          "ECE481",
           "ECE491",
           "ECE492"
         ],
@@ -430,21 +430,21 @@
           "ECE346",
           "ECE376",
           "ECE402",
-          "ECE415",
+          "ECE417",
           "ECE417",
           "ECE421",
           "ECE423",
           "ECE424",
           "ECE435",
           "ECE443",
-          "ECE447",
+          "ECE448",
           "ECE451",
-          "ECE453",
+          "ECE452",
           "ECE456",
           "ECE472",
-          "ECE474",
+          "ECE472",
           "ECE479",
-          "ECE482",
+          "ECE481",
           "ECE491",
           "ECE492",
           "CS334",
@@ -669,9 +669,9 @@
           "MAE463",
           "MAE471",
           "MAE457",
-          "MAE420",
+          "MAE401",
           "MAE485",
-          "MAE489"
+          "MAE488"
         ],
         "any_from_catalog": false
       },
@@ -916,7 +916,7 @@
           "CHE341",
           "CHE411",
           "CHE422",
-          "CHE427",
+          "CHE428",
           "MSE203",
           "MSE204",
           "MSE205",
@@ -956,7 +956,7 @@
         "any_from_catalog": false
       },
       "constraints": [
-        "No fixed upper-division curriculum \u2014 junior/senior courses are developed with a faculty adviser.",
+        "No fixed upper-division curriculum — junior/senior courses are developed with a faculty adviser.",
         "10 engineering electives required (3+ credits each, from approved engineering/technical list).",
         "36 credits of technical electives required (can include CS, math, science, other engineering).",
         "4 H/SS electives required (12 credits); at least one must be economics.",
@@ -1244,11 +1244,11 @@
       "catalog_year": "2025-2026",
       "total_credits": 30,
       "required_courses": [
-        "CBE501",
-        "CBE502",
-        "CBE507",
-        "CBE511",
-        "CBE514"
+        "CHE501",
+        "CHE502",
+        "CHE507",
+        "CHE511",
+        "CHE514"
       ],
       "electives": {
         "non_thesis": {
@@ -1299,10 +1299,10 @@
       },
       "tracks": {
         "taught_masters": {
-          "description": "All 30 credits through coursework and a final paper presentation (12\u201324 months)"
+          "description": "All 30 credits through coursework and a final paper presentation (12–24 months)"
         },
         "research_masters": {
-          "description": "24 credits of coursework + 6 credits of thesis research under MSE graduate faculty supervision (18\u201324 months). Thesis writing and defense required."
+          "description": "24 credits of coursework + 6 credits of thesis research under MSE graduate faculty supervision (18–24 months). Thesis writing and defense required."
         }
       },
       "constraints": [

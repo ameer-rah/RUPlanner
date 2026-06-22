@@ -20,6 +20,8 @@ class Course(Base):
     summer_offered: Mapped[bool] = mapped_column(Boolean, default=False)
     fall_offered: Mapped[bool] = mapped_column(Boolean, default=True)
     description: Mapped[str | None] = mapped_column(Text)
+    offering_unit_code: Mapped[str | None] = mapped_column(String(4), nullable=True)
+    raw_code: Mapped[str | None] = mapped_column(String(20), nullable=True, unique=True, index=True)
 
 
 class Program(Base):

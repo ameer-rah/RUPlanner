@@ -26,7 +26,7 @@
           "CS210",
           "CS314",
           "CS323",
-          "CS324",
+          "CS314",
           "CS334",
           "CS336",
           "CS352",
@@ -35,8 +35,8 @@
           "CS431",
           "CS440",
           "CS444",
-          "CS446",
-          "CS451",
+          "CS445",
+          "CS452",
           "CS452",
           "CS460"
         ],
@@ -98,7 +98,7 @@
           "CS210",
           "CS314",
           "CS323",
-          "CS324",
+          "CS323",
           "CS334",
           "CS336",
           "CS352",
@@ -107,8 +107,8 @@
           "CS431",
           "CS440",
           "CS444",
-          "CS446",
-          "CS451",
+          "CS445",
+          "CS452",
           "CS452",
           "CS460"
         ],
@@ -150,8 +150,8 @@
           "CS431",
           "CS440",
           "CS444",
-          "CS446",
-          "CS451",
+          "CS445",
+          "CS452",
           "CS452",
           "CS460"
         ],
@@ -183,7 +183,7 @@
         "min_level_300_plus": 4,
         "options": [
           "MATH312",
-          "MATH352",
+          "MATH350",
           "MATH356",
           "MATH361",
           "MATH373",
@@ -226,7 +226,7 @@
           "MATH311",
           "MATH312",
           "MATH351",
-          "MATH352",
+          "MATH350",
           "MATH356",
           "MATH361",
           "MATH373",
@@ -964,41 +964,41 @@
       "major_name": "History",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HIST299"
+        "HIST291"
       ],
       "electives": {
         "count": 11,
         "min_level_300_plus": 5,
         "options": [
           "HIST201",
-          "HIST202",
+          "HIST205",
           "HIST301",
-          "HIST302",
           "HIST303",
-          "HIST330",
-          "HIST331",
+          "HIST303",
+          "HIST329",
+          "HIST332",
           "HIST340",
-          "HIST350",
+          "HIST351",
           "HIST380",
-          "HIST101",
-          "HIST102",
-          "HIST203",
-          "HIST204",
-          "HIST315",
+          "HIST103",
+          "HIST103",
+          "HIST205",
+          "HIST205",
+          "HIST316",
           "HIST320",
           "HIST322",
           "HIST103",
           "HIST221",
-          "HIST222",
+          "HIST221",
           "HIST231",
           "HIST232",
-          "HIST241",
           "HIST242",
-          "HIST251",
+          "HIST242",
+          "HIST253",
           "HIST263",
           "HIST264",
           "HIST271",
-          "HIST275",
+          "HIST375",
           "HIST280",
           "HIST360"
         ],
@@ -1015,7 +1015,7 @@
         "At least 2 courses from Global/Non-Western history.",
         "At least 2 courses from European history.",
         "At least 2 courses from U.S. history.",
-        "At least 5 of 12 courses at 300\u2013400 level.",
+        "At least 5 of 12 courses at 300–400 level.",
         "At least 8 courses at Rutgers New Brunswick.",
         "Capstone: HIST401, HIST402, HIST451, or HIST495+HIST496."
       ],
@@ -1033,8 +1033,8 @@
         "count": 11,
         "min_level_300_plus": 6,
         "options": [
-          "ENGL301",
-          "ENGL302",
+          "EXPOS301",
+          "EXPOS302",
           "ENGL303",
           "ENGL304",
           "ENGL305",
@@ -1058,7 +1058,7 @@
           "ENGL332",
           "ENGL350",
           "ENGL360",
-          "ENGL420",
+          "ENG420",
           "ENGL430"
         ],
         "any_from_catalog": false
@@ -1066,11 +1066,11 @@
       "constraints": [
         "12 courses total, minimum grade C in each.",
         "At least one course from 4 of 5 historical periods (Medieval, Renaissance, 18th C, 19th C, 20th C+).",
-        "At least one course in African-American Literature at 300\u2013400 level.",
-        "At least one course in Literatures of the Global South at 300\u2013400 level.",
+        "At least one course in African-American Literature at 300–400 level.",
+        "At least one course in Literatures of the Global South at 300–400 level.",
         "At least one course in Literary Theory.",
         "At least one 400-level seminar.",
-        "At least 6 courses at 300\u2013400 level.",
+        "At least 6 courses at 300–400 level.",
         "Max 2 creative writing courses as electives."
       ],
       "notes": []
@@ -1081,8 +1081,8 @@
       "major_name": "Cell Biology and Neuroscience",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
-        "BIO102",
+        "BIO115",
+        "BIO116",
         "CBN245",
         "CBN270",
         "CHEM161",
@@ -1115,7 +1115,7 @@
         "options": [
           "CBN322",
           "CBN328",
-          "CBN340",
+          "CBN350",
           "CBN356",
           "CBN445",
           "CBN447",
@@ -1126,7 +1126,7 @@
           "CBN476",
           "CBN480",
           "GENET302",
-          "GENET352",
+          "GENET354",
           "GENET354",
           "GENET356",
           "MCB407",
@@ -1149,8 +1149,8 @@
       "major_name": "Cognitive Science",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "COGS201",
-        "COGS411"
+        "LING201",
+        "PSYC411"
       ],
       "electives": {
         "count": 9,
@@ -1168,14 +1168,14 @@
           "COGS320",
           "COGS330",
           "COGS335",
-          "COGS340",
+          "PSYC340",
           "COGS345",
-          "COGS350",
+          "LING350",
           "COGS395",
           "COGS412",
           "COGS413",
           "COGS414",
-          "COGS415",
+          "PSYC415",
           "COGS416",
           "COGS417",
           "COGS430",
@@ -1220,26 +1220,26 @@
         "count": 8,
         "min_level_300_plus": 5,
         "options": [
-          "ANTH302",
+          "ANTH303",
           "ANTH303",
           "ANTH304",
-          "ANTH305",
+          "ANTH304",
           "ANTH307",
           "ANTH308",
-          "ANTH309",
-          "ANTH310",
+          "ANTH308",
+          "ANTH312",
           "ANTH312",
           "ANTH314",
           "ANTH317",
-          "ANTH318",
-          "ANTH320",
+          "ANTH317",
+          "ANTH321",
           "ANTH325",
           "ANTH326",
           "ANTH328",
-          "ANTH336",
-          "ANTH338",
+          "ANTH333",
+          "ANTH339",
           "ANTH341",
-          "ANTH350"
+          "ANTH356"
         ],
         "any_from_catalog": false
       },
@@ -1257,7 +1257,7 @@
       "major_name": "Environmental Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ENVST101",
+        "ENVSCI101",
         "ENVST400"
       ],
       "electives": {
@@ -1274,20 +1274,20 @@
           "ECON300",
           "ENVST300",
           "ENVST301",
-          "ENVST302",
-          "ENVST310",
-          "ENVST320",
-          "ENVST325",
+          "ENVSCI302",
+          "ENVSCI310",
+          "PPP320",
+          "EENR325",
           "ENVST330",
           "GEOG311",
           "GEOG322",
           "ENVST200",
-          "ENVST485"
+          "GEOG485"
         ],
         "any_from_catalog": false
       },
       "constraints": [
-        "Second major only \u2014 must complement a primary SAS major.",
+        "Second major only — must complement a primary SAS major.",
         "At least 18 credits of 36 must be at 300-level or above.",
         "Max 12 credits double-counted toward another major.",
         "No more than one D grade accepted."
@@ -1363,12 +1363,12 @@
           "AMST320",
           "AMST330",
           "AMST401",
-          "HIST201",
-          "HIST202",
-          "HIST330",
-          "HIST331",
+          "HIST205",
+          "HIST205",
+          "HIST329",
+          "HIST332",
           "HIST340",
-          "HIST380",
+          "HIST391",
           "ENGL218",
           "ENGL310",
           "ENGL330",
@@ -1382,7 +1382,7 @@
       },
       "constraints": [
         "At least 5 electives at 300-level or above.",
-        "Interdisciplinary \u2014 courses may come from multiple departments.",
+        "Interdisciplinary — courses may come from multiple departments.",
         "Capstone seminar (AMST401) required.",
         "Minimum grade C in all courses."
       ],
@@ -1400,19 +1400,19 @@
         "count": 9,
         "min_level_300_plus": 5,
         "options": [
-          "AFRS200",
-          "AFRS210",
+          "AFRS220",
+          "AFRS220",
           "AFRS220",
           "AFRS301",
-          "AFRS310",
+          "AFRS301",
           "AFRS315",
           "AFRS320",
           "AFRS330",
-          "AFRS401",
+          "AFRS301",
           "HIST221",
-          "HIST222",
-          "HIST330",
-          "HIST331",
+          "AFRS222",
+          "HIST329",
+          "HIST332",
           "ENGL218",
           "ENGL310",
           "ENGL311",
@@ -1474,24 +1474,24 @@
       "major_name": "Communication",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "COMMUN200",
-        "COMMUN201",
-        "COMMUN300",
-        "COMMUN380"
+        "COMM200",
+        "COMM201",
+        "COMM300",
+        "COMM380"
       ],
       "electives": {
         "count": 6,
         "min_level_300_plus": 4,
         "options": [
-          "COMMUN354",
-          "COMMUN355",
-          "COMMUN356",
-          "COMMUN357",
-          "COMMUN359",
+          "COMM354",
+          "COMM355",
+          "COMM356",
+          "COMM357",
+          "COMM359",
           "COMMUN400",
           "COMMUN401",
           "COMMUN402",
-          "COMMUN403",
+          "COMM403",
           "COMMUN404"
         ],
         "any_from_catalog": false
@@ -1510,8 +1510,8 @@
       "major_name": "Genetics",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
-        "BIO102",
+        "BIO115",
+        "BIO116",
         "CHEM161",
         "CHEM171",
         "CHEM162",
@@ -1533,7 +1533,7 @@
         "min_level_300_plus": 5,
         "options": [
           "GENET302",
-          "GENET352",
+          "GENET354",
           "GENET354",
           "GENET356",
           "GENET370",
@@ -1544,7 +1544,7 @@
           "MCB407",
           "MCB408",
           "MCB411",
-          "MCB420"
+          "MCB421"
         ],
         "any_from_catalog": false
       },
@@ -1560,8 +1560,8 @@
       "major_name": "Molecular Biology and Biochemistry",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
-        "BIO102",
+        "BIO115",
+        "BIO116",
         "CHEM161",
         "CHEM171",
         "CHEM162",
@@ -1583,11 +1583,11 @@
           "MCB411",
           "MCB412",
           "MCB413",
-          "MCB420",
+          "MCB421",
           "MCB421",
           "CBN322",
           "CBN445",
-          "GENET352",
+          "GENET354",
           "GENET356",
           "GENET370",
           "GENET390"
@@ -1606,8 +1606,8 @@
       "major_name": "Biological Sciences",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
-        "BIO102",
+        "BIO115",
+        "BIO116",
         "CHEM161",
         "CHEM162",
         "CHEM171",
@@ -1633,7 +1633,7 @@
           "CBN340",
           "CBN356",
           "GENET302",
-          "GENET352",
+          "GENET354",
           "GENET354",
           "GENET356",
           "GENET370",
@@ -1642,7 +1642,7 @@
           "MCB408",
           "MCB411",
           "MCB413",
-          "MCB420",
+          "MCB421",
           "BIO307",
           "BIO308"
         ],
@@ -1655,8 +1655,8 @@
       "major_name": "Biomathematics",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
-        "BIO102",
+        "BIO115",
+        "BIO116",
         "CHEM161",
         "CHEM162",
         "CHEM171",
@@ -1708,7 +1708,7 @@
           "MATH311",
           "MATH312",
           "MATH351",
-          "MATH352",
+          "MATH351",
           "STAT384",
           "STAT463",
           "STAT476",
@@ -1742,7 +1742,7 @@
           "MATH311",
           "MATH312",
           "MATH351",
-          "MATH352",
+          "MATH351",
           "MATH373",
           "MATH423",
           "MATH461",
@@ -1857,7 +1857,7 @@
         "STAT295",
         "MATH151",
         "MATH250",
-        "ITI103",
+        "ITI201",
         "ITI201",
         "ITI321",
         "STAT463",
@@ -1917,32 +1917,32 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "ANTH102",
-        "ANTH310",
+        "ANTH312",
         "ANTH325",
         "ANTH328",
         "ANTH336",
-        "ANTH338",
-        "ANTH350",
-        "BIO101",
-        "BIO102",
+        "ANTH339",
+        "ANTH356",
+        "BIO115",
+        "BIO116",
         "STAT211"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "ANTH302",
+          "ANTH303",
           "ANTH303",
           "ANTH304",
-          "ANTH305",
+          "ANTH304",
           "ANTH307",
           "ANTH308",
-          "ANTH309",
+          "ANTH308",
           "ANTH312",
           "ANTH314",
           "ANTH317",
-          "ANTH318",
-          "ANTH320",
+          "ANTH316",
+          "ANTH321",
           "ANTH326",
           "ANTH341"
         ],
@@ -2109,7 +2109,7 @@
           "GEOSC225",
           "GEOSC304",
           "GEOSC306",
-          "GEOSC410",
+          "GEOSC408",
           "GEOSC414",
           "GEOSC442",
           "GEOSC480"
@@ -2134,8 +2134,8 @@
         "GEOSC302",
         "GEOSC306",
         "GEOSC407",
-        "GEOSC410",
-        "GEOSC413",
+        "GEOSC411",
+        "GEOSC414",
         "GEOSC428"
       ],
       "electives": {
@@ -2182,7 +2182,7 @@
           "GEOSC225",
           "GEOSC303",
           "GEOSC306",
-          "GEOSC413",
+          "GEOSC414",
           "GEOSC441"
         ],
         "any_from_catalog": false
@@ -2195,12 +2195,12 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "EXSC140",
-        "EXSC200",
-        "BIO101",
-        "BIO102",
+        "EXSC205",
+        "BIO115",
+        "BIO116",
         "EXSC225",
-        "EXSC226",
-        "EXSC227",
+        "EXSC223",
+        "EXSC223",
         "EXSC301",
         "EXSC302",
         "EXSC303",
@@ -2213,7 +2213,7 @@
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "EXSC400",
+          "EXSC401",
           "EXSC401",
           "CBN245",
           "CBN270",
@@ -2233,7 +2233,7 @@
         "SPMD201",
         "SPMD202",
         "SPMD203",
-        "SPMD301",
+        "EXSC301",
         "SPMD302",
         "SPMD401",
         "EXSC140",
@@ -2264,9 +2264,9 @@
         "PUBH240",
         "PUBH335",
         "PUBH356",
-        "PUBH395",
-        "PUBH450",
-        "PUBH499",
+        "PUBH296",
+        "PUBH350",
+        "PUBH299",
         "STAT211",
         "CHEM161"
       ],
@@ -2293,12 +2293,12 @@
       "major_name": "Public Policy",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "PUBP201",
-        "PUBP301",
-        "PUBP302",
-        "PUBP303",
-        "PUBP401",
-        "PUBP402",
+        "PPP201",
+        "POLS301",
+        "PPOL302",
+        "POLS303",
+        "PUBH401",
+        "PUBH402",
         "ECON102",
         "ECON103",
         "STAT211",
@@ -2325,12 +2325,12 @@
       "major_name": "Health Administration",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HLAD201",
-        "HLAD202",
-        "HLAD301",
-        "HLAD302",
+        "PUBH201",
+        "PUBH202",
+        "PUBH301",
+        "PUBH302",
         "HLAD303",
-        "HLAD401",
+        "PUBH401",
         "PUBH201",
         "STAT211",
         "ECON102"
@@ -2402,8 +2402,8 @@
         "CHEM309",
         "CHEM311",
         "CHEM341",
-        "BIO101",
-        "BIO102",
+        "BIO115",
+        "BIO116",
         "MATH151",
         "MATH152",
         "PHYS203",
@@ -2454,7 +2454,7 @@
           "CHEM351",
           "GEOSC202",
           "GEOSC304",
-          "GEOSC413"
+          "GEOSC414"
         ],
         "any_from_catalog": false
       }
@@ -2541,17 +2541,17 @@
         "FREN214",
         "FREN215",
         "FREN216",
-        "FREN480"
+        "FREN481"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 5,
         "options": [
           "FREN301",
-          "FREN302",
+          "FREN303",
           "FREN303",
           "FREN401",
-          "FREN402"
+          "FREN403"
         ],
         "any_from_catalog": false
       }
@@ -2564,7 +2564,7 @@
       "required_courses": [
         "GERM101",
         "GERM102",
-        "GERM201",
+        "GERM131",
         "GERM202",
         "GERM232"
       ],
@@ -2575,8 +2575,8 @@
           "GERM301",
           "GERM302",
           "GERM303",
-          "GERM401",
-          "GERM402"
+          "GERM301",
+          "GERM301"
         ],
         "any_from_catalog": false
       }
@@ -2587,9 +2587,9 @@
       "major_name": "Italian",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ITAL101",
-        "ITAL102",
-        "ITAL131",
+        "PCOL101",
+        "PCOL102",
+        "PCOL131",
         "ITAL201",
         "ITAL202",
         "ITAL321"
@@ -2598,11 +2598,11 @@
         "count": 5,
         "min_level_300_plus": 3,
         "options": [
-          "ITAL231",
-          "ITAL232",
+          "PCOL231",
+          "PCOL232",
           "ITAL301",
           "ITAL302",
-          "ITAL401"
+          "FREN401"
         ],
         "any_from_catalog": false
       }
@@ -2625,7 +2625,7 @@
         "min_level_300_plus": 2,
         "options": [
           "JPN401",
-          "JPN402"
+          "JPN401"
         ],
         "any_from_catalog": false
       }
@@ -2647,8 +2647,8 @@
         "count": 2,
         "min_level_300_plus": 2,
         "options": [
-          "CHN401",
-          "CHN402"
+          "CHN405",
+          "CHN405"
         ],
         "any_from_catalog": false
       }
@@ -2706,10 +2706,10 @@
       "required_courses": [
         "PORT101",
         "PORT102",
-        "PORT201",
+        "PORT206",
         "PORT202",
         "PORT301",
-        "PORT302"
+        "PORT305"
       ],
       "electives": {
         "count": 2,
@@ -2761,10 +2761,10 @@
       "major_name": "Art",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ART101",
+        "ARTH101",
         "ART102",
         "ART103",
-        "ART201",
+        "FILM201",
         "ART401",
         "ART402",
         "ARTH106"
@@ -2773,10 +2773,10 @@
         "count": 5,
         "min_level_300_plus": 3,
         "options": [
-          "ART202",
-          "ART203",
-          "ART204",
-          "ART205",
+          "ARTH202",
+          "ARTH203",
+          "ARTH204",
+          "ARTH205",
           "ART301",
           "ART302",
           "ART303"
@@ -2792,12 +2792,12 @@
       "required_courses": [
         "MUS101",
         "MUS102",
-        "MUS207",
-        "MUS208",
+        "MUS205",
+        "MUS205",
         "MUS202",
         "MUS203",
-        "MUS204",
-        "MUS400"
+        "MUS205",
+        "MUS401"
       ],
       "electives": {
         "count": 3,
@@ -2816,22 +2816,22 @@
       "major_name": "Theater Arts",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "THEA101",
-        "THEA102",
-        "THEA103",
-        "THEA200",
-        "THEA201",
+        "THTA101",
+        "THTA102",
+        "THTA103",
+        "THTR200",
+        "THTA201",
         "THEA204",
         "THEA301",
-        "THEA400"
+        "THTA400"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "THEA202",
+          "THTA202",
           "THEA203",
-          "THEA302",
+          "THTR302",
           "THEA303"
         ],
         "any_from_catalog": false
@@ -2843,7 +2843,7 @@
       "major_name": "Dance",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "DANC101",
+        "DSTU101",
         "DANC102",
         "DANC200",
         "DANC201",
@@ -2871,16 +2871,16 @@
         "CINE201",
         "CINE202",
         "CINE203",
-        "CINE301",
-        "CINE402"
+        "CINE306",
+        "CINE420"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "CINE302",
-          "CINE303",
-          "CINE401"
+          "CINE306",
+          "CINE306",
+          "CINE420"
         ],
         "any_from_catalog": false
       }
@@ -2894,7 +2894,7 @@
         "JOUR101",
         "JOUR201",
         "JOUR202",
-        "JOUR203",
+        "JMS203",
         "JOUR401",
         "JOUR402"
       ],
@@ -2903,7 +2903,7 @@
         "min_level_300_plus": 3,
         "options": [
           "JOUR301",
-          "JOUR302",
+          "JMS302",
           "JOUR303"
         ],
         "any_from_catalog": false
@@ -2916,7 +2916,7 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "RELGS101",
-        "RELGS200",
+        "RELGS201",
         "RELGS201"
       ],
       "electives": {
@@ -2925,7 +2925,7 @@
         "options": [
           "RELGS301",
           "RELGS302",
-          "RELGS303",
+          "RELGS301",
           "RELGS401"
         ],
         "any_from_catalog": false
@@ -2947,9 +2947,9 @@
         "count": 5,
         "min_level_300_plus": 4,
         "options": [
-          "CLASS301",
-          "CLASS302",
-          "CLASS401",
+          "PHIL301",
+          "PHIL302",
+          "PHIL401",
           "HIST301",
           "PHIL201",
           "PHIL210"
@@ -2978,8 +2978,8 @@
         "min_level_300_plus": 3,
         "options": [
           "CLASS301",
-          "CLASS302",
-          "CLASS401"
+          "PHIL302",
+          "PHIL401"
         ],
         "any_from_catalog": false
       }
@@ -2991,9 +2991,9 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "COMPLIT201",
-        "COMPLIT202",
+        "COMPLIT203",
         "COMPLIT301",
-        "COMPLIT302",
+        "COMPLIT303",
         "COMPLIT402"
       ],
       "electives": {
@@ -3001,13 +3001,13 @@
         "min_level_300_plus": 4,
         "options": [
           "COMPLIT401",
-          "ENGL201",
+          "COMPLIT201",
           "ENGL211",
           "ENGL212",
           "FREN215",
           "FREN216",
           "SPAN302",
-          "SPAN303",
+          "COMPLIT303",
           "COMPLIT403"
         ],
         "any_from_catalog": false
@@ -3032,7 +3032,7 @@
           "HIST301",
           "ENGL201",
           "ENGL211",
-          "CLASS301",
+          "COMPLIT301",
           "CLASS302",
           "RELGS301"
         ],
@@ -3045,7 +3045,7 @@
       "major_name": "Global Humanities",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GLHUM101",
+        "COMPLIT101",
         "GLHUM201",
         "GLHUM301",
         "GLHUM401"
@@ -3054,20 +3054,20 @@
         "count": 6,
         "min_level_300_plus": 4,
         "options": [
-          "ENGL201",
+          "EXPOS201",
           "ENGL211",
           "HIST201",
           "HIST202",
           "PHIL201",
           "PHIL210",
           "COMPLIT201",
-          "COMPLIT202",
-          "RELGS200",
+          "COMPLIT201",
+          "RELGS201",
           "RELGS201",
           "COMPLIT301",
-          "COMPLIT302",
+          "COMPLIT301",
           "HIST301",
-          "HIST302"
+          "HIST303"
         ],
         "any_from_catalog": false
       }
@@ -3078,17 +3078,17 @@
       "major_name": "Jewish Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "JWST101",
-        "JWST201",
-        "JWST202"
+        "RELGS101",
+        "CHN201",
+        "CHN202"
       ],
       "electives": {
         "count": 6,
         "min_level_300_plus": 4,
         "options": [
           "JWST301",
-          "JWST302",
-          "JWST401",
+          "RELGS302",
+          "RELGS401",
           "HIST301",
           "RELGS301",
           "RELGS302"
@@ -3116,10 +3116,10 @@
           "CHN101",
           "KOR101",
           "HIST201",
-          "HIST202",
-          "RELGS200",
+          "HIST253",
+          "RELGS201",
           "HIST301",
-          "HIST302"
+          "HIST301"
         ],
         "any_from_catalog": false
       }
@@ -3138,17 +3138,17 @@
         "count": 7,
         "min_level_300_plus": 4,
         "options": [
-          "LAS301",
+          "SOC301",
           "LAS401",
           "SPAN302",
           "SPAN303",
           "SPAN310",
           "SPAN311",
           "SPAN330",
-          "PORT301",
+          "PORT305",
           "PORT302",
-          "HIST201",
-          "HIST202",
+          "HIST360",
+          "HIST205",
           "SOC210",
           "POLS300"
         ],
@@ -3169,14 +3169,14 @@
         "count": 7,
         "min_level_300_plus": 4,
         "options": [
-          "LCS301",
+          "SOC301",
           "LCS401",
           "SPAN302",
           "SPAN303",
           "SPAN330",
           "SPAN340",
-          "HIST201",
-          "HIST202",
+          "HIST360",
+          "HIST205",
           "SOC210"
         ],
         "any_from_catalog": false
@@ -3205,7 +3205,7 @@
           "GERM301",
           "GERM302",
           "ITAL301",
-          "ITAL302",
+          "PCOL302",
           "POLS300",
           "POLS301"
         ],
@@ -3226,9 +3226,9 @@
         "count": 7,
         "min_level_300_plus": 4,
         "options": [
-          "MES301",
+          "RELGS301",
           "MES401",
-          "RELGS200",
+          "RELGS201",
           "RELGS201",
           "RELGS301",
           "HIST201",
@@ -3256,14 +3256,14 @@
         "options": [
           "MES201",
           "MES202",
-          "MES301",
-          "RELGS200",
+          "RELGS301",
+          "RELGS201",
           "RELGS201",
           "HIST201",
           "HIST202",
           "MES401",
           "HIST301",
-          "HIST302"
+          "HIST301"
         ],
         "any_from_catalog": false
       }
@@ -3274,12 +3274,12 @@
       "major_name": "Information Technology and Informatics",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ITI103",
+        "ITI200",
         "ITI201",
-        "ITI301",
-        "ITI302",
+        "ITI300",
+        "ITI300",
         "ITI321",
-        "ITI401",
+        "ITI400",
         "CS111",
         "STAT211"
       ],
@@ -3304,11 +3304,11 @@
       "major_name": "Human Resource Management",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HRM201",
+        "HRM301",
         "HRM202",
         "HRM301",
         "HRM302",
-        "HRM303",
+        "HRM301",
         "HRM401",
         "ECON102",
         "STAT211"
@@ -3317,7 +3317,7 @@
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "LER101",
+          "LER587",
           "LER201",
           "LER301",
           "SOC210",
@@ -3337,15 +3337,15 @@
         "LER102",
         "LER201",
         "LER202",
-        "LER301",
+        "DISA301",
         "LER302",
-        "LER401"
+        "DISA401"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "LER490",
+          "DISA490",
           "ECON102",
           "ECON103",
           "SOC210",
@@ -3393,11 +3393,11 @@
         "UPD101",
         "UPD201",
         "UPD202",
-        "UPD301",
         "UPD302",
-        "UPD303",
-        "UPD401",
-        "UPD402",
+        "UPD302",
+        "UPD302",
+        "UPD400",
+        "UPD403",
         "STAT211",
         "ECON102"
       ],
@@ -3423,9 +3423,9 @@
         "UPD101",
         "UPD201",
         "UPD202",
-        "UPD301",
         "UPD302",
-        "UPD401",
+        "UPD302",
+        "UPD400",
         "STAT211"
       ],
       "electives": {
@@ -3449,24 +3449,24 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "COMMUN101",
-        "COMMUN200",
-        "COMMUN201",
-        "COMMUN359",
+        "COMM200",
+        "COMM201",
+        "COMM359",
         "COMMUN402",
-        "COMMUN380"
+        "COMM380"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "COMMUN300",
-          "COMMUN354",
-          "COMMUN355",
-          "COMMUN356",
-          "COMMUN357",
+          "COMM300",
+          "COMM354",
+          "COMM355",
+          "COMM356",
+          "COMM357",
           "COMMUN400",
           "COMMUN401",
-          "COMMUN403",
+          "COMM403",
           "COMMUN404"
         ],
         "any_from_catalog": false
@@ -3479,21 +3479,21 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "COMMUN101",
-        "COMMUN200",
-        "COMMUN201",
-        "COMMUN354",
-        "COMMUN403",
-        "COMMUN380"
+        "COMM200",
+        "COMM201",
+        "COMM354",
+        "COMM403",
+        "COMM380"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "COMMUN300",
-          "COMMUN355",
-          "COMMUN356",
-          "COMMUN357",
-          "COMMUN359",
+          "COMM300",
+          "COMM355",
+          "COMM356",
+          "COMM357",
+          "COMM359",
           "COMMUN400",
           "COMMUN401",
           "COMMUN402",
@@ -3509,25 +3509,25 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "COMMUN101",
-        "COMMUN200",
-        "COMMUN201",
-        "COMMUN355",
+        "COMM200",
+        "COMM201",
+        "COMM355",
         "COMMUN404",
-        "COMMUN380"
+        "COMM380"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "COMMUN300",
-          "COMMUN354",
-          "COMMUN356",
-          "COMMUN357",
-          "COMMUN359",
+          "COMM300",
+          "COMM354",
+          "COMM356",
+          "COMM357",
+          "COMM359",
           "COMMUN400",
           "COMMUN401",
           "COMMUN402",
-          "COMMUN403"
+          "COMM403"
         ],
         "any_from_catalog": false
       }
@@ -3539,24 +3539,24 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "COMMUN101",
-        "COMMUN200",
-        "COMMUN201",
-        "COMMUN356",
-        "COMMUN357",
-        "COMMUN380"
+        "COMM200",
+        "COMM201",
+        "COMM356",
+        "COMM357",
+        "COMM380"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 3,
         "options": [
-          "COMMUN300",
-          "COMMUN354",
-          "COMMUN355",
-          "COMMUN359",
+          "COMM300",
+          "COMM354",
+          "COMM355",
+          "COMM359",
           "COMMUN400",
           "COMMUN401",
           "COMMUN402",
-          "COMMUN403",
+          "COMM403",
           "COMMUN404"
         ],
         "any_from_catalog": false
@@ -3569,24 +3569,24 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "COMMUN101",
-        "COMMUN200",
-        "COMMUN201",
+        "COMM200",
+        "COMM201",
         "COMMUN401",
-        "COMMUN380"
+        "COMM380"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 4,
         "options": [
-          "COMMUN300",
-          "COMMUN354",
-          "COMMUN355",
-          "COMMUN356",
-          "COMMUN357",
-          "COMMUN359",
+          "COMM300",
+          "COMM354",
+          "COMM355",
+          "COMM356",
+          "COMM357",
+          "COMM359",
           "COMMUN400",
           "COMMUN402",
-          "COMMUN403",
+          "COMM403",
           "COMMUN404"
         ],
         "any_from_catalog": false
@@ -3606,18 +3606,18 @@
         "count": 8,
         "min_level_300_plus": 5,
         "options": [
-          "ANTH302",
+          "ANTH303",
           "ANTH303",
           "ANTH304",
-          "ANTH305",
+          "ANTH303",
           "ANTH307",
           "ANTH308",
-          "ANTH309",
+          "ANTH308",
           "ANTH312",
           "ANTH314",
           "ANTH317",
           "ANTH318",
-          "ANTH320",
+          "ANTH321",
           "ANTH325",
           "ANTH326"
         ],
@@ -3717,8 +3717,8 @@
       "major_name": "Classics (Greek Option)",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GREK101",
-        "GREK102",
+        "PORT101",
+        "PORT102",
         "GREK201",
         "GREK301",
         "CLASS201",
@@ -3729,8 +3729,8 @@
         "min_level_300_plus": 3,
         "options": [
           "CLASS301",
-          "CLASS302",
-          "CLASS401",
+          "PHIL302",
+          "PHIL401",
           "HIST301",
           "PHIL201",
           "PHIL210"
@@ -3779,7 +3779,7 @@
       "major_name": "History (Ancient History and Classics)",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HIST299",
+        "HIST291",
         "HIST101",
         "HIST102",
         "CLASS101",
@@ -3790,13 +3790,13 @@
         "min_level_300_plus": 4,
         "options": [
           "HIST301",
-          "HIST302",
+          "HIST301",
           "HIST303",
-          "HIST380",
+          "HIST391",
           "CLASS202",
-          "CLASS301",
-          "CLASS302",
-          "CLASS401",
+          "PHIL301",
+          "PHIL302",
+          "PHIL401",
           "PHIL201",
           "PHIL210"
         ],
@@ -3814,31 +3814,31 @@
       "major_name": "History/French",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HIST299",
+        "HIST291",
         "FREN213",
         "FREN214",
         "FREN215",
         "FREN216",
-        "FREN480"
+        "FREN481"
       ],
       "electives": {
         "count": 8,
         "min_level_300_plus": 5,
         "options": [
-          "HIST201",
+          "HIST205",
           "HIST202",
-          "HIST203",
-          "HIST204",
+          "HIST205",
+          "HIST205",
           "HIST301",
-          "HIST302",
           "HIST303",
-          "HIST330",
-          "HIST331",
+          "HIST303",
+          "HIST329",
+          "HIST332",
           "FREN301",
-          "FREN302",
+          "FREN303",
           "FREN303",
           "FREN401",
-          "FREN402"
+          "FREN403"
         ],
         "any_from_catalog": false
       },
@@ -3854,7 +3854,7 @@
       "major_name": "History/Political Science",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HIST299",
+        "HIST291",
         "POLS101",
         "POLS300"
       ],
@@ -3863,14 +3863,14 @@
         "min_level_300_plus": 6,
         "options": [
           "HIST201",
-          "HIST202",
-          "HIST203",
-          "HIST204",
+          "HIST205",
+          "HIST205",
+          "HIST205",
           "HIST301",
-          "HIST302",
           "HIST303",
-          "HIST330",
-          "HIST331",
+          "HIST303",
+          "HIST329",
+          "HIST332",
           "POLS102",
           "POLS103",
           "POLS104",
@@ -3901,11 +3901,11 @@
       "major_name": "Jewish Studies (Advanced Language)",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "JWST101",
-        "JWST201",
-        "JWST202",
-        "HEBR101",
-        "HEBR102",
+        "CHN101",
+        "CHN201",
+        "CHN202",
+        "CHN101",
+        "CHN102",
         "HEBR201",
         "HEBR301"
       ],
@@ -3937,7 +3937,7 @@
         "JOUR101",
         "JOUR201",
         "JOUR202",
-        "JOUR203",
+        "JMS203",
         "JOUR401",
         "JOUR402",
         "JOUR304"
@@ -3969,7 +3969,7 @@
         "JOUR101",
         "JOUR201",
         "JOUR202",
-        "JOUR203",
+        "JMS203",
         "JOUR401",
         "JOUR402",
         "JOUR303"
@@ -3981,8 +3981,8 @@
           "JOUR301",
           "JOUR302",
           "JOUR304",
-          "SPMD201",
-          "SPMD202"
+          "JMS201",
+          "JMS202"
         ],
         "any_from_catalog": false
       },
@@ -4032,23 +4032,23 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "COMPLIT201",
-        "COMPLIT202",
+        "COMPLIT203",
         "COMPLIT301",
-        "COMPLIT302",
+        "COMPLIT303",
         "COMPLIT401",
         "COMPLIT402",
-        "COMPLIT403"
+        "COMPLIT303"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 3,
         "options": [
-          "ENGL301",
+          "EXPOS301",
           "ENGL302",
           "FREN301",
           "FREN401",
           "SPAN302",
-          "SPAN303",
+          "COMPLIT303",
           "GERM301",
           "GERM302"
         ],
@@ -4083,7 +4083,7 @@
           "MATH336",
           "MATH338",
           "MATH351",
-          "MATH352",
+          "MATH351",
           "MATH356",
           "MATH361",
           "MATH373"
@@ -4196,24 +4196,24 @@
       "major_name": "Biology",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
-        "BIO102"
+        "BIO115",
+        "BIO116"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
           "BIO103",
-          "BIO104",
+          "BIO103",
           "MCB301",
           "MCB407",
           "MCB408",
-          "GENET352",
+          "GENET354",
           "GENET380",
           "CBN245",
           "CBN270",
           "CBN322",
-          "CBN340"
+          "CBN350"
         ],
         "any_from_catalog": false
       },
@@ -4255,15 +4255,15 @@
       "major_name": "Astrobiology",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
+        "BIO115",
         "CHEM161",
-        "ASTRO101"
+        "METEOR101"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 1,
         "options": [
-          "BIO102",
+          "BIO116",
           "CHEM162",
           "GEOSC101",
           "PHYS123",
@@ -4341,9 +4341,9 @@
           "GEOSC304",
           "GEOSC306",
           "GEOSC407",
-          "GEOSC410",
           "GEOSC411",
-          "GEOSC413",
+          "GEOSC411",
+          "GEOSC414",
           "GEOSC414",
           "GEOSC428",
           "GEOSC441",
@@ -4362,8 +4362,8 @@
       "major_name": "Molecular Biology and Biochemistry",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
-        "BIO102",
+        "BIO115",
+        "BIO116",
         "CHEM161",
         "CHEM171",
         "CHEM162",
@@ -4379,7 +4379,7 @@
           "MCB411",
           "MCB412",
           "MCB413",
-          "MCB420",
+          "MCB421",
           "MCB421",
           "CBN245",
           "CBN270"
@@ -4396,8 +4396,8 @@
       "major_name": "Genetics",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
-        "BIO102",
+        "BIO115",
+        "BIO116",
         "GENET380"
       ],
       "electives": {
@@ -4405,7 +4405,7 @@
         "min_level_300_plus": 3,
         "options": [
           "GENET302",
-          "GENET352",
+          "GENET354",
           "GENET354",
           "GENET356",
           "GENET370",
@@ -4426,18 +4426,18 @@
       "major_name": "Neuroscience",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "BIO101",
+        "BIO115",
         "CBN245"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "BIO102",
+          "BIO116",
           "CBN270",
           "CBN322",
           "CBN328",
-          "CBN340",
+          "CBN350",
           "CBN356",
           "CBN445",
           "CBN447",
@@ -4706,7 +4706,7 @@
       "major_name": "Cognitive Science",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "COGS201"
+        "LING201"
       ],
       "electives": {
         "count": 5,
@@ -4714,20 +4714,20 @@
         "options": [
           "COGS253",
           "COGS301",
-          "COGS310",
+          "PSYC310",
           "COGS320",
           "COGS330",
-          "COGS335",
-          "COGS340",
+          "PSYC335",
+          "PSYC340",
           "COGS345",
-          "COGS350",
+          "LING350",
           "COGS395",
-          "COGS401",
-          "COGS411",
+          "PSYC401",
+          "PSYC411",
           "COGS412",
           "COGS413",
           "COGS414",
-          "COGS415",
+          "PSYC415",
           "COGS416",
           "COGS417",
           "COGS430",
@@ -4751,19 +4751,19 @@
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "COMMUN200",
-          "COMMUN201",
-          "COMMUN300",
-          "COMMUN354",
-          "COMMUN355",
-          "COMMUN356",
-          "COMMUN357",
-          "COMMUN359",
-          "COMMUN380",
+          "COMM200",
+          "COMM201",
+          "COMM300",
+          "COMM354",
+          "COMM355",
+          "COMM356",
+          "COMM357",
+          "COMM359",
+          "COMM380",
           "COMMUN400",
           "COMMUN401",
           "COMMUN402",
-          "COMMUN403",
+          "COMM403",
           "COMMUN404"
         ],
         "any_from_catalog": false
@@ -4786,11 +4786,11 @@
         "options": [
           "UPD201",
           "UPD202",
-          "UPD301",
+          "UPD302",
           "UPD302",
           "UPD303",
-          "UPD401",
-          "UPD402"
+          "UPD400",
+          "UPD403"
         ],
         "any_from_catalog": false
       },
@@ -4813,26 +4813,26 @@
           "ANTH102",
           "ANTH105",
           "ANTH108",
-          "ANTH302",
+          "ANTH303",
           "ANTH303",
           "ANTH304",
-          "ANTH305",
+          "ANTH304",
           "ANTH307",
           "ANTH308",
-          "ANTH309",
-          "ANTH310",
+          "ANTH308",
+          "ANTH312",
           "ANTH312",
           "ANTH314",
           "ANTH317",
-          "ANTH318",
-          "ANTH320",
+          "ANTH317",
+          "ANTH321",
           "ANTH325",
           "ANTH326",
           "ANTH328",
-          "ANTH336",
-          "ANTH338",
+          "ANTH333",
+          "ANTH339",
           "ANTH341",
-          "ANTH350"
+          "ANTH356"
         ],
         "any_from_catalog": false
       },
@@ -4881,8 +4881,8 @@
           "PUBH335",
           "PUBH356",
           "PUBH395",
-          "PUBH450",
-          "PUBH499"
+          "PUBH350",
+          "PUBH299"
         ],
         "any_from_catalog": false
       },
@@ -4906,8 +4906,8 @@
           "PUBH240",
           "PUBH335",
           "PUBH356",
-          "PUBH395",
-          "PUBH450",
+          "PUBH296",
+          "PUBH440",
           "PUBH499",
           "ENVST300"
         ],
@@ -4924,7 +4924,7 @@
       "major_name": "Environmental Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ENVST101"
+        "ENVSCI101"
       ],
       "electives": {
         "count": 5,
@@ -4933,10 +4933,10 @@
           "ENVST200",
           "ENVST300",
           "ENVST301",
-          "ENVST302",
-          "ENVST310",
-          "ENVST320",
-          "ENVST325",
+          "ENVSCI302",
+          "ENVSCI310",
+          "PPP320",
+          "EENR325",
           "ENVST330",
           "ENVST400",
           "ENVST485"
@@ -4953,7 +4953,7 @@
       "major_name": "Labor Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "LER101"
+        "LER587"
       ],
       "electives": {
         "count": 5,
@@ -4961,11 +4961,11 @@
         "options": [
           "LER102",
           "LER201",
-          "LER202",
-          "LER301",
+          "DISA202",
+          "DISA301",
           "LER302",
-          "LER401",
-          "LER490"
+          "DISA401",
+          "DISA490"
         ],
         "any_from_catalog": false
       },
@@ -4979,17 +4979,17 @@
       "major_name": "Human Resource Management",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HRM201"
+        "HRM301"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "HRM202",
           "HRM301",
-          "HRM302",
-          "HRM303",
-          "HRM401"
+          "HRM301",
+          "HRM301",
+          "HRM301",
+          "HRM301"
         ],
         "any_from_catalog": false
       },
@@ -5012,8 +5012,8 @@
           "SPMD201",
           "SPMD202",
           "SPMD203",
-          "SPMD301",
-          "SPMD302",
+          "EXSC301",
+          "MGMT302",
           "SPMD401",
           "SPMD490"
         ],
@@ -5035,18 +5035,18 @@
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "EXSC200",
+          "EXSC205",
           "EXSC225",
-          "EXSC226",
-          "EXSC227",
+          "EXSC225",
+          "EXSC223",
           "EXSC301",
-          "EXSC302",
-          "EXSC303",
+          "EXSC301",
+          "EXSC301",
           "EXSC304",
-          "EXSC305",
-          "EXSC400",
+          "EXSC304",
           "EXSC401",
-          "EXSC490"
+          "EXSC401",
+          "EXSC491"
         ],
         "any_from_catalog": false
       },
@@ -5060,17 +5060,17 @@
       "major_name": "Public Policy",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "PUBP201"
+        "PPP201"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "PUBP301",
-          "PUBP302",
-          "PUBP303",
-          "PUBP401",
-          "PUBP402",
+          "POLS301",
+          "PPOL302",
+          "POLS303",
+          "PUBH401",
+          "PUBH402",
           "ECON301",
           "POLS306",
           "POLS307"
@@ -5087,17 +5087,17 @@
       "major_name": "Information Technology and Informatics",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ITI103"
+        "ITI201"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
           "ITI201",
-          "ITI301",
-          "ITI302",
+          "ITI300",
+          "ITI300",
           "ITI321",
-          "ITI401"
+          "ITI400"
         ],
         "any_from_catalog": false
       },
@@ -5126,8 +5126,8 @@
           "ENGL218",
           "ENGL219",
           "ENGL220",
-          "ENGL301",
-          "ENGL302",
+          "EXPOS301",
+          "EXPOS302",
           "ENGL303",
           "ENGL304",
           "ENGL305",
@@ -5166,13 +5166,13 @@
         "options": [
           "ENGL215",
           "ENGL216",
-          "ENGL315",
+          "EXPOS315",
           "ENGL320",
           "ENGL330",
           "ENGL331",
           "ENGL332",
           "ENGL401",
-          "ENGL410",
+          "JMS410",
           "ENGL420"
         ],
         "any_from_catalog": false
@@ -5188,46 +5188,46 @@
       "major_name": "History",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HIST299"
+        "HIST291"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "HIST101",
-          "HIST102",
+          "HIST103",
+          "HIST103",
           "HIST103",
           "HIST201",
-          "HIST202",
-          "HIST203",
-          "HIST204",
+          "HIST205",
+          "HIST205",
+          "HIST205",
           "HIST221",
-          "HIST222",
+          "HIST221",
           "HIST231",
           "HIST232",
-          "HIST241",
           "HIST242",
-          "HIST251",
+          "HIST242",
+          "HIST253",
           "HIST263",
           "HIST264",
           "HIST271",
-          "HIST275",
+          "HIST375",
           "HIST280",
           "HIST301",
-          "HIST302",
+          "HIST303",
           "HIST303",
           "HIST310",
-          "HIST315",
+          "HIST316",
           "HIST320",
-          "HIST322",
-          "HIST330",
-          "HIST331",
+          "HIST329",
+          "HIST329",
+          "HIST332",
           "HIST340",
-          "HIST350",
+          "HIST351",
           "HIST360",
           "HIST380",
-          "HIST401",
-          "HIST402",
+          "HIST404",
+          "HIST404",
           "HIST451"
         ],
         "any_from_catalog": false
@@ -5297,18 +5297,18 @@
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "CLASS102",
+          "PORT102",
           "CLASS103",
           "CLASS201",
           "CLASS202",
-          "CLASS301",
-          "CLASS302",
-          "CLASS401",
-          "GREK101",
-          "GREK102",
+          "PHIL301",
+          "PHIL302",
+          "PHIL401",
+          "PORT101",
+          "PORT102",
           "GREK201",
           "GREK301",
-          "LAT101",
+          "PORT101",
           "LAT102",
           "LAT201",
           "LAT301"
@@ -5357,7 +5357,7 @@
       "major_name": "Art",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ART101"
+        "ARTH101"
       ],
       "electives": {
         "count": 5,
@@ -5365,11 +5365,11 @@
         "options": [
           "ART102",
           "ART103",
-          "ART201",
-          "ART202",
-          "ART203",
-          "ART204",
-          "ART205",
+          "FILM201",
+          "ARTH202",
+          "ARTH203",
+          "ARTH204",
+          "ARTH205",
           "ART301",
           "ART302",
           "ART303",
@@ -5396,16 +5396,16 @@
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "MUS105",
-          "MUS202",
+          "MUSC105",
           "MUS203",
-          "MUS204",
-          "MUS207",
+          "MUS203",
+          "MUSA204",
+          "MUS203",
           "MUS208",
           "MUS301",
           "MUS302",
           "MUS303",
-          "MUS400"
+          "MUS401"
         ],
         "any_from_catalog": false
       },
@@ -5419,23 +5419,23 @@
       "major_name": "Theater Arts",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "THEA101",
-        "THEA102"
+        "THTA101",
+        "THTA102"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "THEA103",
-          "THEA200",
-          "THEA201",
-          "THEA202",
+          "THTA103",
+          "THTR200",
+          "THTA201",
+          "THTA202",
           "THEA203",
           "THEA204",
           "THEA301",
-          "THEA302",
+          "THTR302",
           "THEA303",
-          "THEA400"
+          "THTA400"
         ],
         "any_from_catalog": false
       },
@@ -5449,7 +5449,7 @@
       "major_name": "Dance",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "DANC101",
+        "DSTU101",
         "DANC102"
       ],
       "electives": {
@@ -5461,7 +5461,7 @@
           "DANC202",
           "DANC203",
           "DANC301",
-          "DANC302",
+          "THTR302",
           "DANC303",
           "DANC400"
         ],
@@ -5485,11 +5485,11 @@
         "min_level_300_plus": 2,
         "options": [
           "CINE203",
-          "CINE301",
+          "CINE306",
           "CINE302",
-          "CINE303",
-          "CINE401",
-          "CINE402"
+          "CINE306",
+          "CINE420",
+          "CINE420"
         ],
         "any_from_catalog": false
       },
@@ -5509,11 +5509,11 @@
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "RELGS200",
+          "RELGS201",
           "RELGS201",
           "RELGS301",
           "RELGS302",
-          "RELGS303",
+          "RELGS301",
           "RELGS401"
         ],
         "any_from_catalog": false
@@ -5536,7 +5536,7 @@
         "min_level_300_plus": 2,
         "options": [
           "JOUR202",
-          "JOUR203",
+          "JMS203",
           "JOUR301",
           "JOUR302",
           "JOUR303",
@@ -5569,7 +5569,7 @@
           "HIST221",
           "HIST222",
           "CLASS201",
-          "CLASS301",
+          "COMPLIT301",
           "RELGS201"
         ],
         "any_from_catalog": false
@@ -5584,19 +5584,19 @@
       "major_name": "Global Humanities",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GLHUM101"
+        "COMPLIT101"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "GLHUM201",
-          "GLHUM301",
+          "COMPLIT201",
+          "COMPLIT301",
           "GLHUM401",
           "HIST201",
           "HIST202",
           "COMPLIT201",
-          "COMPLIT202",
+          "COMPLIT201",
           "COMPLIT301"
         ],
         "any_from_catalog": false
@@ -5650,14 +5650,14 @@
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "AFRS200",
-          "AFRS210",
+          "AFRS220",
+          "AFRS220",
           "AFRS220",
           "AFRS301",
-          "AFRS310",
+          "AFRS301",
           "AFRS315",
           "AFRS320",
-          "AFRS330",
+          "AFRS350",
           "AFRS401"
         ],
         "any_from_catalog": false
@@ -5672,7 +5672,7 @@
       "major_name": "Asian Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "AMES101"
+        "AMST101"
       ],
       "electives": {
         "count": 5,
@@ -5681,7 +5681,7 @@
           "AMES201",
           "AMES202",
           "AMES301",
-          "AMES401",
+          "AMST401",
           "JPN101",
           "JPN201",
           "CHN101",
@@ -5708,13 +5708,13 @@
         "options": [
           "LAS201",
           "LAS202",
-          "LAS301",
+          "SOC301",
           "LAS401",
           "SPAN201",
           "SPAN202",
           "SPAN301",
           "SPAN302",
-          "HIST241",
+          "HIST242",
           "HIST242"
         ],
         "any_from_catalog": false
@@ -5737,13 +5737,13 @@
         "options": [
           "MES201",
           "MES202",
-          "MES301",
+          "RELGS301",
           "MES401",
-          "RELGS200",
+          "RELGS201",
           "RELGS201",
           "HIST201",
           "HIST202",
-          "AMESALL101"
+          "AMST101"
         ],
         "any_from_catalog": false
       },
@@ -5772,7 +5772,7 @@
           "HIST232",
           "HIST301",
           "FREN213",
-          "GERM201"
+          "GERM301"
         ],
         "any_from_catalog": false
       },
@@ -5786,16 +5786,16 @@
       "major_name": "Jewish Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "JWST101"
+        "RELGS101"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "JWST201",
-          "JWST202",
-          "JWST301",
-          "JWST302",
+          "CHN201",
+          "CHN202",
+          "RELGS301",
+          "RELGS302",
           "JWST401",
           "HIST301",
           "RELGS301",
@@ -5813,18 +5813,18 @@
       "major_name": "Holocaust and Genocide Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "JWST201"
+        "CHN201"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "JWST202",
+          "CHN202",
           "JWST301",
           "JWST302",
-          "JWST401",
+          "RELGS401",
           "HIST301",
-          "HIST302",
+          "HIST303",
           "HIST303",
           "RELGS301",
           "HIST330"
@@ -5854,7 +5854,7 @@
           "AMST210",
           "AMST301",
           "AMST302",
-          "AMST310",
+          "BSYSE310",
           "AMST320",
           "AMST330",
           "AMST401"
@@ -5879,11 +5879,11 @@
         "options": [
           "LCS201",
           "LCS202",
-          "LCS301",
+          "SOC301",
           "LCS401",
           "SPAN201",
           "SPAN202",
-          "HIST241",
+          "HIST240",
           "HIST242"
         ],
         "any_from_catalog": false
@@ -5908,8 +5908,8 @@
           "AMESALL202",
           "AMESALL301",
           "AMESALL401",
-          "MES201",
-          "RELGS200",
+          "MEHE201",
+          "RELGS201",
           "RELGS201"
         ],
         "any_from_catalog": false
@@ -5936,11 +5936,11 @@
           "FREN215",
           "FREN216",
           "FREN301",
-          "FREN302",
+          "FREN303",
           "FREN303",
           "FREN401",
-          "FREN402",
-          "FREN480"
+          "FREN403",
+          "FREN481"
         ],
         "any_from_catalog": false
       },
@@ -5967,9 +5967,9 @@
           "SPAN302",
           "SPAN303",
           "SPAN304",
-          "SPAN305",
+          "COMPLIT305",
           "SPAN306",
-          "SPAN310",
+          "FREN310",
           "SPAN311",
           "SPAN320",
           "SPAN330",
@@ -5993,7 +5993,7 @@
       "required_courses": [
         "GERM101",
         "GERM102",
-        "GERM201",
+        "GERM131",
         "GERM202"
       ],
       "electives": {
@@ -6004,8 +6004,8 @@
           "GERM301",
           "GERM302",
           "GERM303",
-          "GERM401",
-          "GERM402"
+          "GERM301",
+          "GERM301"
         ],
         "any_from_catalog": false
       },
@@ -6019,8 +6019,8 @@
       "major_name": "Italian",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ITAL101",
-        "ITAL102",
+        "PCOL101",
+        "PCOL102",
         "ITAL201",
         "ITAL202"
       ],
@@ -6028,10 +6028,10 @@
         "count": 2,
         "min_level_300_plus": 1,
         "options": [
-          "ITAL231",
-          "ITAL232",
+          "PCOL231",
+          "PCOL232",
           "ITAL301",
-          "ITAL302",
+          "PCOL302",
           "ITAL321",
           "ITAL322",
           "ITAL401"
@@ -6060,7 +6060,7 @@
           "JPN301",
           "JPN302",
           "JPN401",
-          "JPN402"
+          "JPN401"
         ],
         "any_from_catalog": false
       },
@@ -6083,9 +6083,9 @@
         "count": 2,
         "min_level_300_plus": 1,
         "options": [
-          "CHN301",
+          "CHN307",
           "CHN302",
-          "CHN401",
+          "CHN405",
           "CHN402"
         ],
         "any_from_catalog": false
@@ -6160,8 +6160,8 @@
         "count": 2,
         "min_level_300_plus": 1,
         "options": [
-          "PORT301",
-          "PORT302",
+          "PORT305",
+          "PORT305",
           "PORT401",
           "PORT402"
         ],
@@ -6207,8 +6207,8 @@
       "major_name": "Hebrew",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HEBR101",
-        "HEBR102",
+        "CHN101",
+        "CHN102",
         "HEBR201"
       ],
       "electives": {
@@ -6216,9 +6216,9 @@
         "min_level_300_plus": 1,
         "options": [
           "HEBR301",
-          "JWST201",
-          "JWST202",
-          "RELGS200",
+          "CHN201",
+          "CHN202",
+          "RELGS201",
           "RELGS201"
         ],
         "any_from_catalog": false
@@ -6234,20 +6234,20 @@
       "major_name": "African Area Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "AFRS101",
+        "AFRS220",
         "AFRS220"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "AFRS200",
-          "AFRS210",
+          "AFRS222",
+          "AFRS220",
           "AFRS301",
           "AFRS315",
-          "AFRS320",
-          "AFRS330",
-          "AFRS401",
+          "AFRS222",
+          "AFRS350",
+          "AFRS301",
           "HIST231",
           "HIST232",
           "POLS308"
@@ -6352,7 +6352,7 @@
         "options": [
           "PERS202",
           "PERS301",
-          "RELGS200"
+          "RELGS201"
         ],
         "any_from_catalog": false
       },
@@ -6378,7 +6378,7 @@
           "TURK202",
           "PERS101",
           "ARAB101",
-          "RELGS200"
+          "RELGS201"
         ],
         "any_from_catalog": false
       },
@@ -6403,7 +6403,7 @@
           "HINDI101",
           "HINDI201",
           "HIST280",
-          "RELGS200",
+          "RELGS201",
           "ANTH102",
           "POLS308"
         ],
@@ -6420,7 +6420,7 @@
       "major_name": "International and Global Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "IGS101",
+        "GEOG101",
         "POLS104"
       ],
       "electives": {
@@ -6452,7 +6452,7 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "ANTH105",
-        "ANTH302"
+        "ANTH303"
       ],
       "electives": {
         "count": 3,
@@ -6465,7 +6465,7 @@
           "ANTH310",
           "ANTH314",
           "ANTH317",
-          "ANTH320",
+          "ANTH321",
           "GEOSC101",
           "GEOSC202"
         ],
@@ -6482,20 +6482,20 @@
       "major_name": "Architectural Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ARCH201",
+        "CRP201",
         "ARCH202"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "ARCH301",
-          "ARCH302",
+          "LA301",
+          "CRP302",
           "ARTH204",
           "ARTH205",
           "ARTH332",
           "ART201",
-          "ART202"
+          "ARTH202"
         ],
         "any_from_catalog": false
       },
@@ -6510,21 +6510,21 @@
       "major_name": "Arts Management and Leadership",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "ART101",
-        "ART201"
+        "ARTH101",
+        "FILM201"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "ART202",
-          "ART203",
+          "ARTH202",
+          "ARTH203",
           "ART301",
           "ART302",
           "ART401",
           "ART402",
           "MUS303",
-          "THEA301",
+          "FILM301",
           "SOC225",
           "ECON102"
         ],
@@ -6572,7 +6572,7 @@
         "CHEM171",
         "CHEM162",
         "CHEM172",
-        "EDUC201"
+        "EDPD201"
       ],
       "electives": {
         "count": 2,
@@ -6597,24 +6597,24 @@
       "major_name": "Classical Humanities",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "CLAS101"
+        "COMPLIT101"
       ],
       "electives": {
         "count": 5,
         "min_level_300_plus": 2,
         "options": [
-          "CLAS201",
-          "CLAS301",
-          "CLAS302",
-          "GREK101",
+          "PHIL201",
+          "PHIL301",
+          "PHIL302",
+          "PORT101",
           "GREK201",
           "LATIN101",
           "LATIN201",
           "HIST101",
-          "HIST102",
+          "HIST103",
           "ARTH204",
           "ARTH205",
-          "RELGS200",
+          "RELGS201",
           "PHIL103"
         ],
         "any_from_catalog": false
@@ -6630,7 +6630,7 @@
       "major_name": "Greek (Ancient)",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "GREK101",
+        "PORT101",
         "GREK102",
         "GREK201"
       ],
@@ -6638,9 +6638,9 @@
         "count": 2,
         "min_level_300_plus": 1,
         "options": [
-          "GREK301",
+          "PHIL301",
           "CLAS201",
-          "CLAS301",
+          "PHIL301",
           "LATIN201"
         ],
         "any_from_catalog": false
@@ -6682,8 +6682,8 @@
       "major_name": "Language and Culture of Ancient Israel",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HEBR101",
-        "HEBR102",
+        "CHN101",
+        "CHN102",
         "JWST101"
       ],
       "electives": {
@@ -6691,13 +6691,13 @@
         "min_level_300_plus": 1,
         "options": [
           "HEBR201",
-          "HEBR301",
-          "JWST201",
-          "JWST202",
-          "JWST301",
-          "RELGS200",
+          "RELGS301",
+          "CHN201",
+          "CHN202",
+          "RELGS301",
           "RELGS201",
-          "HIST241"
+          "RELGS201",
+          "HIST240"
         ],
         "any_from_catalog": false
       },
@@ -6713,20 +6713,20 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "COMPLIT201",
-        "COMPLIT202"
+        "COMPLIT203"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
           "COMPLIT301",
-          "COMPLIT302",
+          "COMPLIT301",
           "COMPLIT401",
           "COMPLIT402",
-          "COMPLIT403",
-          "ENGL301",
+          "COMPLIT301",
+          "COMPLIT301",
           "ENGL302",
-          "ENGL310"
+          "FREN310"
         ],
         "any_from_catalog": false
       },
@@ -6748,13 +6748,13 @@
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "AFRS200",
-          "AFRS210",
+          "AFRS220",
+          "AFRS220",
           "AFRS301",
-          "AFRS310",
-          "AFRS320",
-          "AFRS330",
-          "AFRS401",
+          "AFRS301",
+          "AFRS301",
+          "AFRS350",
+          "AFRS301",
           "SOC210",
           "SOC220",
           "SOC241",
@@ -6779,14 +6779,14 @@
       "major_name": "Disabilities Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "DISAB201",
-        "DISAB202"
+        "DISA201",
+        "DISA202"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "DISAB301",
+          "DISA301",
           "DISAB302",
           "SOC303",
           "SOC312",
@@ -6876,17 +6876,17 @@
       "major_name": "Social Justice",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "AFRS101",
+        "AFRS220",
         "SOC101"
       ],
       "electives": {
         "count": 4,
         "min_level_300_plus": 2,
         "options": [
-          "AFRS200",
+          "AFRS220",
           "AFRS301",
-          "AFRS310",
-          "AFRS330",
+          "AFRS301",
+          "AFRS350",
           "SOC210",
           "SOC220",
           "SOC303",
@@ -6978,18 +6978,18 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "ENGL201",
-        "ENGL301"
+        "EXPOS301"
       ],
       "electives": {
         "count": 3,
         "min_level_300_plus": 2,
         "options": [
-          "ENGL302",
-          "ENGL303",
+          "EXPOS302",
+          "EXPOS303",
           "ENGL304",
           "ENGL305",
           "ENGL310",
-          "ENGL315",
+          "COMM315",
           "ENGL330",
           "ENGL350",
           "ENGL360",
@@ -7121,7 +7121,7 @@
           "PUBH240",
           "PUBH335",
           "PUBH356",
-          "PUBH395",
+          "PUBH296",
           "PUBH450",
           "SOC303",
           "SOC304",
@@ -7142,10 +7142,10 @@
     "history_law_minor": {
       "school": "SAS",
       "degree_level": "minor",
-      "major_name": "History \u2014 Law and History",
+      "major_name": "History — Law and History",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HIST101",
+        "HIST103",
         "POLS101"
       ],
       "electives": {
@@ -7153,18 +7153,18 @@
         "min_level_300_plus": 3,
         "options": [
           "HIST301",
-          "HIST302",
+          "HIST301",
           "HIST303",
           "HIST310",
-          "HIST315",
-          "HIST320",
-          "HIST322",
-          "HIST330",
-          "HIST331",
-          "HIST340",
-          "HIST350",
-          "HIST401",
-          "HIST451",
+          "HIST316",
+          "HIST318",
+          "HIST318",
+          "HIST329",
+          "HIST332",
+          "HIST388",
+          "HIST351",
+          "HIST404",
+          "HIST391",
           "POLS304",
           "POLS311",
           "POLS329",
@@ -7181,10 +7181,10 @@
     "history_stem_minor": {
       "school": "SAS",
       "degree_level": "minor",
-      "major_name": "History \u2014 STEM in Society",
+      "major_name": "History — STEM in Society",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HIST101",
+        "HIST103",
         "HIST263"
       ],
       "electives": {
@@ -7193,17 +7193,17 @@
         "options": [
           "HIST264",
           "HIST271",
-          "HIST275",
+          "HIST375",
           "HIST280",
           "HIST301",
-          "HIST302",
+          "HIST303",
           "HIST310",
-          "HIST315",
-          "HIST320",
+          "HIST316",
+          "HIST329",
           "HIST340",
           "HIST360",
           "HIST380",
-          "HIST401",
+          "HIST404",
           "HIST451"
         ],
         "any_from_catalog": false
@@ -7220,7 +7220,7 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "JOUR101",
-        "COMMUN101"
+        "SCI101"
       ],
       "electives": {
         "count": 4,
@@ -7228,19 +7228,19 @@
         "options": [
           "JOUR201",
           "JOUR202",
-          "JOUR203",
+          "JMS203",
           "JOUR301",
           "JOUR302",
           "JOUR303",
           "JOUR304",
           "JOUR401",
           "JOUR402",
-          "COMMUN200",
-          "COMMUN300",
-          "COMMUN354",
-          "COMMUN355",
-          "COMMUN356",
-          "COMMUN380",
+          "COMM200",
+          "COMM300",
+          "COMM354",
+          "COMM355",
+          "COMM356",
+          "COMM380",
           "COMMUN400"
         ],
         "any_from_catalog": false
@@ -7276,11 +7276,11 @@
           "JOUR202",
           "JOUR301",
           "JOUR302",
-          "JOUR303",
-          "COMMUN300",
-          "COMMUN354",
-          "COMMUN355",
-          "COMMUN380"
+          "JOUR510",
+          "COMM300",
+          "COMM354",
+          "COMM355",
+          "COMM380"
         ],
         "any_from_catalog": false
       },
@@ -7342,9 +7342,9 @@
         "min_level_300_plus": 2,
         "options": [
           "MUS208",
-          "MUS202",
           "MUS203",
-          "MUS204",
+          "MUS203",
+          "MUSA204",
           "MUS301",
           "MUS302",
           "MUS303",
@@ -7365,8 +7365,8 @@
       "major_name": "Greek (Modern)",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "MODGK101",
-        "MODGK102",
+        "PORT101",
+        "PORT102",
         "MODGK201"
       ],
       "electives": {
@@ -7376,7 +7376,7 @@
           "MODGK202",
           "GREK101",
           "CLAS201",
-          "HIST241"
+          "HIST242"
         ],
         "any_from_catalog": false
       },
@@ -7390,8 +7390,8 @@
       "major_name": "Hungarian",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "HUNG101",
-        "HUNG102",
+        "AMST101",
+        "AMST102",
         "HUNG201"
       ],
       "electives": {
@@ -7399,9 +7399,9 @@
         "min_level_300_plus": 1,
         "options": [
           "HUNG301",
-          "SLAV201",
+          "RUSS201",
           "RUSS101",
-          "HIST241"
+          "HIST242"
         ],
         "any_from_catalog": false
       },
@@ -7431,7 +7431,7 @@
           "LING425",
           "SPAN201",
           "FREN131",
-          "GERM201",
+          "GERM131",
           "PORT201",
           "ITAL201"
         ],
@@ -7449,7 +7449,7 @@
       "major_name": "Slavic and Eastern European Studies",
       "catalog_year": "2025-2026",
       "required_courses": [
-        "SLAV201",
+        "RUSS201",
         "RUSS101"
       ],
       "electives": {
@@ -7460,12 +7460,12 @@
           "RUSS201",
           "RUSS301",
           "RUSS302",
-          "RUSS303",
+          "RUSS301",
           "RUSS401",
           "RUSS402",
-          "SLAV301",
-          "SLAV302",
-          "HIST241",
+          "RUSS301",
+          "RUSS302",
+          "HIST242",
           "HIST242",
           "POLS311",
           "POLS333"
@@ -7485,7 +7485,7 @@
       "total_credits": 36,
       "description": "The MS in Computer Science requires 36 credits (12 courses). Students complete 2 Category A courses, 2 Category B courses, 4 additional A or B courses, and 4 open courses. An essay or thesis (6 credits) is required.",
       "category_a_courses": {
-        "description": "Theory and Foundations \u2014 choose at least 2",
+        "description": "Theory and Foundations — choose at least 2",
         "options": [
           "CS501",
           "CS508",
@@ -7504,7 +7504,7 @@
         ]
       },
       "category_b_courses": {
-        "description": "Applied and Systems \u2014 choose at least 2",
+        "description": "Applied and Systems — choose at least 2",
         "options": [
           "CS505",
           "CS507",
@@ -7541,7 +7541,7 @@
       "thesis_or_essay": {
         "description": "Students must complete either the Essay Option or Thesis Option (6 credits, equivalent to 2 courses)",
         "essay_option": "Project-based paper with Title, Author(s), Abstract, and References plus public presentation slides",
-        "thesis_option": "Six credits of CS704\u2013CS706 with faculty supervision and committee approval"
+        "thesis_option": "Six credits of CS704–CS706 with faculty supervision and committee approval"
       },
       "constraints": [
         "Total: 36 credits (12 courses).",
@@ -7575,13 +7575,13 @@
         "options": [
           "STAT540",
           "STAT542",
-          "STAT545",
+          "STAT540",
           "STAT553",
           "STAT555",
           "STAT565",
           "STAT567",
           "STAT568",
-          "STAT576",
+          "STAT575",
           "STAT588",
           "STAT590"
         ],

@@ -32,7 +32,6 @@ from app.models import Course
 # ---------------------------------------------------------------------------
 SIS_BASE = "https://sis.rutgers.edu/soc/api/courses.json"
 CAMPUS = "NB"
-LEVEL = "U"  # Undergraduate
 
 TERM_CODES = {
     "spring": "1",
@@ -80,7 +79,8 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "512": "HIST",
     "506": "MUS",       # Music
     "965": "THEA",      # Theater Arts
-    "706": "DANC",      # Dance
+    "206": "DANC",      # Dance performance/studio (Mason Gross, 07:206)
+    "185": "COGS",      # Cognitive Science (01:185)
     "175": "CINE",      # Cinema Studies
     "840": "RELGS",     # Religion
     "070": "ANTH",      # Anthropology
@@ -99,7 +99,7 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "574": "KOR",       # Korean
     "860": "RUSS",      # Russian
     "490": "PORT",      # Portuguese
-    "925": "SPAN",      # Spanish
+    "940": "SPAN",      # Spanish
     "535": "AMST",      # American Studies
     "016": "AFRS",      # Africana Studies
     "534": "LER",       # Labor Studies & Employment Relations (SMLR, 37:575)
@@ -194,7 +194,7 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
     "725": "PHRC",      # Pharmacy Care / Practice / Clinical (30:725)
     "663": "MCHM",      # Medicinal Chemistry graduate program (31:663)
     "115": "BCHEM",     # Biochemistry graduate (31:115)
-    "560": "PCOL",      # Pharmacology graduate (31:560)
+    # "560" intentionally omitted here — unit 31 override handles PCOL (see _UNIT_SUBJECT_OVERRIDE)
 }
 
 # Subject codes shared between multiple schools that need offering-unit disambiguation.
@@ -214,6 +214,10 @@ _UNIT_SUBJECT_OVERRIDE: dict[str, dict[str, str]] = {
     "16": {
         "300": "EDPD",   # GSE PhD graduate courses offered under unit 16
         "507": "HIED",   # PhD in Higher Education (16:507)
+    },
+    # EMSP graduate — Pharmacy grad (school code 31) uses subject 560 which conflicts with ITAL (01:560)
+    "31": {
+        "560": "PCOL",   # Pharmacology graduate (31:560) — unit 01 uses same subject for Italian
     },
     # GSAPP — Graduate School of Applied and Professional Psychology (school code 18)
     # Subject codes 820, 821, 826, 829, 844 are shared with other offering units
@@ -249,10 +253,10 @@ def current_terms() -> tuple[int, list[str]]:
         return year, ["fall", "spring"]
 
 
-def fetch_term(year: int, term_name: str) -> list[dict]:
+def fetch_term(year: int, term_name: str, level: str = "U") -> list[dict]:
     """Fetch all courses for one term from the SIS API."""
     code = TERM_CODES[term_name]
-    params = {"year": year, "term": code, "campus": CAMPUS, "level": LEVEL}
+    params = {"year": year, "term": code, "campus": CAMPUS, "level": level}
     try:
         resp = requests.get(SIS_BASE, params=params, timeout=30)
         resp.raise_for_status()
@@ -279,6 +283,8 @@ def parse_credits(raw_course: dict) -> int:
 
 def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
     """Upsert a list of raw SIS course objects into the DB. Returns count of new rows."""
+    from sqlalchemy.dialects.postgresql import insert as pg_insert
+
     is_spring = term_name == "spring"
     is_summer = term_name == "summer"
     is_fall   = term_name == "fall"
@@ -288,7 +294,6 @@ def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
     for raw in raw_courses:
         subject = raw.get("subject", "")
         offering_unit = raw.get("offeringUnitCode", "")
-        # Check unit-level override first (e.g. Mason Gross Theater vs SAS Theater)
         unit_overrides = _UNIT_SUBJECT_OVERRIDE.get(offering_unit, {})
         prefix = unit_overrides.get(subject) or SUBJECT_TO_PREFIX.get(subject)
         if not prefix:
@@ -301,6 +306,8 @@ def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
         if not code or not title:
             continue
 
+        raw_code = f"{offering_unit}:{subject}:{number_raw}"
+
         if code not in seen_this_batch:
             seen_this_batch[code] = {
                 "code": code,
@@ -308,44 +315,55 @@ def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
                 "credits": parse_credits(raw),
                 "subject_code": subject,
                 "course_number": number_raw,
+                "offering_unit_code": offering_unit,
+                "raw_code": raw_code,
+                "spring_offered": is_spring,
+                "summer_offered": is_summer,
+                "fall_offered": is_fall,
             }
 
-    upserted = 0
-    for code, info in seen_this_batch.items():
-        existing: Course | None = db.get(Course, code)
-        if existing:
-            existing.title = info["title"]
-            existing.credits = info["credits"]
-            existing.spring_offered = existing.spring_offered or is_spring
-            existing.summer_offered = existing.summer_offered or is_summer
-            existing.fall_offered   = existing.fall_offered   or is_fall
-        else:
-            db.add(Course(
-                code=code,
-                title=info["title"],
-                credits=info["credits"],
-                subject_code=info["subject_code"],
-                course_number=info["course_number"],
-                spring_offered=is_spring,
-                summer_offered=is_summer,
-                fall_offered=is_fall,
-            ))
-            upserted += 1
+    if not seen_this_batch:
+        return 0
 
-    return upserted
+    rows = list(seen_this_batch.values())
+
+    # Use PostgreSQL INSERT ... ON CONFLICT DO UPDATE so concurrent runs are safe.
+    stmt = pg_insert(Course.__table__).values(rows)
+    stmt = stmt.on_conflict_do_update(
+        index_elements=["code"],
+        set_={
+            "title":              stmt.excluded.title,
+            "credits":            stmt.excluded.credits,
+            "offering_unit_code": stmt.excluded.offering_unit_code,
+            "raw_code":           stmt.excluded.raw_code,
+            # OR the existing flags so a course keeps all terms seen across runs.
+            "spring_offered": Course.__table__.c.spring_offered | stmt.excluded.spring_offered,
+            "summer_offered": Course.__table__.c.summer_offered | stmt.excluded.summer_offered,
+            "fall_offered":   Course.__table__.c.fall_offered   | stmt.excluded.fall_offered,
+        },
+    )
+    result = db.execute(stmt)
+    # rowcount on upsert reflects all affected rows; approximate new rows as
+    # inserts only (exact count not available without returning clause).
+    return result.rowcount
 
 
-def ingest(year: int, terms: list[str]) -> None:
-    # Ensure tables exist.
+def ingest(year: int, terms: list[str], level: str = "U", verify: bool = False) -> None:
+    # Ensure tables exist (adds new columns on first run after schema change).
     Base.metadata.create_all(bind=engine)
 
     db: Session = SessionLocal()
     total = 0
+    subject_counts: dict[str, int] = {}
     try:
         for term_name in terms:
-            raw_courses = fetch_term(year, term_name)
+            raw_courses = fetch_term(year, term_name, level=level)
             if not raw_courses:
                 continue
+            # Track per-subject counts for --verify
+            for raw in raw_courses:
+                s = raw.get("subject", "unknown")
+                subject_counts[s] = subject_counts.get(s, 0) + 1
             count = upsert_courses(db, raw_courses, term_name)
             db.commit()
             total += count
@@ -360,6 +378,21 @@ def ingest(year: int, terms: list[str]) -> None:
         db2.close()
 
     print(f"\nDone. {total} new courses added this run. {total_in_db} total courses in DB.")
+
+    if verify:
+        print("\n--- Subject code verification ---")
+        print("Subjects in SUBJECT_TO_PREFIX with 0 API hits (possible wrong code):")
+        all_mapped = set(SUBJECT_TO_PREFIX.keys())
+        for unit_overrides in _UNIT_SUBJECT_OVERRIDE.values():
+            all_mapped.update(unit_overrides.keys())
+        missing = sorted(s for s in all_mapped if subject_counts.get(s, 0) == 0)
+        if missing:
+            for s in missing:
+                prefix = SUBJECT_TO_PREFIX.get(s, "(unit override only)")
+                print(f"  subject={s} prefix={prefix} — 0 API courses found")
+        else:
+            print("  All subject codes returned at least one course.")
+        print("--- End verification ---")
 
 
 def main() -> None:
@@ -379,10 +412,21 @@ def main() -> None:
         default=["spring", "summer", "fall"],
         help="Which terms to fetch (default: all three)",
     )
+    parser.add_argument(
+        "--level",
+        choices=["U", "G"],
+        default="U",
+        help="Course level: U=Undergraduate (default), G=Graduate",
+    )
+    parser.add_argument(
+        "--verify",
+        action="store_true",
+        help="After ingestion, print subject codes that returned 0 API courses",
+    )
     args = parser.parse_args()
 
-    print(f"Ingesting courses for {args.year}: {', '.join(args.terms)}")
-    ingest(year=args.year, terms=args.terms)
+    print(f"Ingesting courses for {args.year}: {', '.join(args.terms)} (level={args.level})")
+    ingest(year=args.year, terms=args.terms, level=args.level, verify=args.verify)
 
 
 if __name__ == "__main__":

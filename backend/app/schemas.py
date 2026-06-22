@@ -97,10 +97,27 @@ class CoreCurriculumBlock(BaseModel):
     needed: int
 
 
+class CourseDetail(BaseModel):
+    title_raw: str
+    raw_code: Optional[str] = None
+    rutgers_code: Optional[str] = None
+    grade: str = ""
+    passed: bool = False
+    failed: bool = False
+    is_transfer: bool = False
+    is_in_progress: bool = False
+    semester: str = ""
+    credits: float = 0.0
+    equivalency_note: str = ""
+
+
 class TranscriptResult(BaseModel):
     matched: List[str]
-    in_progress: List[str] = []     # courses currently enrolled in (no grade yet)
-    inferred: Dict[str, str] = {}   # {rutgers_code: "Transfer: ORIG DEPT NUM — Title"}
+    in_progress: List[str] = []
+    inferred: Dict[str, str] = {}
+    courses_detail: List["CourseDetail"] = []
+    ai_summary: str = ""
+    student_name: str = ""
 
 
 class CourseStatus(BaseModel):
@@ -145,6 +162,7 @@ class CourseSearchResult(BaseModel):
     code: str
     title: str
     credits: int
+    raw_code: Optional[str] = None
 
 
 class UserCreate(BaseModel):

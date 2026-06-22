@@ -10,7 +10,7 @@
         "EJBSC205",
         "CRP200",
         "CRP302",
-        "CRP314",
+        "CRP307",
         "CRP400"
       ],
       "writing_requirement": {
@@ -48,15 +48,15 @@
         "min_level_300_plus": 2,
         "options": [
           "CRP233",
-          "CRP235",
+          "CRP233",
           "CRP307",
-          "CRP310",
-          "CRP311",
-          "CRP430",
+          "CRP307",
+          "CRP307",
+          "CRP413",
           "CRP448",
-          "CRP464",
-          "CRP465",
-          "CRP472",
+          "CRP461",
+          "CRP461",
+          "CRP372",
           "UPD201",
           "UPD202",
           "UPD250",
@@ -143,9 +143,9 @@
         "PUBH240",
         "PUBH335",
         "PUBH356",
-        "PUBH395",
-        "PUBH450",
-        "PUBH499"
+        "PUBH345",
+        "PUBH440",
+        "PUBH299"
       ],
       "prerequisites": {
         "description": "Required prerequisites (not counted toward major credits)",
@@ -179,7 +179,7 @@
           "PUBH338",
           "PUBH339",
           "PUBH414",
-          "PUBH462"
+          "PUBH362"
         ],
         "any_from_catalog": false
       },
@@ -227,13 +227,13 @@
           "PPOL361",
           "PPOL362",
           "PPOL365",
-          "PPOL495",
-          "PPOL496",
+          "PPOL497",
+          "PPOL497",
           "PUBH338",
           "PUBH356",
           "HA356",
           "CRP307",
-          "CRP310",
+          "CRP307",
           "PADM209",
           "PADM313",
           "PADM360"
@@ -286,13 +286,13 @@
         "options": [
           "UPD302",
           "CRP307",
-          "CRP310",
-          "CRP311",
-          "CRP430",
+          "UPD310",
+          "CRP307",
+          "CRP413",
           "CRP448",
-          "CRP464",
-          "CRP465",
-          "CRP472",
+          "UPD464",
+          "UPD465",
+          "UPD472",
           "PPP307",
           "PPP310",
           "PPOL220",
@@ -324,19 +324,19 @@
         "min_level_300_plus": 4,
         "options": [
           "CRP233",
-          "CRP235",
+          "CRP233",
           "CRP302",
           "CRP307",
-          "CRP310",
+          "CRP307",
           "CRP311",
           "CRP314",
           "CRP400",
           "CRP430",
           "CRP448",
-          "CRP464",
-          "CRP465",
-          "CRP472",
-          "PPP302",
+          "CRP461",
+          "CRP461",
+          "CRP372",
+          "CRP302",
           "PPP307",
           "PPP310"
         ],
@@ -416,7 +416,7 @@
           "PUBH339",
           "PUBH356",
           "PUBH414",
-          "PUBH462"
+          "PUBH362"
         ],
         "any_from_catalog": false
       },
@@ -498,11 +498,11 @@
           "UPD463",
           "CRP302",
           "CRP307",
-          "CRP310",
+          "UPD310",
           "CRP448",
-          "CRP464",
-          "CRP465",
-          "CRP472"
+          "UPD464",
+          "UPD465",
+          "UPD472"
         ],
         "any_from_catalog": false
       },
@@ -590,9 +590,9 @@
           "PUBH338",
           "PUBH356",
           "PUBH414",
-          "PUBH462",
+          "PUBH362",
           "CRP233",
-          "CRP235",
+          "CRP233",
           "CRP307",
           "CRP310",
           "PPOL325",
@@ -689,7 +689,7 @@
           "PPOL365",
           "PUBH356",
           "CRP307",
-          "CRP310",
+          "CRP307",
           "HA332",
           "HA354"
         ],
@@ -718,15 +718,15 @@
         "min_level_300_plus": 4,
         "options": [
           "CRP233",
-          "CRP235",
+          "CRP233",
           "CRP307",
-          "CRP310",
-          "CRP311",
-          "CRP430",
+          "CRP307",
+          "CRP307",
+          "CRP413",
           "CRP448",
-          "CRP464",
-          "CRP465",
-          "CRP472",
+          "CRP461",
+          "CRP461",
+          "URST472",
           "UPD201",
           "UPD202",
           "UPD250",
@@ -811,7 +811,7 @@
         "any_from_catalog": false
       },
       "capstone": {
-        "description": "Master's Research Project (3 credits) \u2014 completed in the final semester",
+        "description": "Master's Research Project (3 credits) — completed in the final semester",
         "courses": [
           "CRP599"
         ]
@@ -824,9 +824,9 @@
         "Total: 18 (core) + 12 (studios) + 15 (electives) + 3 (capstone) = 48 credits."
       ],
       "dual_degrees": [
-        "MCRP/MPP \u2014 complete both degrees in three years (72 credits combined)",
-        "MCRP/MPH \u2014 complete both degrees in three years (75 credits combined)",
-        "JD/MCRP \u2014 offered jointly with Rutgers Law School"
+        "MCRP/MPP — complete both degrees in three years (72 credits combined)",
+        "MCRP/MPH — complete both degrees in three years (75 credits combined)",
+        "JD/MCRP — offered jointly with Rutgers Law School"
       ],
       "notes": [
         "Source: https://bloustein.rutgers.edu/graduate/mcrp/",
@@ -864,8 +864,8 @@
           "PADM509",
           "PADM511",
           "PADM512",
-          "PPOL500",
-          "PPOL501",
+          "PPOL510",
+          "PPOL510",
           "PPOL502",
           "PPOL503",
           "PPOL504",
@@ -915,8 +915,8 @@
         "Total: 24 (core) + 18 (electives) = 42 credits."
       ],
       "dual_degrees": [
-        "MPA/MPP \u2014 complete both degrees in three years (63 credits combined)",
-        "MPA/MPH \u2014 complete both degrees in three years (69 credits combined)"
+        "MPA/MPP — complete both degrees in three years (63 credits combined)",
+        "MPA/MPH — complete both degrees in three years (69 credits combined)"
       ],
       "notes": [
         "Source: https://bloustein.rutgers.edu/graduate/mpa/",
@@ -963,8 +963,8 @@
           "PUBH515",
           "PPOL510",
           "PPOL504",
-          "PPOL512",
-          "PADM504",
+          "PPOL511",
+          "PUBH504",
           "PADM509",
           "CRP533"
         ],
@@ -1014,9 +1014,9 @@
         "Total: 21 (core) + 3 (practicum) + 21 (electives) = 45 credits."
       ],
       "dual_degrees": [
-        "MPH/MCRP \u2014 complete both degrees in three years (75 credits combined)",
-        "MPH/MPA \u2014 complete both degrees in three years (69 credits combined)",
-        "MPH/MPP \u2014 complete both degrees in three years (69 credits combined)"
+        "MPH/MCRP — complete both degrees in three years (75 credits combined)",
+        "MPH/MPA — complete both degrees in three years (69 credits combined)",
+        "MPH/MPP — complete both degrees in three years (69 credits combined)"
       ],
       "notes": [
         "Source: https://bloustein.rutgers.edu/graduate/mph/",
@@ -1044,7 +1044,7 @@
         ]
       },
       "capstone": {
-        "description": "Policy Capstone Seminar (3 credits) \u2014 taken in the final semester; students produce a policy analysis memo or report",
+        "description": "Policy Capstone Seminar (3 credits) — taken in the final semester; students produce a policy analysis memo or report",
         "courses": [
           "PPOL509"
         ]
@@ -1057,16 +1057,16 @@
           "PPOL508",
           "PPOL510",
           "PPOL511",
-          "PPOL512",
+          "PPOL511",
           "PPOL513",
-          "PPOL514",
+          "PPOL513",
           "PADM501",
           "PADM502",
           "PADM508",
           "PADM509",
           "CRP501",
           "CRP504",
-          "CRP521",
+          "PPOL521",
           "CRP524",
           "PUBH504",
           "PUBH509",
@@ -1113,9 +1113,9 @@
         "Total: 21 (core) + 3 (capstone) + 18 (electives) = 42 credits."
       ],
       "dual_degrees": [
-        "MPP/MCRP \u2014 complete both degrees in three years (72 credits combined)",
-        "MPP/MPA \u2014 complete both degrees in three years (63 credits combined)",
-        "JD/MPP \u2014 offered jointly with Rutgers Law School"
+        "MPP/MCRP — complete both degrees in three years (72 credits combined)",
+        "MPP/MPA — complete both degrees in three years (63 credits combined)",
+        "JD/MPP — offered jointly with Rutgers Law School"
       ],
       "notes": [
         "Source: https://bloustein.rutgers.edu/graduate/mpp/"

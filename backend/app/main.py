@@ -33,7 +33,7 @@ from .schemas import (
     UserCreate, Token, SaveScheduleRequest, GoogleAuthRequest,
     SnipeCreate, SnipeOut,
     ForgotPasswordRequest, ResetPasswordRequest,
-    TranscriptResult,
+    TranscriptResult, CourseDetail,
 )
 from .core.planner import heuristic_plan
 from .core.sniper import poll_snipes, fetch_sections_for_subject
@@ -222,7 +222,7 @@ def list_programs() -> List[ProgramInfo]:
 def search_courses(request: Request, q: str = Query("", max_length=100), limit: int = Query(20, ge=1, le=100)) -> List[CourseSearchResult]:
     if not q:
         return []
-    if not re.match(r"^[a-zA-Z0-9\s\-]+$", q):
+    if not re.match(r"^[a-zA-Z0-9\s\-:]+$", q):
         raise HTTPException(status_code=400, detail="Invalid search query")
     db = SessionLocal()
     try:
@@ -230,16 +230,37 @@ def search_courses(request: Request, q: str = Query("", max_length=100), limit: 
         rows = (
             db.query(models.Course)
             .filter(
-                models.Course.code.ilike(pattern) | models.Course.title.ilike(f"%{q}%")
+                models.Course.code.ilike(pattern)
+                | models.Course.title.ilike(f"%{q}%")
+                | models.Course.raw_code.ilike(f"%{q}%")
             )
             .order_by(models.Course.code)
             .limit(limit)
             .all()
         )
         return [
-            CourseSearchResult(code=r.code, title=r.title, credits=r.credits)
+            CourseSearchResult(code=r.code, title=r.title, credits=r.credits, raw_code=r.raw_code)
             for r in rows
         ]
+    finally:
+        db.close()
+
+
+@app.get("/courses/resolve")
+@_limiter.limit("30/minute")
+def resolve_course(request: Request, q: str = Query(..., max_length=50)) -> CourseSearchResult:
+    """Resolve either a raw Rutgers code (01:198:111) or short code (CS111) to the full course record."""
+    if not re.match(r"^[a-zA-Z0-9:]+$", q):
+        raise HTTPException(status_code=400, detail="Invalid code format")
+    db = SessionLocal()
+    try:
+        if re.match(r"^\d{2}:\d{3}:\d{3,4}$", q):
+            course = db.query(models.Course).filter(models.Course.raw_code == q).first()
+        else:
+            course = db.query(models.Course).filter(models.Course.code == q.upper()).first()
+        if not course:
+            raise HTTPException(status_code=404, detail=f"Course not found: {q}")
+        return CourseSearchResult(code=course.code, title=course.title, credits=course.credits, raw_code=course.raw_code)
     finally:
         db.close()
 
@@ -261,70 +282,65 @@ async def generate_plan(
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc))
 
-def _word_overlap(a: str, b: str) -> float:
-    wa = {w for w in re.sub(r"[^a-z\s]", "", a.lower()).split() if len(w) > 2}
-    wb = {w for w in re.sub(r"[^a-z\s]", "", b.lower()).split() if len(w) > 2}
-    if not wa or not wb:
-        return 0.0
-    return len(wa & wb) / len(wa | wb)
-
-
-def _extract_transcript_text(content: bytes) -> str:
-    import pdfplumber
-    import io as _io
-    parts: List[str] = []
-    with pdfplumber.open(_io.BytesIO(content)) as pdf:
-        for page in pdf.pages:
-            mid_x = page.width / 2
-            for x0, x1 in [(0, mid_x), (mid_x, page.width)]:
-                col = page.crop((x0, 0, x1, page.height))
-                clean = col.filter(
-                    lambda obj: obj["object_type"] != "char" or obj.get("size", 0) < 15
-                )
-                text = clean.extract_text(x_tolerance=2, y_tolerance=3) or ""
-                if text.strip():
-                    parts.append(text)
-    return "\n".join(parts)
-
-
-# Maps Rutgers 3-digit subject codes → catalog course prefix.
-# Derived from scrape_requirements.SUBJECT_TO_PREFIX.
-_RUTGERS_DEPT_TO_PREFIX: dict = {
-    "198": "CS",     "640": "MATH",   "960": "STAT",   "750": "PHYS",
-    "160": "CHEM",   "920": "SOC",    "830": "PSYC",   "790": "POLS",
-    "730": "PHIL",   "447": "LING",   "070": "ANTH",   "082": "ANTH",
-    "776": "POLS",   "563": "ARTH",   "450": "GEOG",   "460": "GEOSC",
-    "165": "BIOC",   "694": "MCB",    "115": "BIO",    "118": "BIO",
-    "190": "ECON",   "175": "COMMUN", "185": "COGS",   "016": "AFRS",
-    "986": "WGSS",   "195": "CRIM",   "377": "ENVST",  "090": "AMST",
-    "098": "ASIAN",  "940": "SPAN",   "420": "FREN",   "910": "SOCWK",
-    "840": "THEA",   "700": "MUSIC",  "887": "DANC",   "219": "EXER",
-    "501": "PUBH",   "560": "PUBP",   "762": "RELIG",  "490": "ITAL",
-    "506": "HIST",   "358": "ENGL",   "351": "ENGL",   "354": "FILM",
-    "508": "HIST",   "510": "HIST",   "512": "HIST",   "359": "ENGL",
-    "355": "EXPOS",  # Expository Writing / Composition
-    # SOE
-    "440": "ECE",    "550": "MAE",    "540": "ISE",    "443": "BME",
-    "155": "CEE",    "160": "CHEM",
-    # RBS
-    "010": "ACCT",   "620": "FIN",    "630": "MGMT",   "610": "MKTG",
-    "390": "SCM",    "136": "BAIT",
-}
-
-
 _MAX_PDF_BYTES = 5 * 1024 * 1024   # 5 MB
 _MAX_PDF_PAGES = 20
+
+_TRANSCRIPT_PROMPT = """You are analyzing a Rutgers University transcript PDF.
+
+Extract every course listed and return ONLY a valid JSON object in exactly this shape — no prose, no markdown fences:
+
+{
+  "student_name": "Full Name Here",
+  "ai_summary": "2-3 sentence plain-English summary of the student's academic history including total credits, any failed courses, transfer credits, and current enrollment status.",
+  "courses": [
+    {
+      "title_raw": "INTRO COMPUTER SCI",
+      "raw_code": "01:198:111",
+      "rutgers_code": "CS111",
+      "grade": "A+",
+      "passed": true,
+      "failed": false,
+      "is_transfer": false,
+      "is_in_progress": false,
+      "semester": "Fall 2023",
+      "credits": 4.0,
+      "equivalency_note": ""
+    }
+  ]
+}
+
+Rules for each course field:
+- title_raw: course title exactly as it appears on the transcript
+- raw_code: the full Rutgers subject code exactly as it appears on the transcript in XX:YYY:ZZZ format (e.g. "01:198:111"). Use null if not visible on the transcript.
+- rutgers_code: the standard short course code derived from raw_code (e.g. CS111, MATH151, EXPOS101, PHYS204). For transfer courses, infer the best Rutgers equivalent based on title and credit count. Use null if no confident match exists.
+- grade: exactly as printed (A+, B, C-, F, W, TR, PA, etc.). Use empty string "" for in-progress courses with no grade yet.
+- passed: true if grade is any passing variant (A/B/C/D/P/TR/PA/TE/TC and their +/- forms)
+- failed: true if grade is F, W, WF, WD, NC, U, UF, NR, WN — and the course is NOT in-progress
+- is_transfer: true for any course appearing in a TRANSFER COURSES block
+- is_in_progress: true when there is no grade listed yet (student currently enrolled)
+- semester: e.g. "Fall 2023", "Spring 2024", "Transfer" for transfer block courses with no term
+- credits: numeric credit value as a float
+- equivalency_note: non-empty only for transfer courses — one sentence explaining why this Rutgers code is the best match. Leave empty string "" for non-transfer courses.
+
+Return ONLY the JSON object. No other text."""
+
 
 @app.post("/parse-transcript", response_model=TranscriptResult)
 @_limiter.limit("5/minute")
 async def parse_transcript(request: Request, file: UploadFile = File(...)) -> TranscriptResult:
+    import base64
+    import json as _json
+    import anthropic as _anthropic
+
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=400, detail="Only PDF files are accepted.")
     if file.content_type and file.content_type not in ("application/pdf", "application/octet-stream"):
         raise HTTPException(status_code=400, detail="Invalid file type. Only PDF accepted.")
+
     content = await file.read()
     if len(content) > _MAX_PDF_BYTES:
         raise HTTPException(status_code=413, detail=f"File too large (max {_MAX_PDF_BYTES // 1024 // 1024} MB).")
+
     try:
         from pypdf import PdfReader
         import io as _io2
@@ -335,85 +351,108 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
         raise
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid or corrupted PDF file.")
+
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    if not api_key:
+        raise HTTPException(status_code=503, detail="Transcript AI is not configured.")
+
+    pdf_b64 = base64.standard_b64encode(content).decode()
+    client = _anthropic.AsyncAnthropic(api_key=api_key)
+
     try:
-        loop = asyncio.get_event_loop()
-        text = await asyncio.wait_for(
-            loop.run_in_executor(None, _extract_transcript_text, content),
-            timeout=10.0,
+        msg = await asyncio.wait_for(
+            client.messages.create(
+                model="claude-haiku-4-5-20251001",
+                max_tokens=4096,
+                messages=[{
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "document",
+                            "source": {
+                                "type": "base64",
+                                "media_type": "application/pdf",
+                                "data": pdf_b64,
+                            },
+                        },
+                        {"type": "text", "text": _TRANSCRIPT_PROMPT},
+                    ],
+                }],
+            ),
+            timeout=45.0,
         )
     except asyncio.TimeoutError:
-        raise HTTPException(status_code=504, detail="PDF parsing took too long.")
-    except Exception as exc:
-        raise HTTPException(status_code=422, detail=f"Could not read PDF: {type(exc).__name__}")
+        raise HTTPException(status_code=504, detail="Transcript analysis timed out.")
+    except _anthropic.APIError as exc:
+        raise HTTPException(status_code=502, detail=f"AI service error: {exc}")
 
-    from .transcript_parser import parse_transcript_text
-    result = parse_transcript_text(text)
+    raw = msg.content[0].text.strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"^```[a-z]*\n?", "", raw).rstrip("`").strip()
 
-    db = SessionLocal()
     try:
-        all_courses = db.query(models.Course).with_entities(
-            models.Course.code, models.Course.title
-        ).all()
+        data = _json.loads(raw)
+    except _json.JSONDecodeError:
+        raise HTTPException(status_code=502, detail="AI returned an unreadable response. Please try again.")
+
+    # Build CourseDetail list; resolve raw_code → rutgers_code via DB when Claude couldn't.
+    _db_resolve = SessionLocal()
+    try:
+        courses_detail: List[CourseDetail] = []
+        for c in data.get("courses", []):
+            rutgers_code = c.get("rutgers_code") or None
+            raw_code_val = c.get("raw_code") or None
+            if raw_code_val and not rutgers_code:
+                import re as _re
+                if _re.match(r"^\d{2}:\d{3}:\d{3,4}$", raw_code_val):
+                    db_course = _db_resolve.query(models.Course).filter(
+                        models.Course.raw_code == raw_code_val
+                    ).first()
+                    if db_course:
+                        rutgers_code = db_course.code
+            courses_detail.append(CourseDetail(
+                title_raw=c.get("title_raw", ""),
+                raw_code=raw_code_val,
+                rutgers_code=rutgers_code,
+                grade=c.get("grade", ""),
+                passed=bool(c.get("passed", False)),
+                failed=bool(c.get("failed", False)),
+                is_transfer=bool(c.get("is_transfer", False)),
+                is_in_progress=bool(c.get("is_in_progress", False)),
+                semester=c.get("semester", ""),
+                credits=float(c.get("credits", 0)),
+                equivalency_note=c.get("equivalency_note", ""),
+            ))
     finally:
-        db.close()
-
-    # Build lookup indexes
-    by_number: dict = {}           # {course_num: [(code, title)]}
-    by_prefix_num: dict = {}       # {(prefix, course_num): [(code, title)]}
-    for code, title in all_courses:
-        num = re.sub(r"^[A-Z]+", "", code)
-        prefix = re.sub(r"\d.*", "", code)
-        by_number.setdefault(num, []).append((code, title))
-        by_prefix_num.setdefault((prefix, num), []).append((code, title))
-
-    def _resolve_code(dept: str, crs_raw: str, title_raw: str) -> str | None:
-        crs_num = re.sub(r"\D", "", crs_raw)
-        rutgers_prefix = _RUTGERS_DEPT_TO_PREFIX.get(dept, "")
-        if rutgers_prefix:
-            dept_candidates = by_prefix_num.get((rutgers_prefix, crs_num), [])
-            if len(dept_candidates) == 1:
-                return dept_candidates[0][0]
-            if dept_candidates:
-                best_code, best_score = None, 0.0
-                for code, title in dept_candidates:
-                    score = _word_overlap(title_raw, title)
-                    if score > best_score:
-                        best_score, best_code = score, code
-                if best_score >= 0.15:
-                    return best_code
-        all_candidates = by_number.get(crs_num, [])
-        if len(all_candidates) == 1:
-            return all_candidates[0][0]
-        if all_candidates:
-            best_code, best_score = None, 0.0
-            for code, title in all_candidates:
-                score = _word_overlap(title_raw, title)
-                if score > best_score:
-                    best_score, best_code = score, code
-            if best_score >= 0.3:
-                return best_code
-        return None
+        _db_resolve.close()
 
     seen: set = set()
     matched: List[str] = []
     in_progress: List[str] = []
     inferred: dict = {}
 
-    for course in result.get_completed_courses():
-        best_code = _resolve_code(course.dept, course.crs, course.title_raw)
-        if best_code and course.is_transfer:
-            inferred[best_code] = f"Transfer: {course.dept} {course.crs} — {course.title_raw}"
-        if best_code and best_code not in seen:
-            seen.add(best_code)
-            matched.append(best_code)
+    for c in courses_detail:
+        if not c.rutgers_code:
+            continue
+        if c.is_in_progress:
+            if c.rutgers_code not in seen:
+                seen.add(c.rutgers_code)
+                in_progress.append(c.rutgers_code)
+        elif c.passed:
+            if c.is_transfer:
+                inferred[c.rutgers_code] = f"Transfer: {c.title_raw}"
+            if c.rutgers_code not in seen:
+                seen.add(c.rutgers_code)
+                matched.append(c.rutgers_code)
 
-    for course in result.get_in_progress_courses():
-        best_code = _resolve_code(course.dept, course.crs, course.title_raw)
-        if best_code and best_code not in seen:
-            seen.add(best_code)
-            in_progress.append(best_code)
-
-    return TranscriptResult(matched=matched, in_progress=in_progress, inferred=inferred)
+    return TranscriptResult(
+        matched=matched,
+        in_progress=in_progress,
+        inferred=inferred,
+        courses_detail=courses_detail,
+        ai_summary=data.get("ai_summary", ""),
+        student_name=data.get("student_name", ""),
+    )
 
 @app.post("/auth/register", response_model=Token)
 @_limiter.limit("3/minute")
