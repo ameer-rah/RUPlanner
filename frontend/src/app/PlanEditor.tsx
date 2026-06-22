@@ -411,12 +411,6 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
     setConfirmDelete({ termIdx, courseIdx });
   }
 
-  useEffect(() => {
-    if (!confirmDelete) return;
-    const handler = () => setConfirmDelete(null);
-    document.addEventListener("click", handler);
-    return () => document.removeEventListener("click", handler);
-  }, [confirmDelete]);
 
   function handleAddCourse(termIdx: number, course: PlannedCourse) {
     setTerms((prev) => {
@@ -430,9 +424,48 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
 
   // ── Render ───────────────────────────────────────────────────────────────
 
+  const confirmCourse = confirmDelete
+    ? terms[confirmDelete.termIdx]?.courses[confirmDelete.courseIdx]
+    : null;
+  const confirmIsCompleted = confirmCourse
+    ? completedSet.has(confirmCourse.code.toUpperCase())
+    : false;
+
   return (
     <>
       {dragError && <div className="drag-error-toast">⚠ {dragError}</div>}
+
+      {confirmDelete && confirmCourse && (
+        <div className="modal-overlay" style={{ backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }} onClick={() => setConfirmDelete(null)}>
+          <div className="elective-modal" style={{ maxWidth: 360 }} onClick={(e) => e.stopPropagation()}>
+            <div style={{ padding: "28px 28px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+              <div style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", letterSpacing: "-0.02em" }}>
+                Remove {confirmCourse.code}?
+              </div>
+              <div style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.5 }}>
+                {confirmIsCompleted
+                  ? <><span style={{ color: "#f59e0b", fontWeight: 600 }}>{confirmCourse.code}</span> is marked as already completed. Removing it will take it off your plan — your completed courses list is unchanged.</>
+                  : <>{confirmCourse.title} will be removed from your plan. You can always add it back.</>
+                }
+              </div>
+              <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+                <button
+                  style={{ flex: 1, padding: "9px 0", borderRadius: 8, background: "var(--ru-red)", color: "#fff", border: "none", fontWeight: 600, fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}
+                  onClick={() => _doDelete(confirmDelete.termIdx, confirmDelete.courseIdx)}
+                >
+                  Remove
+                </button>
+                <button
+                  style={{ flex: 1, padding: "9px 0", borderRadius: 8, background: "var(--surface-3)", color: "var(--text)", border: "1px solid var(--border-2)", fontWeight: 600, fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}
+                  onClick={() => setConfirmDelete(null)}
+                >
+                  Keep
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="plan-grid">
         {terms.map((term, termIdx) => {
@@ -474,23 +507,13 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                       {course.is_elective && (
                         <span className="elective-badge">ELECTIVE</span>
                       )}
-                      {confirmDelete?.termIdx === termIdx && confirmDelete?.courseIdx === courseIdx ? (
-                        <div style={{ display: "flex", alignItems: "center", gap: 5, marginLeft: "auto" }} onClick={(e) => e.stopPropagation()}>
-                          <span style={{ fontSize: 10, color: completedSet.has(course.code.toUpperCase()) ? "#f59e0b" : "var(--text-3)", fontWeight: 600, whiteSpace: "nowrap" }}>
-                            {completedSet.has(course.code.toUpperCase()) ? "Already completed — remove?" : "Remove from plan?"}
-                          </span>
-                          <button style={{ fontSize: 10, padding: "1px 6px", borderRadius: 3, background: "rgba(204,17,51,0.15)", color: "#cc1133", border: "1px solid rgba(204,17,51,0.3)", cursor: "pointer", fontFamily: "inherit" }} onClick={() => _doDelete(termIdx, courseIdx)}>Remove</button>
-                          <button style={{ fontSize: 10, padding: "1px 6px", borderRadius: 3, background: "var(--surface-3)", color: "var(--text-2)", border: "1px solid var(--border-2)", cursor: "pointer", fontFamily: "inherit" }} onClick={(e) => { e.stopPropagation(); setConfirmDelete(null); }}>Keep</button>
-                        </div>
-                      ) : (
-                        <button
-                          className="course-delete-btn"
-                          title="Remove course"
-                          onClick={() => handleDeleteCourse(termIdx, courseIdx)}
-                        >
-                          ×
-                        </button>
-                      )}
+                      <button
+                        className="course-delete-btn"
+                        title="Remove course"
+                        onClick={() => handleDeleteCourse(termIdx, courseIdx)}
+                      >
+                        ×
+                      </button>
                     </div>
                     <div className="plan-course-meta">
                       {course.title} · {course.credits} cr
