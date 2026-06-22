@@ -389,22 +389,9 @@ function ProgramRequirementsPanel({ prog }: { prog: ProgramSummary }) {
   );
 }
 
-const WIZARD_STEPS = ["Degree", "Program", "Start term", "Schedule", "Transcript"];
+const WIZARD_STEPS = ["Degree", "Program", "Start", "Schedule", "Transcript"];
 
-function WizardSidebar({
-  step, onStepChange,
-  degreeFilter, setDegreeFilter,
-  majorPrograms, minorPrograms,
-  selectedMajors, setSelectedMajors,
-  selectedMinors, setSelectedMinors,
-  selectedMinorTracks, setSelectedMinorTracks,
-  startTerm, setStartTerm,
-  targetGradTerm, setTargetGradTerm,
-  maxCredits, setMaxCredits,
-  preferredSeasons, toggleSeason,
-  completedCourses, setCompletedCourses, setInProgressCourses,
-  onSubmit, status,
-}: {
+type WizardProps = {
   step: number; onStepChange: (s: number) => void;
   degreeFilter: string; setDegreeFilter: (v: string) => void;
   majorPrograms: ProgramInfo[]; minorPrograms: ProgramInfo[];
@@ -419,284 +406,366 @@ function WizardSidebar({
   setInProgressCourses: (fn: (prev: string[]) => string[]) => void;
   onSubmit: (e: { preventDefault(): void }) => void;
   status: string;
-}) {
+};
+
+function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: number; degreeFilter: string; selectedMajors: string[] }) {
+  const previewData = [
+    {
+      term: "Fall 2025", delay: "0s", anim: "wizard-float-a 3.2s ease-in-out infinite",
+      courses: [{ code: "CS111", cr: 3 }, { code: "MATH151", cr: 4 }, { code: "EXPOS101", cr: 3 }, { code: "PHYS201", cr: 3 }],
+    },
+    {
+      term: "Spring 2026", delay: "0.4s", anim: "wizard-float-b 2.8s ease-in-out infinite",
+      courses: [{ code: "CS112", cr: 4 }, { code: "MATH152", cr: 4 }, { code: "CS205", cr: 3 }, { code: "ECE211", cr: 3 }],
+    },
+    {
+      term: "Fall 2026", delay: "0.8s", anim: "wizard-float-c 3.6s ease-in-out infinite",
+      courses: [{ code: "CS344", cr: 3 }, { code: "CS211", cr: 4 }, { code: "STAT355", cr: 3 }],
+    },
+  ];
+
+  const label = step === 0
+    ? (degreeFilter === "master" ? "Graduate programs" : "Undergraduate programs")
+    : step === 1 && selectedMajors[0]
+    ? selectedMajors[0].split("(")[0].trim()
+    : "Your degree plan";
+
+  return (
+    <div style={{ width: "100%", height: "100%", padding: "48px 40px", display: "flex", flexDirection: "column", gap: 0 }}>
+      <div style={{ marginBottom: 28 }}>
+        <div style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Preview</div>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text)", letterSpacing: "-0.02em" }}>{label}</div>
+      </div>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14, overflow: "hidden" }}>
+        {previewData.map((sem) => (
+          <div
+            key={sem.term}
+            style={{
+              background: "var(--surface-2)",
+              border: "1.5px solid var(--border-2)",
+              borderRadius: 14,
+              padding: "14px 16px",
+              animation: sem.anim,
+              animationDelay: sem.delay,
+            }}
+          >
+            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text-3)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 10 }}>
+              {sem.term}
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+              {sem.courses.map((c) => (
+                <div
+                  key={c.code}
+                  style={{
+                    fontSize: 11, padding: "4px 10px", borderRadius: 8,
+                    background: "var(--surface-3)", border: "1px solid var(--border-2)",
+                    color: "var(--text-2)", fontWeight: 600,
+                    display: "flex", alignItems: "center", gap: 5,
+                  }}
+                >
+                  {c.code}
+                  <span style={{ color: "var(--text-3)", fontWeight: 400 }}>{c.cr}cr</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: 10, fontSize: 11, color: "var(--text-3)" }}>
+              {sem.courses.reduce((s, c) => s + c.cr, 0)} credits
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{
+        marginTop: 20, padding: "14px 16px", background: "rgba(204,17,51,0.06)",
+        border: "1.5px solid rgba(204,17,51,0.2)", borderRadius: 12,
+      }}>
+        <div style={{ fontSize: 11, color: "var(--ru-red)", fontWeight: 700, marginBottom: 3 }}>Degree progress</div>
+        <div style={{ background: "var(--border-2)", borderRadius: 99, height: 4, overflow: "hidden" }}>
+          <div style={{ width: "34%", height: "100%", background: "var(--ru-red)", borderRadius: 99, transition: "width 0.6s ease" }} />
+        </div>
+        <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 5 }}>42 / 120 credits completed</div>
+      </div>
+    </div>
+  );
+}
+
+function WizardStepContent({
+  step = 0,
+  degreeFilter, setDegreeFilter,
+  majorPrograms, minorPrograms,
+  selectedMajors, setSelectedMajors,
+  selectedMinors, setSelectedMinors,
+  selectedMinorTracks, setSelectedMinorTracks,
+  startTerm, setStartTerm,
+  targetGradTerm, setTargetGradTerm,
+  maxCredits, setMaxCredits,
+  preferredSeasons, toggleSeason,
+  completedCourses, setCompletedCourses, setInProgressCourses,
+}: Omit<WizardProps, "onStepChange" | "onSubmit" | "status">) {
+  if (step === 0) return (
+    <div>
+      <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+        What degree are you pursuing?
+      </p>
+      <p style={{ fontSize: 14, color: "var(--text-3)", marginBottom: 28, lineHeight: 1.5 }}>
+        Select your degree level to see available Rutgers programs.
+      </p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {[
+          { key: "bachelor", label: "Bachelor's", desc: "BA, BS, BFA, and other undergraduate degrees" },
+          { key: "master",   label: "Master's",   desc: "MS, MA, MEng, and other graduate degrees" },
+        ].map((opt) => (
+          <button
+            key={opt.key}
+            type="button"
+            onClick={() => setDegreeFilter(opt.key)}
+            style={{
+              width: "100%", textAlign: "left", padding: "18px 20px",
+              borderRadius: 14, cursor: "pointer", fontFamily: "inherit",
+              background: degreeFilter === opt.key ? "rgba(204,17,51,0.07)" : "var(--surface-2)",
+              border: degreeFilter === opt.key ? "1.5px solid var(--ru-red)" : "1.5px solid var(--border-2)",
+              transition: "all 0.15s",
+            }}
+          >
+            <div style={{ fontSize: 16, fontWeight: 700, color: degreeFilter === opt.key ? "var(--ru-red)" : "var(--text)", marginBottom: 3 }}>
+              {opt.label}
+            </div>
+            <div style={{ fontSize: 13, color: "var(--text-3)" }}>{opt.desc}</div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  if (step === 1) return (
+    <div>
+      <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+        What&apos;s your major?
+      </p>
+      <p style={{ fontSize: 14, color: "var(--text-3)", marginBottom: 28, lineHeight: 1.5 }}>
+        Search and select your major program. You can add minors too.
+      </p>
+      <div style={{ marginBottom: 20 }}>
+        <label className="label" style={{ marginBottom: 8, display: "block" }}>Major(s)</label>
+        <ProgramSelectInput programs={majorPrograms} value={selectedMajors} onChange={setSelectedMajors} placeholder="Search by name or school…" />
+      </div>
+      <div>
+        <label className="label" style={{ marginBottom: 8, display: "block" }}>
+          Minor(s) <span className="label-optional">optional</span>
+        </label>
+        <ProgramSelectInput programs={minorPrograms} value={selectedMinors} onChange={setSelectedMinors} placeholder="Search minors…" />
+        {selectedMinors.map((minorName) => {
+          const prog = minorPrograms.find((p) => p.display_name === minorName);
+          if (!prog?.tracks?.length) return null;
+          return (
+            <div key={minorName} style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontSize: 11, color: "var(--text-3)", flexShrink: 0 }}>{prog.major_name} track:</span>
+              <select
+                value={selectedMinorTracks[minorName] ?? ""}
+                onChange={(e) => setSelectedMinorTracks((prev) => ({ ...prev, [minorName]: e.target.value }))}
+                style={{ fontSize: 12, padding: "3px 6px", borderRadius: 6, border: "1px solid var(--border-2)", background: "var(--surface)", color: "var(--text)", flex: 1 }}
+              >
+                <option value="">Select track…</option>
+                {prog.tracks.map((t) => <option key={t} value={t}>{t}</option>)}
+              </select>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+
+  if (step === 2) return (
+    <div>
+      <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+        When do you start?
+      </p>
+      <p style={{ fontSize: 14, color: "var(--text-3)", marginBottom: 28, lineHeight: 1.5 }}>
+        Select the semester you are currently in or starting next.
+      </p>
+      <label className="label" style={{ marginBottom: 10, display: "block" }}>Starting term</label>
+      <div className="start-term-row" style={{ marginBottom: 0 }}>
+        {["Fall", "Spring", "Summer", "Winter"].map((s) => (
+          <button key={s} type="button"
+            className={`season-btn${startTerm.startsWith(s) ? ` active-${s.toLowerCase()}` : ""}`}
+            onClick={() => setStartTerm(`${s} ${startTerm.split(" ")[1] ?? "2026"}`)}
+          >{s}</button>
+        ))}
+        <input
+          className="input start-term-year"
+          value={startTerm.split(" ")[1] ?? ""}
+          onChange={(e) => setStartTerm(`${startTerm.split(" ")[0]} ${e.target.value}`)}
+          placeholder="2026" maxLength={4}
+        />
+      </div>
+    </div>
+  );
+
+  if (step === 3) return (
+    <div>
+      <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+        When do you want to graduate?
+      </p>
+      <p style={{ fontSize: 14, color: "var(--text-3)", marginBottom: 28, lineHeight: 1.5 }}>
+        Set your target graduation date and schedule preferences.
+      </p>
+      <div style={{ marginBottom: 20 }}>
+        <label className="label" style={{ marginBottom: 8, display: "block" }}>Target graduation</label>
+        <input className="input" value={targetGradTerm} onChange={(e) => setTargetGradTerm(e.target.value)} placeholder="e.g. Spring 2028" />
+      </div>
+      <div style={{ marginBottom: 20 }}>
+        <label className="label" style={{ marginBottom: 8, display: "block" }}>Max credits per term</label>
+        <div className="credit-slider-row">
+          <input type="range" min={6} max={21} value={maxCredits} onChange={(e) => setMaxCredits(Number(e.target.value))} className="credit-slider" />
+          <span className="credit-value">{maxCredits}</span>
+        </div>
+      </div>
+      <div>
+        <label className="label" style={{ marginBottom: 10, display: "block" }}>Semesters to enroll in</label>
+        <div className="season-toggles">
+          {["Spring", "Summer", "Fall", "Winter"].map((season) => (
+            <button key={season} type="button" className={getSeasonBtnClass(season, preferredSeasons.includes(season))} onClick={() => toggleSeason(season)}>
+              {season}
+            </button>
+          ))}
+        </div>
+        {preferredSeasons.length === 0 && <p style={{ fontSize: 12, color: "var(--ru-red)", marginTop: 8, marginBottom: 0 }}>Select at least one semester.</p>}
+        {preferredSeasons.includes("Summer") && <p style={{ fontSize: 11, color: "var(--text-3)", marginTop: 6, marginBottom: 0, lineHeight: 1.4 }}>Summer: max 12 credits total.</p>}
+        {preferredSeasons.includes("Winter") && <p style={{ fontSize: 11, color: "var(--text-3)", marginTop: 6, marginBottom: 0, lineHeight: 1.4 }}>Winter: max 4 credits. Not for first-years or GPA &lt; 2.0.</p>}
+      </div>
+    </div>
+  );
+
+  return (
+    <div>
+      <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
+        What have you completed?
+      </p>
+      <p style={{ fontSize: 14, color: "var(--text-3)", marginBottom: 28, lineHeight: 1.5 }}>
+        Upload your transcript or add courses manually. You can skip this step.
+      </p>
+      <TranscriptUpload
+        onCoursesDetected={(codes) => setCompletedCourses([...new Set([...completedCourses, ...codes])])}
+        onInProgressDetected={(codes) => setInProgressCourses((prev) => [...new Set([...prev, ...codes])])}
+      />
+      <CompletedCoursesInput value={completedCourses} onChange={setCompletedCourses} />
+    </div>
+  );
+}
+
+function FullPageWizard(props: WizardProps & { compact?: boolean }) {
+  const { step, onStepChange, onSubmit, status, compact } = props;
   const total = WIZARD_STEPS.length;
 
   function canAdvance() {
-    if (step === 0) return true;
-    if (step === 1) return selectedMajors.length > 0;
-    if (step === 2) return !!startTerm.trim();
-    if (step === 3) return preferredSeasons.length > 0 && !!targetGradTerm.trim();
+    if (step === 1) return props.selectedMajors.length > 0;
+    if (step === 3) return props.preferredSeasons.length > 0 && !!props.targetGradTerm.trim();
     return true;
   }
 
-  return (
-    <form className="form" onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      {/* Step progress */}
-      <div style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-          <span style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" }}>
-            Step {step + 1} of {total}
-          </span>
+  if (compact) return (
+    <form onSubmit={onSubmit} className="form" style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+          <span style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.04em", textTransform: "uppercase" }}>Step {step + 1} of {total}</span>
           <span style={{ fontSize: 11, color: "var(--text-3)" }}>{WIZARD_STEPS[step]}</span>
         </div>
         <div style={{ display: "flex", gap: 4 }}>
           {WIZARD_STEPS.map((_, i) => (
-            <div
-              key={i}
-              onClick={() => i < step && onStepChange(i)}
-              style={{
-                flex: 1, height: 3, borderRadius: 99,
-                background: i <= step ? "var(--ru-red)" : "var(--border-2)",
-                cursor: i < step ? "pointer" : "default",
-                transition: "background 0.2s",
-              }}
+            <div key={i} onClick={() => i < step && onStepChange(i)}
+              style={{ flex: 1, height: 3, borderRadius: 99, background: i <= step ? "var(--ru-red)" : "var(--border-2)", cursor: i < step ? "pointer" : "default", transition: "background 0.2s" }}
             />
           ))}
         </div>
       </div>
-
-      {/* Step content */}
-      <div style={{ flex: 1, overflowY: "auto" }}>
-
-        {/* Step 0: Degree type */}
-        {step === 0 && (
-          <div className="sidebar-section">
-            <p style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", marginBottom: 6, letterSpacing: "-0.02em" }}>
-              What degree are you pursuing?
-            </p>
-            <p style={{ fontSize: 13, color: "var(--text-3)", marginBottom: 20 }}>
-              Select your degree level to filter available programs.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                { key: "bachelor", label: "Bachelor's", desc: "BA, BS, BFA, and other undergraduate degrees" },
-                { key: "master", label: "Master's", desc: "MS, MA, MEng, and other graduate degrees" },
-              ].map((opt) => (
-                <button
-                  key={opt.key}
-                  type="button"
-                  onClick={() => setDegreeFilter(opt.key)}
-                  style={{
-                    width: "100%", textAlign: "left", padding: "14px 16px",
-                    borderRadius: 12, cursor: "pointer", fontFamily: "inherit",
-                    background: degreeFilter === opt.key ? "rgba(204,17,51,0.08)" : "var(--surface-2)",
-                    border: degreeFilter === opt.key ? "1.5px solid var(--ru-red)" : "1.5px solid var(--border-2)",
-                    transition: "all 0.15s",
-                  }}
-                >
-                  <div style={{ fontSize: 14, fontWeight: 700, color: degreeFilter === opt.key ? "var(--ru-red)" : "var(--text)", marginBottom: 2 }}>
-                    {opt.label}
-                  </div>
-                  <div style={{ fontSize: 12, color: "var(--text-3)" }}>{opt.desc}</div>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Step 1: Major + Minor */}
-        {step === 1 && (
-          <>
-            <div className="sidebar-section">
-              <p style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", marginBottom: 6, letterSpacing: "-0.02em" }}>
-                What&apos;s your major?
-              </p>
-              <p style={{ fontSize: 13, color: "var(--text-3)", marginBottom: 14 }}>
-                Search and select your major program.
-              </p>
-              <ProgramSelectInput
-                programs={majorPrograms}
-                value={selectedMajors}
-                onChange={setSelectedMajors}
-                placeholder="Search by name or school…"
-              />
-            </div>
-            <div className="sidebar-section">
-              <label className="label">
-                Minor(s) <span className="label-optional">optional</span>
-              </label>
-              <ProgramSelectInput
-                programs={minorPrograms}
-                value={selectedMinors}
-                onChange={setSelectedMinors}
-                placeholder="Search minors…"
-              />
-              {selectedMinors.map((minorName) => {
-                const prog = minorPrograms.find((p) => p.display_name === minorName);
-                if (!prog || !prog.tracks || prog.tracks.length === 0) return null;
-                return (
-                  <div key={minorName} style={{ marginTop: 6, display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontSize: 11, color: "var(--text-3)", flexShrink: 0 }}>
-                      {prog.major_name} track:
-                    </span>
-                    <select
-                      value={selectedMinorTracks[minorName] ?? ""}
-                      onChange={(e) => setSelectedMinorTracks((prev) => ({ ...prev, [minorName]: e.target.value }))}
-                      style={{ fontSize: 12, padding: "3px 6px", borderRadius: 6, border: "1px solid var(--border-2)", background: "var(--surface)", color: "var(--text)", flex: 1 }}
-                    >
-                      <option value="">Select track…</option>
-                      {prog.tracks.map((t) => <option key={t} value={t}>{t}</option>)}
-                    </select>
-                  </div>
-                );
-              })}
-            </div>
-          </>
-        )}
-
-        {/* Step 2: Starting term */}
-        {step === 2 && (
-          <div className="sidebar-section">
-            <p style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", marginBottom: 6, letterSpacing: "-0.02em" }}>
-              When do you start?
-            </p>
-            <p style={{ fontSize: 13, color: "var(--text-3)", marginBottom: 20 }}>
-              Select the semester you are starting or currently in.
-            </p>
-            <label className="label" htmlFor="startTerm">Starting term</label>
-            <div className="start-term-row">
-              {["Fall", "Spring", "Summer", "Winter"].map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  className={`season-btn${startTerm.startsWith(s) ? ` active-${s.toLowerCase()}` : ""}`}
-                  onClick={() => setStartTerm(`${s} ${startTerm.split(" ")[1] ?? "2026"}`)}
-                >
-                  {s}
-                </button>
-              ))}
-              <input
-                id="startTerm"
-                className="input start-term-year"
-                value={startTerm.split(" ")[1] ?? ""}
-                onChange={(e) => setStartTerm(`${startTerm.split(" ")[0]} ${e.target.value}`)}
-                placeholder="2026"
-                maxLength={4}
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Step 3: Schedule preferences */}
-        {step === 3 && (
-          <>
-            <div className="sidebar-section">
-              <p style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", marginBottom: 6, letterSpacing: "-0.02em" }}>
-                When do you want to graduate?
-              </p>
-              <p style={{ fontSize: 13, color: "var(--text-3)", marginBottom: 20 }}>
-                Set your target graduation and schedule preferences.
-              </p>
-              <label className="label" htmlFor="targetGradTerm">Target graduation</label>
-              <input
-                id="targetGradTerm"
-                className="input"
-                value={targetGradTerm}
-                onChange={(e) => setTargetGradTerm(e.target.value)}
-                placeholder="e.g. Spring 2028"
-                style={{ marginBottom: 16 }}
-              />
-            </div>
-            <div className="sidebar-section">
-              <label className="label" htmlFor="maxCredits">Max credits / term</label>
-              <div className="credit-slider-row">
-                <input
-                  id="maxCredits"
-                  type="range" min={6} max={21}
-                  value={maxCredits}
-                  onChange={(e) => setMaxCredits(Number(e.target.value))}
-                  className="credit-slider"
-                />
-                <span className="credit-value">{maxCredits}</span>
-              </div>
-            </div>
-            <div className="sidebar-section">
-              <label className="label">Semesters to enroll in</label>
-              <div className="season-toggles">
-                {["Spring", "Summer", "Fall", "Winter"].map((season) => (
-                  <button
-                    key={season}
-                    type="button"
-                    className={getSeasonBtnClass(season, preferredSeasons.includes(season))}
-                    onClick={() => toggleSeason(season)}
-                  >
-                    {season}
-                  </button>
-                ))}
-              </div>
-              {preferredSeasons.length === 0 && (
-                <p style={{ fontSize: 11, color: "var(--ru-red)", marginTop: 6, marginBottom: 0 }}>
-                  Select at least one semester.
-                </p>
-              )}
-              {preferredSeasons.includes("Summer") && (
-                <p style={{ fontSize: 10, color: "var(--text-3)", marginTop: 6, marginBottom: 0, lineHeight: 1.4 }}>
-                  Summer: max 12 credits total.
-                </p>
-              )}
-              {preferredSeasons.includes("Winter") && (
-                <p style={{ fontSize: 10, color: "var(--text-3)", marginTop: 6, marginBottom: 0, lineHeight: 1.4 }}>
-                  Winter: max 4 credits (1 course). Not for first-years or GPA &lt; 2.0.
-                </p>
-              )}
-            </div>
-          </>
-        )}
-
-        {/* Step 4: Transcript + completed courses */}
-        {step === 4 && (
-          <div className="sidebar-section">
-            <p style={{ fontSize: 18, fontWeight: 700, color: "var(--text)", marginBottom: 6, letterSpacing: "-0.02em" }}>
-              What have you completed?
-            </p>
-            <p style={{ fontSize: 13, color: "var(--text-3)", marginBottom: 20 }}>
-              Upload your transcript or add courses manually.
-            </p>
-            <TranscriptUpload
-              onCoursesDetected={(codes) =>
-                setCompletedCourses([...new Set([...completedCourses, ...codes])])
-              }
-              onInProgressDetected={(codes) =>
-                setInProgressCourses((prev) => [...new Set([...prev, ...codes])])
-              }
-            />
-            <CompletedCoursesInput value={completedCourses} onChange={setCompletedCourses} />
-          </div>
-        )}
+      <div key={step} className="wizard-step-anim" style={{ flex: 1, overflowY: "auto" }}>
+        <WizardStepContent {...props} step={step} />
       </div>
-
-      {/* Navigation */}
-      <div style={{ paddingTop: 16, borderTop: "1px solid var(--border-2)", marginTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
+      <div style={{ paddingTop: 14, borderTop: "1px solid var(--border-2)", marginTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
         {step < total - 1 ? (
-          <button
-            type="button"
-            className="primary-button"
-            disabled={!canAdvance()}
-            onClick={() => onStepChange(step + 1)}
-            style={{ opacity: canAdvance() ? 1 : 0.4 }}
-          >
-            Next →
-          </button>
+          <button type="button" className="primary-button" disabled={!canAdvance()} onClick={() => onStepChange(step + 1)}>Next →</button>
         ) : (
-          <button className="primary-button" type="submit">
-            Generate my plan
-          </button>
+          <button className="primary-button" type="submit">Generate my plan</button>
         )}
         {step > 0 && (
-          <button
-            type="button"
-            onClick={() => onStepChange(step - 1)}
-            style={{
-              width: "100%", padding: "10px 0", borderRadius: 10, border: "1px solid var(--border-2)",
-              background: "transparent", color: "var(--text-2)", fontSize: 13, fontWeight: 600,
-              cursor: "pointer", fontFamily: "inherit",
-            }}
-          >
+          <button type="button" onClick={() => onStepChange(step - 1)} style={{ width: "100%", padding: "10px 0", borderRadius: 10, border: "1px solid var(--border-2)", background: "transparent", color: "var(--text-2)", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>
             ← Back
           </button>
         )}
         {status && <p className="status-msg" style={{ margin: 0 }}>{status}</p>}
+      </div>
+    </form>
+  );
+
+  return (
+    <form onSubmit={onSubmit} className="wizard-fullpage">
+      {/* Left panel */}
+      <div className="wizard-left">
+        {/* Step indicator */}
+        <div style={{ marginBottom: 40 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <span style={{ fontSize: 12, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+              Step {step + 1} of {total}
+            </span>
+            <span style={{ fontSize: 12, color: "var(--text-3)" }}>{WIZARD_STEPS[step]}</span>
+          </div>
+          <div style={{ display: "flex", gap: 5 }}>
+            {WIZARD_STEPS.map((_, i) => (
+              <div
+                key={i}
+                onClick={() => i < step && onStepChange(i)}
+                style={{
+                  flex: 1, height: 3, borderRadius: 99,
+                  background: i <= step ? "var(--ru-red)" : "var(--border-2)",
+                  cursor: i < step ? "pointer" : "default",
+                  transition: "background 0.25s",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Animated step content */}
+        <div key={step} className="wizard-step-anim" style={{ flex: 1, overflowY: "auto", paddingBottom: 8 }}>
+          <WizardStepContent {...props} step={step} />
+        </div>
+
+        {/* Navigation */}
+        <div style={{ paddingTop: 20, borderTop: "1px solid var(--border)", marginTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
+          {step < total - 1 ? (
+            <button
+              type="button"
+              className="primary-button"
+              disabled={!canAdvance()}
+              onClick={() => onStepChange(step + 1)}
+            >
+              Next →
+            </button>
+          ) : (
+            <button className="primary-button" type="submit">
+              Generate my plan
+            </button>
+          )}
+          {step > 0 && (
+            <button
+              type="button"
+              onClick={() => onStepChange(step - 1)}
+              style={{
+                width: "100%", padding: "11px 0", borderRadius: 10,
+                border: "1px solid var(--border-2)", background: "transparent",
+                color: "var(--text-2)", fontSize: 13, fontWeight: 600,
+                cursor: "pointer", fontFamily: "inherit", transition: "background 0.15s",
+              }}
+            >
+              ← Back
+            </button>
+          )}
+          {status && <p className="status-msg" style={{ margin: 0, textAlign: "center" }}>{status}</p>}
+        </div>
+      </div>
+
+      {/* Right panel — decorative preview */}
+      <div className="wizard-right">
+        <WizardPreviewPanel step={step} degreeFilter={props.degreeFilter} selectedMajors={props.selectedMajors} />
       </div>
     </form>
   );
@@ -870,8 +939,43 @@ export default function PlannerPage() {
 
   const totalPlanCredits = plan?.terms.reduce((s, t) => s + t.total_credits, 0) ?? 0;
 
+  const wizardProps: WizardProps = {
+    step: wizardStep,
+    onStepChange: setWizardStep,
+    degreeFilter,
+    setDegreeFilter: (v) => { setDegreeFilter(v); setSelectedMajors([]); },
+    majorPrograms,
+    minorPrograms,
+    selectedMajors,
+    setSelectedMajors,
+    selectedMinors,
+    setSelectedMinors: (next) => {
+      setSelectedMinors(next);
+      setSelectedMinorTracks((prev) => {
+        const kept: Record<string, string> = {};
+        for (const m of next) if (prev[m]) kept[m] = prev[m];
+        return kept;
+      });
+    },
+    selectedMinorTracks,
+    setSelectedMinorTracks,
+    startTerm,
+    setStartTerm,
+    targetGradTerm,
+    setTargetGradTerm,
+    maxCredits,
+    setMaxCredits,
+    preferredSeasons,
+    toggleSeason,
+    completedCourses,
+    setCompletedCourses,
+    setInProgressCourses,
+    onSubmit: handleSubmit,
+    status,
+  };
+
   return (
-    <div style={{ minHeight: "100vh", background: "var(--lavender-50)" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
       {/* ── Topbar ── */}
       <header className="topbar">
         <div style={{ display: "flex", alignItems: "center", gap: 4, marginRight: 28 }}>
@@ -883,77 +987,62 @@ export default function PlannerPage() {
           <Link href="/sniper" className="topbar-nav-item" prefetch>Course Sniper</Link>
         </nav>
         <div className="topbar-right">
-          <button
-            className="mobile-sidebar-btn"
-            onClick={() => setSidebarOpen((v) => !v)}
-            aria-label="Plan settings"
-          >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-              <line x1="2" y1="4" x2="14" y2="4"/>
-              <line x1="2" y1="8" x2="14" y2="8"/>
-              <line x1="2" y1="12" x2="14" y2="12"/>
-              <circle cx="5" cy="4" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
-              <circle cx="11" cy="8" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
-              <circle cx="7" cy="12" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
-            </svg>
-          </button>
+          {plan && (
+            <button
+              className="mobile-sidebar-btn"
+              onClick={() => setSidebarOpen((v) => !v)}
+              aria-label="Plan settings"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <line x1="2" y1="4" x2="14" y2="4"/>
+                <line x1="2" y1="8" x2="14" y2="8"/>
+                <line x1="2" y1="12" x2="14" y2="12"/>
+                <circle cx="5" cy="4" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
+                <circle cx="11" cy="8" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
+                <circle cx="7" cy="12" r="1.5" fill="var(--surface-2)" stroke="currentColor"/>
+              </svg>
+            </button>
+          )}
           <UserMenu email={userEmail} onSignOut={handleSignOut} />
         </div>
       </header>
 
-      {/* Mobile sidebar overlay */}
-      <div
-        className={`mobile-sidebar-overlay${sidebarOpen ? " visible" : ""}`}
-        onClick={() => setSidebarOpen(false)}
-      />
+      {!plan ? (
+        /* ── Full-page wizard ── */
+        <FullPageWizard {...wizardProps} />
+      ) : (
+        /* ── App shell with plan ── */
+        <>
+          <div
+            className={`mobile-sidebar-overlay${sidebarOpen ? " visible" : ""}`}
+            onClick={() => setSidebarOpen(false)}
+          />
+          <div className="app-shell">
+            {/* Compact sidebar for re-generation */}
+            <aside className={`sidebar${sidebarOpen ? " mobile-open" : ""}`}>
+              <div className="sidebar-body">
+                <div style={{ marginBottom: 14 }}>
+                  <button
+                    type="button"
+                    onClick={() => { setPlan(null); setWizardStep(0); setStatus(""); }}
+                    style={{
+                      width: "100%", padding: "10px 14px", borderRadius: 10,
+                      border: "1px solid var(--border-2)", background: "var(--surface-2)",
+                      color: "var(--text-2)", fontSize: 13, fontWeight: 600,
+                      cursor: "pointer", fontFamily: "inherit", textAlign: "left",
+                      display: "flex", alignItems: "center", gap: 8,
+                    }}
+                  >
+                    ← New plan
+                  </button>
+                </div>
+                <FullPageWizard {...wizardProps} compact />
+              </div>
+            </aside>
 
-      {/* ── App shell ── */}
-      <div className="app-shell">
-        {/* Sidebar */}
-        <aside className={`sidebar${sidebarOpen ? " mobile-open" : ""}`}>
-          <div className="sidebar-body">
-            <WizardSidebar
-              step={wizardStep}
-              onStepChange={setWizardStep}
-              degreeFilter={degreeFilter}
-              setDegreeFilter={(v) => { setDegreeFilter(v); setSelectedMajors([]); }}
-              majorPrograms={majorPrograms}
-              minorPrograms={minorPrograms}
-              selectedMajors={selectedMajors}
-              setSelectedMajors={setSelectedMajors}
-              selectedMinors={selectedMinors}
-              setSelectedMinors={(next) => {
-                setSelectedMinors(next);
-                setSelectedMinorTracks((prev) => {
-                  const kept: Record<string, string> = {};
-                  for (const m of next) if (prev[m]) kept[m] = prev[m];
-                  return kept;
-                });
-              }}
-              selectedMinorTracks={selectedMinorTracks}
-              setSelectedMinorTracks={setSelectedMinorTracks}
-              startTerm={startTerm}
-              setStartTerm={setStartTerm}
-              targetGradTerm={targetGradTerm}
-              setTargetGradTerm={setTargetGradTerm}
-              maxCredits={maxCredits}
-              setMaxCredits={setMaxCredits}
-              preferredSeasons={preferredSeasons}
-              toggleSeason={toggleSeason}
-              completedCourses={completedCourses}
-              setCompletedCourses={setCompletedCourses}
-              setInProgressCourses={setInProgressCourses}
-              onSubmit={handleSubmit}
-              status={status}
-            />
-          </div>
-        </aside>
-
-        {/* Main panel */}
-        <div className="main-panel">
-          <div className="main-content">
-            {plan ? (
-              <>
+            {/* Main panel */}
+            <div className="main-panel">
+              <div className="main-content">
                 {/* Stats bar */}
                 <div className="stats-bar">
                   <div className="stats-bar-item" style={{ paddingLeft: 4 }}>
@@ -1034,29 +1123,11 @@ export default function PlannerPage() {
                     </span>
                   )}
                 </div>
-              </>
-            ) : (
-              <div className="empty-state">
-                <div className="empty-state-icon">🎓</div>
-                <p className="empty-state-title">Build your degree plan</p>
-                <p className="empty-state-sub desktop-only-text">
-                  Fill in your major, completed courses, and preferences on the left, then hit Generate.
-                </p>
-                <p className="empty-state-sub mobile-only-text">
-                  Tap the settings icon above to enter your major, completed courses, and preferences, then hit Generate.
-                </p>
-                <button
-                  className="primary-button mobile-only-text"
-                  style={{ marginTop: 20, padding: "12px 28px" }}
-                  onClick={() => setSidebarOpen(true)}
-                >
-                  Get started →
-                </button>
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 }
