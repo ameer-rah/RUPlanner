@@ -828,12 +828,6 @@ export default function PlannerPage() {
                     <strong>No course data available.</strong> This program hasn&apos;t been published yet.
                   </div>
                 )}
-                {plan.warnings.length > 0 && (
-                  <div className="plan-warning" style={{ marginBottom: 12 }}>
-                    <strong>Notes</strong>
-                    <ul>{plan.warnings.map((w) => <li key={w}>{w}</li>)}</ul>
-                  </div>
-                )}
                 {plan.remaining_courses.length > 0 && (
                   <div className="plan-warning danger" style={{ marginBottom: 12 }}>
                     <strong>Could not schedule before graduation</strong>
@@ -851,10 +845,6 @@ export default function PlannerPage() {
                     terms={editedTerms}
                   />
                 )}
-
-                <div className="plan-editor-hint">
-                  Drag courses between terms to reorder · Hover a course to delete it · Click <strong>+ Add course</strong> to add one · Click <strong>Swap</strong> on electives to pick a different course
-                </div>
 
                 <PlanEditor
                   key={planKey}

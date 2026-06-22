@@ -124,22 +124,26 @@ function ElectivePicker({
   );
 }
 
-// ── Add Course Form ──────────────────────────────────────────────────────────
+// ── Add Course Modal ─────────────────────────────────────────────────────────
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 type CourseResult = { code: string; title: string; credits: number };
 
-function AddCourseForm({
+function AddCourseModal({
+  terms,
   onAdd,
   onClose,
 }: {
-  onAdd: (course: PlannedCourse) => void;
+  terms: PlanTerm[];
+  onAdd: (termIdx: number, course: PlannedCourse) => void;
   onClose: () => void;
 }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<CourseResult[]>([]);
   const [loading, setLoading] = useState(false);
+  const [selectedTermIdx, setSelectedTermIdx] = useState<number | null>(null);
+  const [noTermError, setNoTermError] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -168,7 +172,11 @@ function AddCourseForm({
   }
 
   function handleSelect(course: CourseResult) {
-    onAdd({
+    if (selectedTermIdx === null) {
+      setNoTermError(true);
+      return;
+    }
+    onAdd(selectedTermIdx, {
       code: course.code,
       title: course.title,
       credits: course.credits,
@@ -176,37 +184,88 @@ function AddCourseForm({
       prerequisites: [],
       elective_options: [],
     });
+    onClose();
   }
 
   return (
-    <div className="add-course-form">
-      <div className="add-course-row">
-        <input
-          autoFocus
-          className="add-course-input add-course-search"
-          placeholder="Search by code or title…"
-          value={query}
-          onChange={handleChange}
-        />
-        <button type="button" className="add-course-cancel-btn" onClick={onClose}>✕</button>
-      </div>
-
-      {(results.length > 0 || loading) && (
-        <div className="add-course-results">
-          {loading && <div className="add-course-result-loading">Searching…</div>}
-          {results.map((c) => (
-            <button
-              key={c.code}
-              className="add-course-result-row"
-              onClick={() => handleSelect(c)}
-            >
-              <span className="add-course-result-code">{c.code}</span>
-              <span className="add-course-result-title">{c.title}</span>
-              <span className="add-course-result-credits">{c.credits} cr</span>
-            </button>
-          ))}
+    <div
+      className="modal-overlay"
+      style={{ backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }}
+      onClick={onClose}
+    >
+      <div
+        className="elective-modal"
+        style={{ maxWidth: 480 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="elective-modal-header">
+          <div>
+            <div className="elective-modal-title">Add a course</div>
+            <div className="elective-modal-sub">Search for a course, then pick a semester</div>
+          </div>
+          <button className="elective-modal-close" onClick={onClose}>✕</button>
         </div>
-      )}
+
+        {/* Course search */}
+        <div style={{ padding: "0 20px 16px" }}>
+          <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8 }}>Course</label>
+          <input
+            autoFocus
+            className="input"
+            placeholder="Search by code or name…"
+            value={query}
+            onChange={handleChange}
+            style={{ width: "100%", boxSizing: "border-box" }}
+          />
+
+          {(results.length > 0 || loading) && (
+            <div className="add-course-results" style={{ marginTop: 6 }}>
+              {loading && <div className="add-course-result-loading">Searching…</div>}
+              {results.map((c) => (
+                <button
+                  key={c.code}
+                  className="add-course-result-row"
+                  onClick={() => handleSelect(c)}
+                >
+                  <span className="add-course-result-code">{c.code}</span>
+                  <span className="add-course-result-title">{c.title}</span>
+                  <span className="add-course-result-credits">{c.credits} cr</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Semester picker */}
+        <div style={{ padding: "0 20px 20px", borderTop: "1px solid var(--border)" }}>
+          <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", margin: "16px 0 10px" }}>Semester</label>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {terms.map((t, idx) => (
+              <button
+                key={t.term}
+                onClick={() => { setSelectedTermIdx(idx); setNoTermError(false); }}
+                style={{
+                  padding: "5px 12px",
+                  borderRadius: 6,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  fontFamily: "inherit",
+                  cursor: "pointer",
+                  border: selectedTermIdx === idx ? "1px solid rgba(255,255,255,0.6)" : "1px solid var(--border-2)",
+                  background: selectedTermIdx === idx ? "rgba(255,255,255,0.1)" : "var(--surface-2)",
+                  color: selectedTermIdx === idx ? "var(--text)" : "var(--text-3)",
+                  transition: "all 150ms",
+                }}
+              >
+                {t.term}
+              </button>
+            ))}
+          </div>
+          {noTermError && (
+            <p style={{ fontSize: 11, color: "var(--ru-red)", marginTop: 8 }}>Select a semester first.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -233,8 +292,8 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
     course: PlannedCourse;
   } | null>(null);
 
-  // add-course form — which term is open
-  const [addingToTerm, setAddingToTerm] = useState<number | null>(null);
+  // add-course modal
+  const [showAddModal, setShowAddModal] = useState(false);
 
   // completed-course removal guard
   const [confirmDelete, setConfirmDelete] = useState<{ termIdx: number; courseIdx: number } | null>(null);
@@ -419,7 +478,6 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
       next[termIdx].total_credits += course.credits;
       return next;
     });
-    setAddingToTerm(null);
   }
 
   // ── Render ───────────────────────────────────────────────────────────────
@@ -434,6 +492,24 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
   return (
     <>
       {dragError && <div className="drag-error-toast">⚠ {dragError}</div>}
+
+      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
+        <button
+          className="new-schedule-btn"
+          style={{ fontSize: 13, padding: "7px 16px" }}
+          onClick={() => setShowAddModal(true)}
+        >
+          + Add course
+        </button>
+      </div>
+
+      {showAddModal && (
+        <AddCourseModal
+          terms={terms}
+          onAdd={handleAddCourse}
+          onClose={() => setShowAddModal(false)}
+        />
+      )}
 
       {confirmDelete && confirmCourse && (
         <div className="modal-overlay" style={{ backdropFilter: "blur(4px)", WebkitBackdropFilter: "blur(4px)" }} onClick={() => setConfirmDelete(null)}>
@@ -541,22 +617,8 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                   </div>
                 ))}
 
-                {term.courses.length === 0 && addingToTerm !== termIdx && (
+                {term.courses.length === 0 && (
                   <div className="empty-term-hint">Drop a course here</div>
-                )}
-
-                {addingToTerm === termIdx ? (
-                  <AddCourseForm
-                    onAdd={(course) => handleAddCourse(termIdx, course)}
-                    onClose={() => setAddingToTerm(null)}
-                  />
-                ) : (
-                  <button
-                    className="add-course-btn"
-                    onClick={() => setAddingToTerm(termIdx)}
-                  >
-                    + Add course
-                  </button>
                 )}
               </div>
             </div>
