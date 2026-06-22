@@ -208,7 +208,7 @@ function AddCourseModal({
 
         {/* Course search */}
         <div style={{ padding: "0 20px 16px" }}>
-          <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8 }}>Course</label>
+          <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8, marginTop: 16 }}>Course</label>
           <input
             autoFocus
             className="input"
@@ -495,8 +495,9 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
 
       <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 12 }}>
         <button
-          className="new-schedule-btn"
-          style={{ fontSize: 13, padding: "7px 16px" }}
+          style={{ fontSize: 13, padding: "7px 16px", borderRadius: 8, background: "var(--surface-2)", color: "var(--text-2)", border: "1px solid var(--border-2)", cursor: "pointer", fontFamily: "inherit", fontWeight: 600, transition: "background 150ms, border-color 150ms" }}
+          onMouseOver={e => { (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-3)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.25)"; }}
+          onMouseOut={e => { (e.currentTarget as HTMLButtonElement).style.background = "var(--surface-2)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border-2)"; }}
           onClick={() => setShowAddModal(true)}
         >
           + Add course

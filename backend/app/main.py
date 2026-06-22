@@ -334,7 +334,6 @@ Return ONLY the JSON object. No other text."""
 @app.post("/parse-transcript", response_model=TranscriptResult)
 @_limiter.limit("5/minute")
 async def parse_transcript(request: Request, file: UploadFile = File(...)) -> TranscriptResult:
-    import base64
     import json as _json
     import anthropic as _anthropic
 
@@ -353,39 +352,32 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
         reader = PdfReader(_io2.BytesIO(content))
         if len(reader.pages) > _MAX_PDF_PAGES:
             raise HTTPException(status_code=400, detail=f"PDF too long (max {_MAX_PDF_PAGES} pages).")
+        pdf_text = "\n".join(page.extract_text() or "" for page in reader.pages)
     except HTTPException:
         raise
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid or corrupted PDF file.")
 
+    if not pdf_text.strip():
+        raise HTTPException(status_code=400, detail="Could not extract text from this PDF. Please ensure it is not a scanned image.")
+
     api_key = os.getenv("ANTHROPIC_API_KEY")
     if not api_key:
         raise HTTPException(status_code=503, detail="Transcript AI is not configured.")
 
-    pdf_b64 = base64.standard_b64encode(content).decode()
     client = _anthropic.AsyncAnthropic(api_key=api_key)
 
     try:
         msg = await asyncio.wait_for(
             client.messages.create(
                 model="claude-haiku-4-5-20251001",
-                max_tokens=4096,
+                max_tokens=8096,
                 messages=[{
                     "role": "user",
-                    "content": [
-                        {
-                            "type": "document",
-                            "source": {
-                                "type": "base64",
-                                "media_type": "application/pdf",
-                                "data": pdf_b64,
-                            },
-                        },
-                        {"type": "text", "text": _TRANSCRIPT_PROMPT},
-                    ],
+                    "content": f"{_TRANSCRIPT_PROMPT}\n\nTranscript text:\n\n{pdf_text}",
                 }],
             ),
-            timeout=45.0,
+            timeout=60.0,
         )
     except asyncio.TimeoutError:
         raise HTTPException(status_code=504, detail="Transcript analysis timed out.")
