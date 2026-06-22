@@ -48,11 +48,7 @@ if not SECRET_KEY:
     import sys
     print("ERROR: SECRET_KEY environment variable must be set", file=sys.stderr)
     sys.exit(1)
-ADMIN_TOKEN = os.getenv("ADMIN_TOKEN")
-if not ADMIN_TOKEN:
-    import sys
-    print("ERROR: ADMIN_TOKEN environment variable must be set", file=sys.stderr)
-    sys.exit(1)
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 7
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
