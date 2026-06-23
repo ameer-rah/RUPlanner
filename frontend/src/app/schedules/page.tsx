@@ -164,6 +164,8 @@ function SchedulesPageContent() {
   }
 
   const selected = schedules.find((s) => s.id === selectedId) ?? null;
+  // Used as a React key to re-trigger entrance animation when selection changes
+  const detailKey = selectedId ?? "empty";
 
   const Topbar = (
     <header className="schedules-topbar" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100 }}>
@@ -185,6 +187,9 @@ function SchedulesPageContent() {
   if (!loading && schedules.length === 0) {
     return (
       <div style={{ background: "var(--surface)", minHeight: "100vh" }}>
+        <style>{`
+          @keyframes sched-fade-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+        `}</style>
         {Topbar}
         <div style={{
           display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
@@ -214,6 +219,18 @@ function SchedulesPageContent() {
 
   return (
     <div style={{ display: "flex", height: "100vh", background: "var(--surface)" }}>
+      <style>{`
+        @keyframes sched-fade-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes sched-fade-in { from { opacity:0; } to { opacity:1; } }
+        .sched-list-item-anim { animation: sched-fade-up 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+        .sched-detail-anim    { animation: sched-fade-up 0.32s cubic-bezier(0.22,1,0.36,1) both; }
+        .sched-card-anim      { animation: sched-fade-up 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+        .sched-sidebar-item:hover { transform: translateX(3px); transition: transform 0.18s cubic-bezier(0.22,1,0.36,1); }
+        .sched-course-row { transition: background 0.12s ease, padding-left 0.14s ease; }
+        .sched-course-row:hover { padding-left: 20px !important; }
+        .sched-snipe-card { transition: transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease; }
+        .sched-snipe-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+      `}</style>
       {Topbar}
 
       {/* ── Sidebar: schedule list ── */}
@@ -241,16 +258,16 @@ function SchedulesPageContent() {
           {loading ? (
             <div style={{ padding: 16, fontSize: 13, color: "var(--text-3)" }}>Loading…</div>
           ) : (
-            schedules.map((s) => {
+            schedules.map((s, idx) => {
               const credits = totalCredits(s.plan_data.terms);
               const isSelected = selectedId === s.id;
               const isConfirming = confirmId === s.id;
-              // Show first 3 unique season colors as dots
               const termDots = s.plan_data.terms.slice(0, 4).map((t) => getSeasonColors(t.term));
 
               return (
                 <div
                   key={s.id}
+                  className="sched-list-item-anim"
                   onClick={() => { setSelectedId(s.id); setConfirmId(null); }}
                   style={{
                     padding: "12px 12px",
@@ -259,10 +276,11 @@ function SchedulesPageContent() {
                     cursor: "pointer",
                     background: isSelected ? "var(--surface-2)" : "transparent",
                     border: `1.5px solid ${isSelected ? "var(--border-2)" : "transparent"}`,
-                    transition: "all 0.12s",
+                    transition: "background 0.15s ease, border-color 0.15s ease, transform 0.18s cubic-bezier(0.22,1,0.36,1)",
+                    animationDelay: `${idx * 60}ms`,
                   }}
-                  onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = "var(--surface-3)"; }}
-                  onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.background = "transparent"; }}
+                  onMouseEnter={(e) => { if (!isSelected) { e.currentTarget.style.background = "var(--surface-3)"; e.currentTarget.style.transform = "translateX(3px)"; } }}
+                  onMouseLeave={(e) => { if (!isSelected) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "translateX(0)"; } }}
                 >
                   {/* Term dots */}
                   <div style={{ display: "flex", gap: 4, marginBottom: 7 }}>
@@ -359,7 +377,7 @@ function SchedulesPageContent() {
         background: "var(--surface-2)",
       }}>
         {selected ? (
-          <>
+          <div key={detailKey} className="sched-detail-anim" style={{ height: "100%" }}>
             {/* Detail header */}
             <div style={{
               padding: "28px 32px 24px",
@@ -412,16 +430,21 @@ function SchedulesPageContent() {
                 gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
                 gap: 16,
               }}>
-                {selected.plan_data.terms.map((term) => {
+                {selected.plan_data.terms.map((term, termIdx) => {
                   const soc = termToSocCode(term.term);
                   const colors = getSeasonColors(term.term);
                   return (
-                    <div key={term.term} style={{
+                    <div key={term.term} className="sched-card-anim" style={{
                       background: "var(--surface)",
                       border: "1.5px solid var(--border)",
                       borderRadius: 14,
                       overflow: "hidden",
-                    }}>
+                      animationDelay: `${termIdx * 50}ms`,
+                      transition: "transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease",
+                    }}
+                    onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.5)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+                    >
                       {/* Term header */}
                       <div style={{
                         padding: "10px 16px",
@@ -501,7 +524,7 @@ function SchedulesPageContent() {
                 })}
               </div>
             </div>
-          </>
+          </div>
         ) : loading ? (
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", color: "var(--text-3)", fontSize: 13 }}>
             Loading…

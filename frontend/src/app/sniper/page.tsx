@@ -343,7 +343,17 @@ export default function SniperPage() {
           0%, 100% { box-shadow: 0 0 0 3px rgba(204,17,51,0.2); }
           50%       { box-shadow: 0 0 0 6px rgba(204,17,51,0.08); }
         }
-        .sniper-input:focus { border-color: var(--border-2) !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.04); }
+        @keyframes snipe-fade-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes snipe-slide-in { from { opacity:0; transform:translateX(-10px); } to { opacity:1; transform:translateX(0); } }
+        .snipe-left-header  { animation: snipe-fade-up 0.35s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 0ms; }
+        .snipe-left-term    { animation: snipe-fade-up 0.35s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 60ms; }
+        .snipe-left-phone   { animation: snipe-fade-up 0.35s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 110ms; }
+        .snipe-left-index   { animation: snipe-fade-up 0.35s cubic-bezier(0.22,1,0.36,1) both; animation-delay: 155ms; }
+        .snipe-card-anim    { animation: snipe-fade-up 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+        .snipe-card-hover   { transition: transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s ease; }
+        .snipe-card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+        .sniper-input { transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+        .sniper-input:focus { border-color: rgba(255,255,255,0.3) !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.05) !important; outline: none; }
       `}</style>
 
       {/* Full-width topbar — same as all other pages */}
@@ -373,7 +383,7 @@ export default function SniperPage() {
         }}>
           <div style={{ padding: "40px 36px 0", flex: 1 }}>
             {/* Header */}
-            <div style={{ marginBottom: 32 }}>
+            <div className="snipe-left-header" style={{ marginBottom: 32 }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", color: "var(--ru-red)", marginBottom: 10, textTransform: "uppercase" }}>
                 Course Sniper
               </div>
@@ -386,7 +396,7 @@ export default function SniperPage() {
             </div>
 
             {/* Term selector */}
-            <div style={{ marginBottom: 24 }}>
+            <div className="snipe-left-term" style={{ marginBottom: 24 }}>
               <div style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", letterSpacing: "0.07em", textTransform: "uppercase", marginBottom: 10 }}>
                 Term
               </div>
@@ -417,7 +427,7 @@ export default function SniperPage() {
             </div>
 
             {/* Phone */}
-            <div style={{ marginBottom: 16 }}>
+            <div className="snipe-left-phone" style={{ marginBottom: 16 }}>
               <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "var(--text-3)", letterSpacing: "0.07em", textTransform: "uppercase", marginBottom: 8 }}>
                 Phone Number
               </label>
@@ -435,7 +445,7 @@ export default function SniperPage() {
             </div>
 
             {/* Section index */}
-            <div style={{ marginBottom: 8 }}>
+            <div className="snipe-left-index" style={{ marginBottom: 8 }}>
               <label style={{ display: "block", fontSize: 11, fontWeight: 600, color: "var(--text-3)", letterSpacing: "0.07em", textTransform: "uppercase", marginBottom: 8 }}>
                 Section Index
               </label>
@@ -560,7 +570,7 @@ export default function SniperPage() {
           padding: "36px 40px 40px",
         }}>
           {/* Active snipes */}
-          <div style={{ marginBottom: 40 }}>
+          <div className="snipe-card-anim" style={{ marginBottom: 40 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
               <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", color: "var(--ru-red)", textTransform: "uppercase" }}>
                 Active Snipes
@@ -594,8 +604,10 @@ export default function SniperPage() {
               </div>
             ) : (
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                {activeSnipes.map((s) => (
-                  <SnipeCard key={s.id} snipe={s} onDelete={(id) => setSnipes((prev) => prev.filter((x) => x.id !== id))} />
+                {activeSnipes.map((s, i) => (
+                  <div key={s.id} className="snipe-card-anim snipe-card-hover" style={{ animationDelay: `${i * 60}ms` }}>
+                    <SnipeCard snipe={s} onDelete={(id) => setSnipes((prev) => prev.filter((x) => x.id !== id))} />
+                  </div>
                 ))}
               </div>
             )}
@@ -608,8 +620,10 @@ export default function SniperPage() {
                 Past Snipes
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                {inactiveSnipes.map((s) => (
-                  <SnipeCard key={s.id} snipe={s} onDelete={(id) => setSnipes((prev) => prev.filter((x) => x.id !== id))} />
+                {inactiveSnipes.map((s, i) => (
+                  <div key={s.id} className="snipe-card-anim snipe-card-hover" style={{ animationDelay: `${i * 60}ms` }}>
+                    <SnipeCard snipe={s} onDelete={(id) => setSnipes((prev) => prev.filter((x) => x.id !== id))} />
+                  </div>
                 ))}
               </div>
             </div>
