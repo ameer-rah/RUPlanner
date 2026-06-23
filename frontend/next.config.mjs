@@ -14,7 +14,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
               "img-src 'self' data: blob: https:",
-              "connect-src 'self' https://accounts.google.com https://ruplanner-backend-1073787278310.us-east1.run.app https://api.ruplanner.com",
+              "connect-src 'self' https://accounts.google.com https://backend-1073787278310.us-east1.run.app https://ruplanner-backend-1073787278310.us-east1.run.app https://api.ruplanner.com",
               "frame-src https://accounts.google.com",
               "object-src 'none'",
               "base-uri 'self'",
