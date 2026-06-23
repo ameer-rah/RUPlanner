@@ -13,10 +13,31 @@ type RmpData = {
   legacy_id: number | null;
 };
 
+// Module-level caches so all badges for the same instructor share one fetch.
+// _inFlight deduplicates concurrent requests; _done caches completed results.
+const _inFlight = new Map<string, Promise<RmpData | null>>();
+const _done = new Map<string, RmpData | null>();
+
+function fetchRmp(name: string): Promise<RmpData | null> {
+  const key = name.toLowerCase();
+  if (_done.has(key)) return Promise.resolve(_done.get(key)!);
+  if (_inFlight.has(key)) return _inFlight.get(key)!;
+  const p = fetch(`${apiBase}/rmp/rating?name=${encodeURIComponent(name)}`)
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null)
+    .then((data: RmpData | null) => {
+      _done.set(key, data);
+      _inFlight.delete(key);
+      return data;
+    });
+  _inFlight.set(key, p);
+  return p;
+}
+
 function ratingColor(r: number): string {
-  if (r >= 4.0) return "#16a34a";   // green
-  if (r >= 3.0) return "#d97706";   // amber
-  return "#dc2626";                  // red
+  if (r >= 4.0) return "#16a34a";
+  if (r >= 3.0) return "#d97706";
+  return "#dc2626";
 }
 
 export default function RmpBadge({ instructorName }: { instructorName: string }) {
@@ -27,10 +48,7 @@ export default function RmpBadge({ instructorName }: { instructorName: string })
       setData(null);
       return;
     }
-    fetch(`${apiBase}/rmp/rating?name=${encodeURIComponent(instructorName)}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => setData(d ?? null))
-      .catch(() => setData(null));
+    fetchRmp(instructorName).then(setData);
   }, [instructorName]);
 
   if (data === "loading" || data === null || data.rating === null) return null;

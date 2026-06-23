@@ -746,7 +746,7 @@ def _name_matches(query: str, first: str, last: str) -> bool:
     return all(p in first_l or p in last_l for p in parts)
 
 @app.get("/rmp/rating")
-@_limiter.limit("10/minute")
+@_limiter.limit("60/minute")
 def rmp_rating(request: Request, name: str = Query(..., max_length=100)):
     if "," in name:
         parts = [p.strip().title() for p in name.split(",", 1)]
