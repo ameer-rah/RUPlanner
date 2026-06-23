@@ -57,6 +57,32 @@ FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 _BCRYPT_ROUNDS = int(os.getenv("BCRYPT_ROUNDS", "12"))
 
+# Maps Rutgers subject numbers (3-digit zero-padded) to short course prefixes (e.g. "198" -> "CS")
+_SUBJECT_TO_PREFIX: dict[str, str] = {
+    "010": "ACCT", "007": "ACE", "016": "AFRS", "098": "AMES", "050": "AMST",
+    "340": "ANSC", "070": "ANTH", "074": "ARAB", "080": "ARCH", "081": "ART",
+    "082": "ARTH", "750": "PHYS", "115": "BCHEM", "119": "BIO", "137": "BIOTECH",
+    "140": "BLAW", "125": "BME", "116": "BSYSE", "135": "BUSS", "148": "CBN",
+    "180": "CEE", "155": "CHE", "160": "CHEM", "165": "CHN", "175": "CINE",
+    "190": "CLAS", "185": "COGS", "192": "COMM", "195": "COMPLIT", "762": "CRP",
+    "198": "CS", "214": "DANC", "216": "DISAB", "705": "NURS", "332": "ECE",
+    "220": "ECON", "300": "EDUC", "355": "EXPOS", "350": "ENGL", "375": "ENVSCI",
+    "370": "ENT", "885": "ESME", "572": "EXSC", "390": "FIN", "420": "FREN",
+    "400": "FS", "447": "GENET", "450": "GEOG", "460": "GEOSC", "470": "GERM",
+    "554": "IGS", "490": "GREK", "500": "HEBR", "504": "HINDI", "510": "HIST",
+    "501": "HLAD", "507": "HIED", "545": "IRHR", "540": "ISE", "560": "ITAL",
+    "194": "ITI", "563": "JWST", "567": "JOUR", "217": "JPN", "574": "KOR",
+    "550": "LA", "590": "LAS", "595": "LAT", "600": "LCS", "615": "LING",
+    "650": "MAE", "642": "MAP", "640": "MATH", "712": "MARINE", "695": "MCB",
+    "663": "MCHM", "667": "MEDST", "625": "MES", "107": "METEOR", "681": "MICROB",
+    "660": "MGMT", "630": "MKTG", "635": "MSE", "700": "MUS", "709": "NUTRSCI",
+    "718": "PCOL", "726": "PERS", "720": "PHAR", "730": "PHIL", "761": "PHSL",
+    "765": "PBIO", "790": "POLS", "810": "PORT", "830": "PSYC", "832": "PUBH",
+    "840": "RELGS", "859": "RUSS", "799": "SCM", "920": "SOC", "910": "MSW",
+    "940": "SPAN", "475": "SPMD", "960": "STAT", "965": "THEA", "976": "TURF",
+    "975": "TURK", "988": "WGSS", "360": "EURO", "643": "GQF",
+}
+
 def _hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt(_BCRYPT_ROUNDS)).decode()
 
@@ -789,7 +815,7 @@ def soc_section_by_index(
         for sec in course.get("sections", []):
             if str(sec.get("index", "")) == index:
                 subject = str(course.get("subject", "")).zfill(3)
-                prefix = _RUTGERS_DEPT_TO_PREFIX.get(subject, subject)
+                prefix = _SUBJECT_TO_PREFIX.get(subject, subject)
                 course_num = str(course.get("courseNumber", "")).lstrip("0") or "0"
                 return {
                     "course_code": f"{prefix}{course_num}",
