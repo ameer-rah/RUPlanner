@@ -367,7 +367,7 @@ export default function SniperPage() {
           width: 420, minWidth: 340, maxWidth: 420, flexShrink: 0,
           height: "100%", overflowY: "auto",
           padding: "0 0 40px",
-          background: "var(--surface)",
+          background: "var(--bg)",
           borderRight: "1px solid var(--border)",
           display: "flex", flexDirection: "column",
         }}>
