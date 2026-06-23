@@ -222,7 +222,7 @@ function SchedulesPageContent() {
         height: "100vh", overflowY: "auto",
         paddingTop: "var(--topbar-height)",
         borderRight: "1px solid var(--border)",
-        background: "var(--surface-2)",
+        background: "var(--surface)",
         display: "flex", flexDirection: "column",
       }}>
         {/* Sidebar header */}
@@ -257,11 +257,11 @@ function SchedulesPageContent() {
                     borderRadius: 10,
                     marginBottom: 4,
                     cursor: "pointer",
-                    background: isSelected ? "var(--surface-3)" : "transparent",
+                    background: isSelected ? "var(--surface-2)" : "transparent",
                     border: `1.5px solid ${isSelected ? "var(--border-2)" : "transparent"}`,
                     transition: "all 0.12s",
                   }}
-                  onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = "var(--surface-2)"; }}
+                  onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.background = "var(--surface-3)"; }}
                   onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.background = "transparent"; }}
                 >
                   {/* Term dots */}
