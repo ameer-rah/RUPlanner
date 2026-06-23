@@ -63,6 +63,13 @@ function safeRemoveStorage(key: string) {
   try { localStorage.removeItem(key); } catch {}
 }
 
+function getAuthHeaders(): Record<string, string> {
+  try {
+    const token = localStorage.getItem("ru_planner_token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  } catch { return {}; }
+}
+
 function getSeasonBtnClass(season: string, active: boolean) {
   if (!active) return "season-btn";
   if (season === "Fall") return "season-btn active-fall";
@@ -841,7 +848,7 @@ export default function PlannerPage() {
     router.prefetch("/schedules");
     async function checkAuthAndLoadPrograms() {
       try {
-        const meRes = await fetch(`${apiBase}/auth/me`, { credentials: 'include' });
+        const meRes = await fetch(`${apiBase}/auth/me`, { credentials: 'include', headers: getAuthHeaders() });
         if (!meRes.ok) {
           router.push("/");
           return;
@@ -849,7 +856,7 @@ export default function PlannerPage() {
         const me = await meRes.json();
         setUserEmail(me.email);
 
-        const programsRes = await fetch(`${apiBase}/programs`, { credentials: 'include' });
+        const programsRes = await fetch(`${apiBase}/programs`, { credentials: 'include', headers: getAuthHeaders() });
         if (programsRes.ok) {
           const data = await programsRes.json();
           setPrograms(data);
@@ -920,7 +927,7 @@ export default function PlannerPage() {
 
     const res = await fetch(`${apiBase}/plan`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: { "content-type": "application/json", ...getAuthHeaders() },
       body: JSON.stringify(payload),
       credentials: 'include',
     });
@@ -958,7 +965,7 @@ export default function PlannerPage() {
 
     const res = await fetch(`${apiBase}/schedules`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: { "content-type": "application/json", ...getAuthHeaders() },
       body: JSON.stringify({ name, plan_data }),
       credentials: 'include',
     });

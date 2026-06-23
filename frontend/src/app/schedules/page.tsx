@@ -9,6 +9,13 @@ import CourseDetailModal from "../CourseDetailModal";
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.ruplanner.com";
 
+function getAuthHeaders(): Record<string, string> {
+  try {
+    const token = localStorage.getItem("ru_planner_token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  } catch { return {}; }
+}
+
 type PlannedCourse = {
   code: string;
   title: string;
@@ -124,12 +131,12 @@ function SchedulesPageContent() {
 
   useEffect(() => {
     router.prefetch("/planner");
-    fetch(`${apiBase}/auth/me`, { credentials: "include" })
+    fetch(`${apiBase}/auth/me`, { credentials: "include", headers: getAuthHeaders() })
       .then((r) => { if (!r.ok) { router.push("/"); return null; } return r.json(); })
       .then((user) => {
         if (!user) return;
         setUserEmail(user.email);
-        return fetch(`${apiBase}/schedules`, { credentials: "include" });
+        return fetch(`${apiBase}/schedules`, { credentials: "include", headers: getAuthHeaders() });
       })
       .then((r) => {
         if (!r) return [];
@@ -144,6 +151,7 @@ function SchedulesPageContent() {
   }, [router]);
 
   function handleSignOut() {
+    try { localStorage.removeItem("ru_planner_token"); } catch {}
     fetch(`${apiBase}/auth/logout`, { method: "POST", credentials: "include" }).catch(() => {});
     router.push("/");
   }
@@ -151,7 +159,7 @@ function SchedulesPageContent() {
   async function handleDelete(id: number) {
     setDeletingId(id);
     try {
-      await fetch(`${apiBase}/schedules/${id}`, { method: "DELETE", credentials: "include" });
+      await fetch(`${apiBase}/schedules/${id}`, { method: "DELETE", credentials: "include", headers: getAuthHeaders() });
       setSchedules((prev) => {
         const next = prev.filter((s) => s.id !== id);
         if (selectedId === id) setSelectedId(next[0]?.id ?? null);

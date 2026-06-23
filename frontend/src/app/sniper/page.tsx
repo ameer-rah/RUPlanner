@@ -6,6 +6,13 @@ import Link from "next/link";
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.ruplanner.com";
 
+function getAuthHeaders(): Record<string, string> {
+  try {
+    const token = localStorage.getItem("ru_planner_token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  } catch { return {}; }
+}
+
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 type MeetingTime = {
@@ -152,7 +159,7 @@ function SnipeCard({ snipe, onDelete }: { snipe: Snipe; onDelete: (id: number) =
   async function handleDelete() {
     setDeleting(true);
     try {
-      await fetch(`${apiBase}/snipes/${snipe.id}`, { method: "DELETE", credentials: "include" });
+      await fetch(`${apiBase}/snipes/${snipe.id}`, { method: "DELETE", credentials: "include", headers: getAuthHeaders() });
       onDelete(snipe.id);
     } finally {
       setDeleting(false);
@@ -253,12 +260,12 @@ export default function SniperPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch(`${apiBase}/auth/me`, { credentials: "include" })
+    fetch(`${apiBase}/auth/me`, { credentials: "include", headers: getAuthHeaders() })
       .then((r) => (r.ok ? r.json() : null))
       .then((user) => {
         if (!user) { router.push("/"); return; }
         setUserEmail(user.email);
-        return fetch(`${apiBase}/snipes`, { credentials: "include" });
+        return fetch(`${apiBase}/snipes`, { credentials: "include", headers: getAuthHeaders() });
       })
       .then((r) => (r && r.ok ? r.json() : []))
       .then((data: Snipe[]) => setSnipes(data ?? []))
@@ -266,6 +273,7 @@ export default function SniperPage() {
   }, [router]);
 
   function handleSignOut() {
+    try { localStorage.removeItem("ru_planner_token"); } catch {}
     fetch(`${apiBase}/auth/logout`, { method: "POST", credentials: "include" }).catch(() => {});
     router.push("/");
   }
@@ -279,7 +287,7 @@ export default function SniperPage() {
     try {
       const r = await fetch(
         `${apiBase}/soc/section-by-index?index=${encodeURIComponent(idx)}&year=${selectedTerm.year}&term=${selectedTerm.term}`,
-        { credentials: "include" }
+        { credentials: "include", headers: getAuthHeaders() }
       );
       if (r.status === 404) { setLookupError("Section not found — check the index and selected term."); return; }
       if (!r.ok) throw new Error();
@@ -304,7 +312,7 @@ export default function SniperPage() {
     try {
       const r = await fetch(`${apiBase}/snipes`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         credentials: "include",
         body: JSON.stringify({
           course_code: sectionInfo.course_code,

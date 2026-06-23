@@ -57,12 +57,18 @@ export default function AuthPage() {
   useEffect(() => {
     async function checkAuth() {
       try {
-        const res = await fetch(`${apiBase}/auth/me`, { credentials: 'include' });
+        let headers: HeadersInit = {};
+        try {
+          const stored = localStorage.getItem("ru_planner_token");
+          if (stored) headers = { Authorization: `Bearer ${stored}` };
+        } catch {}
+        const res = await fetch(`${apiBase}/auth/me`, { credentials: 'include', headers });
         if (res.ok) {
           router.push("/planner");
           return;
         }
-      } catch (e) {
+        try { localStorage.removeItem("ru_planner_token"); } catch {}
+      } catch {
         // Not authenticated
       }
       setAuthChecked(true);
@@ -98,6 +104,10 @@ export default function AuthPage() {
             const data = await res.json().catch(() => ({ detail: "Google sign-in failed." }));
             setError(data.detail ?? "Google sign-in failed.");
             return;
+          }
+          const gdata = await res.json().catch(() => ({}));
+          if (gdata.access_token) {
+            try { localStorage.setItem("ru_planner_token", gdata.access_token); } catch {}
           }
           await finishAuth();
         } catch {
@@ -139,6 +149,10 @@ export default function AuthPage() {
         return;
       }
 
+      const data = await res.json().catch(() => ({}));
+      if (data.access_token) {
+        try { localStorage.setItem("ru_planner_token", data.access_token); } catch {}
+      }
       await finishAuth();
     } catch {
       setError("Could not connect to server.");
