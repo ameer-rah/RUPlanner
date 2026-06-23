@@ -772,11 +772,17 @@ def soc_section_by_index(
 ):
     base = f"https://sis.rutgers.edu/soc/api/courses.json?year={year}&term={term}&campus={campus}"
     try:
-        resp_u = _requests.get(f"{base}&level=U", timeout=15)
-        resp_u.raise_for_status()
-        resp_g = _requests.get(f"{base}&level=G", timeout=15)
-        resp_g.raise_for_status()
-        courses = resp_u.json() + resp_g.json()
+        from concurrent.futures import ThreadPoolExecutor
+        def _fetch(url):
+            r = _requests.get(url, timeout=12)
+            r.raise_for_status()
+            return r.json()
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            fut_u = pool.submit(_fetch, f"{base}&level=U")
+            fut_g = pool.submit(_fetch, f"{base}&level=G")
+            courses_u = fut_u.result()
+            courses_g = fut_g.result()
+        courses = courses_u + courses_g
     except Exception:
         raise HTTPException(status_code=502, detail="Could not reach Rutgers SOC API.")
     for course in courses:
