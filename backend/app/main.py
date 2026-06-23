@@ -770,11 +770,13 @@ def soc_section_by_index(
     term: str = Query(..., pattern=r"^\d$"),
     campus: str = Query("NB", pattern=r"^[A-Z]{2,3}$"),
 ):
-    url = f"https://sis.rutgers.edu/soc/api/courses.json?year={year}&term={term}&campus={campus}&level=U"
+    base = f"https://sis.rutgers.edu/soc/api/courses.json?year={year}&term={term}&campus={campus}"
     try:
-        resp = _requests.get(url, timeout=15)
-        resp.raise_for_status()
-        courses = resp.json()
+        resp_u = _requests.get(f"{base}&level=U", timeout=15)
+        resp_u.raise_for_status()
+        resp_g = _requests.get(f"{base}&level=G", timeout=15)
+        resp_g.raise_for_status()
+        courses = resp_u.json() + resp_g.json()
     except Exception:
         raise HTTPException(status_code=502, detail="Could not reach Rutgers SOC API.")
     for course in courses:

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { getRegistrarCode } from "./registrar";
+import RmpBadge from "./RmpBadge";
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
@@ -23,15 +24,6 @@ type Section = {
   meetingTimes: MeetingTime[];
   courseNumber: string;
   courseTitle: string;
-};
-
-type RmpData = {
-  name: string;
-  rating: number | null;
-  num_ratings: number;
-  difficulty: number | null;
-  would_take_again: number | null;
-  legacy_id: number | null;
 };
 
 type Props = {
@@ -71,36 +63,6 @@ function formatMeetingTimes(times: MeetingTime[]): string {
   return `${days} ${formatTime(first.start)}–${formatTime(first.end)}`;
 }
 
-function StarRating({ rating }: { rating: number }) {
-  return (
-    <span style={{ display: "inline-flex", gap: 2 }}>
-      {[1, 2, 3, 4, 5].map((i) => (
-        <span
-          key={i}
-          style={{ color: i <= Math.round(rating) ? "#f59e0b" : "var(--surface-3)", fontSize: 16 }}
-        >
-          ★
-        </span>
-      ))}
-    </span>
-  );
-}
-
-function RatingBar({ value, max, color }: { value: number; max: number; color: string }) {
-  return (
-    <div style={{ flex: 1, height: 6, background: "var(--surface-3)", borderRadius: 3, overflow: "hidden" }}>
-      <div
-        style={{
-          height: "100%",
-          width: `${Math.min(100, (value / max) * 100)}%`,
-          background: color,
-          borderRadius: 3,
-        }}
-      />
-    </div>
-  );
-}
-
 // ── Modal ────────────────────────────────────────────────────────────────────
 
 export default function CourseDetailModal({
@@ -110,7 +72,6 @@ export default function CourseDetailModal({
   const [sections, setSections] = useState<Section[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [rmp, setRmp] = useState<RmpData | null>(null);
 
   const registrar = getRegistrarCode(courseCode);
   const [, subject, courseNumber] = registrar?.split(":") ?? [null, null, null];
@@ -130,17 +91,6 @@ export default function CourseDetailModal({
       .catch(() => setError("Could not load sections."))
       .finally(() => setLoading(false));
   }, [subject, courseNumber, socYear, socTerm]);
-
-  // Fetch RMP for the first instructor once sections load
-  useEffect(() => {
-    if (!sections.length) return;
-    const instructor = sections[0]?.instructors[0];
-    if (!instructor || instructor === "Staff") return;
-    fetch(`${apiBase}/rmp/rating?name=${encodeURIComponent(instructor)}`)
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => setRmp(d ?? null))
-      .catch(() => null);
-  }, [sections]);
 
   // Close on Escape
   useEffect(() => {
@@ -217,51 +167,6 @@ export default function CourseDetailModal({
         {/* ── Body ── */}
         <div style={{ padding: "20px 24px", display: "flex", flexDirection: "column", gap: 20, maxHeight: "55vh", overflowY: "auto" }}>
 
-          {/* RMP block */}
-          {rmp && rmp.rating !== null && (
-            <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 10 }}>
-                RATE MY PROFESSOR
-              </div>
-              <div style={{
-                background: "var(--surface-2)", borderRadius: 12, padding: "14px 16px",
-                display: "flex", gap: 20, alignItems: "center",
-              }}>
-                {/* Score */}
-                <div style={{ textAlign: "center", flexShrink: 0 }}>
-                  <div style={{ fontSize: 32, fontWeight: 800, color: "var(--text)", lineHeight: 1 }}>
-                    {rmp.rating.toFixed(1)}
-                  </div>
-                  <StarRating rating={rmp.rating} />
-                  <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 4 }}>
-                    {rmp.num_ratings} ratings
-                  </div>
-                </div>
-                {/* Bars */}
-                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
-                  {rmp.difficulty !== null && (
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <span style={{ fontSize: 12, color: "var(--text-2)", width: 80 }}>Difficulty</span>
-                      <RatingBar value={rmp.difficulty} max={5} color="#ef4444" />
-                      <span style={{ fontSize: 12, color: "var(--text-3)", width: 28, textAlign: "right" }}>
-                        {rmp.difficulty.toFixed(1)}
-                      </span>
-                    </div>
-                  )}
-                  {rmp.would_take_again !== null && (
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <span style={{ fontSize: 12, color: "var(--text-2)", width: 80 }}>Would retake</span>
-                      <RatingBar value={rmp.would_take_again} max={100} color="#22c55e" />
-                      <span style={{ fontSize: 12, color: "var(--text-3)", width: 28, textAlign: "right" }}>
-                        {Math.round(rmp.would_take_again)}%
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-
           {/* Sections table */}
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, color: "var(--purple)", letterSpacing: "0.08em", marginBottom: 10 }}>
@@ -318,8 +223,9 @@ export default function CourseDetailModal({
                       <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text)" }}>
                         {sec.sectionNumber}
                       </div>
-                      <div style={{ fontSize: 13, color: "var(--text-2)", paddingRight: 8 }}>
-                        {instructor}
+                      <div style={{ fontSize: 13, color: "var(--text-2)", paddingRight: 8, display: "flex", alignItems: "center", gap: 6 }}>
+                        <span>{instructor}</span>
+                        <RmpBadge instructorName={instructor} />
                       </div>
                       <div style={{ fontSize: 12, color: "var(--text-3)" }}>
                         {time}
