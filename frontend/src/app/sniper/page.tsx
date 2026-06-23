@@ -347,7 +347,7 @@ export default function SniperPage() {
       `}</style>
 
       {/* Full-width topbar — same as all other pages */}
-      <header className="schedules-topbar">
+      <header className="schedules-topbar" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100 }}>
         <div className="schedules-topbar-logo">
           <img src="/RUPlanner Logo.svg" alt="RU Planner" style={{ height: 36, width: "auto" }} />
         </div>
