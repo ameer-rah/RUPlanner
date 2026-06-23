@@ -346,30 +346,30 @@ export default function SniperPage() {
         .sniper-input:focus { border-color: var(--border-2) !important; box-shadow: 0 0 0 3px rgba(255,255,255,0.04); }
       `}</style>
 
-      <div style={{ display: "flex", height: "100vh", background: "var(--surface)" }}>
+      {/* Full-width topbar — same as all other pages */}
+      <header className="schedules-topbar">
+        <div className="schedules-topbar-logo">
+          <img src="/RUPlanner Logo.svg" alt="RU Planner" style={{ height: 36, width: "auto" }} />
+        </div>
+        <nav className="topbar-nav">
+          <Link href="/planner" className="topbar-nav-item" prefetch>My Planner</Link>
+          <Link href="/schedules" className="topbar-nav-item" prefetch>Schedules</Link>
+          <span className="topbar-nav-item active">Course Sniper</span>
+        </nav>
+        <div className="topbar-right">
+          <UserMenu email={userEmail} onSignOut={handleSignOut} />
+        </div>
+      </header>
+
+      <div style={{ display: "flex", height: "calc(100vh - var(--topbar-height))", marginTop: "var(--topbar-height)", background: "var(--surface)" }}>
         {/* ── Left panel: form ── */}
         <div style={{
           width: 420, minWidth: 340, maxWidth: 420, flexShrink: 0,
-          height: "100vh", overflowY: "auto",
+          height: "100%", overflowY: "auto",
           padding: "0 0 40px",
           borderRight: "1px solid var(--border)",
           display: "flex", flexDirection: "column",
         }}>
-          {/* Topbar */}
-          <header className="schedules-topbar" style={{ position: "sticky", top: 0, zIndex: 100, flexShrink: 0 }}>
-            <div className="schedules-topbar-logo">
-              <img src="/RUPlanner Logo.svg" alt="RU Planner" style={{ height: 36, width: "auto" }} />
-            </div>
-            <nav className="topbar-nav">
-              <Link href="/planner" className="topbar-nav-item" prefetch>My Planner</Link>
-              <Link href="/schedules" className="topbar-nav-item" prefetch>Schedules</Link>
-              <span className="topbar-nav-item active">Course Sniper</span>
-            </nav>
-            <div className="topbar-right">
-              <UserMenu email={userEmail} onSignOut={handleSignOut} />
-            </div>
-          </header>
-
           <div style={{ padding: "40px 36px 0", flex: 1 }}>
             {/* Header */}
             <div style={{ marginBottom: 32 }}>
@@ -554,9 +554,9 @@ export default function SniperPage() {
         {/* ── Right panel: active snipes ── */}
         <div style={{
           flex: 1, minWidth: 0,
-          height: "100vh", overflowY: "auto",
+          height: "100%", overflowY: "auto",
           background: "var(--surface-2)",
-          padding: "calc(var(--topbar-height) + 36px) 40px 40px",
+          padding: "36px 40px 40px",
         }}>
           {/* Active snipes */}
           <div style={{ marginBottom: 40 }}>

@@ -222,7 +222,7 @@ function SchedulesPageContent() {
         height: "100vh", overflowY: "auto",
         paddingTop: "var(--topbar-height)",
         borderRight: "1px solid var(--border)",
-        background: "var(--surface)",
+        background: "var(--surface-2)",
         display: "flex", flexDirection: "column",
       }}>
         {/* Sidebar header */}
