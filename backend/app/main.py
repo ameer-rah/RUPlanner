@@ -313,50 +313,83 @@ async def generate_plan(
 _MAX_PDF_BYTES = 5 * 1024 * 1024   # 5 MB
 _MAX_PDF_PAGES = 20
 
-_TRANSCRIPT_PROMPT = """You are analyzing a Rutgers University transcript PDF.
+# Per-semester extraction prompt — focused and small so each call never truncates.
+_CHUNK_EXTRACT_PROMPT = """Extract every course row from this Rutgers transcript section.
+Return ONLY a valid JSON array — no prose, no markdown fences, nothing else.
 
-Extract every course listed and return ONLY a valid JSON object in exactly this shape — no prose, no markdown fences:
+Each element must follow this shape exactly:
+{"title_raw":"INTRO COMPUTER SCI","raw_code":"01:198:111","rutgers_code":"CS111","grade":"A","passed":true,"failed":false,"is_transfer":false,"is_in_progress":false,"semester":"Fall 2023","credits":4.0,"equivalency_note":""}
 
-{
-  "student_name": "Full Name Here",
-  "ai_summary": "2-3 sentence plain-English summary of the student's academic history including total credits, any failed courses, transfer credits, and current enrollment status.",
-  "courses": [
-    {
-      "title_raw": "INTRO COMPUTER SCI",
-      "raw_code": "01:198:111",
-      "rutgers_code": "CS111",
-      "grade": "A+",
-      "passed": true,
-      "failed": false,
-      "is_transfer": false,
-      "is_in_progress": false,
-      "semester": "Fall 2023",
-      "credits": 4.0,
-      "equivalency_note": ""
-    }
-  ]
-}
+Field rules:
+- title_raw: course title exactly as printed
+- raw_code: XX:YYY:ZZZ exactly as printed; null if not visible
+- rutgers_code: short code derived from raw_code (01:198:111→CS111, 01:640:151→MATH151, 01:355:101→EXPOS101); null if uncertain
+- grade: exactly as printed; empty string "" if no grade yet (in-progress)
+- Rutgers passing grades — passed=true: A A+ A- B B+ B- C C+ C- D D+ D- P PA TR TE TC S T EX
+- Rutgers failing grades — failed=true: F WF WD U UF NC NR WN
+- W (plain withdrawal): passed=false, failed=false, is_in_progress=false
+- is_in_progress=true: grade is blank or missing
+- is_transfer=true: if this section header says TRANSFER
+- semester: use the section label (e.g. "Fall 2023"); "Transfer" for transfer blocks
+- credits: numeric float
+- equivalency_note: one sentence for transfer courses only; empty string "" for all others
+- Include EVERY course row — do not skip any
 
-Rules for each course field:
-- title_raw: course title exactly as it appears on the transcript
-- raw_code: the full Rutgers subject code exactly as it appears on the transcript in XX:YYY:ZZZ format (e.g. "01:198:111"). Use null if not visible on the transcript.
-- rutgers_code: the standard short course code derived from raw_code (e.g. CS111, MATH151, EXPOS101, PHYS204). For transfer courses, infer the best Rutgers equivalent based on title and credit count. Use null if no confident match exists.
-- grade: exactly as printed (A+, B, C-, F, W, TR, PA, etc.). Use empty string "" for in-progress courses with no grade yet.
-- passed: true if grade is any passing variant (A/B/C/D/P/TR/PA/TE/TC and their +/- forms)
-- failed: true if grade is F, W, WF, WD, NC, U, UF, NR, WN — and the course is NOT in-progress
-- is_transfer: true for any course appearing in a TRANSFER COURSES block
-- is_in_progress: true when there is no grade listed yet (student currently enrolled)
-- semester: e.g. "Fall 2023", "Spring 2024", "Transfer" for transfer block courses with no term
-- credits: numeric credit value as a float
-- equivalency_note: non-empty only for transfer courses — one sentence explaining why this Rutgers code is the best match. Leave empty string "" for non-transfer courses.
+Return ONLY the JSON array. No other text."""
 
-Return ONLY the JSON object. No other text."""
+
+def _split_transcript_by_term(pdf_text: str) -> list:
+    """Return list of (section_label, section_text) pairs split by term headers."""
+    pattern = re.compile(
+        r'((?:Fall|Spring|Summer|Winter)\s+\d{4}|TRANSFER\s+(?:CREDIT\w*|WORK|COURSES?))',
+        re.IGNORECASE,
+    )
+    parts = pattern.split(pdf_text)
+    chunks = []
+    # parts alternates: preamble, header1, body1, header2, body2, ...
+    for i in range(1, len(parts) - 1, 2):
+        label = parts[i].strip()
+        body = parts[i + 1] if i + 1 < len(parts) else ""
+        if body.strip():
+            chunks.append((label, f"{label}\n{body}"))
+    # If no term headers found, process as one block so we always attempt extraction.
+    return chunks or [("Full Transcript", pdf_text)]
+
+
+async def _extract_chunk(client, section_label: str, section_text: str) -> list:
+    """Call Claude Sonnet for one transcript section; return list of raw course dicts."""
+    import json as _json
+    import anthropic as _anthropic
+    try:
+        msg = await asyncio.wait_for(
+            client.messages.create(
+                model="claude-sonnet-4-6",
+                max_tokens=4096,
+                messages=[{
+                    "role": "user",
+                    "content": f"{_CHUNK_EXTRACT_PROMPT}\n\nSection: {section_label}\n\n{section_text}",
+                }],
+            ),
+            timeout=45.0,
+        )
+        raw = msg.content[0].text.strip()
+        start = raw.find("[")
+        end = raw.rfind("]")
+        if start == -1 or end == -1:
+            logger.warning("Transcript chunk '%s': no JSON array in response", section_label)
+            return []
+        return _json.loads(raw[start:end + 1])
+    except asyncio.TimeoutError:
+        logger.warning("Transcript chunk '%s' timed out", section_label)
+        return []
+    except (_json.JSONDecodeError, _anthropic.APIError, Exception) as exc:
+        logger.warning("Transcript chunk '%s' failed: %s", section_label, exc)
+        return []
 
 
 @app.post("/parse-transcript", response_model=TranscriptResult)
 @_limiter.limit("5/minute")
 async def parse_transcript(request: Request, file: UploadFile = File(...)) -> TranscriptResult:
-    import json as _json
     import anthropic as _anthropic
 
     if not file.filename or not file.filename.lower().endswith(".pdf"):
@@ -389,46 +422,31 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
 
     client = _anthropic.AsyncAnthropic(api_key=api_key)
 
-    try:
-        msg = await asyncio.wait_for(
-            client.messages.create(
-                model="claude-haiku-4-5-20251001",
-                max_tokens=8096,
-                messages=[{
-                    "role": "user",
-                    "content": f"{_TRANSCRIPT_PROMPT}\n\nTranscript text:\n\n{pdf_text}",
-                }],
-            ),
-            timeout=60.0,
+    # Split into per-semester chunks and process all in parallel.
+    chunks = _split_transcript_by_term(pdf_text)
+    chunk_results = await asyncio.gather(
+        *[_extract_chunk(client, label, text) for label, text in chunks]
+    )
+
+    all_raw: list = []
+    for result in chunk_results:
+        all_raw.extend(result)
+
+    if not all_raw:
+        raise HTTPException(
+            status_code=502,
+            detail="AI could not extract any courses from this transcript. Please try again.",
         )
-    except asyncio.TimeoutError:
-        raise HTTPException(status_code=504, detail="Transcript analysis timed out.")
-    except _anthropic.APIError as exc:
-        raise HTTPException(status_code=502, detail=f"AI service error: {exc}")
 
-    raw = msg.content[0].text.strip()
-    # Extract the JSON object regardless of preamble text or markdown fences.
-    start = raw.find("{")
-    end = raw.rfind("}")
-    if start != -1 and end != -1:
-        raw = raw[start:end + 1]
-
-    try:
-        data = _json.loads(raw)
-    except _json.JSONDecodeError:
-        logger.error("Transcript parse: Claude returned non-JSON: %s", raw[:500])
-        raise HTTPException(status_code=502, detail="AI returned an unreadable response. Please try again.")
-
-    # Build CourseDetail list; resolve raw_code → rutgers_code via DB when Claude couldn't.
+    # Resolve rutgers_code via DB for any course the model couldn't map.
     _db_resolve = SessionLocal()
     try:
         courses_detail: List[CourseDetail] = []
-        for c in data.get("courses", []):
+        for c in all_raw:
             rutgers_code = c.get("rutgers_code") or None
             raw_code_val = c.get("raw_code") or None
             if raw_code_val and not rutgers_code:
-                import re as _re
-                if _re.match(r"^\d{2}:\d{3}:\d{3,4}$", raw_code_val):
+                if re.match(r"^\d{2}:\d{3}:\d{3,4}$", raw_code_val):
                     db_course = _db_resolve.query(models.Course).filter(
                         models.Course.raw_code == raw_code_val
                     ).first()
@@ -449,6 +467,28 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
             ))
     finally:
         _db_resolve.close()
+
+    # Extract student name from the transcript preamble.
+    name_match = re.search(
+        r'(?:Name|Student)[:\s]+([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z]+)+)',
+        pdf_text[:600],
+    )
+    student_name = name_match.group(1) if name_match else ""
+
+    # Build summary from extracted data — no extra API call needed.
+    earned_credits = sum(c.credits for c in courses_detail if c.passed)
+    n_passed = sum(1 for c in courses_detail if c.passed)
+    n_failed = sum(1 for c in courses_detail if c.failed)
+    n_transfer = sum(1 for c in courses_detail if c.is_transfer and c.passed)
+    n_in_progress = sum(1 for c in courses_detail if c.is_in_progress)
+    parts_summary = [f"{n_passed} courses passed ({earned_credits:.1f} earned credits)"]
+    if n_failed:
+        parts_summary.append(f"{n_failed} failed")
+    if n_transfer:
+        parts_summary.append(f"{n_transfer} transfer credits")
+    if n_in_progress:
+        parts_summary.append(f"{n_in_progress} currently in progress")
+    ai_summary = f"Extracted {len(courses_detail)} total courses: {', '.join(parts_summary)}."
 
     seen: set = set()
     matched: List[str] = []
@@ -474,8 +514,8 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
         in_progress=in_progress,
         inferred=inferred,
         courses_detail=courses_detail,
-        ai_summary=data.get("ai_summary", ""),
-        student_name=data.get("student_name", ""),
+        ai_summary=ai_summary,
+        student_name=student_name,
     )
 
 @app.post("/auth/register", response_model=Token)
