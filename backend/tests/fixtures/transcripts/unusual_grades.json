@@ -1,0 +1,25 @@
+{
+  "case": "unusual_grades",
+  "privacy": "Fully synthetic. No real student data is present.",
+  "transcript_text": "UNOFFICIAL TRANSCRIPT\nStudent: Riley Example\nFall 2024\n01:355:101 EXPOS 3.0 S\n01:198:205 INTRO DISCRETE STRUCT I 4.0 NC\n01:640:250 INTRO LINEAR ALGEBRA 3.0 W\n01:750:203 GENERAL PHYSICS 3.0 NR\n01:198:206 INTRO DISCRETE STRUCT II 4.0\n01:999:999 TOPICS 30.0 A\n",
+  "catalog": {
+    "01:355:101": "EXPOS101",
+    "01:198:205": "CS205",
+    "01:640:250": "MATH250",
+    "01:750:203": "PHYS203",
+    "01:198:206": "CS206"
+  },
+  "mock_extraction": [
+    {"title_raw": "EXPOS", "raw_code": "01:355:101", "grade": "s", "semester": "Fall 2024", "credits": "3.0"},
+    {"title_raw": "INTRO DISCRETE STRUCT I", "raw_code": "01:198:205", "grade": "NC", "semester": "Fall 2024", "credits": 4},
+    {"title_raw": "INTRO LINEAR ALGEBRA", "raw_code": "01:640:250", "grade": "W", "semester": "Fall 2024", "credits": 3},
+    {"title_raw": "GENERAL PHYSICS", "raw_code": "01:750:203", "grade": "NR", "semester": "Fall 2024", "credits": 3},
+    {"title_raw": "INTRO DISCRETE STRUCT II", "raw_code": "01:198:206", "grade": null, "semester": "Fall 2024", "credits": 4},
+    {"title_raw": "TOPICS", "raw_code": "01:999:999", "rutgers_code": "CS999", "grade": "A", "semester": "Fall 2024", "credits": 30}
+  ],
+  "expected": {
+    "completed": ["EXPOS101"],
+    "in_progress": ["CS206"],
+    "unmatched_count": 1
+  }
+}

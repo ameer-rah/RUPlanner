@@ -37,7 +37,8 @@ class TestTermsBetween:
         assert "Summer 2026" in result
         assert "Fall 2026" in result
         assert "Spring 2027" in result
-        assert len(result) == 4
+        assert "Winter 2026" in result
+        assert len(result) == 5
 
     def test_reversed_returns_empty(self):
         result = terms_between("Spring 2028", "Spring 2026")
@@ -150,26 +151,24 @@ class TestMergeRequirements:
         assert "MATH152" in req
         assert req.count("MATH151") == 1
 
-    def test_elective_count_is_summed(self):
+    def test_elective_quotas_remain_independent(self):
         merged = _merge_requirements([self._cs_bs(), self._math_minor()])
-        assert merged["electives"]["count"] == 9
+        assert [group["count"] for group in merged["elective_groups"]] == [5, 4]
 
-    def test_min_300_is_summed(self):
+    def test_level_minimums_remain_independent(self):
         merged = _merge_requirements([self._cs_bs(), self._math_minor()])
-        assert merged["electives"]["min_level_300_plus"] == 4
+        assert [group["min_level_300_plus"] for group in merged["elective_groups"]] == [2, 2]
 
-    def test_elective_options_union(self):
+    def test_elective_options_are_not_unioned(self):
         merged = _merge_requirements([self._cs_bs(), self._math_minor()])
-        opts = merged["electives"]["options"]
-        assert "CS314" in opts
-        assert "MATH300" in opts
+        assert "CS314" in merged["elective_groups"][0]["options"]
+        assert "MATH300" in merged["elective_groups"][1]["options"]
 
     def test_single_program_passthrough(self):
         merged = _merge_requirements([self._cs_bs()])
-        assert merged["electives"]["count"] == 5
-        assert merged["electives"]["min_level_300_plus"] == 2
+        assert merged["elective_groups"] == [self._cs_bs()["electives"]]
 
-    def test_dual_major_no_duplicate_options(self):
+    def test_overlapping_options_stay_in_their_own_groups(self):
         p1 = {
             "school": "SAS",
             "required_courses": ["CS111"],
@@ -181,8 +180,8 @@ class TestMergeRequirements:
             "electives": {"count": 2, "min_level_300_plus": 0, "options": ["CS314", "MATH300"], "any_from_catalog": False},
         }
         merged = _merge_requirements([p1, p2])
-        opts = merged["electives"]["options"]
-        assert opts.count("CS314") == 1
+        assert "CS314" in merged["elective_groups"][0]["options"]
+        assert "CS314" in merged["elective_groups"][1]["options"]
 
 
 class TestResolveScienceCourses:
@@ -302,7 +301,8 @@ class TestHeuristicPlan:
             completed=["CS210", "CS314"],
         )
         elective_codes = [c.code for t in resp.terms for c in t.courses if c.is_elective]
-        assert len(elective_codes) == 3
+        assert "CS210" not in elective_codes
+        assert "CS314" not in elective_codes
 
     def test_credit_limit_respected(self):
         resp = _plan(["Computer Science (BS, SAS)"], max_cr=12)

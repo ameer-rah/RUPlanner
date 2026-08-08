@@ -2,7 +2,7 @@ import re
 from pydantic import BaseModel, Field, field_validator
 from typing import Annotated, Dict, List, Optional
 
-_COURSE_CODE_RE = re.compile(r"^[A-Z]{1,8}\d{1,4}[A-Z]?$")
+_COURSE_CODE_RE = re.compile(r"^(?:[A-Z]{1,8}\d{1,4}[A-Z]?|\d{2}:\d{3}:\d{3,4})$")
 _PROGRAM_NAME_RE = re.compile(r"^[A-Za-z0-9 ,.\-&/'()–—]+$")
 
 
@@ -13,7 +13,7 @@ class CourseInput(BaseModel):
 class ElectiveOption(BaseModel):
     code: str
     title: str
-    credits: int
+    credits: float
     prerequisites: List[str] = []
 
 
@@ -23,6 +23,9 @@ class PlanRequest(BaseModel):
     minors: Annotated[List[str], Field(max_length=5)]
     concentrations: Annotated[List[str], Field(default=[], max_length=5, description="Optional concentration programs to layer on top of the major.")]
     completed_courses: Annotated[List[str], Field(max_length=200)]
+    in_progress_courses: Annotated[List[str], Field(default=[], max_length=100)]
+    course_grades: Dict[str, str] = Field(default_factory=dict)
+    class_year: Optional[int] = Field(default=None, ge=1, le=10)
 
     @field_validator("majors", "minors", "concentrations", mode="before")
     @classmethod
@@ -46,13 +49,25 @@ class PlanRequest(BaseModel):
     )
     preferred_seasons: Annotated[List[str], Field(default=["Spring", "Fall"], max_length=4, description="Seasons in which the student wants to enroll (Spring, Summer, Fall, Winter). Defaults to Spring and Fall.")]
 
-    @field_validator("completed_courses", mode="before")
+    @field_validator("completed_courses", "in_progress_courses", mode="before")
     @classmethod
     def validate_course_codes(cls, v: list) -> list:
         for code in v:
             if not isinstance(code, str) or not _COURSE_CODE_RE.match(code):
                 raise ValueError(f"Invalid course code: {code!r}")
         return v
+
+    @field_validator("course_grades", mode="before")
+    @classmethod
+    def validate_course_grades(cls, v: dict) -> dict:
+        if len(v) > 200:
+            raise ValueError("Too many course grades")
+        for code, grade in v.items():
+            if not isinstance(code, str) or not _COURSE_CODE_RE.match(code.upper()):
+                raise ValueError(f"Invalid course code: {code!r}")
+            if not isinstance(grade, str) or len(grade) > 4:
+                raise ValueError(f"Invalid grade for {code!r}")
+        return {code.upper(): grade.upper() for code, grade in v.items()}
 
     @field_validator("preferred_seasons", mode="before")
     @classmethod
@@ -75,7 +90,7 @@ class PlanRequest(BaseModel):
 class PlannedCourse(BaseModel):
     code: str
     title: str
-    credits: int
+    credits: float
     is_elective: bool = False
     prerequisites: List[str] = []
     elective_options: List[ElectiveOption] = []
@@ -85,7 +100,7 @@ class PlannedCourse(BaseModel):
 class TermPlan(BaseModel):
     term: str
     courses: List[PlannedCourse]
-    total_credits: int
+    total_credits: float
 
 
 class CoreCurriculumBlock(BaseModel):
@@ -162,7 +177,7 @@ class ProgramInfo(BaseModel):
 class CourseSearchResult(BaseModel):
     code: str
     title: str
-    credits: int
+    credits: float
     raw_code: Optional[str] = None
 
 

@@ -167,7 +167,7 @@ class TestGeneratePlan:
     def test_unknown_program_returns_404(self):
         payload = _base_payload(majors=["Fake Degree That Does Not Exist (BS, SAS)"])
         res = client.post("/plan", json=payload)
-        assert res.status_code == 404
+        assert res.status_code == 422
 
     def test_past_graduation_returns_warning(self):
         payload = _base_payload(target_grad_term="Spring 2020")
@@ -201,9 +201,9 @@ class TestParseTranscript:
             "/parse-transcript",
             files={"file": ("transcript.pdf", b"not a real pdf", "application/pdf")},
         )
-        assert res.status_code == 422
+        assert res.status_code == 400
 
-    def test_valid_pdf_returns_list(self):
+    def test_blank_pdf_is_rejected_without_calling_ai(self):
         try:
             from pypdf import PdfWriter
             import io
@@ -219,5 +219,5 @@ class TestParseTranscript:
             "/parse-transcript",
             files={"file": ("transcript.pdf", pdf_bytes, "application/pdf")},
         )
-        assert res.status_code == 200
-        assert isinstance(res.json(), list)
+        assert res.status_code == 400
+        assert "extract text" in res.json()["detail"].lower()

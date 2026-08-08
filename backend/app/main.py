@@ -18,7 +18,6 @@ import bcrypt
 import requests as _requests
 from google.oauth2 import id_token as google_id_token
 from google.auth.transport import requests as google_requests
-from apscheduler.schedulers.background import BackgroundScheduler
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
@@ -36,12 +35,13 @@ from .schemas import (
     TranscriptResult, CourseDetail,
 )
 from .core.planner import heuristic_plan
-from .core.sniper import poll_snipes, fetch_sections_for_subject
+from .core.transcript import extract_deterministic_rows, latest_status_codes, normalize_extracted_courses
+from .core.sniper import fetch_sections_for_subject
 
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from management.ingest_courses import ingest, current_terms
+from management.ingest_courses import ingest, current_term_specs
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
@@ -130,26 +130,13 @@ def _decrypt_phone(encrypted: str) -> str:
         return encrypted
 
 _bearer = HTTPBearer()
-_scheduler = BackgroundScheduler()
 _limiter = Limiter(key_func=get_remote_address)
-
-def _run_course_ingest() -> None:
-    """Run course ingestion for the current academic terms."""
-    year, terms = current_terms()
-    print(f"[course-ingest] Fetching {terms} {year}...")
-    ingest(year=year, terms=terms)
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     Base.metadata.create_all(bind=engine)
-    _scheduler.add_job(poll_snipes, "interval", minutes=2, id="snipe_poll")
-    _scheduler.add_job(_run_course_ingest, "interval", hours=24, id="course_ingest")
-    _scheduler.start()
-    # Run once at startup so the DB is always fresh on boot.
-    _run_course_ingest()
     yield
-    _scheduler.shutdown(wait=False)
 
 app = FastAPI(title="RU Planner API", lifespan=lifespan)
 app.state.limiter = _limiter
@@ -285,7 +272,13 @@ def resolve_course(request: Request, q: str = Query(..., max_length=50)) -> Cour
         if re.match(r"^\d{2}:\d{3}:\d{3,4}$", q):
             course = db.query(models.Course).filter(models.Course.raw_code == q).first()
         else:
-            course = db.query(models.Course).filter(models.Course.code == q.upper()).first()
+            matches = db.query(models.Course).filter(models.Course.code == q.upper()).limit(2).all()
+            if len(matches) > 1:
+                raise HTTPException(
+                    status_code=409,
+                    detail=f"Course alias '{q.upper()}' is ambiguous; use the full Rutgers code.",
+                )
+            course = matches[0] if matches else None
         if not course:
             raise HTTPException(status_code=404, detail=f"Course not found: {q}")
         return CourseSearchResult(code=course.code, title=course.title, credits=course.credits, raw_code=course.raw_code)
@@ -301,10 +294,21 @@ async def generate_plan(
 ) -> PlanResponse:
     try:
         loop = asyncio.get_event_loop()
-        return await asyncio.wait_for(
+        result = await asyncio.wait_for(
             loop.run_in_executor(None, heuristic_plan, payload),
             timeout=30.0,
         )
+        db = SessionLocal()
+        try:
+            user = db.query(models.User).filter(models.User.id == user_id).first()
+            if user:
+                user.onboarding_completed = True
+                user.planner_profile = payload.model_dump(mode="json")
+                user.last_plan = result.model_dump(mode="json")
+                db.commit()
+        finally:
+            db.close()
+        return result
     except asyncio.TimeoutError:
         raise HTTPException(status_code=504, detail="Plan generation timed out.")
     except ValueError as exc:
@@ -323,7 +327,8 @@ Each element must follow this shape exactly:
 Field rules:
 - title_raw: course title exactly as printed
 - raw_code: XX:YYY:ZZZ exactly as printed; null if not visible
-- rutgers_code: short code derived from raw_code (01:198:111→CS111, 01:640:151→MATH151, 01:355:101→EXPOS101); null if uncertain
+- rutgers_code: short code derived from a Rutgers raw_code (01:198:111→CS111, 01:640:151→MATH151, 01:355:101→EXPOS101); null if uncertain
+- Transfer courses: never guess a Rutgers equivalency from the title. Set rutgers_code only when a Rutgers equivalent is explicitly printed on the transcript; otherwise null.
 - grade: exactly as printed; empty string "" if no grade yet (in-progress)
 - Rutgers passing grades — passed=true: A A+ A- B B+ B- C C+ C- D D+ D- P PA TR TE TC S T EX
 - Rutgers failing grades — failed=true: F WF WD U UF NC NR WN
@@ -416,21 +421,20 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
     if not pdf_text.strip():
         raise HTTPException(status_code=400, detail="Could not extract text from this PDF. Please ensure it is not a scanned image.")
 
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
-        raise HTTPException(status_code=503, detail="Transcript AI is not configured.")
-
-    client = _anthropic.AsyncAnthropic(api_key=api_key)
-
-    # Split into per-semester chunks and process all in parallel.
-    chunks = _split_transcript_by_term(pdf_text)
-    chunk_results = await asyncio.gather(
-        *[_extract_chunk(client, label, text) for label, text in chunks]
-    )
-
-    all_raw: list = []
-    for result in chunk_results:
-        all_raw.extend(result)
+    # Parse conventional transcript rows locally first. AI is a fallback for
+    # layouts whose rows cannot be recognized deterministically.
+    all_raw = extract_deterministic_rows(pdf_text)
+    if not all_raw:
+        api_key = os.getenv("ANTHROPIC_API_KEY")
+        if not api_key:
+            raise HTTPException(status_code=503, detail="Transcript AI fallback is not configured.")
+        client = _anthropic.AsyncAnthropic(api_key=api_key)
+        chunks = _split_transcript_by_term(pdf_text)
+        chunk_results = await asyncio.gather(
+            *[_extract_chunk(client, label, text) for label, text in chunks]
+        )
+        for result in chunk_results:
+            all_raw.extend(result)
 
     if not all_raw:
         raise HTTPException(
@@ -438,33 +442,14 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
             detail="AI could not extract any courses from this transcript. Please try again.",
         )
 
-    # Resolve rutgers_code via DB for any course the model couldn't map.
+    # Treat model output as untrusted extraction.  Codes and status flags are
+    # derived and validated locally before they can affect a student's plan.
     _db_resolve = SessionLocal()
     try:
-        courses_detail: List[CourseDetail] = []
-        for c in all_raw:
-            rutgers_code = c.get("rutgers_code") or None
-            raw_code_val = c.get("raw_code") or None
-            if raw_code_val and not rutgers_code:
-                if re.match(r"^\d{2}:\d{3}:\d{3,4}$", raw_code_val):
-                    db_course = _db_resolve.query(models.Course).filter(
-                        models.Course.raw_code == raw_code_val
-                    ).first()
-                    if db_course:
-                        rutgers_code = db_course.code
-            courses_detail.append(CourseDetail(
-                title_raw=c.get("title_raw", ""),
-                raw_code=raw_code_val,
-                rutgers_code=rutgers_code,
-                grade=c.get("grade", ""),
-                passed=bool(c.get("passed", False)),
-                failed=bool(c.get("failed", False)),
-                is_transfer=bool(c.get("is_transfer", False)),
-                is_in_progress=bool(c.get("is_in_progress", False)),
-                semester=c.get("semester", ""),
-                credits=float(c.get("credits", 0)),
-                equivalency_note=c.get("equivalency_note", ""),
-            ))
+        catalog_rows = _db_resolve.query(models.Course.raw_code, models.Course.code).all()
+        raw_code_map = {raw: code for raw, code in catalog_rows if raw}
+        known_codes = {code for _, code in catalog_rows}
+        courses_detail = normalize_extracted_courses(all_raw, raw_code_map, known_codes)
     finally:
         _db_resolve.close()
 
@@ -490,24 +475,12 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
         parts_summary.append(f"{n_in_progress} currently in progress")
     ai_summary = f"Extracted {len(courses_detail)} total courses: {', '.join(parts_summary)}."
 
-    seen: set = set()
-    matched: List[str] = []
-    in_progress: List[str] = []
+    matched, in_progress = latest_status_codes(courses_detail, canonical=True)
     inferred: dict = {}
 
     for c in courses_detail:
-        if not c.rutgers_code:
-            continue
-        if c.is_in_progress:
-            if c.rutgers_code not in seen:
-                seen.add(c.rutgers_code)
-                in_progress.append(c.rutgers_code)
-        elif c.passed:
-            if c.is_transfer:
-                inferred[c.rutgers_code] = f"Transfer: {c.title_raw}"
-            if c.rutgers_code not in seen:
-                seen.add(c.rutgers_code)
-                matched.append(c.rutgers_code)
+        if c.is_transfer and c.passed and c.rutgers_code:
+            inferred[c.rutgers_code] = f"Transfer: {c.title_raw}"
 
     return TranscriptResult(
         matched=matched,
@@ -608,7 +581,27 @@ def me(user_id: int = Depends(_get_current_user_id)):
         user = db.query(models.User).filter(models.User.id == user_id).first()
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
-        return {"id": user.id, "email": user.email}
+        return {
+            "id": user.id,
+            "email": user.email,
+            "onboarding_completed": user.onboarding_completed,
+        }
+    finally:
+        db.close()
+
+
+@app.get("/profile")
+def get_profile(user_id: int = Depends(_get_current_user_id)):
+    db = SessionLocal()
+    try:
+        user = db.query(models.User).filter(models.User.id == user_id).first()
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+        return {
+            "onboarding_completed": user.onboarding_completed,
+            "planner_profile": user.planner_profile,
+            "last_plan": user.last_plan,
+        }
     finally:
         db.close()
 
@@ -945,14 +938,15 @@ def _require_admin(credentials: HTTPAuthorizationCredentials = Depends(_bearer))
 def admin_ingest_courses():
     """Trigger an on-demand course data refresh from the Rutgers SIS API."""
     from .database import SessionLocal as _SL
-    year, terms = current_terms()
-    ingest(year=year, terms=terms)
+    specs = current_term_specs()
+    for year, term in specs:
+        ingest(year=year, terms=[term])
     db = _SL()
     try:
         total = db.query(models.Course).count()
     finally:
         db.close()
-    return {"year": year, "terms": terms, "total_in_db": total}
+    return {"terms": [{"year": year, "term": term} for year, term in specs], "total_in_db": total}
 
 
 def _snipe_to_out(s: models.Snipe) -> SnipeOut:

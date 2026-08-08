@@ -1,0 +1,18 @@
+{
+  "case": "transfer",
+  "privacy": "Fully synthetic. The sending institution and academic history are fictional.",
+  "transcript_text": "TRANSFER CREDIT\nExample Community College\nCALCULUS I 4.0 TR Equivalent: 01:640:151\nINTRODUCTION TO PROGRAMMING 3.0 TR\n",
+  "catalog": {
+    "01:640:151": "MATH151",
+    "01:198:111": "CS111"
+  },
+  "mock_extraction": [
+    {"title_raw": "CALCULUS I", "raw_code": "01:640:151", "rutgers_code": "MATH151", "grade": "TR", "is_transfer": true, "semester": "Transfer", "credits": 4, "equivalency_note": "Rutgers equivalency is explicitly printed."},
+    {"title_raw": "INTRODUCTION TO PROGRAMMING", "raw_code": null, "rutgers_code": "CS111", "grade": "TR", "is_transfer": true, "semester": "Transfer", "credits": 3, "equivalency_note": "Title appears similar to a Rutgers course."}
+  ],
+  "expected": {
+    "completed": ["MATH151"],
+    "in_progress": [],
+    "unmatched_count": 1
+  }
+}

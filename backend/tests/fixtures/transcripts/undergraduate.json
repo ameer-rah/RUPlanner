@@ -1,0 +1,20 @@
+{
+  "case": "undergraduate",
+  "privacy": "Fully synthetic. Names, identifiers, and course history do not describe a real student.",
+  "transcript_text": "UNOFFICIAL TRANSCRIPT\nStudent: Avery Example\nFall 2024\n01:198:111 INTRO COMPUTER SCI 4.0 A\n01:640:151 CALCULUS I 4.0 B+\nSpring 2025\n01:198:112 DATA STRUCTURES 4.0\n",
+  "catalog": {
+    "01:198:111": "CS111",
+    "01:198:112": "CS112",
+    "01:640:151": "MATH151"
+  },
+  "mock_extraction": [
+    {"title_raw": "INTRO COMPUTER SCI", "raw_code": "01:198:111", "rutgers_code": "CS111", "grade": "A", "semester": "Fall 2024", "credits": 4},
+    {"title_raw": "CALCULUS I", "raw_code": "01:640:151", "rutgers_code": "MATH151", "grade": "B+", "semester": "Fall 2024", "credits": 4},
+    {"title_raw": "DATA STRUCTURES", "raw_code": "01:198:112", "rutgers_code": "CS112", "grade": "", "semester": "Spring 2025", "credits": 4}
+  ],
+  "expected": {
+    "completed": ["CS111", "MATH151"],
+    "in_progress": ["CS112"],
+    "unmatched_count": 0
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "case": "repeated_course",
+  "privacy": "Fully synthetic. No real student data is present.",
+  "transcript_text": "UNOFFICIAL TRANSCRIPT\nStudent: Morgan Example\nFall 2023\n01:198:111 INTRO COMPUTER SCI 4.0 F\nSpring 2024\n01:198:111 INTRO COMPUTER SCI 4.0 B\nFall 2024\n01:640:152 CALCULUS II 4.0 B\nSpring 2025\n01:640:152 CALCULUS II 4.0 W\n",
+  "catalog": {
+    "01:198:111": "CS111",
+    "01:640:152": "MATH152"
+  },
+  "mock_extraction": [
+    {"title_raw": "INTRO COMPUTER SCI", "raw_code": "01:198:111", "grade": "F", "semester": "Fall 2023", "credits": 4},
+    {"title_raw": "INTRO COMPUTER SCI", "raw_code": "01:198:111", "grade": "B", "semester": "Spring 2024", "credits": 4},
+    {"title_raw": "CALCULUS II", "raw_code": "01:640:152", "grade": "B", "semester": "Fall 2024", "credits": 4},
+    {"title_raw": "CALCULUS II", "raw_code": "01:640:152", "grade": "W", "semester": "Spring 2025", "credits": 4}
+  ],
+  "expected": {
+    "completed": ["CS111"],
+    "in_progress": [],
+    "unmatched_count": 0
+  }
+}

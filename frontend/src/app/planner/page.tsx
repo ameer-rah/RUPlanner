@@ -856,6 +856,38 @@ export default function PlannerPage() {
         const me = await meRes.json();
         setUserEmail(me.email);
 
+        if (me.onboarding_completed) {
+          const profileRes = await fetch(`${apiBase}/profile`, {
+            credentials: "include",
+            headers: getAuthHeaders(),
+          });
+          if (profileRes.ok) {
+            const saved = await profileRes.json();
+            const profile = saved.planner_profile;
+            const lastPlan = saved.last_plan as PlanResponse | null;
+            if (profile && lastPlan) {
+              setDegreeFilter(profile.degree_level ?? "bachelor");
+              setSelectedMajors(profile.majors ?? []);
+              setSelectedMinors(profile.minors ?? []);
+              setCompletedCourses(profile.completed_courses ?? []);
+              setInProgressCourses(profile.in_progress_courses ?? []);
+              setStartTerm(profile.start_term ?? "Fall 2026");
+              setTargetGradTerm(profile.target_grad_term ?? "Spring 2028");
+              setMaxCredits(profile.max_credits_per_term ?? 15);
+              setPreferredSeasons(profile.preferred_seasons ?? ["Spring", "Fall"]);
+              setPlan(lastPlan);
+              setEditedTerms(lastPlan.terms);
+              editedTermsRef.current = lastPlan.terms;
+              setPlanKey((key) => key + 1);
+            } else {
+              // Accounts migrated from the old version may only have manually
+              // saved schedules, so take them directly to that application view.
+              router.push("/schedules");
+              return;
+            }
+          }
+        }
+
         const programsRes = await fetch(`${apiBase}/programs`, { credentials: 'include', headers: getAuthHeaders() });
         if (programsRes.ok) {
           const data = await programsRes.json();
@@ -916,7 +948,8 @@ export default function PlannerPage() {
         return m;
       }),
       concentrations: [],
-      completed_courses: [...new Set([...completedCourses, ...inProgressCourses])],
+      completed_courses: [...new Set(completedCourses)],
+      in_progress_courses: [...new Set(inProgressCourses)],
       start_term: startTerm.trim() || undefined,
       target_grad_term: targetGradTerm,
       max_credits_per_term: maxCredits,

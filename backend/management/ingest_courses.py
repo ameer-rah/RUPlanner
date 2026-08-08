@@ -250,7 +250,21 @@ def current_terms() -> tuple[int, list[str]]:
     elif month <= 7:
         return year, ["summer"]
     else:
-        return year, ["fall", "spring"]
+        return year, ["fall"]
+
+
+def current_term_specs() -> list[tuple[int, str]]:
+    """Return exact calendar-year/term pairs to refresh.
+
+    Rutgers SIS identifies Spring by its calendar year. During Fall, the next
+    Spring therefore must use ``year + 1`` rather than the Fall year.
+    """
+    year, terms = current_terms()
+    specs = [(year, term) for term in terms]
+    from datetime import date
+    if date.today().month >= 8:
+        specs.append((year + 1, "spring"))
+    return specs
 
 
 def fetch_term(year: int, term_name: str, level: str = "U") -> list[dict]:
@@ -268,17 +282,17 @@ def fetch_term(year: int, term_name: str, level: str = "U") -> list[dict]:
         return []
 
 
-def parse_credits(raw_course: dict) -> int:
-    """Extract an integer credit value from the SIS course object."""
+def parse_credits(raw_course: dict) -> float:
+    """Extract the minimum numeric credit value without truncating fractions."""
     for field in ("credits", "creditHours", "credit"):
         val = raw_course.get(field)
         if val is not None:
             try:
                 # Handle ranges like "3-4" — take the lower bound.
-                return int(str(val).split("-")[0].strip())
+                return float(str(val).split("-")[0].strip())
             except (ValueError, AttributeError):
                 continue
-    return 3  # safe default
+    return 0.0  # unknown; never invent credits
 
 
 def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
@@ -308,8 +322,8 @@ def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
 
         raw_code = f"{offering_unit}:{subject}:{number_raw}"
 
-        if code not in seen_this_batch:
-            seen_this_batch[code] = {
+        if raw_code not in seen_this_batch:
+            seen_this_batch[raw_code] = {
                 "code": code,
                 "title": title,
                 "credits": parse_credits(raw),
@@ -330,7 +344,7 @@ def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
     # Use PostgreSQL INSERT ... ON CONFLICT DO UPDATE so concurrent runs are safe.
     stmt = pg_insert(Course.__table__).values(rows)
     stmt = stmt.on_conflict_do_update(
-        index_elements=["code"],
+        index_elements=["raw_code"],
         set_={
             "title":              stmt.excluded.title,
             "credits":            stmt.excluded.credits,

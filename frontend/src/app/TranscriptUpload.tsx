@@ -74,6 +74,7 @@ export default function TranscriptUpload({ onCoursesDetected, onInProgressDetect
   const [errorMsg, setErrorMsg] = useState("");
   const [result, setResult] = useState<TranscriptResult | null>(null);
   const [tableExpanded, setTableExpanded] = useState(false);
+  const [applied, setApplied] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -127,6 +128,7 @@ export default function TranscriptUpload({ onCoursesDetected, onInProgressDetect
     setPhase("analyzing");
     setErrorMsg("");
     setResult(null);
+    setApplied(false);
     startProgressBar();
 
     const form = new FormData();
@@ -153,10 +155,6 @@ export default function TranscriptUpload({ onCoursesDetected, onInProgressDetect
         setResult(data);
         setPhase("done");
         setShowResults(true);
-        onCoursesDetected(data.matched);
-        if (data.in_progress?.length && onInProgressDetected) {
-          onInProgressDetected(data.in_progress);
-        }
       });
     } catch {
       finishProgressBar(() => {
@@ -272,6 +270,7 @@ export default function TranscriptUpload({ onCoursesDetected, onInProgressDetect
                 setShowResults(false);
                 setResult(null);
                 setProgress(0);
+                setApplied(false);
               }}
               style={{
                 background: "none", border: "none", padding: 0,
@@ -300,6 +299,26 @@ export default function TranscriptUpload({ onCoursesDetected, onInProgressDetect
               </p>
             </div>
           )}
+
+          <button
+            type="button"
+            disabled={applied}
+            onClick={() => {
+              onCoursesDetected(result.matched);
+              if (result.in_progress?.length && onInProgressDetected) {
+                onInProgressDetected(result.in_progress);
+              }
+              setApplied(true);
+            }}
+            style={{
+              width: "100%", border: "none", borderRadius: "8px", padding: "10px 14px",
+              marginBottom: "12px", cursor: applied ? "default" : "pointer",
+              background: applied ? "#dcfce7" : "#cc0033",
+              color: applied ? "#166534" : "white", fontSize: "12px", fontWeight: 700,
+            }}
+          >
+            {applied ? "Detected courses added" : `Review and add ${result.matched.length} completed course${result.matched.length === 1 ? "" : "s"}`}
+          </button>
 
           {/* Transfer equivalencies */}
           {transferCourses.length > 0 && (

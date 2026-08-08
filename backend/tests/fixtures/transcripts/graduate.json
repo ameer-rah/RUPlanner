@@ -1,0 +1,18 @@
+{
+  "case": "graduate",
+  "privacy": "Fully synthetic. No real student data is present.",
+  "transcript_text": "GRADUATE ACADEMIC RECORD\nStudent: Jordan Example\nFall 2025\n16:198:512 MACHINE LEARNING 3.0 A-\n16:198:521 LINEAR OPTIMIZATION 3.0 P\n",
+  "catalog": {
+    "16:198:512": "CS512",
+    "16:198:521": "CS521"
+  },
+  "mock_extraction": [
+    {"title_raw": "MACHINE LEARNING", "raw_code": "16:198:512", "rutgers_code": "CS512", "grade": "A-", "semester": "Fall 2025", "credits": 3},
+    {"title_raw": "LINEAR OPTIMIZATION", "raw_code": "16:198:521", "rutgers_code": "CS521", "grade": "P", "semester": "Fall 2025", "credits": 3}
+  ],
+  "expected": {
+    "completed": ["CS512", "CS521"],
+    "in_progress": [],
+    "unmatched_count": 0
+  }
+}

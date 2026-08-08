@@ -32,6 +32,15 @@ services:
       db:
         condition: service_healthy
 
+  worker:
+    build: ./backend
+    restart: always
+    command: ["python", "-m", "app.worker"]
+    env_file: ./backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+
   frontend:
     build:
       context: ./frontend

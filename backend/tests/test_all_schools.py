@@ -40,47 +40,47 @@ def elective_codes(resp):
 
 class TestParseMajorEntry:
     def test_bs(self):
-        school, level, name = _parse_major_entry("Computer Science (BS, SAS)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Computer Science (BS, SAS)", "bachelor")
         assert school == "SAS" and level == "bachelor_bs" and name == "Computer Science"
 
     def test_ba(self):
-        school, level, name = _parse_major_entry("Computer Science (BA, SAS)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Computer Science (BA, SAS)", "bachelor")
         assert level == "bachelor_ba"
 
     def test_bfa(self):
-        school, level, name = _parse_major_entry("Dance (BFA, MGSA)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Dance (BFA, MGSA)", "bachelor")
         assert school == "MGSA" and level == "bachelor_bfa"
 
     def test_bm(self):
-        school, level, name = _parse_major_entry("Music (Composition) (BM, MGSA)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Music (Composition) (BM, MGSA)", "bachelor")
         assert level == "bachelor_bm"
 
     def test_bsba(self):
-        school, level, name = _parse_major_entry("Accounting (BSBA, RBS)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Accounting (BSBA, RBS)", "bachelor")
         assert school == "RBS" and level == "bachelor_bsba"
 
     def test_bsla(self):
-        school, level, name = _parse_major_entry("Landscape Architecture (BSLA, SEBS)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Landscape Architecture (BSLA, SEBS)", "bachelor")
         assert school == "SEBS" and level == "bachelor_bsla"
 
     def test_minor(self):
-        school, level, name = _parse_major_entry("Mathematics (Minor, SAS)", "minor")
+        school, level, name, _ = _parse_major_entry("Mathematics (Minor, SAS)", "minor")
         assert level == "minor"
 
     def test_sppp_minor(self):
-        school, level, name = _parse_major_entry("Public Health (Minor, SPPP)", "minor")
+        school, level, name, _ = _parse_major_entry("Public Health (Minor, SPPP)", "minor")
         assert school == "SPPP" and level == "minor"
 
     def test_concentration(self):
-        school, level, name = _parse_major_entry("Finance (Concentration, RBS)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Finance (Concentration, RBS)", "bachelor")
         assert school == "RBS" and level == "concentration"
 
     def test_soe_school(self):
-        school, level, name = _parse_major_entry("Computer Engineering (BS, SOE)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Computer Engineering (BS, SOE)", "bachelor")
         assert school == "SOE" and level == "bachelor_bs"
 
     def test_sci_school(self):
-        school, level, name = _parse_major_entry("Information Technology and Informatics (BA, SCI)", "bachelor")
+        school, level, name, _ = _parse_major_entry("Information Technology and Informatics (BA, SCI)", "bachelor")
         assert school == "SCI" and level == "bachelor_ba"
 
 

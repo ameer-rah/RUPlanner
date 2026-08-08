@@ -51,6 +51,16 @@ export default function AuthPage() {
   const [googleReady, setGoogleReady] = useState(false);
 
   async function finishAuth() {
+    let headers: HeadersInit = {};
+    try {
+      const stored = localStorage.getItem("ru_planner_token");
+      if (stored) headers = { Authorization: `Bearer ${stored}` };
+    } catch {}
+    const res = await fetch(`${apiBase}/auth/me`, { credentials: "include", headers });
+    if (!res.ok) {
+      router.push("/planner");
+      return;
+    }
     router.push("/planner");
   }
 

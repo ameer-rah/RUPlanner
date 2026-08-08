@@ -1,7 +1,7 @@
 from typing import Any
 from datetime import datetime
 
-from sqlalchemy import String, Integer, Text, Boolean, UniqueConstraint, DateTime, ForeignKey
+from sqlalchemy import String, Integer, Float, Text, Boolean, UniqueConstraint, DateTime, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import JSON
 
@@ -11,9 +11,12 @@ from .database import Base
 class Course(Base):
     __tablename__ = "courses"
 
-    code: Mapped[str] = mapped_column(String(20), primary_key=True)
+    # The full Rutgers offering-unit/subject/number tuple is the identity.
+    # Friendly aliases such as CS111 are display/search fields and are not unique.
+    raw_code: Mapped[str] = mapped_column(String(20), primary_key=True)
+    code: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
     title: Mapped[str] = mapped_column(String(255), nullable=False)
-    credits: Mapped[int] = mapped_column(Integer, nullable=False)
+    credits: Mapped[float] = mapped_column(Float, nullable=False)
     subject_code: Mapped[str | None] = mapped_column(String(10))
     course_number: Mapped[str | None] = mapped_column(String(10))
     spring_offered: Mapped[bool] = mapped_column(Boolean, default=True)
@@ -21,7 +24,6 @@ class Course(Base):
     fall_offered: Mapped[bool] = mapped_column(Boolean, default=True)
     description: Mapped[str | None] = mapped_column(Text)
     offering_unit_code: Mapped[str | None] = mapped_column(String(4), nullable=True)
-    raw_code: Mapped[str | None] = mapped_column(String(20), nullable=True, unique=True, index=True)
 
 
 class Program(Base):
@@ -48,6 +50,9 @@ class User(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
+    onboarding_completed: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    planner_profile: Mapped[Any | None] = mapped_column(JSON, nullable=True)
+    last_plan: Mapped[Any | None] = mapped_column(JSON, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
 
@@ -84,7 +89,8 @@ class Snipe(Base):
     year: Mapped[str] = mapped_column(String(6), nullable=False)            # e.g. "2026"
     term: Mapped[str] = mapped_column(String(4), nullable=False)            # "9"=Fall,"1"=Spring
     campus: Mapped[str] = mapped_column(String(5), nullable=False, default="NB")
-    phone_number: Mapped[str] = mapped_column(String(20), nullable=False)   # E.164, e.g. +17325551234
+    # Fernet ciphertext is typically ~100+ characters even for an E.164 value.
+    phone_number: Mapped[str] = mapped_column(String(255), nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     notified_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)

@@ -7,6 +7,7 @@ from typing import Dict, List, Optional, Set, Tuple
 import networkx as nx
 
 from ..schemas import PlanRequest, PlanResponse, PlannedCourse, TermPlan, ElectiveOption, CoreCurriculumBlock, CourseStatus, ProgramSummary
+from .eligibility import StudentRecord, evaluate_rule, rule_for_course
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
@@ -144,9 +145,15 @@ def _get_db_catalog() -> Dict[str, Dict]:
         db = SessionLocal()
         try:
             rows = db.query(Course).all()
+            aliases: Dict[str, List] = {}
+            for row in rows:
+                aliases.setdefault(row.code, []).append(row)
+            # A short alias is usable by legacy requirement JSON only when it
+            # resolves to exactly one canonical Rutgers course.
             _DB_CATALOG_CACHE = {
-                r.code: {
+                code: {
                     "code": r.code,
+                    "raw_code": r.raw_code,
                     "title": r.title,
                     "credits": r.credits,
                     "prerequisites": [],
@@ -154,7 +161,9 @@ def _get_db_catalog() -> Dict[str, Dict]:
                     "summer_offered": r.summer_offered,
                     "fall_offered": r.fall_offered,
                 }
-                for r in rows
+                for code, matches in aliases.items()
+                if len(matches) == 1
+                for r in matches
             }
         finally:
             db.close()
@@ -309,9 +318,13 @@ def load_catalog(path: Path) -> Dict[str, Dict]:
     if not db_catalog:
         return json_catalog
 
+    # A school catalog is an eligibility boundary.  The database contains courses
+    # from every Rutgers school, so unioning all DB rows here contaminated every
+    # program catalog and made unrelated courses available as electives.  DB data
+    # may enrich a course already present in this school's curated catalog, but it
+    # must not expand the catalog.
     merged: Dict[str, Dict] = {}
-    all_codes = json_catalog.keys() | db_catalog.keys()
-    for code in all_codes:
+    for code in json_catalog:
         if code in db_catalog:
             entry = dict(db_catalog[code])
             json_entry = json_catalog.get(code, {})
@@ -465,17 +478,15 @@ def _merge_requirements(programs: List[Dict]) -> Dict:
 
     result: Dict = {
         "required_courses": merged_required,
-        "electives": {
-            "count": total_count,
-            "options": all_options,
-            "any_from_catalog": any_from_catalog,
-            "min_level_300_plus": total_300,
-        },
+        # Preserve each quota independently. A unioned pool lets an elective
+        # from one major satisfy another major's quota.
+        "electives": {"count": 0, "options": []},
+        "elective_groups": [dict(p.get("electives", {})) for p in programs if p.get("electives")],
+        "science_requirements": [p["science_requirement"] for p in programs if p.get("science_requirement")],
+        "statistics_requirements": [p["statistics_requirement"] for p in programs if p.get("statistics_requirement")],
     }
 
-    sci = next(
-        (p["science_requirement"] for p in programs if p.get("science_requirement")), None
-    )
+    sci = next((p["science_requirement"] for p in programs if p.get("science_requirement")), None)
     if sci:
         result["science_requirement"] = sci
 
@@ -643,6 +654,13 @@ def _select_electives(
 
     chosen: List[str] = []
     warnings_out: List[str] = []
+
+    if min_level_300_plus > elective_count or min_level_400_plus > elective_count:
+        warnings_out.append(
+            "Elective level minimum exceeds the elective quota; requirement data needs review."
+        )
+    min_level_300_plus = min(min_level_300_plus, elective_count)
+    min_level_400_plus = min(min_level_400_plus, elective_count)
 
     for c in high400:
         if len(chosen) >= min_level_400_plus:
@@ -1023,7 +1041,19 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     catalog: Dict[str, Dict] = program["catalog"]
     requirements: Dict = program["requirements"]
 
-    completed: Set[str] = {c.strip().upper() for c in request.completed_courses}
+    completed_input: Set[str] = {c.strip().upper() for c in request.completed_courses}
+    raw_to_alias = {
+        entry.get("raw_code"): code
+        for code, entry in catalog.items()
+        if entry.get("raw_code")
+    }
+    completed: Set[str] = {
+        raw_to_alias.get(code, code) for code in completed_input
+    }
+    course_grades = {
+        raw_to_alias.get(code, code): grade
+        for code, grade in request.course_grades.items()
+    }
     warnings: List[str] = []
 
     # Normalize non-standard graduate program structures (tracks, categories, etc.)
@@ -1104,13 +1134,24 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         if code not in required:
             required.append(code)
 
+    for science_group in requirements.get("science_requirements", [])[1:]:
+        for code in _resolve_science_courses({"science_requirement": science_group}, completed):
+            if code not in required:
+                required.append(code)
+
     stat_code = _resolve_stats_course(requirements, completed)
     if stat_code and stat_code not in required:
         required.append(stat_code)
+    for statistics_group in requirements.get("statistics_requirements", [])[1:]:
+        stat_code = _resolve_stats_course({"statistics_requirement": statistics_group}, completed)
+        if stat_code and stat_code not in required:
+            required.append(stat_code)
 
     electives = requirements.get("electives", {})
     elective_count: int = electives.get("count", 0)
-    elective_options: List[str] = list(electives.get("options", []))
+    # Scraped requirement data occasionally contains duplicate options.  Without
+    # deduplication one completed course can incorrectly satisfy multiple slots.
+    elective_options: List[str] = list(dict.fromkeys(electives.get("options", [])))
     min_level_300_plus: int = electives.get("min_level_300_plus", 0)
 
     if electives.get("any_from_catalog") and not elective_options:
@@ -1139,6 +1180,44 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         c for c in elective_options if c not in completed
     ]
 
+    # Multi-program plans keep elective quotas separate and use a course at most
+    # once across groups unless a future typed rule explicitly allows overlap.
+    consumed_completed: Set[str] = set()
+    for group in requirements.get("elective_groups", []):
+        group_options = [
+            c for c in dict.fromkeys(group.get("options", []))
+            if c in catalog
+        ]
+        if group.get("any_from_catalog") and not group_options:
+            group_options = [c for c in catalog if c not in required]
+        group_completed = [
+            c for c in group_options
+            if c in completed and c not in consumed_completed
+        ]
+        consumed_completed.update(group_completed)
+        group_count = max(0, group.get("count", 0) - len(group_completed))
+        group_300 = max(
+            0,
+            group.get("min_level_300_plus", 0)
+            - len([c for c in group_completed if _get_course_level(c) >= 300]),
+        )
+        group_400 = max(
+            0,
+            group.get("min_level_400_plus", 0)
+            - len([c for c in group_completed if _get_course_level(c) >= 400]),
+        )
+        selected, group_warnings = _select_electives(
+            group_options, group_count, group_300, required, completed, group_400
+        )
+        warnings.extend(group_warnings)
+        for code in selected:
+            if code not in required:
+                required.append(code)
+                elective_set.add(code)
+        for code in group_options:
+            if code not in completed and code not in full_elective_pool:
+                full_elective_pool.append(code)
+
     for req_key in ("sci_intro_requirement", "advanced_core_requirement", "foundation_requirement"):
         opt = _resolve_choice_requirement(requirements.get(req_key, {}), completed, catalog)
         if opt and opt not in required:
@@ -1148,7 +1227,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         pool_req = requirements.get(pool_key, {})
         if not pool_req:
             continue
-        pool_opts = [c for c in pool_req.get("options", []) if c in catalog]
+        pool_opts = [c for c in dict.fromkeys(pool_req.get("options", [])) if c in catalog]
         pool_count = pool_req.get("count", 0)
         pool_300 = pool_req.get("min_level_300_plus", 0)
         pool_400 = pool_req.get("min_level_400_plus", 0)
@@ -1197,7 +1276,6 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             picked = candidates[:actual_needed]
             for c in picked:
                 required.append(c)
-                elective_set.add(c)
             # Expose all candidates as swap options
             for c in candidates:
                 if c not in full_elective_pool:
@@ -1318,8 +1396,18 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 warnings.append(f"Course {code} not found in catalog — skipped.")
                 continue
 
-            prereqs: Set[str] = set(course.get("prerequisites", []))
-            prereqs_met = prereqs.issubset(completed | prior_scheduled)
+            eligibility = evaluate_rule(
+                rule_for_course(course),
+                StudentRecord(
+                    completed=frozenset(completed | prior_scheduled),
+                    grades=course_grades,
+                    in_progress=frozenset(this_term),
+                    programs=frozenset(p["name"] for p in program.get("individual_programs", [])),
+                    earned_credits=sum(catalog.get(c, {}).get("credits", 0) for c in completed | prior_scheduled),
+                    class_year=request.class_year,
+                ),
+            )
+            prereqs_met = eligibility.allowed
             offered = _is_offered(course, season, season_has_data)
 
             pending_co_credits = sum(
@@ -1363,8 +1451,16 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                     co = catalog.get(co_code)
                     if not co:
                         continue
-                    co_prereqs: Set[str] = set(co.get("prerequisites", []))
-                    if co_prereqs.issubset(completed | prior_scheduled | this_term):
+                    co_eligibility = evaluate_rule(
+                        rule_for_course(co),
+                        StudentRecord(
+                            completed=frozenset(completed | prior_scheduled | this_term),
+                            grades=course_grades,
+                            programs=frozenset(p["name"] for p in program.get("individual_programs", [])),
+                            class_year=request.class_year,
+                        ),
+                    )
+                    if co_eligibility.allowed:
                         term_courses.append(
                             PlannedCourse(
                                 code=co["code"],
@@ -1403,7 +1499,11 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     # Build per-program requirement summaries
     individual_programs = program.get("individual_programs", [])
-    in_progress: Set[str] = {c.strip().upper() for c in (request.completed_courses or []) if c.strip().upper() not in completed}
+    in_progress: Set[str] = {
+        raw_to_alias.get(c.strip().upper(), c.strip().upper())
+        for c in (request.in_progress_courses or [])
+        if raw_to_alias.get(c.strip().upper(), c.strip().upper()) not in completed
+    }
     # Collect all planned course codes across all scheduled terms
     planned_codes: Set[str] = {c.code for term in non_empty_terms for c in term.courses}
 
