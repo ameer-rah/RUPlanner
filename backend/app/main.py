@@ -35,7 +35,12 @@ from .schemas import (
     TranscriptResult, CourseDetail,
 )
 from .core.planner import heuristic_plan
-from .core.transcript import extract_deterministic_rows, latest_status_codes, normalize_extracted_courses
+from .core.transcript import (
+    extract_deterministic_rows,
+    latest_status_codes,
+    merge_extracted_rows,
+    normalize_extracted_courses,
+)
 from .core.sniper import fetch_sections_for_subject
 
 import sys
@@ -351,6 +356,9 @@ def _split_transcript_by_term(pdf_text: str) -> list:
     )
     parts = pattern.split(pdf_text)
     chunks = []
+    preamble = parts[0].strip() if parts else ""
+    if preamble and re.search(r"\d{2}\s*:\s*\d{3}\s*:\s*\d{3,4}", preamble):
+        chunks.append(("Transcript Preamble", preamble))
     # parts alternates: preamble, header1, body1, header2, body2, ...
     for i in range(1, len(parts) - 1, 2):
         label = parts[i].strip()
@@ -383,7 +391,8 @@ async def _extract_chunk(client, section_label: str, section_text: str) -> list:
         if start == -1 or end == -1:
             logger.warning("Transcript chunk '%s': no JSON array in response", section_label)
             return []
-        return _json.loads(raw[start:end + 1])
+        parsed = _json.loads(raw[start:end + 1])
+        return parsed if isinstance(parsed, list) else []
     except asyncio.TimeoutError:
         logger.warning("Transcript chunk '%s' timed out", section_label)
         return []
@@ -412,7 +421,24 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
         reader = PdfReader(_io2.BytesIO(content))
         if len(reader.pages) > _MAX_PDF_PAGES:
             raise HTTPException(status_code=400, detail=f"PDF too long (max {_MAX_PDF_PAGES} pages).")
-        pdf_text = "\n".join(page.extract_text() or "" for page in reader.pages)
+        pypdf_text = "\n".join(page.extract_text() or "" for page in reader.pages)
+        pdf_text = pypdf_text
+        # Positioned extraction frequently preserves Rutgers transcript columns
+        # that pypdf flattens or interleaves. Prefer whichever representation
+        # exposes more course codes, then more usable text.
+        try:
+            import pdfplumber
+            with pdfplumber.open(_io2.BytesIO(content)) as document:
+                plumber_text = "\n".join(
+                    page.extract_text(layout=True) or "" for page in document.pages
+                )
+            raw_pattern = r"\d{2}\s*:\s*\d{3}\s*:\s*\d{3,4}"
+            pypdf_score = (len(re.findall(raw_pattern, pypdf_text)), len(pypdf_text))
+            plumber_score = (len(re.findall(raw_pattern, plumber_text)), len(plumber_text))
+            if plumber_score > pypdf_score:
+                pdf_text = plumber_text
+        except Exception as exc:
+            logger.info("pdfplumber transcript extraction unavailable: %s", exc)
     except HTTPException:
         raise
     except Exception:
@@ -421,25 +447,26 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
     if not pdf_text.strip():
         raise HTTPException(status_code=400, detail="Could not extract text from this PDF. Please ensure it is not a scanned image.")
 
-    # Parse conventional transcript rows locally first. AI is a fallback for
-    # layouts whose rows cannot be recognized deterministically.
-    all_raw = extract_deterministic_rows(pdf_text)
-    if not all_raw:
-        api_key = os.getenv("ANTHROPIC_API_KEY")
-        if not api_key:
-            raise HTTPException(status_code=503, detail="Transcript AI fallback is not configured.")
+    # Combine deterministic precision with AI recall. Previously, recognizing a
+    # single local row disabled AI for the entire document and silently omitted
+    # every row whose layout differed.
+    deterministic_rows = extract_deterministic_rows(pdf_text)
+    ai_rows: list = []
+    api_key = os.getenv("ANTHROPIC_API_KEY")
+    if api_key:
         client = _anthropic.AsyncAnthropic(api_key=api_key)
         chunks = _split_transcript_by_term(pdf_text)
         chunk_results = await asyncio.gather(
             *[_extract_chunk(client, label, text) for label, text in chunks]
         )
         for result in chunk_results:
-            all_raw.extend(result)
+            ai_rows.extend(result)
+    all_raw = merge_extracted_rows(deterministic_rows, ai_rows)
 
     if not all_raw:
         raise HTTPException(
             status_code=502,
-            detail="AI could not extract any courses from this transcript. Please try again.",
+            detail="Could not extract any course rows from this transcript. Please try another PDF export.",
         )
 
     # Treat model output as untrusted extraction.  Codes and status flags are

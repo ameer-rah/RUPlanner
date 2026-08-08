@@ -13,7 +13,7 @@
     {"title_raw": "CALCULUS II", "raw_code": "01:640:152", "grade": "W", "semester": "Spring 2025", "credits": 4}
   ],
   "expected": {
-    "completed": ["CS111"],
+    "completed": ["CS111", "MATH152"],
     "in_progress": [],
     "unmatched_count": 0
   }

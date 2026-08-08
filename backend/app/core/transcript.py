@@ -77,6 +77,48 @@ def extract_deterministic_rows(text: str) -> list[dict[str, Any]]:
     return rows
 
 
+def merge_extracted_rows(
+    deterministic_rows: Iterable[Any], ai_rows: Iterable[Any]
+) -> list[dict[str, Any]]:
+    """Merge high-precision local rows with higher-recall AI rows.
+
+    Printed raw-code/term pairs identify attempts. Local values win, except an
+    AI grade may fill a blank caused by PDF column extraction. AI-only attempts
+    are retained and are still catalog/status validated by the caller.
+    """
+    merged: list[dict[str, Any]] = []
+    positions: dict[tuple[str, str], int] = {}
+
+    def row_key(row: dict[str, Any]) -> tuple[str, str]:
+        raw = normalize_raw_code(row.get("raw_code"))
+        semester = str(row.get("semester") or "").strip().lower()
+        if raw:
+            return raw, semester
+        title = re.sub(r"\W+", "", str(row.get("title_raw") or "").lower())
+        return f"title:{title}", semester
+
+    for row in deterministic_rows:
+        if not isinstance(row, dict):
+            continue
+        positions[row_key(row)] = len(merged)
+        merged.append(dict(row))
+
+    for row in ai_rows:
+        if not isinstance(row, dict):
+            continue
+        key = row_key(row)
+        existing_position = positions.get(key)
+        if existing_position is None:
+            positions[key] = len(merged)
+            merged.append(dict(row))
+            continue
+        existing = merged[existing_position]
+        for field in ("grade", "title_raw", "credits", "semester", "equivalency_note"):
+            if existing.get(field) in (None, "", 0, 0.0) and row.get(field) not in (None, ""):
+                existing[field] = row[field]
+    return merged
+
+
 def classify_grade(value: Any) -> tuple[str, bool, bool, bool]:
     grade = str(value or "").strip().upper()
     if not grade:
@@ -158,16 +200,24 @@ def latest_status_codes(
         season = match.group(1).capitalize()
         return (int(match.group(2)), _TERM_ORDER[season], position)
 
-    latest: dict[str, tuple[tuple[int, int, int], CourseDetail]] = {}
+    attempts: dict[str, list[tuple[tuple[int, int, int], CourseDetail]]] = {}
     for position, course in enumerate(courses):
         identity = course.raw_code if canonical else course.rutgers_code
         if not identity:
             continue
         key = term_key(course, position)
-        previous = latest.get(identity)
-        if previous is None or key > previous[0]:
-            latest[identity] = (key, course)
+        attempts.setdefault(identity, []).append((key, course))
 
-    completed = [code for code, (_, c) in latest.items() if c.passed]
-    in_progress = [code for code, (_, c) in latest.items() if c.is_in_progress]
+    # A later W/failure/in-progress registration does not erase credit already
+    # earned by a passing attempt. Only courses with no passing attempt can be
+    # classified as currently in progress.
+    completed = [
+        code for code, course_attempts in attempts.items()
+        if any(course.passed for _, course in course_attempts)
+    ]
+    in_progress = [
+        code for code, course_attempts in attempts.items()
+        if not any(course.passed for _, course in course_attempts)
+        and max(course_attempts, key=lambda item: item[0])[1].is_in_progress
+    ]
     return completed, in_progress

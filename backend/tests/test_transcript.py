@@ -1,5 +1,6 @@
 from app.core.transcript import (
     classify_grade,
+    merge_extracted_rows,
     latest_status_codes,
     normalize_extracted_courses,
     normalize_raw_code,
@@ -59,8 +60,43 @@ def test_latest_attempt_controls_completed_status():
         {"CS111", "MATH151"},
     )
     completed, in_progress = latest_status_codes(courses)
-    assert completed == ["MATH151"]
-    assert in_progress == ["CS111"]
+    assert completed == ["CS111", "MATH151"]
+    assert in_progress == []
     canonical_completed, canonical_in_progress = latest_status_codes(courses, canonical=True)
-    assert canonical_completed == ["01:640:151"]
-    assert canonical_in_progress == ["01:198:111"]
+    assert canonical_completed == ["01:198:111", "01:640:151"]
+    assert canonical_in_progress == []
+
+
+def test_partial_deterministic_parse_is_completed_by_ai_rows():
+    deterministic = [{
+        "raw_code": "01:198:111",
+        "title_raw": "INTRO COMPUTER SCI",
+        "grade": "A",
+        "semester": "Fall 2024",
+        "credits": 4,
+    }]
+    ai = [
+        {**deterministic[0], "rutgers_code": "CS111"},
+        {
+            "raw_code": "01:640:151",
+            "title_raw": "CALCULUS I",
+            "grade": "B+",
+            "semester": "Fall 2024",
+            "credits": 4,
+        },
+    ]
+    merged = merge_extracted_rows(deterministic, ai)
+    assert [row["raw_code"] for row in merged] == ["01:198:111", "01:640:151"]
+
+
+def test_ai_can_fill_blank_grade_without_overriding_printed_grade():
+    deterministic = [
+        {"raw_code": "01:198:111", "grade": "", "semester": "Fall 2024"},
+        {"raw_code": "01:640:151", "grade": "A", "semester": "Fall 2024"},
+    ]
+    ai = [
+        {"raw_code": "01:198:111", "grade": "B", "semester": "Fall 2024"},
+        {"raw_code": "01:640:151", "grade": "C", "semester": "Fall 2024"},
+    ]
+    merged = merge_extracted_rows(deterministic, ai)
+    assert [row["grade"] for row in merged] == ["B", "A"]
