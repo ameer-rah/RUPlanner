@@ -439,17 +439,29 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
     ? "Your plan is ready to generate"
     : "Your degree plan";
 
+  const previewProgress = [35, 42, 50, 64, 78, 100][step] ?? 35;
+  const previewNote = [
+    "Choose a degree level to set the route.",
+    "Your program determines the required stops.",
+    "The route begins with your starting term.",
+    "Credit limits reshape each semester.",
+    "Completed courses shorten the route.",
+    "Ready to build your Rutgers plan.",
+  ][step];
+  const activeTerm = Math.min(step, previewData.length - 1);
+
   return (
     <div className="wizard-map" style={{ width: "100%", minHeight: "100%", padding: "32px 40px 48px", display: "flex", flexDirection: "column", gap: 0 }}>
       <div className="wizard-map-header" style={{ marginBottom: 28 }}>
         <div style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Preview</div>
         <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text)", letterSpacing: "-0.02em" }}>{label}</div>
+        <p className="wizard-map-note">{previewNote}</p>
       </div>
       <div className="wizard-map-route" style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
         {previewData.map((sem) => (
           <div
             key={sem.term}
-            className="wizard-map-term"
+            className={`wizard-map-term${previewData.indexOf(sem) === activeTerm ? " active" : ""}`}
             style={{
               background: "var(--surface-2)",
               border: "1.5px solid var(--border-2)",
@@ -491,9 +503,9 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
       }}>
         <div style={{ fontSize: 11, color: "var(--ru-red)", fontWeight: 700, marginBottom: 3 }}>Degree progress</div>
         <div style={{ background: "var(--border-2)", borderRadius: 99, height: 4, overflow: "hidden" }}>
-          <div style={{ width: "34%", height: "100%", background: "var(--ru-red)", borderRadius: 99, transition: "width 0.6s ease" }} />
+          <div style={{ width: `${previewProgress}%`, height: "100%", background: "var(--ru-red)", borderRadius: 99, transition: "width 0.6s ease" }} />
         </div>
-        <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 5 }}>42 / 120 credits completed</div>
+        <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 5 }}>{previewProgress}% route configured</div>
       </div>
     </div>
   );
@@ -769,7 +781,7 @@ function FullPageWizard(props: WizardProps & { compact?: boolean }) {
         <div className="wizard-step-number" aria-hidden="true">{String(step + 1).padStart(2, "0")}</div>
 
         {/* Animated step content */}
-        <div key={step} className="wizard-step-anim" style={{ flex: 1, overflowY: "auto", paddingBottom: 8 }}>
+        <div key={step} className={`wizard-step-anim wizard-step-${step}`} style={{ flex: 1, overflowY: "auto", paddingBottom: 8 }}>
           <WizardStepContent {...props} step={step} />
         </div>
 

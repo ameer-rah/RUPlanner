@@ -190,10 +190,11 @@ export default function TranscriptUpload({ onCoursesDetected, onInProgressDetect
   const totalCourses = result?.courses_detail.length ?? 0;
 
   return (
-    <div style={{ marginBottom: "12px" }}>
+    <div className="transcript-upload" style={{ marginBottom: "12px" }}>
       {/* Drop zone — hide once done */}
       {phase !== "done" && (
         <div
+          className="transcript-dropzone"
           onDragOver={e => e.preventDefault()}
           onDrop={handleDrop}
           onClick={() => phase === "idle" && inputRef.current?.click()}
@@ -253,7 +254,7 @@ export default function TranscriptUpload({ onCoursesDetected, onInProgressDetect
 
       {/* Error */}
       {phase === "error" && (
-        <p style={{ fontSize: "12px", marginTop: "6px", color: "#b91c1c" }}>
+        <p className="transcript-error" style={{ fontSize: "12px", marginTop: "6px", color: "#b91c1c" }}>
           {errorMsg}
         </p>
       )}
