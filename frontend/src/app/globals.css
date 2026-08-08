@@ -3617,3 +3617,84 @@ body::after {
   .sniper-command { width: 100% !important; min-width: 0 !important; max-width: none !important; }
   .sniper-watchlist { min-height: 600px; }
 }
+
+/* Compact, fully visible wizard controls on laptop-height viewports. */
+.wizard-left { overflow: hidden; }
+.wizard-left > .wizard-step-anim {
+  min-height: 0;
+  overscroll-behavior: contain;
+  scrollbar-color: #090909 transparent;
+  scrollbar-width: thin;
+}
+.wizard-left > .wizard-step-anim::-webkit-scrollbar { width: 7px; }
+.wizard-left > .wizard-step-anim::-webkit-scrollbar-thumb { background: #090909; }
+.wizard-left > .wizard-step-anim::-webkit-scrollbar-track { background: transparent; }
+.wizard-left > div:last-child {
+  position: relative;
+  z-index: 20;
+  flex: 0 0 auto;
+  background: #cc0033;
+}
+.wizard-left .chip-suggestions { max-height: min(230px, 30vh); }
+
+@media (max-height: 850px) and (min-width: 901px) {
+  .wizard-left { padding-top: 28px; padding-bottom: 22px; }
+  .wizard-progress { margin-bottom: 12px !important; }
+  .wizard-step-number {
+    height: 82px;
+    margin-bottom: 10px;
+    font-size: 112px;
+  }
+  .wizard-left .wizard-step-anim:not(.wizard-step-0) { padding-top: 18px !important; }
+  .wizard-left > div:last-child { margin-top: 10px !important; padding-top: 12px !important; }
+}
+
+/* Strong seasonal wayfinding for generated degree plans. */
+.term-fall .plan-term-header,
+.term-spring .plan-term-header,
+.term-summer .plan-term-header,
+.term-winter .plan-term-header {
+  border-top: 0;
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .14);
+}
+.term-fall .plan-term-header { background: #9a3412; }
+.term-spring .plan-term-header { background: #075985; }
+.term-summer .plan-term-header { background: #166534; }
+.term-winter .plan-term-header { background: #4c1d95; }
+.plan-term-header .credits-badge {
+  border: 1px solid rgba(255, 255, 255, .46);
+  background: rgba(0, 0, 0, .18);
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+.elective-badge {
+  border: 1px solid #d97706;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+/* Keep the preview a concise summary instead of stretching to panel height. */
+.wizard-map {
+  min-height: 0 !important;
+  justify-content: flex-start;
+}
+.wizard-map-header { flex: 0 0 auto; }
+.wizard-map-route {
+  flex: 0 0 auto !important;
+  gap: 18px !important;
+  max-width: 820px;
+}
+.wizard-map-term { padding-bottom: 10px !important; }
+.wizard-map-progress {
+  align-self: stretch;
+  width: min(720px, calc(100% - 72px));
+  margin: 24px 0 0 72px !important;
+}
+
+@media (max-height: 850px) and (min-width: 901px) {
+  .wizard-map { padding-top: 30px !important; }
+  .wizard-map-header { margin-bottom: 18px !important; }
+  .wizard-map-route { gap: 10px !important; }
+  .wizard-map-progress { margin-top: 14px !important; }
+}
