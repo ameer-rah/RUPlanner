@@ -440,15 +440,16 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
     : "Your degree plan";
 
   return (
-    <div style={{ width: "100%", minHeight: "100%", padding: "32px 40px 48px", display: "flex", flexDirection: "column", gap: 0 }}>
-      <div style={{ marginBottom: 28 }}>
+    <div className="wizard-map" style={{ width: "100%", minHeight: "100%", padding: "32px 40px 48px", display: "flex", flexDirection: "column", gap: 0 }}>
+      <div className="wizard-map-header" style={{ marginBottom: 28 }}>
         <div style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Preview</div>
         <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text)", letterSpacing: "-0.02em" }}>{label}</div>
       </div>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div className="wizard-map-route" style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
         {previewData.map((sem) => (
           <div
             key={sem.term}
+            className="wizard-map-term"
             style={{
               background: "var(--surface-2)",
               border: "1.5px solid var(--border-2)",
@@ -465,6 +466,7 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
               {sem.courses.map((c) => (
                 <div
                   key={c.code}
+                  className="wizard-map-course"
                   style={{
                     fontSize: 11, padding: "4px 10px", borderRadius: 8,
                     background: "var(--surface-3)", border: "1px solid var(--border-2)",
@@ -483,7 +485,7 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
           </div>
         ))}
       </div>
-      <div style={{
+      <div className="wizard-map-progress" style={{
         marginTop: 20, padding: "14px 16px", background: "rgba(204,17,51,0.06)",
         border: "1.5px solid rgba(204,17,51,0.2)", borderRadius: 12,
       }}>
@@ -511,7 +513,7 @@ function WizardStepContent({
   completedCourses, setCompletedCourses, setInProgressCourses,
 }: Omit<WizardProps, "onStepChange" | "onSubmit" | "status">) {
   if (step === 0) return (
-    <div>
+    <div className="wizard-question">
       <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
         What degree are you pursuing?
       </p>
@@ -527,6 +529,7 @@ function WizardStepContent({
             key={opt.key}
             type="button"
             onClick={() => setDegreeFilter(opt.key)}
+            className={`wizard-choice${degreeFilter === opt.key ? " selected" : ""}`}
             style={{
               width: "100%", textAlign: "left", padding: "18px 20px",
               borderRadius: 14, cursor: "pointer", fontFamily: "inherit",
@@ -740,7 +743,7 @@ function FullPageWizard(props: WizardProps & { compact?: boolean }) {
       {/* Left panel */}
       <div className="wizard-left">
         {/* Step indicator */}
-        <div style={{ marginBottom: 40 }}>
+        <div className="wizard-progress" style={{ marginBottom: 40 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
             <span style={{ fontSize: 12, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" }}>
               Step {step + 1} of {total}
@@ -762,6 +765,8 @@ function FullPageWizard(props: WizardProps & { compact?: boolean }) {
             ))}
           </div>
         </div>
+
+        <div className="wizard-step-number" aria-hidden="true">{String(step + 1).padStart(2, "0")}</div>
 
         {/* Animated step content */}
         <div key={step} className="wizard-step-anim" style={{ flex: 1, overflowY: "auto", paddingBottom: 8 }}>

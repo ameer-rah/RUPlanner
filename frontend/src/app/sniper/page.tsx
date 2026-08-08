@@ -379,9 +379,9 @@ export default function SniperPage() {
         </div>
       </header>
 
-      <div style={{ display: "flex", height: "calc(100vh - var(--topbar-height))", marginTop: "var(--topbar-height)", background: "var(--surface)" }}>
+      <div className="sniper-workspace" style={{ display: "flex", height: "calc(100vh - var(--topbar-height))", marginTop: "var(--topbar-height)", background: "var(--surface)" }}>
         {/* ── Left panel: form ── */}
-        <div style={{
+        <div className="sniper-command" style={{
           width: 420, minWidth: 340, maxWidth: 420, flexShrink: 0,
           height: "100%", overflowY: "auto",
           padding: "0 0 40px",
@@ -571,7 +571,7 @@ export default function SniperPage() {
         </div>
 
         {/* ── Right panel: active snipes ── */}
-        <div style={{
+        <div className="sniper-watchlist" style={{
           flex: 1, minWidth: 0,
           height: "100%", overflowY: "auto",
           background: "var(--surface-2)",

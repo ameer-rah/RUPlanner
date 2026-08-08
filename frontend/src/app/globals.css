@@ -3234,3 +3234,312 @@ body::after {
 .auth-split-right .auth-switch-btn { color: #fff; }
 .auth-split-right .primary-button { border: 1px solid #090909; background: #090909; }
 .auth-split-right .auth-error { border-color: #090909; background: #fff; color: #8e0d18; }
+
+/* ── Product workspace v2: Rutgers degree cartography ──────────────── */
+
+.topbar,
+.schedules-topbar {
+  height: 64px;
+  background: #090909;
+}
+
+.wizard-fullpage {
+  height: calc(100dvh - 64px);
+  margin-top: 64px;
+  background: #fff;
+}
+
+.wizard-left {
+  --text: #fff;
+  --text-2: rgba(0,0,0,.78);
+  --text-3: rgba(0,0,0,.62);
+  --surface: #cc0033;
+  --surface-2: transparent;
+  --surface-3: rgba(0,0,0,.08);
+  --border: rgba(0,0,0,.55);
+  --border-2: rgba(0,0,0,.38);
+  position: relative;
+  width: 40%;
+  min-width: 420px;
+  max-width: 640px;
+  padding: 42px clamp(34px, 3.4vw, 58px) 34px;
+  border-right: 1px solid #090909;
+  background-color: #cc0033;
+  background-image: radial-gradient(rgba(0,0,0,.14) .45px, transparent .6px);
+  background-size: 5px 5px;
+  color: #090909;
+}
+
+.wizard-progress { position: relative; z-index: 2; margin-bottom: 20px !important; }
+.wizard-progress > div:first-child span { color: #090909 !important; letter-spacing: .13em !important; }
+.wizard-progress > div:last-child { gap: 9px !important; }
+.wizard-progress > div:last-child > div { height: 2px !important; border-radius: 0 !important; background: rgba(0,0,0,.35) !important; }
+.wizard-progress > div:last-child > div:first-child { height: 5px !important; background: #090909 !important; }
+
+.wizard-step-number {
+  position: relative;
+  z-index: 1;
+  height: clamp(110px, 17vh, 170px);
+  margin: 0 0 14px;
+  color: #090909;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(128px, 13vw, 210px);
+  font-weight: 500;
+  line-height: .78;
+  letter-spacing: -.09em;
+}
+
+.wizard-question > p:first-child {
+  max-width: 480px;
+  margin: 0 0 12px !important;
+  color: #fff !important;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(38px, 3.4vw, 58px) !important;
+  font-weight: 500 !important;
+  line-height: .98 !important;
+  letter-spacing: -.045em !important;
+  text-wrap: balance;
+}
+
+.wizard-question > p:nth-child(2) {
+  max-width: 430px;
+  margin-bottom: 24px !important;
+  color: #090909 !important;
+  font-size: 12px !important;
+  font-weight: 650;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.wizard-question > div:last-child { gap: 0 !important; border-top: 1px solid #090909; }
+.wizard-choice {
+  position: relative;
+  padding: 18px 10px 18px 54px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #090909 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.wizard-choice::before {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #090909;
+  content: '';
+  transform: translateY(-50%) rotate(45deg);
+}
+.wizard-choice.selected { background: #fff !important; }
+.wizard-choice.selected::before { background: #090909; }
+.wizard-choice div:first-child { color: #090909 !important; font-family: Georgia, 'Times New Roman', serif; font-size: 25px !important; font-weight: 500 !important; }
+.wizard-choice div:last-child { color: rgba(0,0,0,.7) !important; }
+
+.wizard-left .wizard-step-anim > div > p:first-child {
+  color: #fff !important;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(34px, 3vw, 52px) !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: -.045em !important;
+}
+.wizard-left .wizard-step-anim > div > p:nth-child(2) { color: rgba(0,0,0,.68) !important; }
+.wizard-left .label { color: #090909; letter-spacing: .1em; }
+.wizard-left .input,
+.wizard-left select {
+  min-height: 48px;
+  border: 1px solid #090909 !important;
+  border-radius: 0 !important;
+  background: #fff !important;
+  color: #090909 !important;
+}
+.wizard-left .season-btn {
+  border-color: #090909;
+  border-radius: 0;
+  background: transparent;
+  color: #090909;
+}
+.wizard-left .season-btn[class*="active-"] { background: #090909; color: #fff; }
+
+.wizard-left > div:last-child { border-top-color: #090909 !important; }
+.wizard-left .primary-button { min-height: 52px; border: 1px solid #090909; background: #090909; box-shadow: none; }
+
+.wizard-right {
+  --text: #090909;
+  --text-2: #222;
+  --text-3: rgba(0,0,0,.55);
+  --surface: #fff;
+  --surface-2: #fff;
+  --surface-3: #f3f3f1;
+  --border: rgba(0,0,0,.2);
+  --border-2: rgba(0,0,0,.28);
+  align-items: stretch;
+  background-color: #fff;
+  background-image: radial-gradient(rgba(0,0,0,.07) .45px, transparent .6px);
+  background-size: 5px 5px;
+}
+
+.wizard-map { padding: 42px clamp(38px, 4vw, 68px) 34px !important; }
+.wizard-map-header { margin-bottom: 28px !important; }
+.wizard-map-header > div:first-child { color: #cc0033 !important; letter-spacing: .14em !important; }
+.wizard-map-header > div:last-child { color: #090909 !important; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px, 3vw, 50px) !important; font-weight: 500 !important; letter-spacing: -.04em !important; }
+
+.wizard-map-route { position: relative; gap: 0 !important; padding-left: 72px; }
+.wizard-map-route::before { position: absolute; top: 18px; bottom: 24px; left: 22px; width: 2px; background: #cc0033; content: ''; }
+.wizard-map-term {
+  position: relative;
+  flex: 1;
+  padding: 8px 0 18px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  animation: none !important;
+}
+.wizard-map-term::before {
+  position: absolute;
+  top: 12px;
+  left: -62px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #cc0033;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: inset 0 0 0 5px #fff;
+  content: '';
+}
+.wizard-map-term:first-child::before { background: #cc0033; }
+.wizard-map-term > div:first-child { color: #cc0033 !important; font-size: 13px !important; letter-spacing: .1em !important; }
+.wizard-map-term > div:nth-child(2) { flex-wrap: nowrap !important; gap: 0 !important; }
+.wizard-map-course {
+  min-width: 110px;
+  padding: 5px 15px 5px 0 !important;
+  border: 0 !important;
+  border-right: 1px solid rgba(0,0,0,.22) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #090909 !important;
+  font-size: 13px !important;
+}
+.wizard-map-progress {
+  align-self: flex-end;
+  width: min(330px, 52%);
+  margin-top: 10px !important;
+  padding: 14px 0 0 !important;
+  border: 0 !important;
+  border-top: 2px solid #cc0033 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.wizard-map-progress > div:first-child { letter-spacing: .12em; text-transform: uppercase; }
+
+/* Saved schedules: scarlet archive rail + white editing table. */
+.schedules-workspace { background: #fff !important; }
+.schedule-archive {
+  --text: #090909;
+  --text-2: rgba(0,0,0,.75);
+  --text-3: rgba(0,0,0,.6);
+  --surface-2: #fff;
+  --surface-3: rgba(0,0,0,.08);
+  --border: rgba(0,0,0,.5);
+  --border-2: rgba(0,0,0,.35);
+  width: 24% !important;
+  min-width: 280px !important;
+  max-width: 380px !important;
+  border-right: 1px solid #090909 !important;
+  background-color: #cc0033 !important;
+  background-image: radial-gradient(rgba(0,0,0,.14) .45px, transparent .6px) !important;
+  background-size: 5px 5px !important;
+}
+.schedule-archive > div:first-child { padding: 34px 28px 16px !important; border-bottom-color: #090909 !important; }
+.schedule-archive > div:first-child div { color: #090909 !important; letter-spacing: .14em !important; }
+.schedule-archive > div:nth-child(2) { padding: 0 16px !important; }
+.schedule-archive-item {
+  margin: 0 !important;
+  padding: 22px 18px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #090909 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.schedule-archive-item.selected { padding-left: 46px !important; background: #fff !important; }
+.schedule-archive-item.selected::before { position: absolute; margin: 3px 0 0 -27px; width: 14px; height: 14px; background: #090909; content: ''; transform: rotate(45deg); }
+.schedule-archive-item > div:first-child { display: none !important; }
+.schedule-worktable {
+  --text: #090909;
+  --text-2: #222;
+  --text-3: rgba(0,0,0,.56);
+  --surface: #fff;
+  --surface-2: #fff;
+  --surface-3: #f3f3f1;
+  --border: rgba(0,0,0,.2);
+  --border-2: rgba(0,0,0,.35);
+  padding-top: 64px !important;
+  background-color: #fff !important;
+  background-image: radial-gradient(rgba(0,0,0,.07) .45px, transparent .6px) !important;
+  background-size: 5px 5px !important;
+}
+.schedule-worktable .plan-term { border: 0; border-left: 1px solid rgba(0,0,0,.25); box-shadow: none; }
+.schedule-worktable .plan-term-header { border-top: 0; border-bottom: 2px solid #cc0033; }
+.schedule-worktable .plan-course { border-bottom: 1px solid rgba(0,0,0,.3); }
+
+/* Course sniper: scarlet command sheet + registration signal board. */
+.sniper-workspace { height: calc(100dvh - 64px) !important; margin-top: 64px !important; background: #fff !important; }
+.sniper-command {
+  --text: #090909;
+  --text-2: rgba(0,0,0,.76);
+  --text-3: rgba(0,0,0,.64);
+  --surface: #cc0033;
+  --surface-2: rgba(0,0,0,.08);
+  --surface-3: rgba(0,0,0,.12);
+  --border: rgba(0,0,0,.5);
+  --border-2: rgba(0,0,0,.4);
+  width: 34% !important;
+  min-width: 390px !important;
+  max-width: 550px !important;
+  border-right: 1px solid #090909 !important;
+  background-color: #cc0033 !important;
+  background-image: radial-gradient(rgba(0,0,0,.14) .45px, transparent .6px) !important;
+  background-size: 5px 5px !important;
+}
+.sniper-command > div { padding: 42px clamp(28px, 3vw, 48px) 28px !important; }
+.sniper-command h1 { color: #fff !important; font-family: Georgia, 'Times New Roman', serif; font-size: clamp(42px, 3.8vw, 64px) !important; font-weight: 500 !important; line-height: .98 !important; }
+.sniper-command .snipe-left-header > div:first-child { color: #090909 !important; }
+.sniper-command .sniper-input { min-height: 52px; border: 1px solid #090909 !important; border-radius: 0 !important; background: #090909 !important; color: #fff !important; }
+.sniper-command button { border-radius: 0 !important; box-shadow: none !important; }
+.sniper-command .snipe-left-term button { border: 1px solid #090909 !important; border-radius: 0 !important; background: transparent !important; color: #090909 !important; }
+.sniper-command .snipe-left-term button:first-child { background: #090909 !important; color: #fff !important; }
+
+.sniper-watchlist {
+  --text: #090909;
+  --text-2: #222;
+  --text-3: rgba(0,0,0,.56);
+  --surface: #fff;
+  --surface-2: #fff;
+  --surface-3: #f3f3f1;
+  --border: rgba(0,0,0,.22);
+  --border-2: rgba(0,0,0,.36);
+  padding: 42px clamp(30px, 4vw, 68px) !important;
+  background-color: #fff !important;
+  background-image: radial-gradient(rgba(0,0,0,.07) .45px, transparent .6px) !important;
+  background-size: 5px 5px !important;
+}
+.sniper-watchlist .snipe-card-anim > div:first-child > div:first-child { letter-spacing: .14em !important; }
+.sniper-watchlist .snipe-card-anim > div:first-child > div:nth-child(2) { border: 0 !important; border-radius: 0 !important; background: transparent !important; color: #090909 !important; font-family: Georgia, 'Times New Roman', serif; font-size: 72px !important; }
+.sniper-watchlist .snipe-card {
+  padding: 20px 8px;
+  border: 0;
+  border-top: 2px solid #090909;
+  border-radius: 0;
+  background: transparent;
+}
+.sniper-watchlist .snipe-card-hover:hover { transform: none; box-shadow: none; }
+
+@media (max-width: 900px) {
+  .wizard-left { width: 100%; min-width: 0; max-width: none; }
+  .wizard-step-number { height: 95px; font-size: 120px; }
+  .schedule-archive { width: 100% !important; min-width: 0 !important; max-width: none !important; max-height: 270px; }
+  .sniper-workspace { flex-direction: column !important; height: auto !important; }
+  .sniper-command { width: 100% !important; min-width: 0 !important; max-width: none !important; }
+  .sniper-watchlist { min-height: 600px; }
+}

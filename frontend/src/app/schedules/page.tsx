@@ -226,7 +226,7 @@ function SchedulesPageContent() {
   }
 
   return (
-    <div style={{ display: "flex", height: "100vh", background: "var(--surface)" }}>
+    <div className="schedules-workspace" style={{ display: "flex", height: "100vh", background: "var(--surface)" }}>
       <style>{`
         @keyframes sched-fade-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
         @keyframes sched-fade-in { from { opacity:0; } to { opacity:1; } }
@@ -242,7 +242,7 @@ function SchedulesPageContent() {
       {Topbar}
 
       {/* ── Sidebar: schedule list ── */}
-      <div style={{
+      <div className="schedule-archive" style={{
         width: 260, minWidth: 200, maxWidth: 260, flexShrink: 0,
         height: "100vh", overflowY: "auto",
         paddingTop: "var(--topbar-height)",
@@ -275,7 +275,7 @@ function SchedulesPageContent() {
               return (
                 <div
                   key={s.id}
-                  className="sched-list-item-anim"
+                  className={`sched-list-item-anim schedule-archive-item${isSelected ? " selected" : ""}`}
                   onClick={() => { setSelectedId(s.id); setConfirmId(null); }}
                   style={{
                     padding: "12px 12px",
@@ -378,7 +378,7 @@ function SchedulesPageContent() {
       </div>
 
       {/* ── Detail panel ── */}
-      <div style={{
+      <div className="schedule-worktable" style={{
         flex: 1, minWidth: 0,
         height: "100vh", overflowY: "auto",
         paddingTop: "var(--topbar-height)",
