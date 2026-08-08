@@ -4,6 +4,6 @@ import { useRouter } from "next/navigation";
 
 export default function AuthRedirect() {
   const router = useRouter();
-  useEffect(() => { router.replace("/"); }, [router]);
+  useEffect(() => { router.replace("/?auth=signin"); }, [router]);
   return null;
 }

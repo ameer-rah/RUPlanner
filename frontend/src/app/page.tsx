@@ -42,6 +42,7 @@ declare global {
 
 export default function AuthPage() {
   const router = useRouter();
+  const [showAuth, setShowAuth] = useState(false);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -49,6 +50,15 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [googleReady, setGoogleReady] = useState(false);
+
+  useEffect(() => {
+    const requestedMode = new URLSearchParams(window.location.search).get("auth");
+    if (requestedMode === "signin" || requestedMode === "signup") {
+      setMode(requestedMode);
+      setAuthChecked(false);
+      setShowAuth(true);
+    }
+  }, []);
 
   async function finishAuth() {
     let headers: HeadersInit = {};
@@ -65,6 +75,11 @@ export default function AuthPage() {
   }
 
   useEffect(() => {
+    if (!showAuth) {
+      setAuthChecked(true);
+      return;
+    }
+
     async function checkAuth() {
       try {
         let headers: HeadersInit = {};
@@ -84,7 +99,7 @@ export default function AuthPage() {
       setAuthChecked(true);
     }
     checkAuth();
-  }, [router]);
+  }, [router, showAuth]);
 
   useEffect(() => {
     if (!GOOGLE_CLIENT_ID) return;
@@ -171,10 +186,117 @@ export default function AuthPage() {
     }
   }
 
-  if (!authChecked) return null;
+  function openAuth(nextMode: "signin" | "signup") {
+    setMode(nextMode);
+    setError("");
+    setAuthChecked(false);
+    setShowAuth(true);
+  }
+
+  if (!showAuth) {
+    return (
+      <main className="landing-shell">
+        <div className="landing-opening">
+          <div className="landing-art" aria-hidden="true" />
+          <div className="landing-shade" aria-hidden="true" />
+
+          <header className="landing-nav" aria-label="Main navigation">
+            <a className="landing-wordmark" href="#top" aria-label="RUPlanner home">
+              <span>RU</span>Planner
+            </a>
+
+            <nav className="landing-links" aria-label="Product">
+              <a href="#planner">Planner</a>
+              <a href="#requirements">Explore</a>
+              <a href="#sniper">Sniper</a>
+            </nav>
+
+            <button className="landing-nav-cta" type="button" onClick={() => openAuth("signup")}>Build my plan</button>
+          </header>
+
+          <section className="landing-hero" id="top">
+            <div className="landing-copy">
+              <h1>Four years.<br />One clear path.</h1>
+              <p>See every requirement, prerequisite, and semester before registration opens.</p>
+              <div className="landing-actions">
+                <button className="landing-primary" type="button" onClick={() => openAuth("signup")}>
+                  Build my plan <span aria-hidden="true">→</span>
+                </button>
+                <button className="landing-signin" type="button" onClick={() => openAuth("signin")}>Sign in</button>
+              </div>
+            </div>
+
+            <div className="landing-proof">
+              <span>Built for Rutgers–New Brunswick</span>
+              <span>Prerequisite-aware</span>
+              <span>Free for students</span>
+            </div>
+          </section>
+        </div>
+
+        <section className="story-section story-requirements" id="requirements">
+          <div className="story-art" aria-hidden="true" />
+          <div className="story-copy">
+            <span className="story-eyebrow">Degree requirements</span>
+            <h2>Know what<br />counts<span>.</span></h2>
+            <p>Your major, core, completed courses, and prerequisites—mapped before you choose a semester.</p>
+            <ul className="story-key" aria-label="What RUPlanner maps">
+              <li><i className="key-diamond" />Requirements</li>
+              <li><i className="key-triangle" />Prerequisites</li>
+              <li><i className="key-clover" />Transfer credit</li>
+            </ul>
+          </div>
+        </section>
+
+        <section className="story-section story-planner" id="planner">
+          <div className="story-art" aria-hidden="true" />
+          <div className="story-copy">
+            <span className="story-eyebrow">Semester planning</span>
+            <h2>Build the<br />semester<span>.</span></h2>
+            <p>Move courses. Check prerequisites. See the whole degree change with you.</p>
+            <small>Every move is checked before it becomes a problem.</small>
+          </div>
+        </section>
+
+        <section className="story-section story-sniper" id="sniper">
+          <div className="story-art" aria-hidden="true" />
+          <div className="story-copy">
+            <span className="story-eyebrow">Course sniper</span>
+            <h2>Catch the seat<span>.</span></h2>
+            <p>Track a closed section. Get the alert when it opens.</p>
+            <small>No refreshing. No guessing.</small>
+          </div>
+        </section>
+
+        <section className="landing-final">
+          <div className="landing-final-art" aria-hidden="true" />
+          <div className="landing-final-copy">
+            <h2>Your route starts here<span>.</span></h2>
+            <p>Bring your degree into focus before the next semester begins.</p>
+            <button className="landing-primary" type="button" onClick={() => openAuth("signup")}>
+              Build my plan <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <footer className="landing-footer">
+            <a className="landing-wordmark" href="#top"><span>RU</span>Planner</a>
+            <nav aria-label="Footer navigation">
+              <a href="#planner">Planner</a>
+              <a href="#sniper">Course Sniper</a>
+              <a href="#requirements">Explore</a>
+            </nav>
+            <p>Made for Rutgers students.</p>
+          </footer>
+        </section>
+      </main>
+    );
+  }
+
+  if (!authChecked) return <div className="landing-loading" aria-label="Loading" />;
 
   return (
     <div className="auth-split">
+      <button className="auth-back-home" type="button" onClick={() => setShowAuth(false)}>← Back home</button>
       {/* ── Left: brand panel ── */}
       <div className="auth-split-left">
         <img src="/RUPlanner Logo.svg" alt="RU Planner" className="auth-split-logo" />

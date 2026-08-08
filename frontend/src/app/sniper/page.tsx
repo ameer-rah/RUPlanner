@@ -263,7 +263,7 @@ export default function SniperPage() {
     fetch(`${apiBase}/auth/me`, { credentials: "include", headers: getAuthHeaders() })
       .then((r) => (r.ok ? r.json() : null))
       .then((user) => {
-        if (!user) { router.push("/"); return; }
+        if (!user) { router.push("/?auth=signin"); return; }
         setUserEmail(user.email);
         return fetch(`${apiBase}/snipes`, { credentials: "include", headers: getAuthHeaders() });
       })

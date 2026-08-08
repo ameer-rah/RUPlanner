@@ -132,7 +132,7 @@ function SchedulesPageContent() {
   useEffect(() => {
     router.prefetch("/planner");
     fetch(`${apiBase}/auth/me`, { credentials: "include", headers: getAuthHeaders() })
-      .then((r) => { if (!r.ok) { router.push("/"); return null; } return r.json(); })
+      .then((r) => { if (!r.ok) { router.push("/?auth=signin"); return null; } return r.json(); })
       .then((user) => {
         if (!user) return;
         setUserEmail(user.email);
@@ -140,7 +140,7 @@ function SchedulesPageContent() {
       })
       .then((r) => {
         if (!r) return [];
-        if (r.status === 401) { router.push("/"); return []; }
+        if (r.status === 401) { router.push("/?auth=signin"); return []; }
         return r.ok ? r.json() : [];
       })
       .then((data: SavedSchedule[]) => {

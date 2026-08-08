@@ -850,7 +850,7 @@ export default function PlannerPage() {
       try {
         const meRes = await fetch(`${apiBase}/auth/me`, { credentials: 'include', headers: getAuthHeaders() });
         if (!meRes.ok) {
-          router.push("/");
+          router.push("/?auth=signin");
           return;
         }
         const me = await meRes.json();
@@ -894,7 +894,7 @@ export default function PlannerPage() {
           setPrograms(data);
         }
       } catch {
-        router.push("/");
+        router.push("/?auth=signin");
       }
     }
     checkAuthAndLoadPrograms();
@@ -1006,7 +1006,7 @@ export default function PlannerPage() {
     if (res.status === 401) {
       safeRemoveStorage("ru_planner_token");
       safeRemoveStorage("ru_planner_email");
-      router.push("/");
+      router.push("/?auth=signin");
       return;
     }
 

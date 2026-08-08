@@ -46,7 +46,7 @@ export default function ForgotPasswordPage() {
               If <strong>{email}</strong> is registered, you&apos;ll receive a password reset link
               shortly. Check your spam folder if you don&apos;t see it.
             </p>
-            <Link href="/" className="primary-button" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>
+              <Link href="/?auth=signin" className="primary-button" style={{ display: "block", textAlign: "center", textDecoration: "none" }}>
               Back to sign in
             </Link>
           </>
@@ -88,7 +88,7 @@ export default function ForgotPasswordPage() {
 
             <p className="auth-switch">
               Remember your password?{" "}
-              <Link href="/" className="auth-switch-btn">Sign in</Link>
+              <Link href="/?auth=signin" className="auth-switch-btn">Sign in</Link>
             </p>
           </>
         )}

@@ -49,7 +49,7 @@ function ResetPasswordForm() {
       }
 
       setSuccess(true);
-      setTimeout(() => router.push("/"), 2500);
+      setTimeout(() => router.push("/?auth=signin"), 2500);
     } catch {
       setError("Could not connect to server.");
     } finally {
@@ -121,7 +121,7 @@ function ResetPasswordForm() {
             </form>
 
             <p className="auth-switch">
-              <Link href="/" className="auth-switch-btn">Back to sign in</Link>
+              <Link href="/?auth=signin" className="auth-switch-btn">Back to sign in</Link>
             </p>
           </>
         )}
