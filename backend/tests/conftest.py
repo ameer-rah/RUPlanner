@@ -15,6 +15,7 @@ import pytest
 
 os.environ.setdefault("SECRET_KEY", "test-only-secret-key")
 os.environ.setdefault("BCRYPT_ROUNDS", "4")
+os.environ["RATE_LIMIT_ENABLED"] = "false"
 
 # Use a disposable database; the session fixture seeds program requirements.
 _test_db_dir = tempfile.TemporaryDirectory(prefix="ruplanner-pytest-")

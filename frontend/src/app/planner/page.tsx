@@ -27,6 +27,8 @@ type CoreCurriculumBlock = {
   completed: string[];
   needed: number;
   available_courses: string[];
+  goal_slots?: string[][];
+  completed_goal_tags?: string[];
 };
 
 type CourseStatus = {
@@ -238,22 +240,34 @@ function evaluateCoreBlocks(blocks: CoreCurriculumBlock[], terms: PlanTerm[]): C
   const plannedCourses = terms.flatMap((term) => term.courses);
   return blocks.map((block) => {
     if (block.total_courses == null) return block;
-    const tags = new Set([...block.title.matchAll(/\[([A-Za-z]+)\]/g)].map((match) => match[1]));
-    if (tags.delete("CC")) {
-      tags.add("CCD");
-      tags.add("CCO");
-    }
     const validCodes = new Set([...(block.courses ?? []), ...(block.available_courses ?? [])]);
     const satisfied = new Set(block.completed);
+    const remainingSlots = (block.goal_slots ?? []).map((slot) => new Set(slot));
+    const usedGoalTags = new Set(block.completed_goal_tags ?? []);
+    const distinctInterchangeableGoals = remainingSlots.some((slot) => slot.size > 1);
+    for (const completedTag of block.completed_goal_tags ?? []) {
+      const slotIndex = remainingSlots.findIndex((slot) => slot.has(completedTag));
+      if (slotIndex >= 0) remainingSlots.splice(slotIndex, 1);
+    }
     for (const course of plannedCourses) {
-      if (validCodes.has(course.code) || (tags.size > 0 && (course.core_tags ?? []).some((tag) => tags.has(tag)))) {
-        satisfied.add(course.code);
-      }
+      if (satisfied.has(course.code) || remainingSlots.length === 0) continue;
+      const courseTags = course.core_tags ?? [];
+      const slotIndex = remainingSlots.findIndex((slot) =>
+        slot.size === 0
+          ? validCodes.has(course.code)
+          : courseTags.some((tag) => slot.has(tag) && (!distinctInterchangeableGoals || !usedGoalTags.has(tag))),
+      );
+      if (slotIndex < 0) continue;
+      const matchedTag = courseTags.find((tag) => remainingSlots[slotIndex].has(tag)
+        && (!distinctInterchangeableGoals || !usedGoalTags.has(tag)));
+      if (matchedTag) usedGoalTags.add(matchedTag);
+      remainingSlots.splice(slotIndex, 1);
+      satisfied.add(course.code);
     }
     return {
       ...block,
       completed: [...satisfied],
-      needed: Math.max(0, block.total_courses - satisfied.size),
+      needed: remainingSlots.length,
     };
   });
 }

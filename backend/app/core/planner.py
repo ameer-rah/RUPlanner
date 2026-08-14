@@ -278,6 +278,93 @@ def _tags_for_block(title: str) -> Set[str]:
     return tags
 
 
+def _core_goal_slots(title: str, total_courses: Optional[int]) -> List[Set[str]]:
+    """Return the distinct designation goals a core block must satisfy.
+
+    Degree Navigator's block titles contain a union of tags, but several SAS
+    blocks require different goals to be met by different courses. Treating
+    that union as interchangeable can falsely complete a block with two WCd,
+    two SCL, or two QQ courses.
+    """
+    tags = _tags_for_block(title)
+    if "[CC]" in title:
+        return [{"CCD"}, {"CCO"}]
+    if {"SCL", "HST"}.issubset(tags):
+        return [{"SCL"}, {"HST"}]
+    if {"WC", "WCr", "WCd"}.issubset(tags):
+        return [{"WC"}, {"WCr"}, {"WCd"}]
+    if {"QQ", "QR"}.issubset(tags):
+        return [{"QQ"}, {"QR"}]
+    if tags.intersection({"AHo", "AHp", "AHq", "AHr"}) and total_courses == 2:
+        # The two AH courses must meet two different goals. The concrete goal
+        # is chosen during matching, so each slot initially accepts all four.
+        ah = tags.intersection({"AHo", "AHp", "AHq", "AHr"})
+        return [set(ah), set(ah)]
+    return [set(tags) for _ in range(total_courses or 0)]
+
+
+def _match_core_assignments(
+    title: str,
+    total_courses: Optional[int],
+    course_codes: List[str],
+    core_index: Dict[str, List[str]],
+) -> List[Tuple[str, str]]:
+    """Allocate distinct courses to distinct core goals, without double count."""
+    slots = _core_goal_slots(title, total_courses)
+    ah_tags = {"AHo", "AHp", "AHq", "AHr"}
+    best: List[Tuple[str, str]] = []
+
+    def search(slot_index: int, matched: List[Tuple[str, str]], used_tags: Set[str]) -> None:
+        nonlocal best
+        if len(matched) > len(best):
+            best = list(matched)
+        if slot_index >= len(slots):
+            return
+        slot = slots[slot_index]
+        for code in course_codes:
+            if any(matched_code == code for matched_code, _ in matched):
+                continue
+            eligible = slot.intersection(core_index.get(code, []))
+            if len(slots) == 2 and slot.intersection(ah_tags):
+                eligible -= used_tags
+            for tag in sorted(eligible):
+                search(slot_index + 1, [*matched, (code, tag)], used_tags | {tag})
+        search(slot_index + 1, matched, used_tags)
+
+    search(0, [], set())
+    return best
+
+
+def _match_core_courses(
+    title: str,
+    total_courses: Optional[int],
+    course_codes: List[str],
+    core_index: Dict[str, List[str]],
+) -> List[str]:
+    return [code for code, _ in _match_core_assignments(title, total_courses, course_codes, core_index)]
+
+
+def _prerequisite_closure(code: str, catalog: Dict[str, Dict], satisfied: Set[str]) -> Set[str]:
+    """Return all catalogued prerequisites needed to take ``code``."""
+    needed: Set[str] = set()
+    stack = [code]
+    while stack:
+        current = stack.pop()
+        for prereq in catalog.get(current, {}).get("prerequisites", []):
+            if prereq in satisfied or prereq in needed or prereq not in catalog:
+                continue
+            needed.add(prereq)
+            stack.append(prereq)
+    return needed
+
+
+def _core_candidate_key(code: str, catalog: Dict[str, Dict], satisfied: Set[str]) -> Tuple:
+    """Prefer the smallest prerequisite burden, then lower-level courses."""
+    prereqs = _prerequisite_closure(code, catalog, satisfied)
+    prereq_credits = sum(float(catalog[item].get("credits") or 0) for item in prereqs)
+    return (prereq_credits, len(prereqs), _get_course_level(code), code)
+
+
 def _load_core_curriculum(
     school: str, completed_courses: Set[str]
 ) -> Tuple[Optional[str], List[Dict], List[str]]:
@@ -318,14 +405,23 @@ def _load_core_curriculum(
         block_title: str = rb.get("title", "")
         block_tags = _tags_for_block(block_title)
 
-        # Expand: any completed course whose SAS Core designations overlap this block counts
+        # Expand the display pool with completed designated courses, then
+        # allocate them to the block's distinct goals.
         if block_tags and core_index:
-            for code in completed_courses:
+            for code in sorted(completed_courses):
                 desigs = set(core_index.get(code, []))
                 if desigs & block_tags and code not in courses:
                     courses = list(courses) + [code]
 
-        completed_in_block = [c for c in courses if c in completed_courses]
+        completed_candidates = [c for c in courses if c in completed_courses]
+        if block_tags and core_index:
+            completed_assignments = _match_core_assignments(
+                block_title, total, completed_candidates, core_index
+            )
+            completed_in_block = [code for code, _ in completed_assignments]
+        else:
+            completed_assignments = []
+            completed_in_block = completed_candidates[:total]
         needed = max(0, (total or 0) - len(completed_in_block)) if total is not None else 0
         blocks.append(
             CoreCurriculumBlock(
@@ -335,6 +431,8 @@ def _load_core_curriculum(
                 is_elective=rb.get("is_elective", False),
                 completed=completed_in_block,
                 needed=needed,
+                goal_slots=[sorted(slot) for slot in _core_goal_slots(block_title, total)],
+                completed_goal_tags=[tag for _, tag in completed_assignments],
             )
         )
         # Elective blocks are optional pools — don't schedule them as required.
@@ -679,10 +777,11 @@ def _resolve_choice_requirement(req: Dict, completed: Set[str], catalog: Dict) -
         return None
     if any(o in completed for o in options):
         return None
-    return next((o for o in options if o in catalog), None)
+    candidates = [option for option in options if option in catalog]
+    return min(candidates, key=lambda code: _core_candidate_key(code, catalog, completed), default=None)
 
 
-def _resolve_science_courses(requirements: Dict, completed: Set[str]) -> List[str]:
+def _resolve_science_courses(requirements: Dict, completed: Set[str], catalog: Optional[Dict[str, Dict]] = None) -> List[str]:
     sci_req = requirements.get("science_requirement", {})
     if not sci_req:
         return []
@@ -695,21 +794,35 @@ def _resolve_science_courses(requirements: Dict, completed: Set[str]) -> List[st
         if all(c in completed for c in option):
             return []
 
-    for option in options:
-        if any(c in completed for c in option):
-            return [c for c in option if c not in completed]
+    partial = [option for option in options if any(c in completed for c in option)]
+    candidates = partial or options
+    if catalog:
+        def option_key(option: List[str]) -> Tuple:
+            missing = [code for code in option if code not in completed]
+            prerequisite_codes = set().union(*(
+                _prerequisite_closure(code, catalog, completed) for code in missing
+            )) if missing else set()
+            return (
+                sum(float(catalog.get(code, {}).get("credits") or 0) for code in prerequisite_codes),
+                len(prerequisite_codes),
+                sum(float(catalog.get(code, {}).get("credits") or 0) for code in missing),
+                tuple(missing),
+            )
+        candidates = sorted(candidates, key=option_key)
+    return [c for c in candidates[0] if c not in completed]
 
-    return list(options[0])
 
-
-def _resolve_stats_course(requirements: Dict, completed: Set[str]) -> Optional[str]:
+def _resolve_stats_course(requirements: Dict, completed: Set[str], catalog: Optional[Dict[str, Dict]] = None) -> Optional[str]:
     stats_req = requirements.get("statistics_requirement", {})
     if not stats_req:
         return None
     options: List[str] = stats_req.get("options", [])
     if not options or any(c in completed for c in options):
         return None
-    return options[0]
+    candidates = [option for option in options if not catalog or option in catalog]
+    if catalog:
+        return min(candidates, key=lambda code: _core_candidate_key(code, catalog, completed), default=None)
+    return candidates[0] if candidates else None
 
 
 def _get_course_level(code: str) -> int:
@@ -726,8 +839,12 @@ def _select_electives(
     required: List[str],
     completed: Set[str],
     min_level_400_plus: int = 0,
+    catalog: Optional[Dict[str, Dict]] = None,
 ) -> Tuple[List[str], List[str]]:
     available = [c for c in elective_options if c not in required and c not in completed]
+    if catalog:
+        satisfied = completed | set(required)
+        available.sort(key=lambda code: _core_candidate_key(code, catalog, satisfied))
     high400 = [c for c in available if _get_course_level(c) >= 400]
     high300 = [c for c in available if _get_course_level(c) >= 300]
 
@@ -1211,20 +1328,20 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             "Credits shown as 3 per course (standard graduate unit). Verify with the registrar."
         )
 
-    for code in _resolve_science_courses(requirements, completed):
+    for code in _resolve_science_courses(requirements, completed, catalog):
         if code not in required:
             required.append(code)
 
     for science_group in requirements.get("science_requirements", [])[1:]:
-        for code in _resolve_science_courses({"science_requirement": science_group}, completed):
+        for code in _resolve_science_courses({"science_requirement": science_group}, completed, catalog):
             if code not in required:
                 required.append(code)
 
-    stat_code = _resolve_stats_course(requirements, completed)
+    stat_code = _resolve_stats_course(requirements, completed, catalog)
     if stat_code and stat_code not in required:
         required.append(stat_code)
     for statistics_group in requirements.get("statistics_requirements", [])[1:]:
-        stat_code = _resolve_stats_course({"statistics_requirement": statistics_group}, completed)
+        stat_code = _resolve_stats_course({"statistics_requirement": statistics_group}, completed, catalog)
         if stat_code and stat_code not in required:
             required.append(stat_code)
 
@@ -1251,7 +1368,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     chosen_electives, elective_warnings = _select_electives(
         elective_options, elective_count, min_level_300_plus, required, completed,
-        min_level_400_plus=elective_400_plus,
+        min_level_400_plus=elective_400_plus, catalog=catalog,
     )
     warnings.extend(elective_warnings)
     required += chosen_electives
@@ -1270,7 +1387,9 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         completed_group = [c for c in options if c in completed and c not in consumed_group_courses]
         consumed_group_courses.update(completed_group[:count])
         needed = max(0, count - len(completed_group))
-        chosen, group_warnings = _select_electives(options, needed, 0, required, completed)
+        chosen, group_warnings = _select_electives(
+            options, needed, 0, required, completed, catalog=catalog
+        )
         warnings.extend(group_warnings)
         for code in chosen:
             if code not in required:
@@ -1310,7 +1429,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             - len([c for c in group_completed if _get_course_level(c) >= 400]),
         )
         selected, group_warnings = _select_electives(
-            group_options, group_count, group_300, required, completed, group_400
+            group_options, group_count, group_300, required, completed, group_400, catalog
         )
         warnings.extend(group_warnings)
         for code in selected:
@@ -1341,7 +1460,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         pool_400 = max(0, pool_400 - len([c for c in completed_pool if _get_course_level(c) >= 400]))
 
         chosen_pool, pool_warnings = _select_electives(
-            pool_opts, pool_count, pool_300, required, completed, pool_400
+            pool_opts, pool_count, pool_300, required, completed, pool_400, catalog
         )
         warnings.extend(pool_warnings)
         for c in chosen_pool:
@@ -1352,7 +1471,8 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             if c not in completed and c not in full_elective_pool:
                 full_elective_pool.append(c)
 
-    # For each unfulfilled SAS Core block with tag-based requirements, pick real courses to schedule
+    # For each unfulfilled core block, choose courses that add a distinct goal
+    # while minimizing the full prerequisite burden.
     if _core_tag_index:
         for blk in core_curriculum_blocks:
             if blk.needed <= 0 or blk.total_courses is None:
@@ -1360,45 +1480,34 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             tags = _tags_for_block(blk.title)
             if not tags:
                 continue
-            if "[CC]" in blk.title:
-                req_set = set(required)
-                for goal_tag in ("CCD", "CCO"):
-                    if any(goal_tag in _core_tag_index.get(code, []) for code in required):
-                        continue
-                    candidate = next((
-                        code for code in sorted(
-                            _core_tag_index,
-                            key=lambda item: (_get_course_level(item), item),
-                        )
-                        if goal_tag in _core_tag_index.get(code, [])
-                        and code in catalog and code not in completed and code not in req_set
-                    ), None)
-                    if candidate:
-                        required.append(candidate)
-                        req_set.add(candidate)
-                for code, course_tags in _core_tag_index.items():
-                    if tags.intersection(course_tags) and code in catalog and code not in full_elective_pool:
-                        full_elective_pool.append(code)
-                continue
-            # Count courses already in the plan (required but not completed) that satisfy this block
-            already_covering = sum(
-                1 for c in required
-                if c not in completed and tags.intersection(set(_core_tag_index.get(c, [])))
-            )
-            actual_needed = max(0, blk.needed - already_covering)
-            if actual_needed <= 0:
-                continue
             req_set = set(required)
-            # Pick lowest-level catalog courses matching any of the block's tags
+            existing = [
+                code for code in required
+                if code not in completed and tags.intersection(_core_tag_index.get(code, []))
+            ]
+            matched = _match_core_courses(
+                blk.title, blk.total_courses, [*blk.completed, *existing], _core_tag_index
+            )
             candidates = sorted(
                 [c for c, ctags in _core_tag_index.items()
                  if tags.intersection(set(ctags)) and c in catalog
                  and c not in completed and c not in req_set],
-                key=lambda c: int(re.search(r'\d+', c).group()) if re.search(r'\d+', c) else 999
+                key=lambda c: _core_candidate_key(c, catalog, completed | req_set),
             )
-            picked = candidates[:actual_needed]
-            for c in picked:
-                required.append(c)
+            selected: List[str] = []
+            for candidate in candidates:
+                trial = _match_core_courses(
+                    blk.title, blk.total_courses, [*matched, *selected, candidate], _core_tag_index
+                )
+                if len(trial) > len(_match_core_courses(
+                    blk.title, blk.total_courses, [*matched, *selected], _core_tag_index
+                )):
+                    selected.append(candidate)
+                if len(trial) >= blk.total_courses:
+                    break
+            for code in selected:
+                required.append(code)
+                req_set.add(code)
             # Expose all candidates as swap options
             for c in candidates:
                 if c not in full_elective_pool:

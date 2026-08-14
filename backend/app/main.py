@@ -164,7 +164,10 @@ def _decrypt_phone(encrypted: str) -> str:
         return encrypted
 
 _bearer = HTTPBearer()
-_limiter = Limiter(key_func=get_remote_address)
+_limiter = Limiter(
+    key_func=get_remote_address,
+    enabled=os.getenv("RATE_LIMIT_ENABLED", "true").lower() not in {"0", "false", "no"},
+)
 
 
 @asynccontextmanager

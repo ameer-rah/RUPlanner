@@ -582,10 +582,10 @@
       "catalog_year": "2025-2026",
       "required_courses": [
         "ARTH105",
+        "ARTH106",
         "ART121",
         "ART122",
         "ART200",
-        "ART201",
         "ART227",
         "ART228",
         "ART231",
@@ -596,8 +596,6 @@
         "ARTH332",
         "ART431",
         "ART432",
-        "ART433",
-        "ART434",
         "ARTH497",
         "ARTH498"
       ],

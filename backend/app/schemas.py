@@ -112,6 +112,8 @@ class CoreCurriculumBlock(BaseModel):
     completed: List[str]
     needed: int
     available_courses: List[str] = []
+    goal_slots: List[List[str]] = []
+    completed_goal_tags: List[str] = []
 
 
 class CourseDetail(BaseModel):

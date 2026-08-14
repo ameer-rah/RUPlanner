@@ -8,6 +8,8 @@ from app.core.planner import (
     _resolve_science_courses,
     _collect_missing_prereqs,
     _apply_track,
+    _core_candidate_key,
+    _match_core_courses,
     heuristic_plan,
 )
 from app.schemas import PlanRequest
@@ -337,6 +339,46 @@ def _plan(majors, minors=None, completed=None, seasons=None, grad="Spring 2028",
 
 
 class TestHeuristicPlan:
+    def test_science_path_prefers_lower_total_prerequisite_cost(self):
+        requirements = {"science_requirement": {"options": [["ADV300"], ["INTRO100"]]}}
+        catalog = {
+            "ADV300": {"credits": 3, "prerequisites": ["MID200"]},
+            "MID200": {"credits": 3, "prerequisites": ["INTRO100"]},
+            "INTRO100": {"credits": 3, "prerequisites": []},
+        }
+        assert _resolve_science_courses(requirements, set(), catalog) == ["INTRO100"]
+
+    def test_core_matching_requires_distinct_writing_goals(self):
+        index = {
+            "EXPOS101": ["WC"],
+            "FREN214": ["WCd"],
+            "FREN215": ["WCd"],
+            "HIST201": ["WCr"],
+        }
+        matched = _match_core_courses(
+            "Writing [WC], [WCr], [WCd]", 3,
+            ["EXPOS101", "FREN214", "FREN215"], index,
+        )
+        assert len(matched) == 2
+        assert len(_match_core_courses(
+            "Writing [WC], [WCr], [WCd]", 3,
+            ["EXPOS101", "FREN214", "FREN215", "HIST201"], index,
+        )) == 3
+
+    def test_core_candidate_scoring_penalizes_prerequisite_chains(self):
+        catalog = {
+            "DIRECT101": {"credits": 3, "prerequisites": []},
+            "CHAIN214": {"credits": 3, "prerequisites": ["CHAIN213"]},
+            "CHAIN213": {"credits": 3, "prerequisites": ["CHAIN131"]},
+            "CHAIN131": {"credits": 4, "prerequisites": []},
+        }
+        assert _core_candidate_key("DIRECT101", catalog, set()) < _core_candidate_key("CHAIN214", catalog, set())
+
+    def test_cs_core_does_not_add_an_unnecessary_language_sequence(self):
+        resp = _plan(["Computer Science (BS, SAS)"], grad="Spring 2030", max_cr=18)
+        codes = {course.code for term in resp.terms for course in term.courses}
+        assert not {"FREN101", "FREN102", "FREN131", "FREN213", "FREN214", "FREN215"}.issubset(codes)
+
     def test_cs_bs_produces_terms(self):
         resp = _plan(["Computer Science (BS, SAS)"])
         assert len(resp.terms) > 0
@@ -400,6 +442,12 @@ class TestHeuristicPlan:
         resp = _plan(["Dance (BFA, MGSA)"], grad="Spring 2030", max_cr=18)
         assert resp.remaining_courses == []
         assert not any("Not all requirements fit" in warning for warning in resp.warnings)
+
+    def test_four_year_design_plan_uses_official_six_course_design_sequence(self):
+        resp = _plan(["Design (BFA, MGSA)"], grad="Spring 2030", max_cr=18)
+        assert resp.remaining_courses == []
+        scheduled = {course.code for term in resp.terms for course in term.courses}
+        assert "ART434" not in scheduled
 
     def test_professional_school_plan_loads_shared_sas_prerequisites(self):
         resp = _plan(["Animal Science (BS, SEBS)"], grad="Spring 2030", max_cr=18)
