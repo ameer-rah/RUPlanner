@@ -117,7 +117,7 @@ The parser was developed and tested primarily against one transcript format. Rut
 | Layer | Host | How to deploy |
 |-------|------|---------------|
 | Frontend | Vercel | Auto-deploys on `git push origin main` |
-| Backend | Google Cloud Run (`us-east1`) | `gcloud builds submit --tag gcr.io/ru-planner-489603/ruplanner-backend` then `gcloud run deploy ruplanner-backend --image gcr.io/ru-planner-489603/ruplanner-backend --region us-east1 --env-vars-file env.yaml` |
+| Backend | Google Cloud Run (`us-east1`) | From `backend/`: `gcloud builds submit --tag gcr.io/ru-planner-489603/ruplanner-backend` then `gcloud run deploy backend --image gcr.io/ru-planner-489603/ruplanner-backend --region us-east1 --env-vars-file env.yaml` |
 
 Backend service URLs (both live):
 - `https://backend-1073787278310.us-east1.run.app` ← **this is what Vercel points to**

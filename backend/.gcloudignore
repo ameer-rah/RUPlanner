@@ -1,0 +1,7 @@
+# Only upload files used by backend/Dockerfile.
+**
+!Dockerfile
+!requirements.txt
+!app/**
+!data/**
+!management/**
