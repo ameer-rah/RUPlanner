@@ -268,7 +268,16 @@ def current_term_specs() -> list[tuple[int, str]]:
 
 
 def fetch_term(year: int, term_name: str, level: str = "U") -> list[dict]:
-    """Fetch all courses for one term from the SIS API."""
+    """Fetch one term's course catalog while keeping transient failures nonfatal.
+
+    Args:
+        year: Calendar year used by Rutgers SIS.
+        term_name: Human-readable term key from ``TERM_CODES``.
+        level: SIS level code, normally undergraduate or graduate.
+
+    Returns:
+        Raw SIS course objects, or an empty list when the request fails.
+    """
     code = TERM_CODES[term_name]
     params = {"year": year, "term": code, "campus": CAMPUS, "level": level}
     try:
@@ -283,7 +292,14 @@ def fetch_term(year: int, term_name: str, level: str = "U") -> list[dict]:
 
 
 def parse_credits(raw_course: dict) -> float:
-    """Extract the minimum numeric credit value without truncating fractions."""
+    """Extract the minimum numeric credit value without inventing missing data.
+
+    Args:
+        raw_course: Raw SIS course object with one of the known credit fields.
+
+    Returns:
+        Parsed credits, using the lower bound for ranges, or ``0.0`` if unknown.
+    """
     for field in ("credits", "creditHours", "credit"):
         val = raw_course.get(field)
         if val is not None:
@@ -296,7 +312,16 @@ def parse_credits(raw_course: dict) -> float:
 
 
 def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
-    """Upsert a list of raw SIS course objects into the DB. Returns count of new rows."""
+    """Canonicalize and atomically upsert one term's SIS course objects.
+
+    Args:
+        db: Open SQLAlchemy session that owns the transaction.
+        raw_courses: Course objects returned by SIS.
+        term_name: Term whose offered flag should be preserved.
+
+    Returns:
+        Number of rows affected by the database upsert.
+    """
     from sqlalchemy.dialects.postgresql import insert as pg_insert
 
     is_spring = term_name == "spring"
@@ -363,6 +388,14 @@ def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
 
 
 def ingest(year: int, terms: list[str], level: str = "U", verify: bool = False) -> None:
+    """Fetch requested terms, upsert their courses, and report database totals.
+
+    Args:
+        year: Calendar year to request from SIS.
+        terms: Term names to ingest.
+        level: SIS course-level filter.
+        verify: Whether to report mapped subjects with no API results.
+    """
     # Ensure tables exist (adds new columns on first run after schema change).
     Base.metadata.create_all(bind=engine)
 
@@ -410,6 +443,7 @@ def ingest(year: int, terms: list[str], level: str = "U", verify: bool = False) 
 
 
 def main() -> None:
+    """Parse command-line options and run the course ingestion workflow."""
     parser = argparse.ArgumentParser(
         description="Ingest Rutgers SIS course data into the local database."
     )

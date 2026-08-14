@@ -88,6 +88,17 @@ _PROGRAM_PATCHES: Dict[Tuple[str, str, str], Dict] = {
 
 
 def _apply_program_patches(school: str, degree_level: str, major_name: str, requirements: Dict) -> Dict:
+    """Correct known source-data defects before planning a program.
+
+    Args:
+        school: School abbreviation used in the patch key.
+        degree_level: Normalized database degree level.
+        major_name: Canonical program name.
+        requirements: Requirements loaded from the program source.
+
+    Returns:
+        A patched copy, or the original mapping when no patch is registered.
+    """
     patch = _PROGRAM_PATCHES.get((school, degree_level, major_name))
     if not patch:
         return requirements
@@ -170,6 +181,11 @@ def _apply_track(requirements: Dict, track: Optional[str]) -> Dict:
 
 
 def _load_catalog_from_db() -> Dict[str, Dict]:
+    """Load the shared course catalog through the planner's cache layer.
+
+    Returns:
+        Catalog entries keyed by unambiguous course code.
+    """
     return _get_db_catalog()
 
 
@@ -186,6 +202,14 @@ _DN_PROGRAMS_LOADED = False
 
 
 def _get_db_catalog() -> Dict[str, Dict]:
+    """Return a cached database catalog, refreshing it after the TTL expires.
+
+    The last valid snapshot is retained when the database is temporarily
+    unavailable so planning can continue without replacing good cached data.
+
+    Returns:
+        Catalog entries keyed by unique course alias.
+    """
     global _DB_CATALOG_CACHE, _DB_CATALOG_LOADED_AT
     now = time.monotonic()
     if _DB_CATALOG_LOADED_AT and now - _DB_CATALOG_LOADED_AT < _DB_CATALOG_TTL_SECONDS:
@@ -238,6 +262,11 @@ def invalidate_catalog_cache() -> None:
 
 
 def _get_dn_programs() -> Dict:
+    """Load and cache Degree Navigator program data used for core curricula.
+
+    Returns:
+        Parsed program data, or an empty mapping when the file cannot be read.
+    """
     global _DN_PROGRAMS_CACHE, _DN_PROGRAMS_LOADED
     if _DN_PROGRAMS_LOADED:
         return _DN_PROGRAMS_CACHE
@@ -252,6 +281,11 @@ def _get_dn_programs() -> Dict:
 
 
 def _get_sas_core_index() -> Dict[str, List[str]]:
+    """Load and cache the mapping from courses to SAS Core designations.
+
+    Returns:
+        Designation lists keyed by course code, or an empty mapping on failure.
+    """
     global _SAS_CORE_INDEX, _SAS_CORE_INDEX_LOADED
     if _SAS_CORE_INDEX_LOADED:
         return _SAS_CORE_INDEX
@@ -315,6 +349,7 @@ def _match_core_assignments(
     best: List[Tuple[str, str]] = []
 
     def search(slot_index: int, matched: List[Tuple[str, str]], used_tags: Set[str]) -> None:
+        """Backtrack through goal slots and retain the largest valid matching."""
         nonlocal best
         if len(matched) > len(best):
             best = list(matched)
@@ -341,6 +376,17 @@ def _match_core_courses(
     course_codes: List[str],
     core_index: Dict[str, List[str]],
 ) -> List[str]:
+    """Return distinct courses that can fill the core block's goal slots.
+
+    Args:
+        title: Core block title containing designation tags.
+        total_courses: Number of courses required by the block.
+        course_codes: Candidate course codes.
+        core_index: Core designations keyed by course code.
+
+    Returns:
+        Matched course codes without their internal goal-tag assignments.
+    """
     return [code for code, _ in _match_core_assignments(title, total_courses, course_codes, core_index)]
 
 
@@ -447,11 +493,27 @@ def _load_core_curriculum(
 
 
 def _term_index(term: str) -> int:
+    """Convert a display term into a sortable four-terms-per-year index.
+
+    Args:
+        term: Term formatted as ``Season YYYY``.
+
+    Returns:
+        Integer index used for chronological comparisons.
+
+    Raises:
+        ValueError: If the term format or season is invalid.
+    """
     season, year = term.split()
     return int(year) * 4 + _SEASONS.index(season)
 
 
 def current_term() -> str:
+    """Return the planning term that contains today's date.
+
+    Returns:
+        Current term formatted as ``Season YYYY``.
+    """
     today = date.today()
     month = today.month
     year = today.year
@@ -467,6 +529,18 @@ def current_term() -> str:
 
 
 def terms_between(start: str, end: str) -> List[str]:
+    """Build the inclusive chronological sequence between two terms.
+
+    Args:
+        start: First term formatted as ``Season YYYY``.
+        end: Last term formatted as ``Season YYYY``.
+
+    Returns:
+        All terms from ``start`` through ``end``, inclusive.
+
+    Raises:
+        ValueError: If either term has an invalid format or season.
+    """
     start_idx = _term_index(start)
     end_idx = _term_index(end)
     terms: List[str] = []
@@ -478,6 +552,21 @@ def terms_between(start: str, end: str) -> List[str]:
 
 
 def load_catalog(path: Path) -> Dict[str, Dict]:
+    """Load a school's curated catalog and enrich matching rows from the DB.
+
+    The curated file remains the eligibility boundary; database rows may add
+    current metadata but cannot introduce courses from unrelated schools.
+
+    Args:
+        path: Path to the school's JSON catalog.
+
+    Returns:
+        Merged catalog entries keyed by course code.
+
+    Raises:
+        FileNotFoundError: If the curated catalog does not exist.
+        json.JSONDecodeError: If the curated catalog is invalid JSON.
+    """
     with open(path, "r", encoding="utf-8") as fh:
         data = json.load(fh)
     json_catalog: Dict[str, Dict] = {course["code"]: course for course in data}
@@ -510,6 +599,20 @@ def load_catalog(path: Path) -> Dict[str, Dict]:
 def _load_requirements_from_db(
     school: str, degree_level: str, major_name: str, catalog_year: str
 ) -> Dict:
+    """Load one program's requirements, including master-level fallbacks.
+
+    Args:
+        school: School abbreviation stored with the program.
+        degree_level: Normalized degree level.
+        major_name: Canonical program name.
+        catalog_year: Catalog year to retrieve.
+
+    Returns:
+        A detached dictionary of program requirements.
+
+    Raises:
+        ValueError: If no compatible program record exists.
+    """
     from ..database import SessionLocal
     from ..models import Program
 
@@ -625,6 +728,15 @@ def _parse_major_entry(entry: str, level_raw: str) -> Tuple[str, Optional[str], 
 
 
 def _merge_requirements(programs: List[Dict]) -> Dict:
+    """Combine requirements for a multi-program plan without losing quotas.
+
+    Args:
+        programs: Requirement mappings for selected majors, minors, or tracks.
+
+    Returns:
+        One planner-ready requirement mapping with deduplicated courses and
+        independently preserved elective and choice groups.
+    """
     merged_required: List[str] = []
     for p in programs:
         for c in p.get("required_courses", []):
@@ -702,6 +814,21 @@ def _resolve_entry(entry: str, level_raw: str) -> Tuple[str, Dict]:
 
 
 def resolve_program(request: PlanRequest) -> Dict:
+    """Resolve selected programs into requirements and an eligible catalog.
+
+    The combined catalog includes SAS dependencies needed by professional
+    schools while each selected program's requirements remain authoritative.
+
+    Args:
+        request: Planning request containing degree and program selections.
+
+    Returns:
+        Catalog, merged requirements, and per-program metadata.
+
+    Raises:
+        ValueError: If no selected program can be resolved.
+        FileNotFoundError: If no usable school catalog is available.
+    """
     level_raw = request.degree_level.strip().lower()
     found: List[Dict] = []
     individual_programs: List[Dict] = []  # [{reqs, name, type}]
@@ -770,6 +897,16 @@ def resolve_program(request: PlanRequest) -> Dict:
 
 
 def _resolve_choice_requirement(req: Dict, completed: Set[str], catalog: Dict) -> Optional[str]:
+    """Choose the least burdensome unsatisfied option from a choice rule.
+
+    Args:
+        req: Choice requirement containing course options.
+        completed: Courses already completed or otherwise satisfied.
+        catalog: Available course metadata.
+
+    Returns:
+        A course code to schedule, or ``None`` when already satisfied or empty.
+    """
     if not req:
         return None
     options: List[str] = req.get("options", [])
@@ -782,6 +919,16 @@ def _resolve_choice_requirement(req: Dict, completed: Set[str], catalog: Dict) -
 
 
 def _resolve_science_courses(requirements: Dict, completed: Set[str], catalog: Optional[Dict[str, Dict]] = None) -> List[str]:
+    """Select the remaining courses from the best science sequence option.
+
+    Args:
+        requirements: Program requirements containing science alternatives.
+        completed: Courses already satisfied.
+        catalog: Optional metadata used to minimize prerequisite burden.
+
+    Returns:
+        Unsatisfied course codes from the selected science sequence.
+    """
     sci_req = requirements.get("science_requirement", {})
     if not sci_req:
         return []
@@ -798,6 +945,7 @@ def _resolve_science_courses(requirements: Dict, completed: Set[str], catalog: O
     candidates = partial or options
     if catalog:
         def option_key(option: List[str]) -> Tuple:
+            """Rank a science sequence by prerequisites and remaining credits."""
             missing = [code for code in option if code not in completed]
             prerequisite_codes = set().union(*(
                 _prerequisite_closure(code, catalog, completed) for code in missing
@@ -813,6 +961,16 @@ def _resolve_science_courses(requirements: Dict, completed: Set[str], catalog: O
 
 
 def _resolve_stats_course(requirements: Dict, completed: Set[str], catalog: Optional[Dict[str, Dict]] = None) -> Optional[str]:
+    """Choose one unsatisfied statistics option with minimal prerequisites.
+
+    Args:
+        requirements: Program requirements containing statistics alternatives.
+        completed: Courses already satisfied.
+        catalog: Optional metadata used to rank valid options.
+
+    Returns:
+        The selected course code, or ``None`` if the requirement is satisfied.
+    """
     stats_req = requirements.get("statistics_requirement", {})
     if not stats_req:
         return None
@@ -826,6 +984,14 @@ def _resolve_stats_course(requirements: Dict, completed: Set[str], catalog: Opti
 
 
 def _get_course_level(code: str) -> int:
+    """Infer a course's hundred-level bucket from its code.
+
+    Args:
+        code: Course identifier containing an optional numeric component.
+
+    Returns:
+        The rounded-down hundred level, or zero when no number is present.
+    """
     match = re.search(r'\d+', code)
     if not match:
         return 0
@@ -841,6 +1007,20 @@ def _select_electives(
     min_level_400_plus: int = 0,
     catalog: Optional[Dict[str, Dict]] = None,
 ) -> Tuple[List[str], List[str]]:
+    """Select electives while prioritizing required upper-level quotas.
+
+    Args:
+        elective_options: Approved elective course codes.
+        elective_count: Total number of electives still needed.
+        min_level_300_plus: Remaining quota at the 300 level or above.
+        required: Courses already selected as requirements.
+        completed: Courses already satisfied.
+        min_level_400_plus: Remaining quota at the 400 level or above.
+        catalog: Optional metadata used to favor lighter prerequisites.
+
+    Returns:
+        Selected elective codes and warnings for unfillable constraints.
+    """
     available = [c for c in elective_options if c not in required and c not in completed]
     if catalog:
         satisfied = completed | set(required)
@@ -893,11 +1073,30 @@ def _select_electives(
 
 
 def _season_has_data(catalog: Dict[str, Dict], season: str) -> bool:
+    """Check whether any catalog row contains affirmative offering data.
+
+    Args:
+        catalog: Course metadata keyed by code.
+        season: Season whose offering flag should be inspected.
+
+    Returns:
+        ``True`` when the catalog has meaningful data for that season.
+    """
     flag = f"{season.lower()}_offered"
     return any(entry.get(flag, False) for entry in catalog.values())
 
 
 def _is_offered(course: Dict, season: str, season_has_data: Dict[str, bool]) -> bool:
+    """Determine whether a course may be scheduled in a season.
+
+    Args:
+        course: Catalog metadata for one course.
+        season: Candidate scheduling season.
+        season_has_data: Whether each season has reliable offering data.
+
+    Returns:
+        The explicit offering value, defaulting permissively when data is absent.
+    """
     if not season_has_data.get(season, False):
         return True
     flag = f"{season.lower()}_offered"
@@ -920,6 +1119,7 @@ def _normalize_graduate_requirements(requirements: Dict) -> Tuple[Dict, List[str
     seen_req: Set[str] = set(required)
 
     def _add(code: str) -> None:
+        """Append a valid required code once while preserving source order."""
         if isinstance(code, str) and code not in seen_req:
             required.append(code)
             seen_req.add(code)
@@ -1221,6 +1421,14 @@ def _collect_missing_prereqs(
     completed: Set[str],
     required: List[str],
 ) -> None:
+    """Add transitive, catalogued prerequisites to the required course list.
+
+    Args:
+        codes: Courses whose prerequisite trees should be traversed.
+        catalog: Course metadata keyed by code.
+        completed: Courses that already satisfy prerequisites.
+        required: Mutable required-course list updated in place.
+    """
     required_set: Set[str] = set(required)
     stack = list(codes)
     while stack:
@@ -1233,6 +1441,21 @@ def _collect_missing_prereqs(
 
 
 def heuristic_plan(request: PlanRequest) -> PlanResponse:
+    """Build an explainable term-by-term plan using catalog constraints.
+
+    This is the planner's orchestration entry point: it resolves program rules,
+    accounts for prior work, selects alternatives, expands prerequisites, and
+    schedules eligible courses within term and credit limits.
+
+    Args:
+        request: Student selections, history, time horizon, and load limits.
+
+    Returns:
+        Planned terms, requirement status, warnings, and program summaries.
+
+    Raises:
+        ValueError: If program selections or planning terms are invalid.
+    """
     program = resolve_program(request)
     catalog: Dict[str, Dict] = program["catalog"]
     requirements: Dict = program["requirements"]
@@ -1303,7 +1526,9 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 _tag_to_courses.setdefault(_tag, []).append(_code)
 
         def _sort_by_level(codes: list[str]) -> list[str]:
+            """Sort core options by their numeric course code for display."""
             def _level(c: str) -> int:
+                """Extract a numeric sort value, placing nonnumeric codes last."""
                 m = re.search(r"\d+", c)
                 return int(m.group()) if m else 9999
             return sorted(codes, key=_level)
@@ -1696,6 +1921,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         # impossible.
         depth_cache: Dict[str, int] = {}
         def critical_depth(node: str) -> int:
+            """Return the longest downstream prerequisite path from a course."""
             if node not in depth_cache:
                 successors = list(G.successors(node))
                 depth_cache[node] = 0 if not successors else 1 + max(critical_depth(child) for child in successors)

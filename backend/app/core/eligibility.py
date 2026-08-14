@@ -19,6 +19,11 @@ _GRADE_POINTS = {
 
 @dataclass(frozen=True)
 class StudentRecord:
+    """Store the academic facts used to evaluate enrollment eligibility.
+
+    Keeping these facts immutable makes each rule evaluation reproducible and
+    prevents one course check from changing the inputs used by another.
+    """
     completed: frozenset[str]
     grades: Mapping[str, str] = field(default_factory=dict)
     in_progress: frozenset[str] = frozenset()
@@ -29,12 +34,26 @@ class StudentRecord:
 
 @dataclass(frozen=True)
 class EligibilityResult:
+    """Describe whether a student may take a course and why.
+
+    ``unknown`` distinguishes a verified failure from one caused by missing or
+    unsupported data so callers can explain uncertainty to the student.
+    """
     allowed: bool
     reasons: tuple[str, ...] = ()
     unknown: bool = False
 
 
 def _course_rule(rule: Mapping[str, Any], record: StudentRecord) -> EligibilityResult:
+    """Evaluate one course prerequisite, including concurrency and grade rules.
+
+    Args:
+        rule: Course rule containing a code and optional grade/concurrency data.
+        record: Student facts against which the prerequisite is checked.
+
+    Returns:
+        An eligibility result with a user-facing reason when the rule fails.
+    """
     code = str(rule.get("course", "")).upper()
     concurrent = bool(rule.get("concurrent", False))
     present = code in record.completed or (concurrent and code in record.in_progress)
@@ -53,6 +72,18 @@ def _course_rule(rule: Mapping[str, Any], record: StudentRecord) -> EligibilityR
 
 
 def evaluate_rule(rule: Any, record: StudentRecord) -> EligibilityResult:
+    """Recursively evaluate a JSON-compatible eligibility rule.
+
+    This central evaluator supports composite and non-course restrictions so
+    planner code does not need to duplicate enrollment policy.
+
+    Args:
+        rule: A course, list, or mapping representing an eligibility rule.
+        record: Student facts used to resolve the rule.
+
+    Returns:
+        The combined eligibility decision, reasons, and uncertainty status.
+    """
     if not rule:
         return EligibilityResult(True)
     if isinstance(rule, str):
@@ -93,6 +124,14 @@ def evaluate_rule(rule: Any, record: StudentRecord) -> EligibilityResult:
 
 
 def rule_for_course(course: Mapping[str, Any]) -> Any:
+    """Return the best available eligibility rule for a catalog course.
+
+    Args:
+        course: Catalog entry containing modern or legacy prerequisite fields.
+
+    Returns:
+        The explicit eligibility rule, prerequisite rule, or a legacy adapter.
+    """
     return course.get("eligibility_rule") or course.get("prerequisite_rule") or {
         "allOf": course.get("prerequisites", [])
     }

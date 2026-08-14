@@ -35,6 +35,14 @@ if _PHONE_ENCRYPTION_KEY:
         log.warning("Invalid PHONE_ENCRYPTION_KEY; phone numbers may be encrypted incorrectly")
 
 def _decrypt_phone(encrypted: str) -> str:
+    """Recover a notification number while tolerating legacy plaintext values.
+
+    Args:
+        encrypted: Stored ciphertext or a legacy plaintext phone number.
+
+    Returns:
+        The decrypted number, or the original value when decryption is unavailable.
+    """
     if not _phone_cipher:
         return encrypted
     try:
@@ -45,6 +53,11 @@ def _decrypt_phone(encrypted: str) -> str:
 
 
 def _twilio_client() -> TwilioClient | None:
+    """Build an SMS client only when all required Twilio settings are present.
+
+    Returns:
+        A configured Twilio client, or ``None`` when SMS is disabled.
+    """
     if not (TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN and TWILIO_FROM_NUMBER):
         log.warning("Twilio env vars not configured — SMS will not be sent.")
         return None
@@ -52,6 +65,15 @@ def _twilio_client() -> TwilioClient | None:
 
 
 def send_sms(to_number: str, body: str) -> bool:
+    """Send a seat-opening alert without letting provider errors stop polling.
+
+    Args:
+        to_number: Destination phone number.
+        body: Text of the notification.
+
+    Returns:
+        ``True`` when Twilio accepted the message; otherwise ``False``.
+    """
     client = _twilio_client()
     if not client:
         return False
@@ -64,7 +86,16 @@ def send_sms(to_number: str, body: str) -> bool:
 
 
 def _fetch_open_indices(year: str, term: str, campus: str) -> set[str]:
-    """Returns a set of open section index strings for the given term."""
+    """Fetch open section indexes once so snipes can share a term-level request.
+
+    Args:
+        year: SIS calendar year.
+        term: SIS numeric term code.
+        campus: SIS campus code.
+
+    Returns:
+        Open section index strings, or an empty set when SIS is unavailable.
+    """
     try:
         resp = http_requests.get(
             SOC_OPEN_URL,
@@ -79,9 +110,16 @@ def _fetch_open_indices(year: str, term: str, campus: str) -> set[str]:
 
 
 def fetch_sections_for_subject(subject: str, year: str, term: str, campus: str) -> list[dict]:
-    """
-    Returns a list of section dicts for all courses under a subject.
-    Each dict has: index, sectionNumber, openStatus, instructors, meetingTimes, courseNumber, courseTitle
+    """Flatten SIS courses into section records suitable for sniper selection.
+
+    Args:
+        subject: Rutgers subject code.
+        year: SIS calendar year.
+        term: SIS numeric term code.
+        campus: SIS campus code.
+
+    Returns:
+        Section dictionaries with identifiers, status, instructors, and meetings.
     """
     try:
         resp = http_requests.get(
@@ -126,9 +164,10 @@ def fetch_sections_for_subject(subject: str, year: str, term: str, campus: str) 
 
 
 def poll_snipes() -> None:
-    """
-    Called by APScheduler every 2 minutes.
-    Checks all active un-notified snipes and sends an SMS if a section opened.
+    """Poll active snipes in batches and mark successfully notified requests.
+
+    The worker calls this periodically. Grouping by term avoids one SIS request
+    per user, while committing only successful messages permits later retries.
     """
     db = SessionLocal()
     try:

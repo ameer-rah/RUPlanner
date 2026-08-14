@@ -16,10 +16,17 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 class Base(DeclarativeBase):
+    """Shared declarative base used to register every database model."""
+
     pass
 
 
 def get_db():
+    """Provide one request-scoped database session and always close it.
+
+    Yields:
+        A SQLAlchemy session for a FastAPI dependency consumer.
+    """
     db = SessionLocal()
     try:
         yield db

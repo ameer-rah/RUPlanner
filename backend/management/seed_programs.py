@@ -43,6 +43,7 @@ REGISTRY_FILES = [
 
 
 def seed() -> None:
+    """Upsert every registry program so JSON definitions remain the source of truth."""
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
     inserted = updated = skipped = 0

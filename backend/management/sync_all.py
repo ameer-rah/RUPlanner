@@ -16,6 +16,15 @@ BACKEND = Path(__file__).resolve().parents[1]
 
 
 def run(label: str, args: list[str]) -> bool:
+    """Run one pipeline module and signal whether later stages may continue.
+
+    Args:
+        label: Human-readable stage heading.
+        args: Module name and command-line arguments.
+
+    Returns:
+        ``True`` on a zero exit status; otherwise ``False``.
+    """
     print(f"\n{'='*60}")
     print(f"  {label}")
     print(f"{'='*60}")
@@ -27,6 +36,7 @@ def run(label: str, args: list[str]) -> bool:
 
 
 def main() -> None:
+    """Run ingestion, correction, seeding, and index generation in order."""
     parser = argparse.ArgumentParser(description="Full RU Planner data pipeline.")
     parser.add_argument("--year", type=int, default=2026)
     parser.add_argument(

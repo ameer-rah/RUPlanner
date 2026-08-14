@@ -14,6 +14,7 @@ def utc_now() -> datetime:
 
 
 class Course(Base):
+    """Catalog course keyed by its canonical Rutgers three-part code."""
     __tablename__ = "courses"
 
     # The full Rutgers offering-unit/subject/number tuple is the identity.
@@ -32,6 +33,7 @@ class Course(Base):
 
 
 class Program(Base):
+    """Versioned degree program and its JSON requirement definition."""
     __tablename__ = "programs"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -50,6 +52,7 @@ class Program(Base):
 
 
 class User(Base):
+    """Planner account, onboarding profile, and most recently generated plan."""
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -62,6 +65,7 @@ class User(Base):
 
 
 class SavedSchedule(Base):
+    """Named snapshot of schedule data owned by a user."""
     __tablename__ = "saved_schedules"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -74,6 +78,7 @@ class SavedSchedule(Base):
 
 
 class PasswordResetToken(Base):
+    """Single-use, expiring credential for resetting a user's password."""
     __tablename__ = "password_reset_tokens"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -85,6 +90,7 @@ class PasswordResetToken(Base):
 
 
 class Snipe(Base):
+    """User request to send one alert when a particular section opens."""
     __tablename__ = "snipes"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)

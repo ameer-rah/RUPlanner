@@ -49,6 +49,14 @@ REGISTRY_FILES = [
 
 
 def load_all_courses(db) -> dict[str, str]:
+    """Load valid friendly course codes and titles for correction validation.
+
+    Args:
+        db: Open SQLAlchemy session.
+
+    Returns:
+        Mapping from course code to catalog title.
+    """
     rows = db.query(models.Course).with_entities(
         models.Course.code, models.Course.title
     ).all()
@@ -56,6 +64,14 @@ def load_all_courses(db) -> dict[str, str]:
 
 
 def courses_by_prefix(all_courses: dict[str, str]) -> dict[str, list[str]]:
+    """Group catalog codes by department prefix to narrow correction choices.
+
+    Args:
+        all_courses: Mapping of valid catalog codes to titles.
+
+    Returns:
+        Mapping of each alphabetic prefix to its course codes.
+    """
     by_prefix: dict[str, list[str]] = {}
     for code in all_courses:
         prefix = re.sub(r"\d.*", "", code)
@@ -71,6 +87,19 @@ def ask_claude(
     all_required: list[str],
     candidates: list[tuple[str, str]],
 ) -> str | None:
+    """Ask Claude for a conservative replacement for one missing course code.
+
+    Args:
+        client: Configured Anthropic API client.
+        wrong_code: Code absent from the local catalog.
+        program_name: Program containing the suspect code.
+        school: School that owns the program.
+        all_required: Other required codes used as program context.
+        candidates: Valid nearby catalog codes and titles.
+
+    Returns:
+        The suggested replacement code, or ``None`` when no confident answer exists.
+    """
     candidates_text = "\n".join(
         f"  {code}: {title}" for code, title in candidates[:60]
     )
@@ -118,7 +147,18 @@ def fix_file(
     client: anthropic.Anthropic,
     dry_run: bool,
 ) -> tuple[int, int]:
-    """Fix one registry file. Returns (corrections_made, codes_left_missing)."""
+    """Audit and optionally rewrite invalid course codes in one registry.
+
+    Args:
+        registry_path: Program registry JSON file to inspect.
+        all_courses: Valid course-code-to-title mapping.
+        prefix_map: Valid codes grouped by department prefix.
+        client: Configured Anthropic client used for suggestions.
+        dry_run: If true, report corrections without writing the file.
+
+    Returns:
+        Counts of accepted corrections and unresolved codes.
+    """
     data = json.loads(registry_path.read_text())
     programs: dict = data.get("programs", {})
     corrections = 0
@@ -186,6 +226,7 @@ def fix_file(
 
 
 def main() -> None:
+    """Audit selected registries and optionally persist validated corrections."""
     parser = argparse.ArgumentParser(
         description="Fix wrong Rutgers course codes in program JSON files using Claude"
     )

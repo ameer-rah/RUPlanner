@@ -45,6 +45,14 @@ _TRANSFER_COLUMN_RE = re.compile(
 
 
 def normalize_raw_code(value: Any) -> str | None:
+    """Normalize a Rutgers catalog code so transcript rows can be matched safely.
+
+    Args:
+        value: Candidate code, normally in ``school:subject:course`` form.
+
+    Returns:
+        The whitespace-free code when valid, otherwise ``None``.
+    """
     if not isinstance(value, str):
         return None
     compact = re.sub(r"\s+", "", value)
@@ -53,7 +61,14 @@ def normalize_raw_code(value: Any) -> str | None:
 
 
 def extract_deterministic_rows(text: str) -> list[dict[str, Any]]:
-    """Extract conventional text-PDF Rutgers rows without an AI dependency."""
+    """Extract conventional Rutgers transcript rows without an AI dependency.
+
+    Args:
+        text: Plain text recovered from a transcript PDF.
+
+    Returns:
+        Parsed course-attempt dictionaries in source order.
+    """
     semester = ""
     is_transfer = False
     rows: list[dict[str, Any]] = []
@@ -132,11 +147,19 @@ def merge_extracted_rows(
     Printed raw-code/term pairs identify attempts. Local values win, except an
     AI grade may fill a blank caused by PDF column extraction. AI-only attempts
     are retained and are still catalog/status validated by the caller.
+
+    Args:
+        deterministic_rows: Rows parsed from known transcript layouts.
+        ai_rows: Rows extracted by the language model.
+
+    Returns:
+        Deduplicated rows with deterministic values preferred.
     """
     merged: list[dict[str, Any]] = []
     positions: dict[tuple[str, str], int] = {}
 
     def row_key(row: dict[str, Any]) -> tuple[str, str]:
+        """Build a stable attempt key from course identity and semester."""
         raw = normalize_raw_code(row.get("raw_code"))
         semester = str(row.get("semester") or "").strip().lower()
         if raw:
@@ -167,6 +190,14 @@ def merge_extracted_rows(
 
 
 def classify_grade(value: Any) -> tuple[str, bool, bool, bool]:
+    """Translate a transcript grade into mutually useful course-status flags.
+
+    Args:
+        value: Grade value supplied by a parser or extraction model.
+
+    Returns:
+        The normalized grade and passed, failed, and in-progress flags.
+    """
     grade = str(value or "").strip().upper()
     if not grade:
         return grade, False, False, True
@@ -179,6 +210,14 @@ def classify_grade(value: Any) -> tuple[str, bool, bool, bool]:
 
 
 def _credits(value: Any) -> float:
+    """Coerce a plausible per-course credit value while rejecting unsafe input.
+
+    Args:
+        value: Extracted credit value.
+
+    Returns:
+        A credit value from zero through 25, or ``0.0`` when invalid.
+    """
     try:
         credits = float(value)
     except (TypeError, ValueError):
@@ -196,6 +235,14 @@ def normalize_extracted_courses(
     A short code is accepted only when it is backed by a recognized raw Rutgers
     code or exists in the local catalog. Transfer-title guesses are deliberately
     left unmatched; official equivalency data must supply those mappings.
+
+    Args:
+        rows: Untrusted extracted course dictionaries.
+        raw_code_map: Canonical raw-code-to-friendly-code mapping.
+        known_codes: Friendly course codes present in the local catalog.
+
+    Returns:
+        Validated course details safe for planner status calculations.
     """
     result: list[CourseDetail] = []
     for row in rows:
@@ -239,8 +286,17 @@ def normalize_extracted_courses(
 def latest_status_codes(
     courses: list[CourseDetail], *, canonical: bool = False
 ) -> tuple[list[str], list[str]]:
-    """Return completed/in-progress codes using the latest attempt per course."""
+    """Determine completed and current courses without losing earlier credit.
+
+    Args:
+        courses: Normalized transcript attempts.
+        canonical: Use raw Rutgers codes instead of friendly display codes.
+
+    Returns:
+        Lists of completed and currently in-progress course identities.
+    """
     def term_key(course: CourseDetail, position: int) -> tuple[int, int, int]:
+        """Convert a transcript term into a sortable chronological key."""
         match = _TERM_RE.fullmatch(course.semester)
         if not match:
             return (-1, -1, position)

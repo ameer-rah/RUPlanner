@@ -74,6 +74,14 @@ SUBJECT_TO_PREFIX: dict[str, str] = {
 
 
 def _fetch(url: str) -> bytes:
+    """Download an SIS response and transparently decode gzip payloads.
+
+    Args:
+        url: Fully formed SIS API URL.
+
+    Returns:
+        Uncompressed response bytes ready for JSON decoding.
+    """
     req = urllib.request.Request(
         url,
         headers={"Accept-Encoding": "gzip", "User-Agent": "RUPlanner/1.0"},
@@ -86,6 +94,15 @@ def _fetch(url: str) -> bytes:
 
 
 def _merge_term(courses: list, index: dict) -> int:
+    """Merge one term's SAS Core designations into the cross-term index.
+
+    Args:
+        courses: Raw course objects returned by SIS.
+        index: Mutable mapping of friendly course codes to designations.
+
+    Returns:
+        Number of course codes newly added to the index.
+    """
     added = 0
     for c in courses:
         if c.get("offeringUnitCode", "").strip() != SAS_OFFERING_UNIT:
@@ -112,6 +129,7 @@ def _merge_term(courses: list, index: dict) -> int:
 
 
 def main() -> None:
+    """Build and write the SAS Core lookup for the requested academic year."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--year", default="2025")
     args = parser.parse_args()

@@ -7,10 +7,12 @@ _PROGRAM_NAME_RE = re.compile(r"^[A-Za-z0-9 _,.\-&/'()–—]+$")
 
 
 class CourseInput(BaseModel):
+    """Represent a course code supplied as planner input."""
     code: str
 
 
 class ElectiveOption(BaseModel):
+    """Describe one concrete course that can fill an elective slot."""
     code: str
     title: str
     credits: float
@@ -18,6 +20,7 @@ class ElectiveOption(BaseModel):
 
 
 class PlanRequest(BaseModel):
+    """Validate the academic profile and constraints used to build a plan."""
     degree_level: str = Field("bachelor", description="Associate, Bachelor, or Master")
     majors: Annotated[List[str], Field(max_length=5)]
     minors: Annotated[List[str], Field(max_length=5)]
@@ -38,6 +41,17 @@ class PlanRequest(BaseModel):
     @field_validator("majors", "minors", "concentrations", mode="before")
     @classmethod
     def validate_program_names(cls, v: list) -> list:
+        """Reject unsafe or excessively long program names before planning.
+
+        Args:
+            v: Program names submitted by the client.
+
+        Returns:
+            The validated list without modification.
+
+        Raises:
+            ValueError: If a name has an invalid type, length, or character.
+        """
         for name in v:
             if not isinstance(name, str) or len(name) > 200:
                 raise ValueError(f"Invalid program name: {name!r}")
@@ -60,6 +74,17 @@ class PlanRequest(BaseModel):
     @field_validator("completed_courses", "in_progress_courses", mode="before")
     @classmethod
     def validate_course_codes(cls, v: list) -> list:
+        """Ensure completed and in-progress courses use supported code formats.
+
+        Args:
+            v: Course codes submitted by the client.
+
+        Returns:
+            The validated list without modification.
+
+        Raises:
+            ValueError: If any course code is malformed.
+        """
         for code in v:
             if not isinstance(code, str) or not _COURSE_CODE_RE.match(code):
                 raise ValueError(f"Invalid course code: {code!r}")
@@ -68,6 +93,17 @@ class PlanRequest(BaseModel):
     @field_validator("course_grades", mode="before")
     @classmethod
     def validate_course_grades(cls, v: dict) -> dict:
+        """Validate grade mappings and normalize their values for comparison.
+
+        Args:
+            v: Mapping of course codes to registrar grades.
+
+        Returns:
+            A mapping with uppercase course codes and grades.
+
+        Raises:
+            ValueError: If the mapping is too large or contains invalid data.
+        """
         if len(v) > 200:
             raise ValueError("Too many course grades")
         for code, grade in v.items():
@@ -80,6 +116,17 @@ class PlanRequest(BaseModel):
     @field_validator("preferred_seasons", mode="before")
     @classmethod
     def validate_seasons(cls, v: list) -> list:
+        """Restrict scheduling preferences to supported academic seasons.
+
+        Args:
+            v: Preferred season names.
+
+        Returns:
+            The validated list without modification.
+
+        Raises:
+            ValueError: If any season is unsupported.
+        """
         valid = {"Spring", "Summer", "Fall", "Winter"}
         for s in v:
             if s not in valid:
@@ -89,6 +136,17 @@ class PlanRequest(BaseModel):
     @field_validator("degree_level", mode="before")
     @classmethod
     def validate_degree_level(cls, v: str) -> str:
+        """Restrict plan generation to recognized degree levels.
+
+        Args:
+            v: Degree level supplied by the client.
+
+        Returns:
+            The validated degree level.
+
+        Raises:
+            ValueError: If the degree level is unsupported.
+        """
         valid = {"associate", "bachelor", "master", "doctorate"}
         if v.lower() not in valid:
             raise ValueError(f"Invalid degree level: {v!r}")
@@ -96,6 +154,7 @@ class PlanRequest(BaseModel):
 
 
 class PlannedCourse(BaseModel):
+    """Describe a course placement and its role in a generated plan."""
     code: str
     title: str
     credits: float
@@ -108,12 +167,14 @@ class PlannedCourse(BaseModel):
 
 
 class TermPlan(BaseModel):
+    """Group planned courses and their credit total for one academic term."""
     term: str
     courses: List[PlannedCourse]
     total_credits: float
 
 
 class CoreCurriculumBlock(BaseModel):
+    """Summarize progress and options for one core-curriculum requirement."""
     title: str
     total_courses: Optional[int]
     courses: List[str]
@@ -126,6 +187,7 @@ class CoreCurriculumBlock(BaseModel):
 
 
 class CourseDetail(BaseModel):
+    """Store normalized transcript details used to audit course matching."""
     title_raw: str
     raw_code: Optional[str] = None
     rutgers_code: Optional[str] = None
@@ -140,6 +202,7 @@ class CourseDetail(BaseModel):
 
 
 class TranscriptResult(BaseModel):
+    """Return normalized transcript courses and planner-ready status data."""
     matched: List[str]
     in_progress: List[str] = []
     inferred: Dict[str, str] = {}
@@ -152,11 +215,13 @@ class TranscriptResult(BaseModel):
 
 
 class CourseStatus(BaseModel):
+    """Associate a required course with its current completion state."""
     code: str
     status: str  # "completed" | "in_progress" | "planned" | "not_scheduled"
 
 
 class ProgramSummary(BaseModel):
+    """Summarize completed and outstanding requirements for one program."""
     name: str
     type: str  # "major" | "minor" | "concentration"
     required: List[CourseStatus] = []
@@ -174,6 +239,7 @@ class ProgramSummary(BaseModel):
 
 
 class PlanResponse(BaseModel):
+    """Represent a generated multi-term plan and its completion metadata."""
     terms: List[TermPlan]
     remaining_courses: List[str]
     warnings: List[str]
@@ -187,6 +253,7 @@ class PlanResponse(BaseModel):
 
 
 class ProgramInfo(BaseModel):
+    """Expose catalog metadata needed to select a degree program or track."""
     school: str
     degree_level: str
     major_name: str
@@ -198,6 +265,7 @@ class ProgramInfo(BaseModel):
 
 
 class CourseSearchResult(BaseModel):
+    """Provide the catalog fields displayed for a course search match."""
     code: str
     title: str
     credits: float
@@ -207,20 +275,24 @@ class CourseSearchResult(BaseModel):
 
 
 class GoogleAuthRequest(BaseModel):
+    """Carry the Google identity credential exchanged during sign-in."""
     credential: str
 
 
 class Token(BaseModel):
+    """Return an access token and its authentication scheme."""
     access_token: str
     token_type: str
 
 
 class SaveScheduleRequest(BaseModel):
+    """Carry a named plan snapshot for persistent schedule storage."""
     name: str = "My Schedule"
     plan_data: dict
 
 
 class SavedScheduleInfo(BaseModel):
+    """Describe a persisted schedule returned to its owner."""
     id: int
     name: str
     created_at: str
@@ -228,6 +300,7 @@ class SavedScheduleInfo(BaseModel):
 
 
 class SnipeCreate(BaseModel):
+    """Validate the section and contact data needed to create an alert."""
     course_code: str
     course_title: str
     section_index: str
@@ -239,6 +312,7 @@ class SnipeCreate(BaseModel):
 
 
 class SnipeOut(BaseModel):
+    """Expose a stored section alert with decrypted owner-facing details."""
     id: int
     course_code: str
     course_title: str

@@ -117,6 +117,7 @@ def _soc_courses_for_term(year: int, season: str) -> list[dict]:
 
 
 def _soc_course_result(course: dict) -> CourseSearchResult:
+    """Convert a Rutgers SOC course payload into the public search schema."""
     subject = str(course.get("subject", "")).zfill(3)
     number = str(course.get("courseNumber", "")).lstrip("0") or "0"
     prefix = _SUBJECT_TO_PREFIX.get(subject)
@@ -146,6 +147,7 @@ if _PHONE_ENCRYPTION_KEY:
         logger.warning("Invalid PHONE_ENCRYPTION_KEY; phone numbers will be stored unencrypted")
 
 def _encrypt_phone(phone: str) -> str:
+    """Encrypt a phone number when encryption is configured, with safe fallback."""
     if not _phone_cipher:
         return phone
     try:
@@ -155,6 +157,7 @@ def _encrypt_phone(phone: str) -> str:
         return phone
 
 def _decrypt_phone(encrypted: str) -> str:
+    """Decrypt a stored phone number for its owner, with legacy-safe fallback."""
     if not _phone_cipher:
         return encrypted
     try:
@@ -172,6 +175,7 @@ _limiter = Limiter(
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
+    """Create database tables before accepting requests and manage app lifetime."""
     Base.metadata.create_all(bind=engine)
     yield
 
@@ -196,11 +200,20 @@ app.add_middleware(
 
 @app.exception_handler(Exception)
 async def _global_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+    """Log unexpected failures while hiding internal details from API clients."""
     logger.error("Unhandled exception on %s %s", request.method, request.url.path, exc_info=exc)
     return JSONResponse(status_code=500, content={"detail": "An internal error occurred. Please try again."})
 
 
 def _create_token(user_id: int) -> str:
+    """Create the time-limited JWT used to authenticate a user.
+
+    Args:
+        user_id: Database identifier encoded as the token subject.
+
+    Returns:
+        A signed JWT string.
+    """
     expire = datetime.utcnow() + timedelta(days=ACCESS_TOKEN_EXPIRE_DAYS)
     return jwt.encode({"sub": str(user_id), "exp": expire}, SECRET_KEY, algorithm=ALGORITHM)
 
@@ -208,6 +221,11 @@ def _get_current_user_id(
     request: Request,
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(HTTPBearer(auto_error=False)),
 ) -> int:
+    """Authenticate a bearer token or cookie and return its user identifier.
+
+    Raises:
+        HTTPException: If the token is missing, invalid, or lacks a subject.
+    """
     token = credentials.credentials if credentials else request.cookies.get("ru_planner_token")
     if not token:
         raise HTTPException(status_code=401, detail="Not authenticated")
@@ -222,6 +240,7 @@ def _get_current_user_id(
 
 @app.get("/health")
 def health() -> dict:
+    """Report that the API process is available for health checks."""
     return {"status": "ok"}
 
 
@@ -249,6 +268,7 @@ _PROGRAM_CACHE_LOCK = threading.Lock()
 
 @app.get("/programs", response_model=List[ProgramInfo])
 def list_programs() -> List[ProgramInfo]:
+    """List selectable programs, using a short-lived cache to reduce DB work."""
     now = time.monotonic()
     with _PROGRAM_CACHE_LOCK:
         if _PROGRAM_CACHE[1] and now - _PROGRAM_CACHE[0] < _PROGRAM_CACHE_TTL_SECONDS:
@@ -294,6 +314,11 @@ def search_courses(
     term: Optional[str] = Query(None, max_length=20),
     limit: int = Query(20, ge=1, le=100),
 ) -> List[CourseSearchResult]:
+    """Search official term offerings or the local catalog for matching courses.
+
+    Raises:
+        HTTPException: If the query or requested semester is malformed.
+    """
     if not q:
         return []
     if not re.match(r"^[a-zA-Z0-9\s\-:]+$", q):
@@ -403,12 +428,14 @@ async def generate_plan(
     payload: PlanRequest,
     user_id: int = Depends(_get_current_user_id),
 ) -> PlanResponse:
+    """Generate and persist a degree plan for the authenticated user."""
     return await _generate_plan(payload, user_id)
 
 
 @app.post("/dev/plan", response_model=PlanResponse, include_in_schema=False)
 @_limiter.limit("60/minute")
 async def generate_preview_plan(request: Request, payload: PlanRequest) -> PlanResponse:
+    """Generate an unauthenticated plan only for local development clients."""
     client_host = request.client.host if request.client else ""
     origin = request.headers.get("origin", "")
     loopback_hosts = {"127.0.0.1", "::1", "localhost", "testclient"}
@@ -419,6 +446,11 @@ async def generate_preview_plan(request: Request, payload: PlanRequest) -> PlanR
 
 
 async def _generate_plan(payload: PlanRequest, user_id: Optional[int]) -> PlanResponse:
+    """Run the CPU-bound planner with a timeout and optionally save its result.
+
+    Raises:
+        HTTPException: If planning times out or the request cannot be planned.
+    """
     try:
         loop = asyncio.get_running_loop()
         result = await asyncio.wait_for(
@@ -527,6 +559,11 @@ async def _extract_chunk(client, section_label: str, section_text: str) -> list:
 @app.post("/parse-transcript", response_model=TranscriptResult)
 @_limiter.limit("5/minute")
 async def parse_transcript(request: Request, file: UploadFile = File(...)) -> TranscriptResult:
+    """Extract, validate, and normalize a PDF transcript for planner input.
+
+    Raises:
+        HTTPException: If the upload is invalid or no course rows can be extracted.
+    """
     import anthropic as _anthropic
 
     if not file.filename or not file.filename.lower().endswith(".pdf"):
@@ -677,6 +714,7 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
 @app.post("/auth/google", response_model=Token)
 @_limiter.limit("5/minute")
 def google_auth(request: Request, payload: GoogleAuthRequest, response: Response) -> Token:
+    """Verify Google identity, provision the user, and issue a login token."""
     if not GOOGLE_CLIENT_ID:
         raise HTTPException(status_code=500, detail="Google auth is not configured on the server.")
     try:
@@ -711,6 +749,7 @@ def google_auth(request: Request, payload: GoogleAuthRequest, response: Response
 
 @app.get("/auth/me")
 def me(user_id: int = Depends(_get_current_user_id)):
+    """Return basic identity and onboarding state for the current user."""
     db = SessionLocal()
     try:
         user = db.query(models.User).filter(models.User.id == user_id).first()
@@ -727,6 +766,7 @@ def me(user_id: int = Depends(_get_current_user_id)):
 
 @app.get("/profile")
 def get_profile(user_id: int = Depends(_get_current_user_id)):
+    """Return the current user's saved planner profile and latest plan."""
     db = SessionLocal()
     try:
         user = db.query(models.User).filter(models.User.id == user_id).first()
@@ -742,12 +782,14 @@ def get_profile(user_id: int = Depends(_get_current_user_id)):
 
 @app.post("/auth/logout")
 def logout(response: Response) -> dict:
+    """End the browser session by deleting its authentication cookie."""
     response.delete_cookie(key="ru_planner_token", httponly=True, secure=True, samesite="none")
     return {"status": "ok"}
 
 
 @app.post("/schedules")
 def save_schedule(payload: SaveScheduleRequest, user_id: int = Depends(_get_current_user_id)):
+    """Persist a named schedule snapshot for the authenticated user."""
     db = SessionLocal()
     try:
         schedule = models.SavedSchedule(user_id=user_id, name=payload.name, plan_data=payload.plan_data)
@@ -760,6 +802,7 @@ def save_schedule(payload: SaveScheduleRequest, user_id: int = Depends(_get_curr
 
 @app.get("/schedules")
 def get_schedules(user_id: int = Depends(_get_current_user_id)):
+    """List schedule snapshots owned by the authenticated user."""
     db = SessionLocal()
     try:
         rows = (
@@ -774,6 +817,11 @@ def get_schedules(user_id: int = Depends(_get_current_user_id)):
 
 @app.delete("/schedules/{schedule_id}", status_code=204)
 def delete_schedule(schedule_id: int, user_id: int = Depends(_get_current_user_id)):
+    """Delete an owned schedule while preventing cross-user access.
+
+    Raises:
+        HTTPException: If the schedule does not exist or belongs to another user.
+    """
     db = SessionLocal()
     try:
         row = (
@@ -825,6 +873,7 @@ query NewSearchTeachersQuery($text: String!, $schoolID: ID!, $first: Int!) {
 
 
 def _cache_rmp(key: str, value: dict | None, created_at: float) -> None:
+    """Store a professor lookup while expiring stale and excess cache entries."""
     with _RMP_CACHE_LOCK:
         expired = [
             name for name, (cached_at, _) in _rmp_cache.items()
@@ -838,6 +887,7 @@ def _cache_rmp(key: str, value: dict | None, created_at: float) -> None:
         _rmp_cache[key] = (created_at, value)
 
 def _get_rmp_session() -> "_requests.Session":
+    """Lazily create the warmed HTTP session used for professor lookups."""
     global _rmp_session
     if _rmp_session is None:
         _rmp_session = _requests.Session()
@@ -845,6 +895,7 @@ def _get_rmp_session() -> "_requests.Session":
     return _rmp_session
 
 def _name_matches(query: str, first: str, last: str) -> bool:
+    """Check that every queried name part occurs in the candidate's name."""
     parts = query.lower().split()
     first_l, last_l = first.lower(), last.lower()
     return all(p in first_l or p in last_l for p in parts)
@@ -852,6 +903,7 @@ def _name_matches(query: str, first: str, last: str) -> bool:
 @app.get("/rmp/rating")
 @_limiter.limit("60/minute")
 def rmp_rating(request: Request, name: str = Query(..., max_length=100)):
+    """Return a cached Rate My Professors match for a Rutgers instructor."""
     if "," in name:
         parts = [p.strip().title() for p in name.split(",", 1)]
         query_name = f"{parts[1]} {parts[0]}"
@@ -903,10 +955,16 @@ def soc_section_by_index(
     term: str = Query(..., pattern=r"^\d$"),
     campus: str = Query("NB", pattern=r"^[A-Z]{2,3}$"),
 ):
+    """Find one Rutgers section by index across undergraduate and graduate data.
+
+    Raises:
+        HTTPException: If SOC is unavailable or the section cannot be found.
+    """
     base = f"https://sis.rutgers.edu/soc/api/courses.json?year={year}&term={term}&campus={campus}"
     try:
         from concurrent.futures import ThreadPoolExecutor
         def _fetch(url):
+            """Fetch and decode one SOC level payload for the enclosing lookup."""
             r = _requests.get(url, timeout=12)
             r.raise_for_status()
             return r.json()
@@ -944,6 +1002,7 @@ def soc_sections(
     campus: str = Query("NB"),
     courseNumber: str = Query(None),
 ):
+    """List SOC sections for a subject, optionally narrowed to a course number."""
     sections = fetch_sections_for_subject(subject, year, term, campus)
     if courseNumber:
         sections = [s for s in sections if s["courseNumber"] == courseNumber]
@@ -952,6 +1011,7 @@ def soc_sections(
 @app.post("/snipes", response_model=SnipeOut)
 @_limiter.limit("10/minute")
 def create_snipe(request: Request, payload: SnipeCreate, user_id: int = Depends(_get_current_user_id)):
+    """Create an owned section-opening alert with protected contact data."""
     db = SessionLocal()
     try:
         encrypted_phone = _encrypt_phone(payload.phone_number)
@@ -975,6 +1035,7 @@ def create_snipe(request: Request, payload: SnipeCreate, user_id: int = Depends(
 
 @app.get("/snipes", response_model=List[SnipeOut])
 def list_snipes(user_id: int = Depends(_get_current_user_id)):
+    """List section alerts owned by the authenticated user."""
     db = SessionLocal()
     try:
         rows = (
@@ -989,6 +1050,11 @@ def list_snipes(user_id: int = Depends(_get_current_user_id)):
 
 @app.delete("/snipes/{snipe_id}", status_code=204)
 def delete_snipe(snipe_id: int, user_id: int = Depends(_get_current_user_id)):
+    """Delete an owned section alert while preventing cross-user access.
+
+    Raises:
+        HTTPException: If the alert does not exist or belongs to another user.
+    """
     db = SessionLocal()
     try:
         row = (
@@ -1004,6 +1070,7 @@ def delete_snipe(snipe_id: int, user_id: int = Depends(_get_current_user_id)):
         db.close()
 
 def _require_admin(credentials: HTTPAuthorizationCredentials = Depends(_bearer)) -> None:
+    """Require the configured administrative bearer token for maintenance APIs."""
     if not ADMIN_TOKEN or credentials.credentials != ADMIN_TOKEN:
         raise HTTPException(status_code=403, detail="Forbidden")
 
@@ -1026,6 +1093,7 @@ def admin_ingest_courses():
 
 
 def _snipe_to_out(s: models.Snipe) -> SnipeOut:
+    """Convert a stored alert into its decrypted owner-facing response model."""
     return SnipeOut(
         id=s.id,
         course_code=s.course_code,
