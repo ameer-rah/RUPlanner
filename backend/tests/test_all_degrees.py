@@ -10,6 +10,18 @@ SUPPORTED_UNDERGRAD_LEVELS = {
 }
 
 
+def _with_first_required_track(program: dict) -> str:
+    selections = []
+    for dimension in program.get("track_dimensions", []):
+        selections.append(next(iter(dimension.get("options", {})), ""))
+    if not selections and program.get("tracks"):
+        selections.append(program["tracks"][0])
+    if not selections:
+        return program["display_name"]
+    name, suffix = program["display_name"].rsplit(" (", 1)
+    return f"{name} — {'/'.join(selections)} ({suffix}"
+
+
 def test_every_listed_undergraduate_program_can_be_planned():
     client = TestClient(app)
     programs_response = client.get("/programs")
@@ -32,9 +44,9 @@ def test_every_listed_undergraduate_program_can_be_planned():
     for program in programs:
         if program["degree_level"] == "minor":
             majors = ["African, Middle Eastern and South Asian Languages and Literatures (BA, SAS)"]
-            minors = [program["display_name"]]
+            minors = [_with_first_required_track(program)]
         else:
-            majors = [program["display_name"]]
+            majors = [_with_first_required_track(program)]
             minors = []
         response = client.post(
             "/plan", json={**base_payload, "majors": majors, "minors": minors},

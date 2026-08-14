@@ -15,6 +15,7 @@ export type PlannedCourse = {
   title: string;
   credits: number;
   is_elective: boolean;
+  is_general_elective?: boolean;
   prerequisites: string[];
   elective_options: ElectiveOption[];
   core_tags?: string[];
@@ -128,7 +129,13 @@ function ElectivePicker({
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
-type CourseResult = { code: string; title: string; credits: number };
+type CourseResult = {
+  code: string;
+  title: string;
+  credits: number;
+  prerequisites: string[];
+  core_tags: string[];
+};
 
 function AddCourseModal({
   terms,
@@ -154,21 +161,32 @@ function AddCourseModal({
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const search = useCallback((q: string) => {
-    if (!q.trim()) { setResults([]); return; }
+  const search = useCallback((q: string, termIdx: number | null) => {
+    if (!q.trim() || termIdx === null) { setResults([]); return; }
     setLoading(true);
-    fetch(`${apiBase}/courses?q=${encodeURIComponent(q)}&limit=8`)
+    const term = terms[termIdx]?.term ?? "";
+    fetch(`${apiBase}/courses?q=${encodeURIComponent(q)}&term=${encodeURIComponent(term)}&limit=50`)
       .then((r) => (r.ok ? r.json() : []))
-      .then((data: CourseResult[]) => setResults(data ?? []))
+      .then((data: CourseResult[]) => {
+        const existing = new Set(terms.flatMap((planTerm) => planTerm.courses.map((course) => course.code)));
+        setResults((data ?? []).filter((course) => !existing.has(course.code)));
+      })
       .catch(() => setResults([]))
       .finally(() => setLoading(false));
-  }, []);
+  }, [terms]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const val = e.target.value;
     setQuery(val);
     if (debounceRef.current) clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(() => search(val), 200);
+    debounceRef.current = setTimeout(() => search(val, selectedTermIdx), 200);
+  }
+
+  function handleTermSelect(termIdx: number) {
+    setSelectedTermIdx(termIdx);
+    setNoTermError(false);
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    if (query.trim()) search(query, termIdx);
   }
 
   function handleSelect(course: CourseResult) {
@@ -181,8 +199,10 @@ function AddCourseModal({
       title: course.title,
       credits: course.credits,
       is_elective: false,
-      prerequisites: [],
+      is_general_elective: false,
+      prerequisites: course.prerequisites ?? [],
       elective_options: [],
+      core_tags: course.core_tags ?? [],
     });
     onClose();
   }
@@ -201,49 +221,19 @@ function AddCourseModal({
         <div className="elective-modal-header">
           <div>
             <div className="elective-modal-title">Add a course</div>
-            <div className="elective-modal-sub">Search for a course, then pick a semester</div>
+            <div className="elective-modal-sub">Official Rutgers offerings for the semester you choose</div>
           </div>
           <button className="elective-modal-close" onClick={onClose}>✕</button>
         </div>
 
-        {/* Course search */}
-        <div style={{ padding: "0 20px 16px" }}>
-          <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8, marginTop: 16 }}>Course</label>
-          <input
-            autoFocus
-            className="input"
-            placeholder="Search by code or name…"
-            value={query}
-            onChange={handleChange}
-            style={{ width: "100%", boxSizing: "border-box" }}
-          />
-
-          {(results.length > 0 || loading) && (
-            <div className="add-course-results" style={{ marginTop: 6 }}>
-              {loading && <div className="add-course-result-loading">Searching…</div>}
-              {results.map((c) => (
-                <button
-                  key={c.code}
-                  className="add-course-result-row"
-                  onClick={() => handleSelect(c)}
-                >
-                  <span className="add-course-result-code">{c.code}</span>
-                  <span className="add-course-result-title">{c.title}</span>
-                  <span className="add-course-result-credits">{c.credits} cr</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
         {/* Semester picker */}
-        <div style={{ padding: "0 20px 20px", borderTop: "1px solid var(--border)" }}>
-          <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", margin: "16px 0 10px" }}>Semester</label>
+        <div style={{ padding: "0 20px 16px" }}>
+          <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", margin: "16px 0 10px" }}>1. Semester</label>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
             {terms.map((t, idx) => (
               <button
                 key={t.term}
-                onClick={() => { setSelectedTermIdx(idx); setNoTermError(false); }}
+                onClick={() => handleTermSelect(idx)}
                 style={{
                   padding: "5px 12px",
                   borderRadius: 6,
@@ -261,10 +251,46 @@ function AddCourseModal({
               </button>
             ))}
           </div>
-          {noTermError && (
-            <p style={{ fontSize: 11, color: "var(--ru-red)", marginTop: 8 }}>Select a semester first.</p>
+        </div>
+
+        {/* Course search */}
+        <div style={{ padding: "0 20px 20px", borderTop: "1px solid var(--border)" }}>
+          <label style={{ fontSize: 11, fontWeight: 600, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.05em", display: "block", marginBottom: 8, marginTop: 16 }}>2. Course or core requirement</label>
+          <input
+            autoFocus
+            className="input"
+            placeholder={selectedTermIdx === null ? "Select a semester first" : "Try WCd, AHp, CS111, or a course name"}
+            value={query}
+            onChange={handleChange}
+            disabled={selectedTermIdx === null}
+            style={{ width: "100%", boxSizing: "border-box" }}
+          />
+
+          {(results.length > 0 || loading || (query.trim() && selectedTermIdx !== null)) && (
+            <div className="add-course-results" style={{ marginTop: 6 }}>
+              {loading && <div className="add-course-result-loading">Searching…</div>}
+              {!loading && results.length === 0 && (
+                <div className="add-course-result-loading">No matching courses are listed for {terms[selectedTermIdx!]?.term}.</div>
+              )}
+              {results.map((c) => (
+                <button
+                  key={c.code}
+                  className="add-course-result-row"
+                  onClick={() => handleSelect(c)}
+                >
+                  <span className="add-course-result-code">{c.code}</span>
+                  <span className="add-course-result-title">{c.title}</span>
+                  {c.core_tags?.length > 0 && (
+                    <span className="add-course-result-credits">{c.core_tags.join(" · ")}</span>
+                  )}
+                  <span className="add-course-result-credits">{c.credits} cr</span>
+                </button>
+              ))}
+            </div>
           )}
         </div>
+
+        {noTermError && <p style={{ fontSize: 11, color: "var(--ru-red)", margin: "0 20px 16px" }}>Select a semester first.</p>}
       </div>
     </div>
   );
@@ -582,7 +608,7 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                 {term.courses.map((course, courseIdx) => (
                   <div
                     key={course.code}
-                    className={`plan-course${course.is_elective ? " elective" : ""} draggable-course`}
+                    className={`plan-course${course.is_elective || course.is_general_elective ? " elective" : ""} draggable-course`}
                     draggable
                     onDragStart={() => handleDragStart(course, termIdx, courseIdx)}
                     onDragEnd={handleDragEnd}
@@ -594,6 +620,9 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                       </span>
                       {course.is_elective && (
                         <span className="elective-badge">ELECTIVE</span>
+                      )}
+                      {course.is_general_elective && (
+                        <span className="elective-badge">GENERAL ELECTIVE</span>
                       )}
                       <button
                         className="course-delete-btn"

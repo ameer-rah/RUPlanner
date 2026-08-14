@@ -263,7 +263,7 @@ export default function SniperPage() {
     fetch(`${apiBase}/auth/me`, { credentials: "include", headers: getAuthHeaders() })
       .then((r) => (r.ok ? r.json() : null))
       .then((user) => {
-        if (!user) { router.push("/?auth=signin"); return; }
+        if (!user) { router.push("/"); return; }
         setUserEmail(user.email);
         return fetch(`${apiBase}/snipes`, { credentials: "include", headers: getAuthHeaders() });
       })
@@ -379,9 +379,9 @@ export default function SniperPage() {
         </div>
       </header>
 
-      <div className="sniper-workspace" style={{ display: "flex", height: "calc(100vh - var(--topbar-height))", marginTop: "var(--topbar-height)", background: "var(--surface)" }}>
+      <div style={{ display: "flex", height: "calc(100vh - var(--topbar-height))", marginTop: "var(--topbar-height)", background: "var(--surface)" }}>
         {/* ── Left panel: form ── */}
-        <div className="sniper-command" style={{
+        <div style={{
           width: 420, minWidth: 340, maxWidth: 420, flexShrink: 0,
           height: "100%", overflowY: "auto",
           padding: "0 0 40px",
@@ -571,7 +571,7 @@ export default function SniperPage() {
         </div>
 
         {/* ── Right panel: active snipes ── */}
-        <div className="sniper-watchlist" style={{
+        <div style={{
           flex: 1, minWidth: 0,
           height: "100%", overflowY: "auto",
           background: "var(--surface-2)",

@@ -132,7 +132,7 @@ function SchedulesPageContent() {
   useEffect(() => {
     router.prefetch("/planner");
     fetch(`${apiBase}/auth/me`, { credentials: "include", headers: getAuthHeaders() })
-      .then((r) => { if (!r.ok) { router.push("/?auth=signin"); return null; } return r.json(); })
+      .then((r) => { if (!r.ok) { router.push("/"); return null; } return r.json(); })
       .then((user) => {
         if (!user) return;
         setUserEmail(user.email);
@@ -140,7 +140,7 @@ function SchedulesPageContent() {
       })
       .then((r) => {
         if (!r) return [];
-        if (r.status === 401) { router.push("/?auth=signin"); return []; }
+        if (r.status === 401) { router.push("/"); return []; }
         return r.ok ? r.json() : [];
       })
       .then((data: SavedSchedule[]) => {
@@ -226,7 +226,7 @@ function SchedulesPageContent() {
   }
 
   return (
-    <div className="schedules-workspace" style={{ display: "flex", height: "100vh", background: "var(--surface)" }}>
+    <div style={{ display: "flex", height: "100vh", background: "var(--surface)" }}>
       <style>{`
         @keyframes sched-fade-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
         @keyframes sched-fade-in { from { opacity:0; } to { opacity:1; } }
@@ -242,7 +242,7 @@ function SchedulesPageContent() {
       {Topbar}
 
       {/* ── Sidebar: schedule list ── */}
-      <div className="schedule-archive" style={{
+      <div style={{
         width: 260, minWidth: 200, maxWidth: 260, flexShrink: 0,
         height: "100vh", overflowY: "auto",
         paddingTop: "var(--topbar-height)",
@@ -275,7 +275,7 @@ function SchedulesPageContent() {
               return (
                 <div
                   key={s.id}
-                  className={`sched-list-item-anim schedule-archive-item${isSelected ? " selected" : ""}`}
+                  className="sched-list-item-anim"
                   onClick={() => { setSelectedId(s.id); setConfirmId(null); }}
                   style={{
                     padding: "12px 12px",
@@ -378,7 +378,7 @@ function SchedulesPageContent() {
       </div>
 
       {/* ── Detail panel ── */}
-      <div className="schedule-worktable" style={{
+      <div style={{
         flex: 1, minWidth: 0,
         height: "100vh", overflowY: "auto",
         paddingTop: "var(--topbar-height)",

@@ -7,6 +7,7 @@ from app.core.planner import (
     _get_course_level,
     _resolve_science_courses,
     _collect_missing_prereqs,
+    _apply_track,
     heuristic_plan,
 )
 from app.schemas import PlanRequest
@@ -24,6 +25,65 @@ class TestTermIndex:
 
     def test_same_term_equal(self):
         assert _term_index("Fall 2025") == _term_index("Fall 2025")
+
+
+class TestApplyTrack:
+    def test_multiple_track_dimensions_are_combined(self):
+        requirements = {
+            "track_required": True,
+            "requirement_groups": [{"label": "Base", "count": 1, "options": ["BASE100"]}],
+            "track_dimensions": [
+                {"label": "theme", "options": {"environment": {"requirement_groups": [{"label": "Theme", "count": 2, "options": []}]}}},
+                {"label": "region", "options": {"south_asia": {"requirement_groups": [{"label": "Region", "count": 2, "options": []}]}}},
+            ],
+        }
+        selected = _apply_track(requirements, "environment/south_asia")
+        assert [group["label"] for group in selected["requirement_groups"]] == ["Base", "Theme", "Region"]
+
+    def test_required_track_must_be_selected(self):
+        requirements = {
+            "required_courses": ["BASE100"],
+            "track_required": True,
+            "tracks": {"Cyber": {"required_courses": ["CYBER200"]}},
+        }
+        with pytest.raises(ValueError, match="requires a track selection"):
+            _apply_track(requirements, None)
+
+    def test_unknown_track_is_rejected(self):
+        requirements = {
+            "tracks": {
+                "Cyber": {"required_courses": ["CYBER200"]},
+                "Policy": {"required_courses": ["POLICY200"]},
+            }
+        }
+        with pytest.raises(ValueError, match="Unknown track 'Imaginary'.*Cyber, Policy"):
+            _apply_track(requirements, "Imaginary")
+
+    def test_optional_tracks_allow_general_path(self):
+        requirements = {
+            "required_courses": ["BASE100"],
+            "tracks": {"Research": {"required_courses": ["RES200"]}},
+        }
+        assert _apply_track(requirements, None) is requirements
+
+    def test_explicit_general_track_is_selectable(self):
+        requirements = {
+            "required_courses": ["BASE100"],
+            "track_required": True,
+            "tracks": {
+                "General": {"required_courses": ["GEN200"]},
+                "Research": {"required_courses": ["RES200"]},
+            },
+        }
+        selected = _apply_track(requirements, "General")
+        assert selected["required_courses"] == ["BASE100", "GEN200"]
+        assert selected["selected_track"] == "General"
+        assert "tracks" not in selected
+
+    def test_track_payload_must_be_an_object(self):
+        requirements = {"tracks": {"Broken": ["COURSE100"]}}
+        with pytest.raises(ValueError, match="invalid requirement data"):
+            _apply_track(requirements, "Broken")
 
 
 class TestTermsBetween:
@@ -336,6 +396,18 @@ class TestHeuristicPlan:
         resp = _plan(["Computer Science (BS, SAS)", "Mathematics (BS, SAS)"], grad="Spring 2030", max_cr=18)
         assert resp.remaining_courses == []
 
+    def test_four_year_dance_plan_prioritizes_prerequisite_chains(self):
+        resp = _plan(["Dance (BFA, MGSA)"], grad="Spring 2030", max_cr=18)
+        assert resp.remaining_courses == []
+        assert not any("Not all requirements fit" in warning for warning in resp.warnings)
+
+    def test_professional_school_plan_loads_shared_sas_prerequisites(self):
+        resp = _plan(["Animal Science (BS, SEBS)"], grad="Spring 2030", max_cr=18)
+        all_codes = {course.code for term in resp.terms for course in term.courses}
+        assert "MATH135" in all_codes
+        assert "MATH115" in all_codes
+        assert resp.remaining_courses == []
+
     def test_minor_courses_included(self):
         resp = _plan(
             ["Computer Science (BS, SAS)"],
@@ -384,7 +456,7 @@ class TestHeuristicPlan:
             assert "ACCT325" in all_codes, "ACCT325 (prereq of ACCT326) should be scheduled"
         assert resp.remaining_courses == [], f"Unscheduled: {resp.remaining_courses}"
 
-    def test_completion_term_when_early_finish(self):
+    def test_completed_major_courses_do_not_bypass_degree_credit_minimum(self):
         mostly_done = [
             "CS111", "CS112", "CS205", "CS206", "CS211", "CS213", "CS214",
             "MATH151", "MATH152", "MATH250",
@@ -397,6 +469,23 @@ class TestHeuristicPlan:
             completed=mostly_done,
             grad="Spring 2030",
         )
-        if not resp.remaining_courses:
-            assert resp.completion_term is not None
-            assert resp.completion_term != "Spring 2030"
+        assert resp.total_credits >= 120
+
+    def test_timeline_keeps_empty_terms_through_requested_graduation(self):
+        resp = heuristic_plan(PlanRequest(
+            degree_level="bachelor",
+            majors=["Computer Science (BS, SAS)"],
+            minors=[],
+            completed_courses=[],
+            start_term="Fall 2026",
+            target_grad_term="Spring 2030",
+            max_credits_per_term=18,
+            preferred_seasons=["Spring", "Fall"],
+        ))
+        assert [term.term for term in resp.terms] == [
+            "Fall 2026", "Spring 2027", "Fall 2027", "Spring 2028",
+            "Fall 2028", "Spring 2029", "Fall 2029", "Spring 2030",
+        ]
+        assert sum(term.total_credits for term in resp.terms) >= 120
+        assert resp.terms[-2].courses
+        assert resp.terms[-1].courses

@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field, field_validator
 from typing import Annotated, Dict, List, Optional
 
 _COURSE_CODE_RE = re.compile(r"^(?:[A-Z]{1,8}\d{1,4}[A-Z]?|\d{2}:\d{3}:\d{3,4})$")
-_PROGRAM_NAME_RE = re.compile(r"^[A-Za-z0-9 ,.\-&/'()–—]+$")
+_PROGRAM_NAME_RE = re.compile(r"^[A-Za-z0-9 _,.\-&/'()–—]+$")
 
 
 class CourseInput(BaseModel):
@@ -92,6 +92,7 @@ class PlannedCourse(BaseModel):
     title: str
     credits: float
     is_elective: bool = False
+    is_general_elective: bool = False
     prerequisites: List[str] = []
     elective_options: List[ElectiveOption] = []
     core_tags: List[str] = []
@@ -148,8 +149,14 @@ class ProgramSummary(BaseModel):
     electives_needed: int = 0
     electives_completed: List[str] = []
     electives_planned: List[str] = []
+    elective_options: List[str] = []
+    elective_min_300_plus: int = 0
+    elective_min_400_plus: int = 0
     science_completed: List[str] = []
+    science_options: List[List[str]] = []
     stats_completed: List[str] = []
+    stats_options: List[str] = []
+    requirement_groups: List[Dict] = []
 
 
 class PlanResponse(BaseModel):
@@ -157,8 +164,8 @@ class PlanResponse(BaseModel):
     remaining_courses: List[str]
     warnings: List[str]
     completion_term: Optional[str] = None
-    completed_credits: int = 0
-    total_credits: int = 0
+    completed_credits: float = 0
+    total_credits: float = 0
     core_curriculum_name: Optional[str] = None
     core_curriculum_blocks: List[CoreCurriculumBlock] = []
     completed_course_map: Dict[str, str] = {}  # {course_code: requirement_label}
@@ -172,6 +179,8 @@ class ProgramInfo(BaseModel):
     catalog_year: str
     display_name: str
     tracks: List[str] = []
+    track_labels: Dict[str, str] = {}
+    track_dimensions: List[Dict] = []
 
 
 class CourseSearchResult(BaseModel):
@@ -179,11 +188,8 @@ class CourseSearchResult(BaseModel):
     title: str
     credits: float
     raw_code: Optional[str] = None
-
-
-class UserCreate(BaseModel):
-    email: str
-    password: str
+    prerequisites: List[str] = []
+    core_tags: List[str] = []
 
 
 class GoogleAuthRequest(BaseModel):
@@ -193,15 +199,6 @@ class GoogleAuthRequest(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
-
-
-class ForgotPasswordRequest(BaseModel):
-    email: str
-
-
-class ResetPasswordRequest(BaseModel):
-    token: str
-    new_password: str
 
 
 class SaveScheduleRequest(BaseModel):

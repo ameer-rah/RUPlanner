@@ -1,11 +1,16 @@
 from typing import Any
-from datetime import datetime
+from datetime import UTC, datetime
 
-from sqlalchemy import String, Integer, Float, Text, Boolean, UniqueConstraint, DateTime, ForeignKey
+from sqlalchemy import String, Integer, Float, Text, Boolean, UniqueConstraint, DateTime, ForeignKey, Index
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import JSON
 
 from .database import Base
+
+
+def utc_now() -> datetime:
+    """Return naive UTC for compatibility with the existing database columns."""
+    return datetime.now(UTC).replace(tzinfo=None)
 
 
 class Course(Base):
@@ -53,7 +58,7 @@ class User(Base):
     onboarding_completed: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     planner_profile: Mapped[Any | None] = mapped_column(JSON, nullable=True)
     last_plan: Mapped[Any | None] = mapped_column(JSON, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now)
 
 
 class SavedSchedule(Base):
@@ -63,7 +68,9 @@ class SavedSchedule(Base):
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
     name: Mapped[str] = mapped_column(String(255), nullable=False, default="My Schedule")
     plan_data: Mapped[Any] = mapped_column(JSON, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now)
+
+    __table_args__ = (Index("ix_saved_schedules_user_created", "user_id", "created_at"),)
 
 
 class PasswordResetToken(Base):
@@ -74,7 +81,7 @@ class PasswordResetToken(Base):
     token: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
     expires_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
     used: Mapped[bool] = mapped_column(Boolean, default=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now)
 
 
 class Snipe(Base):
@@ -93,4 +100,9 @@ class Snipe(Base):
     phone_number: Mapped[str] = mapped_column(String(255), nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     notified_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now)
+
+    __table_args__ = (
+        Index("ix_snipes_user_active", "user_id", "active"),
+        Index("ix_snipes_pollable", "active", "notified_at"),
+    )

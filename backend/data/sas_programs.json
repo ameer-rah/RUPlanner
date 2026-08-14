@@ -114,6 +114,50 @@
         ],
         "any_from_catalog": false
       },
+      "track_selection": {
+        "required": true,
+        "source_url": "https://polisci.rutgers.edu/academics/undergraduate/minors-in-political-science/minor-in-critical-intelligence-studies"
+      },
+      "tracks": {
+        "cyber": {
+          "display_name": "Cyber Track",
+          "requirement_groups": [
+            {"label": "Foundational computer science", "count": 1, "options": ["CS111", "ECE127", "ITI201"]},
+            {"label": "Computer security", "count": 1, "options": ["CS419", "ITI432"]},
+            {"label": "International context", "count": 1, "options": ["POLS319", "POLS323", "POLS324", "POLS343", "POLS366"], "open_pool": "Foreign language or area studies courses also qualify with adviser approval."}
+          ]
+        },
+        "technology": {
+          "display_name": "Technology Track",
+          "requirement_groups": [
+            {"label": "Artificial intelligence", "count": 1, "options": ["CS440", "CS425"]},
+            {"label": "Data science", "count": 1, "options": ["CS439", "POLS391"]},
+            {"label": "Computer algorithms", "count": 1, "options": ["CS344"]}
+          ]
+        },
+        "policy": {
+          "display_name": "Policy Track",
+          "requirement_groups": [
+            {"label": "Policy", "count": 2, "options": ["POLS319", "POLS323", "POLS324", "POLS343", "POLS366", "01:506:218"]},
+            {"label": "International context", "count": 1, "options": [], "open_pool": "Choose a foreign language or area studies elective with the CIS adviser."}
+          ]
+        },
+        "language": {
+          "display_name": "Language Track",
+          "requirement_groups": [
+            {"label": "Language", "count": 2, "options": [], "open_pool": "Choose two courses in the same language with the language department; AP may cover at most one."},
+            {"label": "Policy", "count": 1, "options": ["POLS319", "POLS323", "POLS324", "POLS343", "POLS366"]}
+          ]
+        },
+        "engineering": {
+          "display_name": "Engineering Track",
+          "requirement_groups": [
+            {"label": "Foundational programming", "count": 1, "options": ["ECE127"]},
+            {"label": "International context", "count": 1, "options": ["POLS319", "POLS323", "POLS324", "POLS343", "POLS366"]},
+            {"label": "Language or area studies", "count": 1, "options": [], "open_pool": "Choose a foreign language or area studies course with the CIS adviser."}
+          ]
+        }
+      },
       "constraints": [
         "At least three electives must be 01:198:xxx (CS department courses).",
         "At least two electives must be at the 300 level or above.",
@@ -4164,29 +4208,31 @@
       "degree_level": "minor",
       "major_name": "Chemistry",
       "catalog_year": "2025-2026",
-      "required_courses": [
-        "CHEM161",
-        "CHEM171",
-        "CHEM162",
-        "CHEM172"
+      "required_courses": [],
+      "requirement_groups": [
+        {"label": "General chemistry sequence", "count": 3, "options": [], "open_pool": "Complete 01:160:161-162 or 01:160:163-164, plus 01:160:171."},
+        {"label": "Organic chemistry sequence", "count": 2, "options": [], "open_pool": "Complete either 01:160:307-308 or 01:160:315-316."}
       ],
-      "electives": {
-        "count": 2,
-        "min_level_300_plus": 2,
-        "options": [
-          "CHEM251",
-          "CHEM307",
-          "CHEM308",
-          "CHEM309",
-          "CHEM311",
-          "CHEM341",
-          "CHEM348",
-          "CHEM351"
-        ],
-        "any_from_catalog": false
+      "track_required": true,
+      "track_selection": {"required": true, "source_url": "https://catalogs.rutgers.edu/generated/nb-ug_current/pg120.html"},
+      "tracks": {
+        "inorganic": {"display_name": "Inorganic Chemistry Option", "requirement_groups": [
+          {"label": "Inorganic foundation", "count": 1, "options": ["CHEM311", "CHEM309"]},
+          {"label": "Inorganic chemistry", "count": 1, "options": ["CHEM351"]},
+          {"label": "Advanced inorganic choice", "count": 1, "options": ["CHEM352", "CHEM353"]}
+        ]},
+        "physical": {"display_name": "Physical Chemistry Option", "requirement_groups": [
+          {"label": "Physical foundation", "count": 1, "options": ["CHEM311", "CHEM309", "CHEM251"]},
+          {"label": "Physical chemistry sequence", "count": 2, "options": [], "open_pool": "Complete either 01:160:327-328 or 01:160:341-342."}
+        ]},
+        "chemistry_education": {"display_name": "Chemistry Education Option", "requirement_groups": [
+          {"label": "Education-option foundation", "count": 1, "options": ["CHEM311", "CHEM309"]},
+          {"label": "Advanced chemistry", "count": 2, "options": ["CHEM251", "CHEM327", "CHEM328", "CHEM341", "CHEM342", "CHEM351", "CHEM352", "CHEM353"]},
+          {"label": "Physics lecture", "count": 1, "options": ["PHYS193", "PHYS201", "PHYS203", "PHYS271"]},
+          {"label": "Physics laboratory", "count": 1, "options": ["PHYS205", "PHYS275"]}
+        ], "required_courses": ["CHEM387", "CHEM499"]}
       },
       "constraints": [
-        "At least 2 electives at 300+ level.",
         "Residency: 4 CHEM courses at Rutgers."
       ]
     },
@@ -4226,27 +4272,33 @@
       "degree_level": "minor",
       "major_name": "Data Science",
       "catalog_year": "2025-2026",
-      "required_courses": [
-        "CS111",
-        "MATH135",
-        "STAT211"
+      "required_courses": ["CS142"],
+      "requirement_groups": [
+        {"label": "Statistical inference", "count": 1, "options": ["STAT291", "STAT212", "STAT384", "BUS385"]},
+        {"label": "Data management", "count": 1, "options": ["CS210", "STAT295", "ITI221"]},
+        {"label": "Domain course", "count": 1, "options": ["CS439", "ECON322", "ENGL207", "GENET303", "GEOG320", "GEOG321", "GEOG330", "PHYS345", "POLS391", "SOC360", "STAT365", "STAT463", "STAT486", "DCIM220", "ITI321", "BIOTECH486", "ECE443", "PSYC202", "PSYC203"]}
       ],
-      "electives": {
-        "count": 3,
-        "min_level_300_plus": 2,
-        "options": [
-          "CS205",
-          "CS206",
-          "CS314",
-          "STAT291",
-          "STAT365",
-          "STAT382",
-          "STAT384"
-        ],
-        "any_from_catalog": false
+      "track_required": true,
+      "track_selection": {"required": true, "source_url": "https://datascience.sas.rutgers.edu/data-science-program/data-science-program-minor"},
+      "tracks": {
+        "computer_science": {"display_name": "Computer Science Track", "requirement_groups": [
+          {"label": "Regression methods", "count": 1, "options": ["STAT463"]},
+          {"label": "Machine learning", "count": 1, "options": ["CS461", "CS462"]}
+        ]},
+        "statistics": {"display_name": "Statistics Track", "requirement_groups": [
+          {"label": "Applied statistical learning", "count": 1, "options": ["STAT486"]},
+          {"label": "Statistics track choice", "count": 1, "options": ["ITI321", "DCIM220", "STAT463"]}
+        ]},
+        "economics": {"display_name": "Economics Track", "requirement_groups": [
+          {"label": "Machine learning for economics", "count": 1, "options": ["ECON424"]},
+          {"label": "Economics track choice", "count": 1, "options": ["ITI321", "DCIM220"]}
+        ]},
+        "societal_impact": {"display_name": "Societal Impact Track", "required_courses": ["ITI321", "ITI225"]}
       },
       "constraints": [
-        "3 additional courses; at least 2 at 300+ level."
+        "Six courses total; GPA of 2.0 in minor courses and no grade of D may count.",
+        "For the Societal Impact track, ITI321 and Data in Context cannot also satisfy the domain-course group.",
+        "Data in Context changed from DCIM220 to ITI225 beginning in 2026; prior DCIM220 credit remains valid."
       ]
     },
     "astrobiology_minor": {
@@ -4668,36 +4720,27 @@
       "degree_level": "minor",
       "major_name": "Geography",
       "catalog_year": "2025-2026",
-      "required_courses": [
-        "GEOG101"
-      ],
-      "electives": {
-        "count": 5,
-        "min_level_300_plus": 2,
-        "options": [
-          "GEOG102",
-          "GEOG103",
-          "GEOG205",
-          "GEOG211",
-          "GEOG214",
-          "GEOG272",
-          "GEOG309",
-          "GEOG311",
-          "GEOG320",
-          "GEOG322",
-          "GEOG356",
-          "GEOG363",
-          "GEOG365",
-          "GEOG366",
-          "GEOG370",
-          "GEOG402",
-          "GEOG417",
-          "GEOG470"
-        ],
-        "any_from_catalog": false
+      "required_courses": [],
+      "requirement_groups": [{"label": "Geography foundations", "count": 2, "options": ["GEOG101", "GEOG102", "GEOG103"]}],
+      "track_selection": {"required": true, "source_url": "https://geography.rutgers.edu/academics/undergraduate-program/geography/minor-in-geography"},
+      "track_required": true,
+      "tracks": {
+        "global_culture_economics_and_society": {"display_name": "Global Culture, Economics and Society", "requirement_groups": [
+          {"label": "Specialization track", "count": 3, "options": ["GEOG205", "GEOG241", "GEOG262", "GEOG309", "GEOG331", "GEOG332", "GEOG334", "GEOG335", "GEOG336", "GEOG342", "GEOG343", "GEOG361", "GEOG363", "GEOG364", "GEOG365"]},
+          {"label": "Course from another track", "count": 1, "options": ["GEOG211", "GEOG213", "GEOG214", "GEOG306", "GEOG311", "GEOG313", "GEOG360", "GEOG370", "GEOG402", "GEOG404", "GEOG413", "GEOG414", "GEOG417", "GEOG208", "GEOG320", "GEOG321", "GEOG322", "GEOG355", "GEOG356", "GEOG421", "GEOG488"]}
+        ]},
+        "environment": {"display_name": "Environment", "requirement_groups": [
+          {"label": "Specialization track", "count": 3, "options": ["GEOG211", "GEOG213", "GEOG214", "GEOG306", "GEOG311", "GEOG313", "GEOG331", "GEOG360", "GEOG370", "GEOG402", "GEOG404", "GEOG413", "GEOG414", "GEOG417"]},
+          {"label": "Course from another track", "count": 1, "options": ["GEOG205", "GEOG241", "GEOG262", "GEOG309", "GEOG332", "GEOG334", "GEOG335", "GEOG336", "GEOG342", "GEOG343", "GEOG361", "GEOG363", "GEOG364", "GEOG365", "GEOG208", "GEOG320", "GEOG321", "GEOG322", "GEOG355", "GEOG356", "GEOG421", "GEOG488"]}
+        ]},
+        "geographical_techniques": {"display_name": "Geographical Techniques", "requirement_groups": [
+          {"label": "Specialization track", "count": 3, "options": ["GEOG208", "GEOG320", "GEOG321", "GEOG322", "GEOG355", "GEOG356", "GEOG402", "GEOG421", "GEOG488"]},
+          {"label": "Course from another track", "count": 1, "options": ["GEOG205", "GEOG241", "GEOG262", "GEOG309", "GEOG331", "GEOG332", "GEOG334", "GEOG335", "GEOG336", "GEOG342", "GEOG343", "GEOG361", "GEOG363", "GEOG364", "GEOG365", "GEOG211", "GEOG213", "GEOG214", "GEOG306", "GEOG311", "GEOG313", "GEOG360", "GEOG370", "GEOG404", "GEOG413", "GEOG414", "GEOG417"]}
+        ]}
       },
       "constraints": [
-        "At least 2 electives at 300+ level."
+        "At most one of the four specialization courses may be at the 100 or 200 level.",
+        "The fourth specialization course must come from a different track."
       ]
     },
     "cognitive_science_minor": {
@@ -4952,25 +4995,40 @@
       "degree_level": "minor",
       "major_name": "Labor Studies",
       "catalog_year": "2025-2026",
-      "required_courses": [
-        "LER587"
+      "required_courses": [],
+      "requirement_groups": [
+        {"label": "Introductory Labor Studies", "count": 1, "options": ["LER100", "LER110"]},
+        {"label": "Labor Studies courses at 200 level or above", "count": 5, "options": [], "open_pool": "Choose five approved 37:575 courses at the 200 level or above."}
       ],
-      "electives": {
-        "count": 5,
-        "min_level_300_plus": 2,
-        "options": [
-          "LER102",
-          "LER201",
-          "DISA202",
-          "DISA301",
-          "LER302",
-          "DISA401",
-          "DISA490"
-        ],
-        "any_from_catalog": false
+      "track_selection": {"required": true, "source_url": "https://smlr.rutgers.edu/node/5006"},
+      "specialized_minor_variants": {
+        "general_labor_studies": {"display_name": "General Labor Studies", "requirement_groups": [{"label": "Labor Studies courses at 200 level or above", "count": 5, "options": [], "open_pool": "Choose five approved 37:575 courses at the 200 level or above."}]},
+        "diversity_in_the_workplace": {"display_name": "Diversity in the Workplace", "requirement_groups": [
+          {"label": "Diversity foundation", "count": 1, "options": ["LER315", "LER316"]},
+          {"label": "Diversity specialization", "count": 3, "options": ["LER303", "LER307", "LER309", "LER315", "LER316", "LER320", "LER321", "LER335", "HRM364", "LER365", "LER366", "LER367", "LER368"]},
+          {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+        ]},
+        "labor_unions_and_social_movements": {"display_name": "Labor Unions and Social Movements", "requirement_groups": [
+          {"label": "Specialization courses", "count": 4, "options": ["LER201", "LER202", "LER207", "LER310", "LER314", "LER319", "LER322", "LER335", "LER340", "LER350", "LER357", "LER359", "LER360"]},
+          {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+        ]},
+        "law_and_the_workplace": {"display_name": "Law and the Workplace", "requirement_groups": [
+          {"label": "Law foundation", "count": 1, "options": ["LER315", "LER340"]},
+          {"label": "Law specialization", "count": 3, "options": ["LER220", "LER302", "LER312", "LER314", "LER315", "LER316", "LER320", "LER321", "LER330", "LER338", "LER340"]},
+          {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+        ]},
+        "work_organization_and_management": {"display_name": "Work Organization and Management", "requirement_groups": [
+          {"label": "Organization foundation", "count": 1, "options": ["LER308", "LER311"]},
+          {"label": "Organization specialization", "count": 3, "options": ["LER220", "LER230", "LER308", "LER311", "LER313", "LER317", "LER318", "LER325", "LER326", "LER338", "LER345", "LER361", "LER362", "LER367", "LER368", "LER375", "LER385"]},
+          {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+        ]},
+        "work_globalization_and_migration": {"display_name": "Work, Globalization, and Migration", "requirement_groups": [
+          {"label": "Specialization courses", "count": 4, "options": ["LER301", "LER302", "LER304", "LER320", "LER321", "LER335", "LER336", "LER337", "LER355", "LER361", "LER363", "LER366"]},
+          {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+        ]}
       },
       "constraints": [
-        "At least 2 electives at 300+ level."
+        "Six courses are required in total."
       ]
     },
     "hrm_minor": {
@@ -6124,25 +6182,24 @@
       "degree_level": "minor",
       "major_name": "Russian",
       "catalog_year": "2025-2026",
-      "required_courses": [
-        "RUSS101",
-        "RUSS102",
-        "RUSS201",
-        "RUSS202"
-      ],
-      "electives": {
-        "count": 2,
-        "min_level_300_plus": 1,
-        "options": [
-          "RUSS301",
-          "RUSS302",
-          "RUSS401",
-          "RUSS402"
-        ],
-        "any_from_catalog": false
+      "required_courses": [],
+      "track_required": true,
+      "track_selection": {"required": true, "source_url": "https://reell.rutgers.edu/academics/undergraduate/minor"},
+      "tracks": {
+        "russian_language_and_literature": {"display_name": "Russian Language and Literature", "requirement_groups": [
+          {"label": "Russian language beyond 101 or 207", "count": 3, "options": [], "open_pool": "Choose three approved Russian language courses beyond 01:860:101 or 01:860:207."},
+          {"label": "Russian literature at 200 level or above", "count": 3, "options": [], "open_pool": "Choose three approved Russian literature courses at the 200 level or above."}
+        ]},
+        "russian_language": {"display_name": "Russian Language", "requirement_groups": [
+          {"label": "Russian language beyond 101 or 207", "count": 5, "options": [], "open_pool": "Choose five approved Russian language courses beyond 01:860:101 or 01:860:207; one practicum semester may count."},
+          {"label": "Literature read in Russian", "count": 1, "options": ["RUSS315", "RUSS401", "RUSS402", "RUSS403", "RUSS404", "RUSS407", "RUSS332", "RUSS433"]}
+        ]},
+        "russian_literature": {"display_name": "Russian Literature", "required_courses": ["RUSS259", "RUSS260"], "requirement_groups": [
+          {"label": "Russian literature electives", "count": 4, "options": [], "open_pool": "Choose four approved Russian literature electives; knowledge of Russian is not required."}
+        ]}
       },
       "constraints": [
-        "At least 1 elective at 300+ level."
+        "Six courses are required with a grade of C or better."
       ]
     },
     "portuguese_minor": {
@@ -6419,30 +6476,28 @@
       "degree_level": "minor",
       "major_name": "International and Global Studies",
       "catalog_year": "2025-2026",
-      "required_courses": [
-        "GEOG101",
-        "POLS104"
+      "required_courses": [],
+      "requirement_groups": [{"label": "International and Global Studies general core", "count": 2, "options": [], "open_pool": "Choose two courses from the current R1 General Core list in Degree Navigator."}],
+      "track_required": true,
+      "track_dimensions": [
+        {"id": "theme", "label": "a thematic track", "options": {
+          "international_politics_economics_and_business": {"display_name": "International Politics, Economics and Business", "requirement_groups": [{"label": "Thematic track core", "count": 2, "options": [], "open_pool": "Choose two currently approved R2 courses in International Politics, Economics and Business."}]},
+          "global_cultures_and_social_systems": {"display_name": "Global Cultures and Social Systems", "requirement_groups": [{"label": "Thematic track core", "count": 2, "options": [], "open_pool": "Choose two currently approved R2 courses in Global Cultures and Social Systems."}]},
+          "environment_and_development": {"display_name": "Environment and Development", "requirement_groups": [{"label": "Thematic track core", "count": 2, "options": [], "open_pool": "Choose two currently approved R2 courses in Environment and Development."}]}
+        }},
+        {"id": "region", "label": "a regional specialization", "options": {
+          "east_asia_and_the_pacific": {"display_name": "East Asia and the Pacific", "requirement_groups": [{"label": "Regional specialization", "count": 2, "options": [], "open_pool": "Choose two currently approved East Asia and Pacific courses."}]},
+          "europe_and_central_asia": {"display_name": "Europe and Central Asia", "requirement_groups": [{"label": "Regional specialization", "count": 2, "options": [], "open_pool": "Choose two currently approved Europe and Central Asia courses."}]},
+          "latin_america_and_the_caribbean": {"display_name": "Latin America and the Caribbean", "requirement_groups": [{"label": "Regional specialization", "count": 2, "options": [], "open_pool": "Choose two currently approved Latin America and Caribbean courses."}]},
+          "middle_east_and_north_africa": {"display_name": "Middle East and North Africa", "requirement_groups": [{"label": "Regional specialization", "count": 2, "options": [], "open_pool": "Choose two currently approved Middle East and North Africa courses."}]},
+          "south_asia": {"display_name": "South Asia", "requirement_groups": [{"label": "Regional specialization", "count": 2, "options": [], "open_pool": "Choose two currently approved South Asia courses."}]},
+          "sub_saharan_africa": {"display_name": "Sub-Saharan Africa", "requirement_groups": [{"label": "Regional specialization", "count": 2, "options": [], "open_pool": "Choose two currently approved Sub-Saharan Africa courses."}]}
+        }}
       ],
-      "electives": {
-        "count": 4,
-        "min_level_300_plus": 2,
-        "options": [
-          "POLS302",
-          "POLS304",
-          "POLS305",
-          "POLS308",
-          "POLS313",
-          "POLS327",
-          "POLS362",
-          "SOC241",
-          "HIST271",
-          "IGS301"
-        ],
-        "any_from_catalog": false
-      },
       "constraints": [
-        "Interdisciplinary minor drawing from political science, history, sociology, and area studies.",
-        "At least 2 electives at 300+ level."
+        "18 credits total; at least 9 credits at the 300 level or above.",
+        "Minimum grade of C+ in every course applied to the minor.",
+        "Intermediate proficiency in a language approved for the selected region is required."
       ]
     },
     "archaeology_minor": {
@@ -6945,30 +7000,22 @@
       "degree_level": "minor",
       "major_name": "Education as a Social Science",
       "catalog_year": "2025-2026",
-      "required_courses": [
-        "EDUC201",
-        "SOC101"
-      ],
-      "electives": {
-        "count": 4,
-        "min_level_300_plus": 2,
-        "options": [
-          "EDUC301",
-          "SOC225",
-          "SOC303",
-          "SOC304",
-          "SOC311",
-          "SOC316",
-          "PSYC313",
-          "PSYC320",
-          "POLS340",
-          "AFRS301"
-        ],
-        "any_from_catalog": false
+      "required_courses": [],
+      "requirement_groups": [{"label": "Introduction to Education", "count": 1, "options": ["EDUC200", "EDUC202"]}],
+      "track_selection": {"required": true, "source_url": "https://gse.rutgers.edu/degree/undergraduate-minor-education-as-a-social-science/", "note": "Rutgers describes these as suggested concentrations; General Studies preserves the no-specialization path."},
+      "tracks": {
+        "community_studies_and_engagement": {"display_name": "Community Studies and Engagement", "requirement_groups": [{"label": "Concentration courses", "count": 5, "options": ["EDUC406", "EDUC466", "EDUC468", "EDUC470", "EDUC308", "EDUC313", "EDUC324"]}]},
+        "creativity_and_play": {"display_name": "Creativity and Play", "requirement_groups": [{"label": "Concentration courses", "count": 5, "options": ["EDUC303", "EDUC304", "EDUC305", "EDUC314", "EDUC317", "EDUC318", "EDUC325"]}]},
+        "digital_learning": {"display_name": "Digital Learning", "requirement_groups": [{"label": "Concentration courses", "count": 5, "options": ["EDUC350", "EDUC325", "EDUC308", "EDUC313"], "open_pool": "The official grouping also permits 15:255:503, 15:255:504, and 15:255:506; confirm graduate-course availability with GSE."}]},
+        "educational_policy_and_social_justice": {"display_name": "Educational Policy and Social Justice", "requirement_groups": [{"label": "Concentration courses", "count": 5, "options": ["EDUC364", "EDUC401", "EDUC464", "EDUC465", "EDUC466", "EDUC467", "EDUC468", "EDUC469", "EDUC470"]}]},
+        "exceptional_learners": {"display_name": "Exceptional Learners", "requirement_groups": [{"label": "Concentration courses", "count": 5, "options": ["EDUC306", "EDUC307", "EDUC320", "EDUC322", "EDUC383", "EDUC406", "EDUC308"]}]},
+        "global_education": {"display_name": "Global Education", "requirement_groups": [{"label": "Concentration courses", "count": 5, "options": ["EDUC386", "EDUC401", "EDUC406", "EDUC407", "EDUC463", "EDUC467", "EDUC468", "EDUC470"]}]},
+        "general_studies": {"display_name": "General Studies", "requirement_groups": [{"label": "Approved education courses", "count": 5, "options": ["EDUC303", "EDUC304", "EDUC305", "EDUC306", "EDUC307", "EDUC308", "EDUC313", "EDUC314", "EDUC315", "EDUC317", "EDUC318", "EDUC319", "EDUC320", "EDUC322", "EDUC324", "EDUC325", "EDUC335", "EDUC350", "EDUC364", "EDUC365", "EDUC371", "EDUC372", "EDUC383", "EDUC386", "EDUC401", "EDUC402", "EDUC403", "EDUC406", "EDUC407", "EDUC409", "EDUC463", "EDUC464", "EDUC465", "EDUC466", "EDUC467", "EDUC468", "EDUC469", "EDUC470"]}]}
       },
       "constraints": [
-        "Examines education systems through sociological, psychological, and policy lenses.",
-        "At least 2 electives at 300+ level."
+        "18 credits minimum; at least 12 credits at the 300 level or higher.",
+        "Minimum grade of C in all minor courses.",
+        "At most 3 credits may be taken outside the Graduate School of Education."
       ]
     },
     "business_technical_writing_minor": {
@@ -7056,6 +7103,33 @@
         ],
         "any_from_catalog": false
       },
+      "track_selection": {"required": true, "source_url": "https://polisci.rutgers.edu/images/CIS_Flier2_QR_Code_CHK.pdf"},
+      "track_required": true,
+      "tracks": {
+        "cyber": {"display_name": "Cyber Track", "requirement_groups": [
+          {"label": "Cyber foundation", "count": 1, "options": ["CS111", "ECE127", "ITI201"]},
+          {"label": "Cyber security", "count": 1, "options": ["CS419", "ITI432"]},
+          {"label": "International context", "count": 1, "options": ["POLS319", "POLS323", "POLS324", "POLS343", "POLS366"], "open_pool": "A qualifying foreign-language or area-studies elective may also satisfy this group."}
+        ]},
+        "technology": {"display_name": "Technology Track", "requirement_groups": [
+          {"label": "Artificial intelligence", "count": 1, "options": ["CS440", "CS425"]},
+          {"label": "Data science", "count": 1, "options": ["CS439", "POLS391"]},
+          {"label": "Computer algorithms", "count": 1, "options": ["CS344"]}
+        ]},
+        "policy": {"display_name": "Policy Track", "requirement_groups": [
+          {"label": "Policy", "count": 2, "options": ["POLS319", "POLS323", "POLS324", "POLS343", "POLS366", "HIST218"]},
+          {"label": "International context", "count": 1, "options": [], "open_pool": "Choose a qualifying foreign-language or area-studies elective."}
+        ]},
+        "language": {"display_name": "Language Track", "requirement_groups": [
+          {"label": "Language", "count": 2, "options": [], "open_pool": "Choose two courses in the same language; AP credit may cover at most one."},
+          {"label": "Policy", "count": 1, "options": ["POLS319", "POLS323", "POLS324", "POLS343", "POLS366"]}
+        ]},
+        "engineering": {"display_name": "Engineering Track", "requirement_groups": [
+          {"label": "Language or area studies", "count": 1, "options": [], "open_pool": "Choose a qualifying foreign-language or area-studies elective."},
+          {"label": "Security", "count": 1, "options": ["ECE127"]},
+          {"label": "International context", "count": 1, "options": ["POLS319", "POLS323", "POLS324", "POLS343", "POLS366"]}
+        ]}
+      },
       "constraints": [
         "POLS292 must be passed with a C or better prior to declaring the Critical Intelligence minor.",
         "Maximum 2 course overlap allowed between Political Science major and Critical Intelligence Studies minor.",
@@ -7103,6 +7177,22 @@
         "Interdisciplinary minor integrating ethics, political theory, and economic reasoning.",
         "At least 2 electives at 300+ level."
       ]
+    },
+    "military_science_minor": {
+      "school": "SAS",
+      "degree_level": "minor",
+      "major_name": "Military Science",
+      "catalog_year": "2025-2026",
+      "required_courses": [],
+      "track_required": true,
+      "track_selection": {"required": true, "source_url": "https://afrotc.rutgers.edu/minor-in-military-science"},
+      "tracks": {
+        "aerospace_science": {"display_name": "Aerospace Science Track", "required_courses": ["03:690:121", "03:690:122", "03:690:221", "03:690:222", "03:690:323", "03:690:324", "03:690:423", "03:690:424", "03:690:171", "03:690:271", "03:690:371", "03:690:471"], "requirement_groups": [{"label": "Military history or policy elective", "count": 1, "options": ["HIST240", "HIST242", "HIST301", "HIST303", "HIST305", "HIST306", "HIST347", "HIST348", "HIST352", "HIST354", "POLS319", "POLS324", "POLS323", "AMES270"]}]},
+        "military_science_army": {"display_name": "Military Science / Army Track", "requirement_groups": [{"label": "Army commissioning curriculum", "count": 1, "options": [], "open_pool": "Complete the current Army ROTC commissioning curriculum published in Degree Navigator; confirm the sequence with Army ROTC advising."}]},
+        "naval_science": {"display_name": "Naval Science Track", "requirement_groups": [{"label": "Naval commissioning curriculum", "count": 1, "options": [], "open_pool": "Complete the current Naval ROTC commissioning curriculum published in Degree Navigator; confirm the sequence with Naval ROTC advising."}]},
+        "non_commissioning": {"display_name": "Non-Commissioning Track", "requirement_groups": [{"label": "Non-commissioning curriculum", "count": 1, "options": [], "open_pool": "Complete the current non-commissioning Military Science curriculum published in Degree Navigator; this track is open to all students."}]}
+      },
+      "constraints": ["Aerospace, Army, and Naval tracks are commissioning pathways; the Non-Commissioning track is open broadly."]
     },
     "health_society_minor": {
       "school": "SAS",

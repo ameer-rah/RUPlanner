@@ -5,6 +5,33 @@ from app.main import app
 client = TestClient(app)
 
 
+class TestGoogleOnlyAuthentication:
+    @pytest.mark.parametrize("path", [
+        "/auth/register",
+        "/auth/login",
+        "/auth/forgot-password",
+        "/auth/reset-password",
+    ])
+    def test_password_auth_endpoints_do_not_exist(self, path):
+        response = client.post(path, json={"email": "student@rutgers.edu", "password": "unused"})
+        assert response.status_code == 404
+
+
+class TestLocalPreview:
+    def test_local_preview_can_generate_without_authentication(self):
+        response = client.post("/dev/plan", json={
+            "majors": ["Computer Science (BS, SAS)"],
+            "minors": [],
+            "completed_courses": [],
+            "start_term": "Fall 2026",
+            "target_grad_term": "Spring 2030",
+            "max_credits_per_term": 18,
+            "preferred_seasons": ["Spring", "Fall"],
+        })
+        assert response.status_code == 200
+        assert response.json()["terms"]
+
+
 class TestListPrograms:
     def test_returns_200(self):
         res = client.get("/programs")

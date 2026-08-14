@@ -268,5 +268,15 @@
   {"code": "MATH115", "title": "Calculus I for the Life and Social Sciences", "credits": 3, "prerequisites": ["MATH135"]},
 
   {"code": "ECON201", "title": "Principles of Microeconomics", "credits": 3, "prerequisites": []},
-  {"code": "ECON202", "title": "Principles of Macroeconomics", "credits": 3, "prerequisites": []}
+  {"code": "ECON202", "title": "Principles of Macroeconomics", "credits": 3, "prerequisites": []},
+  {"code": "11:550:240", "title": "Public Garden Management", "credits": 3, "prerequisites": []},
+  {"code": "11:776:211", "title": "Introduction to Horticulture", "credits": 3, "prerequisites": []},
+  {"code": "11:550:220", "title": "Public Garden Display—Case Studies", "credits": 1, "prerequisites": []},
+  {"code": "11:550:221", "title": "Design of Public Display Gardens", "credits": 3, "prerequisites": []},
+  {"code": "11:550:235", "title": "Herbaceous Plants in the Landscape", "credits": 3, "prerequisites": []},
+  {"code": "11:550:250", "title": "History of Landscape Architecture", "credits": 3, "prerequisites": []},
+  {"code": "11:550:338", "title": "Introduction to Digital Design and Presentation", "credits": 1.5, "prerequisites": []},
+  {"code": "11:573:445", "title": "Ecological Design and Stewardship", "credits": 4, "prerequisites": []},
+  {"code": "11:573:415", "title": "Open Spaces Planning and Management", "credits": 3, "prerequisites": []},
+  {"code": "11:607:485", "title": "Understanding Group Dynamics and Team Processes", "credits": 3, "prerequisites": []}
 ]

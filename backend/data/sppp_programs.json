@@ -566,18 +566,36 @@
           "PUBH252"
         ]
       },
-      "track_requirement": {
-        "description": "Two courses from one approved track: Food Justice, Housing Justice, or Education Justice (6 credits)",
-        "options": [
-          "CRP307",
-          "CRP310",
-          "CRP311",
-          "CRP464",
-          "PPOL325",
-          "PPOL353",
-          "PUBH338",
-          "PUBH462"
-        ]
+      "track_selection": {
+        "required": true,
+        "source_url": "https://newbrunswick-undergrad-25-26.catalogs.rutgers.edu/schools/ejbsppp/programs-study/health-equity-minor"
+      },
+      "track_required": true,
+      "tracks": {
+        "food_justice": {
+          "display_name": "Food Justice",
+          "requirement_groups": [{
+            "label": "Food Justice track (choose 2)",
+            "count": 2,
+            "options": ["11:020:333", "11:374:289", "11:020:337", "11:400:315", "11:400:316", "11:193:255"]
+          }]
+        },
+        "housing_equity": {
+          "display_name": "Housing Equity",
+          "requirement_groups": [{
+            "label": "Housing Equity track (choose 2)",
+            "count": 2,
+            "options": ["10:762:310", "09:910:240", "10:762:307"]
+          }]
+        },
+        "education": {
+          "display_name": "Education",
+          "requirement_groups": [{
+            "label": "Education track (choose 2)",
+            "count": 2,
+            "options": ["10:833:325", "10:833:365", "05:300:406", "05:300:464", "05:300:465", "05:300:401"]
+          }]
+        }
       },
       "electives": {
         "description": "Two additional elective courses from either core or track lists (6 credits)",

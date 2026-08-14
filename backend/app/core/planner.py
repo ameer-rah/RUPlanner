@@ -1,5 +1,8 @@
 import json
+import math
 import re
+import threading
+import time
 from datetime import date
 from pathlib import Path
 from typing import Dict, List, Optional, Set, Tuple
@@ -109,16 +112,61 @@ def _apply_program_patches(school: str, degree_level: str, major_name: str, requ
 
 
 def _apply_track(requirements: Dict, track: Optional[str]) -> Dict:
-    """If the program has a 'tracks' dict and a track was specified, merge that track's
-    requirements on top of the base requirements (track keys take precedence)."""
-    if not track:
-        return requirements
+    """Apply a validated track while preserving an optional general path.
+
+    A program opts into mandatory selection with ``track_required: true``.
+    Merely publishing optional specializations does not invalidate its general
+    curriculum.
+    """
     tracks = requirements.get("tracks", {})
-    if not tracks or track not in tracks:
+    dimensions = requirements.get("track_dimensions", [])
+    if not track:
+        if (tracks or dimensions) and requirements.get("track_required") is True:
+            raise ValueError("This program requires a track selection.")
         return requirements
+    if dimensions:
+        selections = track.split("/")
+        if len(selections) != len(dimensions):
+            raise ValueError("This program requires a selection for every track category.")
+        chosen: List[Dict] = []
+        for dimension, selection in zip(dimensions, selections):
+            options = dimension.get("options", {})
+            if selection not in options or not isinstance(options[selection], dict):
+                raise ValueError(f"Unknown {dimension.get('label', 'track')} selection '{selection}'.")
+            chosen.append(options[selection])
+        base = {k: v for k, v in requirements.items() if k not in {"tracks", "track_dimensions"}}
+        result = dict(base)
+        result["required_courses"] = list(dict.fromkeys([
+            *base.get("required_courses", []),
+            *(course for option in chosen for course in option.get("required_courses", [])),
+        ]))
+        result["requirement_groups"] = [
+            *base.get("requirement_groups", []),
+            *(group for option in chosen for group in option.get("requirement_groups", [])),
+        ]
+        result["selected_track"] = track
+        return result
+    if not isinstance(tracks, dict) or track not in tracks:
+        available = ", ".join(str(name) for name in tracks) if isinstance(tracks, dict) else ""
+        suffix = f" Available tracks: {available}." if available else " This program does not define tracks."
+        raise ValueError(f"Unknown track '{track}'.{suffix}")
+    if not isinstance(tracks[track], dict):
+        raise ValueError(f"Track '{track}' has invalid requirement data.")
     base = {k: v for k, v in requirements.items() if k != "tracks"}
     track_reqs = dict(tracks[track])
-    return {**base, **track_reqs}
+    result = {**base, **track_reqs}
+    if base.get("required_courses") or track_reqs.get("required_courses"):
+        result["required_courses"] = list(dict.fromkeys([
+            *base.get("required_courses", []),
+            *track_reqs.get("required_courses", []),
+        ]))
+    if base.get("requirement_groups") or track_reqs.get("requirement_groups"):
+        result["requirement_groups"] = [
+            *base.get("requirement_groups", []),
+            *track_reqs.get("requirement_groups", []),
+        ]
+    result["selected_track"] = track
+    return result
 
 
 def _load_catalog_from_db() -> Dict[str, Dict]:
@@ -129,48 +177,64 @@ _SAS_CORE_INDEX: Dict[str, List[str]] = {}  # {course_code: [designation, ...]}
 _SAS_CORE_INDEX_LOADED = False
 
 _DB_CATALOG_CACHE: Dict[str, Dict] = {}
-_DB_CATALOG_LOADED = False
+_DB_CATALOG_LOADED_AT = 0.0
+_DB_CATALOG_TTL_SECONDS = 5 * 60
+_DB_CATALOG_LOCK = threading.Lock()
 
 _DN_PROGRAMS_CACHE: Dict = {}
 _DN_PROGRAMS_LOADED = False
 
 
 def _get_db_catalog() -> Dict[str, Dict]:
-    global _DB_CATALOG_CACHE, _DB_CATALOG_LOADED
-    if _DB_CATALOG_LOADED:
+    global _DB_CATALOG_CACHE, _DB_CATALOG_LOADED_AT
+    now = time.monotonic()
+    if _DB_CATALOG_LOADED_AT and now - _DB_CATALOG_LOADED_AT < _DB_CATALOG_TTL_SECONDS:
         return _DB_CATALOG_CACHE
-    try:
-        from ..database import SessionLocal
-        from ..models import Course
-        db = SessionLocal()
+    with _DB_CATALOG_LOCK:
+        now = time.monotonic()
+        if _DB_CATALOG_LOADED_AT and now - _DB_CATALOG_LOADED_AT < _DB_CATALOG_TTL_SECONDS:
+            return _DB_CATALOG_CACHE
         try:
-            rows = db.query(Course).all()
-            aliases: Dict[str, List] = {}
-            for row in rows:
-                aliases.setdefault(row.code, []).append(row)
-            # A short alias is usable by legacy requirement JSON only when it
-            # resolves to exactly one canonical Rutgers course.
-            _DB_CATALOG_CACHE = {
-                code: {
-                    "code": r.code,
-                    "raw_code": r.raw_code,
-                    "title": r.title,
-                    "credits": r.credits,
-                    "prerequisites": [],
-                    "spring_offered": r.spring_offered,
-                    "summer_offered": r.summer_offered,
-                    "fall_offered": r.fall_offered,
+            from ..database import SessionLocal
+            from ..models import Course
+            db = SessionLocal()
+            try:
+                rows = db.query(Course).all()
+                aliases: Dict[str, List] = {}
+                for row in rows:
+                    aliases.setdefault(row.code, []).append(row)
+                # A short alias is usable by legacy requirement JSON only when it
+                # resolves to exactly one canonical Rutgers course.
+                catalog = {
+                    code: {
+                        "code": r.code,
+                        "raw_code": r.raw_code,
+                        "title": r.title,
+                        "credits": r.credits,
+                        "prerequisites": [],
+                        "spring_offered": r.spring_offered,
+                        "summer_offered": r.summer_offered,
+                        "fall_offered": r.fall_offered,
+                    }
+                    for code, matches in aliases.items()
+                    if len(matches) == 1
+                    for r in matches
                 }
-                for code, matches in aliases.items()
-                if len(matches) == 1
-                for r in matches
-            }
-        finally:
-            db.close()
-    except Exception:
-        _DB_CATALOG_CACHE = {}
-    _DB_CATALOG_LOADED = True
-    return _DB_CATALOG_CACHE
+            finally:
+                db.close()
+        except Exception:
+            # Keep the last known-good catalog during a transient database error.
+            return _DB_CATALOG_CACHE
+        _DB_CATALOG_CACHE = catalog
+        _DB_CATALOG_LOADED_AT = now
+        return _DB_CATALOG_CACHE
+
+
+def invalidate_catalog_cache() -> None:
+    """Force the next planner request to reload recently ingested courses."""
+    global _DB_CATALOG_LOADED_AT
+    with _DB_CATALOG_LOCK:
+        _DB_CATALOG_LOADED_AT = 0.0
 
 
 def _get_dn_programs() -> Dict:
@@ -205,7 +269,13 @@ _BLOCK_TAG_RE = re.compile(r"\[([A-Za-z]+)\]")
 
 def _tags_for_block(title: str) -> Set[str]:
     """Extract SAS Core designation tags from a block title, e.g. '[WCd]' → {'WCd'}."""
-    return {m.group(1) for m in _BLOCK_TAG_RE.finditer(title)}
+    tags = {m.group(1) for m in _BLOCK_TAG_RE.finditer(title)}
+    # Degree Navigator abbreviates the Contemporary Challenges block as CC,
+    # while the official course index publishes its two goals separately.
+    if "CC" in tags:
+        tags.remove("CC")
+        tags.update({"CCD", "CCO"})
+    return tags
 
 
 def _load_core_curriculum(
@@ -484,6 +554,11 @@ def _merge_requirements(programs: List[Dict]) -> Dict:
         "elective_groups": [dict(p.get("electives", {})) for p in programs if p.get("electives")],
         "science_requirements": [p["science_requirement"] for p in programs if p.get("science_requirement")],
         "statistics_requirements": [p["statistics_requirement"] for p in programs if p.get("statistics_requirement")],
+        "requirement_groups": [
+            dict(group)
+            for p in programs
+            for group in p.get("requirement_groups", [])
+        ],
     }
 
     sci = next((p["science_requirement"] for p in programs if p.get("science_requirement")), None)
@@ -508,54 +583,51 @@ def _merge_requirements(programs: List[Dict]) -> Dict:
     return result
 
 
+def _resolve_entry(entry: str, level_raw: str) -> Tuple[str, Dict]:
+    """Resolve a selected display entry without confusing dashes in real names for tracks."""
+    school, db_level, major_name, track = _parse_major_entry(entry, level_raw)
+    if not db_level:
+        raise ValueError(f"Unsupported degree level in program selection: {entry}")
+
+    if track:
+        exact_name = f"{major_name} — {track}"
+        try:
+            exact = _load_requirements_from_db(school, db_level, exact_name, CATALOG_YEAR)
+        except ValueError:
+            pass
+        else:
+            return exact_name, _apply_program_patches(school, db_level, exact_name, exact)
+
+    requirements = _load_requirements_from_db(school, db_level, major_name, CATALOG_YEAR)
+    requirements = _apply_program_patches(school, db_level, major_name, requirements)
+    return major_name, _apply_track(requirements, track)
+
+
 def resolve_program(request: PlanRequest) -> Dict:
     level_raw = request.degree_level.strip().lower()
     found: List[Dict] = []
     individual_programs: List[Dict] = []  # [{reqs, name, type}]
 
     for major_raw in request.majors:
-        school, db_level, major_name, track = _parse_major_entry(major_raw, level_raw)
-        if not db_level:
-            continue
-        try:
-            reqs = _load_requirements_from_db(school, db_level, major_name, CATALOG_YEAR)
-            reqs = _apply_program_patches(school, db_level, major_name, reqs)
-            reqs = _apply_track(reqs, track)
-            found.append(reqs)
-            individual_programs.append({"reqs": reqs, "name": major_name, "type": "major"})
-        except ValueError:
-            continue
+        major_name, reqs = _resolve_entry(major_raw, level_raw)
+        found.append(reqs)
+        individual_programs.append({"reqs": reqs, "name": major_name, "type": "major"})
 
     for minor_raw in request.minors:
         if not minor_raw.strip():
             continue
-        school, db_level, major_name, track = _parse_major_entry(minor_raw, "minor")
-        if not db_level:
-            continue
-        try:
-            reqs = _load_requirements_from_db(school, db_level, major_name, CATALOG_YEAR)
-            reqs = _apply_program_patches(school, db_level, major_name, reqs)
-            reqs = _apply_track(reqs, track)
-            found.append(reqs)
-            display_name = f"{major_name} — {track}" if track else major_name
-            individual_programs.append({"reqs": reqs, "name": display_name, "type": "minor"})
-        except ValueError:
-            continue
+        major_name, reqs = _resolve_entry(minor_raw, "minor")
+        found.append(reqs)
+        selected_track = reqs.get("selected_track")
+        display_name = f"{major_name} — {selected_track}" if selected_track else major_name
+        individual_programs.append({"reqs": reqs, "name": display_name, "type": "minor"})
 
     for conc_raw in (request.concentrations or []):
         if not conc_raw.strip():
             continue
-        school, db_level, major_name, track = _parse_major_entry(conc_raw, "concentration")
-        if not db_level:
-            continue
-        try:
-            reqs = _load_requirements_from_db(school, db_level, major_name, CATALOG_YEAR)
-            reqs = _apply_program_patches(school, db_level, major_name, reqs)
-            reqs = _apply_track(reqs, track)
-            found.append(reqs)
-            individual_programs.append({"reqs": reqs, "name": major_name, "type": "concentration"})
-        except ValueError:
-            continue
+        major_name, reqs = _resolve_entry(conc_raw, "concentration")
+        found.append(reqs)
+        individual_programs.append({"reqs": reqs, "name": major_name, "type": "concentration"})
 
     if not found:
         raise ValueError(
@@ -572,7 +644,14 @@ def resolve_program(request: PlanRequest) -> Dict:
         if s not in schools_seen:
             schools_seen.append(s)
 
-    merged_catalog: Dict[str, Dict] = {}
+    # Rutgers professional-school curricula routinely require SAS courses
+    # (calculus, chemistry, physics, writing, statistics, etc.). Loading only
+    # the owning school's catalog turns those real prerequisites into stubs or
+    # leaves them unschedulable, which creates false "cannot finish" results.
+    try:
+        merged_catalog: Dict[str, Dict] = load_catalog(DATA_DIR / _SCHOOL_CATALOG["SAS"])
+    except FileNotFoundError:
+        merged_catalog = {}
     for school in schools_seen:
         cat_file = _SCHOOL_CATALOG.get(school)
         if cat_file:
@@ -1122,6 +1201,8 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     # Build minimal stubs for graduate courses referenced in requirements but absent from catalog.
     # This prevents them from being silently dropped. Title = course code, credits = 3 (standard).
     all_referenced = list(required) + list(requirements.get("electives", {}).get("options", []))
+    for group in requirements.get("requirement_groups", []):
+        all_referenced.extend(group.get("options", []))
     stubbed = _build_catalog_stubs(all_referenced, catalog)
     if stubbed:
         warnings.append(
@@ -1179,6 +1260,28 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     full_elective_pool: List[str] = [
         c for c in elective_options if c not in completed
     ]
+
+    # Generic choose-N groups preserve track/category boundaries. Open adviser
+    # pools remain visibly incomplete rather than being filled with guessed courses.
+    consumed_group_courses: Set[str] = set()
+    for group in requirements.get("requirement_groups", []):
+        options = [c for c in dict.fromkeys(group.get("options", [])) if c in catalog]
+        count = int(group.get("count", 1))
+        completed_group = [c for c in options if c in completed and c not in consumed_group_courses]
+        consumed_group_courses.update(completed_group[:count])
+        needed = max(0, count - len(completed_group))
+        chosen, group_warnings = _select_electives(options, needed, 0, required, completed)
+        warnings.extend(group_warnings)
+        for code in chosen:
+            if code not in required:
+                required.append(code)
+                elective_set.add(code)
+                consumed_group_courses.add(code)
+        for code in options:
+            if code not in completed and code not in full_elective_pool:
+                full_elective_pool.append(code)
+        if group.get("open_pool"):
+            warnings.append(f"{group.get('label', 'Adviser-selected requirement')}: {group['open_pool']}")
 
     # Multi-program plans keep elective quotas separate and use a course at most
     # once across groups unless a future typed rule explicitly allows overlap.
@@ -1254,8 +1357,28 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         for blk in core_curriculum_blocks:
             if blk.needed <= 0 or blk.total_courses is None:
                 continue
-            tags = set(re.findall(r'\[([A-Za-z]+)\]', blk.title))
+            tags = _tags_for_block(blk.title)
             if not tags:
+                continue
+            if "[CC]" in blk.title:
+                req_set = set(required)
+                for goal_tag in ("CCD", "CCO"):
+                    if any(goal_tag in _core_tag_index.get(code, []) for code in required):
+                        continue
+                    candidate = next((
+                        code for code in sorted(
+                            _core_tag_index,
+                            key=lambda item: (_get_course_level(item), item),
+                        )
+                        if goal_tag in _core_tag_index.get(code, [])
+                        and code in catalog and code not in completed and code not in req_set
+                    ), None)
+                    if candidate:
+                        required.append(candidate)
+                        req_set.add(candidate)
+                for code, course_tags in _core_tag_index.items():
+                    if tags.intersection(course_tags) and code in catalog and code not in full_elective_pool:
+                        full_elective_pool.append(code)
                 continue
             # Count courses already in the plan (required but not completed) that satisfy this block
             already_covering = sum(
@@ -1283,12 +1406,84 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     _collect_missing_prereqs(required, catalog, completed, required)
 
+    # A bachelor's plan is not complete when the named major/core requirements
+    # add up to fewer than the university's 120-credit degree minimum. Fill the
+    # remaining space with real, offered catalog courses that have no hidden
+    # prerequisite chain. These remain editable general electives in the UI.
+    degree_elective_set: Set[str] = set()
+    degree_credit_minimum = 120 if request.degree_level.strip().lower() == "bachelor" else 0
+    if degree_credit_minimum:
+        counted = set(required) | completed
+        degree_credits = sum(
+            float(catalog.get(code, {}).get("credits") or 0)
+            for code in counted
+        )
+        candidates = sorted(
+            (
+                code for code, course in catalog.items()
+                if code not in counted
+                and float(course.get("credits") or 0) > 0
+                and not course.get("prerequisites")
+                and (
+                    course.get("fall_offered", True)
+                    or course.get("spring_offered", True)
+                )
+            ),
+            key=lambda code: (_get_course_level(code), code),
+        )
+        # Prefer a varied set of subjects, then find an exact half-credit
+        # combination whenever the catalog permits one. Avoiding an arbitrary
+        # credit overshoot matters for programs whose eight-term capacity is
+        # exactly 120 credits.
+        subject_counts: Dict[str, int] = {}
+        deferred: List[str] = []
+        for code in candidates:
+            subject = re.match(r"[A-Z]+", code)
+            subject_key = subject.group() if subject else code
+            if subject_counts.get(subject_key, 0) >= 2:
+                deferred.append(code)
+                continue
+            subject_counts[subject_key] = subject_counts.get(subject_key, 0) + 1
+        diversified = [code for code in candidates if code not in deferred] + deferred
+        diversified.sort(key=lambda code: (
+            {3.0: 0, 1.0: 1, 2.0: 2}.get(float(catalog[code]["credits"]), 3),
+            _get_course_level(code),
+            code,
+        ))
+        needed_units = max(0, round((degree_credit_minimum - degree_credits) * 2))
+        combinations: Dict[int, List[str]] = {0: []}
+        for code in diversified:
+            units = round(float(catalog[code]["credits"]) * 2)
+            if units <= 0 or units > needed_units:
+                continue
+            for subtotal, chosen in sorted(combinations.items(), reverse=True):
+                new_total = subtotal + units
+                if new_total <= needed_units and new_total not in combinations:
+                    combinations[new_total] = [*chosen, code]
+            if needed_units in combinations:
+                break
+        selected_degree_electives = combinations[max(combinations)]
+        for code in selected_degree_electives:
+            required.append(code)
+            elective_set.add(code)
+            degree_elective_set.add(code)
+            degree_credits += float(catalog[code]["credits"])
+        if degree_credits < degree_credit_minimum:
+            warnings.append(
+                f"Only {degree_credits:g} of the {degree_credit_minimum} credits required "
+                "for this bachelor's degree could be populated from the verified catalog."
+            )
+
     remaining = [c for c in required if c not in completed]
 
     # Compute progress: how many required credits the student has already completed
-    completed_in_req = [c for c in required if c in completed]
-    completed_credits_count = sum(catalog.get(c, {}).get("credits", 3) for c in completed_in_req)
-    total_credits_count = sum(catalog.get(c, {}).get("credits", 3) for c in required)
+    completed_credits_count = sum(
+        float(catalog.get(c, {}).get("credits") or 0) for c in completed
+    )
+    total_credits_count = completed_credits_count + sum(
+        float(catalog.get(c, {}).get("credits") or 0)
+        for c in required if c not in completed
+    )
 
     # Build a map of each completed course → the requirement label it satisfies
     completed_course_map: Dict[str, str] = {}
@@ -1360,7 +1555,22 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     try:
         topo_order = list(nx.topological_sort(G))
-        queue = [c for c in topo_order if c in remaining_set and c not in co_pulled]
+        # Schedule prerequisite bottlenecks before flexible courses. A plain
+        # topological order is valid but can consume a term's credit capacity
+        # with unrelated electives and delay a long prerequisite chain until
+        # graduation, falsely reporting that a normal four-year plan is
+        # impossible.
+        depth_cache: Dict[str, int] = {}
+        def critical_depth(node: str) -> int:
+            if node not in depth_cache:
+                successors = list(G.successors(node))
+                depth_cache[node] = 0 if not successors else 1 + max(critical_depth(child) for child in successors)
+            return depth_cache[node]
+        topo_position = {code: index for index, code in enumerate(topo_order)}
+        queue = sorted(
+            (c for c in topo_order if c in remaining_set and c not in co_pulled),
+            key=lambda code: (-critical_depth(code), topo_position[code]),
+        )
     except nx.NetworkXUnfeasible:
         warnings.append("Prerequisite cycle detected; scheduling without ordering guarantees.")
         queue = [c for c in remaining if c not in co_pulled]
@@ -1369,7 +1579,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     scheduled: Set[str] = set()
     planned_terms: List[TermPlan] = []
 
-    for term in terms:
+    for term_index, term in enumerate(terms):
         season = term.split()[0]
         # Apply season-specific credit caps per SAS policy:
         #   Summer: max 12 credits total (across Rutgers + elsewhere)
@@ -1381,13 +1591,31 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         else:
             term_max = request.max_credits_per_term
 
+        terms_left = len(terms) - term_index
+        unscheduled_codes = set(queue) | {
+            code for code in co_pulled if code not in scheduled and code not in completed
+        }
+        unscheduled_credits = sum(
+            float(catalog.get(code, {}).get("credits") or 0)
+            for code in unscheduled_codes
+        )
+        # Use the requested maximum as a hard ceiling, but spread the remaining
+        # workload across the timeline instead of front-loading every term.
+        balanced_term_max = min(
+            term_max,
+            max(4, math.ceil(unscheduled_credits / terms_left)),
+        )
+
         term_courses: List[PlannedCourse] = []
         term_credits = 0
         next_queue: List[str] = []
         prior_scheduled: Set[str] = set(scheduled)
         this_term: Set[str] = set()
 
-        for code in queue:
+        # Never let a flexible degree elective consume capacity needed by a
+        # named program/core requirement offered in the same semester.
+        term_queue = sorted(queue, key=lambda code: code in degree_elective_set)
+        for code in term_queue:
             if code in scheduled or code in this_term:
                 continue
 
@@ -1415,19 +1643,22 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 for co in course.get("corequisites", [])
                 if co not in scheduled and co not in this_term and co not in completed and co in catalog
             )
+            course_credit_limit = balanced_term_max if code in degree_elective_set else term_max
             fits = (
                 term_credits + course["credits"] + pending_co_credits
-                <= term_max
+                <= course_credit_limit
             )
 
             if prereqs_met and offered and fits:
-                is_elec = code in elective_set
+                is_general_elective = code in degree_elective_set
+                is_elec = code in elective_set and not is_general_elective
                 term_courses.append(
                     PlannedCourse(
                         code=course["code"],
                         title=course["title"],
                         credits=course["credits"],
                         is_elective=is_elec,
+                        is_general_elective=is_general_elective,
                         prerequisites=course.get("prerequisites", []),
                         core_tags=_core_tag_index.get(course["code"], []),
                         elective_options=[
@@ -1504,12 +1735,12 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         for c in (request.in_progress_courses or [])
         if raw_to_alias.get(c.strip().upper(), c.strip().upper()) not in completed
     }
-    # Collect all planned course codes across all scheduled terms
-    planned_codes: Set[str] = {c.code for term in non_empty_terms for c in term.courses}
+    # Collect all planned course codes across the full requested timeline.
+    planned_codes: Set[str] = {c.code for term in planned_terms for c in term.courses}
 
     programs_summary: List[ProgramSummary] = []
     for prog in individual_programs:
-        prog_reqs = prog["reqs"]
+        prog_reqs, _ = _normalize_graduate_requirements(prog["reqs"])
         prog_name = prog["name"]
         prog_type = prog["type"]
 
@@ -1556,12 +1787,23 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             electives_needed=elec_needed,
             electives_completed=elec_completed,
             electives_planned=elec_planned,
+            elective_options=sorted(elec_options),
+            elective_min_300_plus=elec.get("min_level_300_plus", 0),
+            elective_min_400_plus=elec.get("min_level_400_plus", 0),
             science_completed=sci_completed,
+            science_options=[
+                option if isinstance(option, list) else [option]
+                for option in prog_reqs.get("science_requirement", {}).get("options", [])
+            ],
             stats_completed=stats_completed,
+            stats_options=prog_reqs.get("statistics_requirement", {}).get("options", []),
+            requirement_groups=prog_reqs.get("requirement_groups", []),
         ))
 
     return PlanResponse(
-        terms=non_empty_terms,
+        # Preserve empty semesters so the editor always reaches the student's
+        # requested graduation term and can accept courses added later.
+        terms=planned_terms,
         remaining_courses=queue,
         warnings=warnings,
         completion_term=completion_term,

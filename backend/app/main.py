@@ -3,6 +3,8 @@ import asyncio
 import logging
 import os
 import re
+import threading
+import time
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -14,7 +16,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
-import bcrypt
 import requests as _requests
 from google.oauth2 import id_token as google_id_token
 from google.auth.transport import requests as google_requests
@@ -29,12 +30,11 @@ from .database import engine, Base, SessionLocal
 from . import models
 from .schemas import (
     PlanRequest, PlanResponse, ProgramInfo, CourseSearchResult,
-    UserCreate, Token, SaveScheduleRequest, GoogleAuthRequest,
+    Token, SaveScheduleRequest, GoogleAuthRequest,
     SnipeCreate, SnipeOut,
-    ForgotPasswordRequest, ResetPasswordRequest,
-    TranscriptResult, CourseDetail,
+    TranscriptResult,
 )
-from .core.planner import heuristic_plan
+from .core.planner import heuristic_plan, _get_sas_core_index, invalidate_catalog_cache
 from .core.transcript import (
     extract_deterministic_rows,
     latest_status_codes,
@@ -42,11 +42,6 @@ from .core.transcript import (
     normalize_extracted_courses,
 )
 from .core.sniper import fetch_sections_for_subject
-
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from management.ingest_courses import ingest, current_term_specs
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
@@ -57,10 +52,7 @@ ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_DAYS = 7
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
-RESEND_API_KEY = os.getenv("RESEND_API_KEY", "")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:3000")
-
-_BCRYPT_ROUNDS = int(os.getenv("BCRYPT_ROUNDS", "12"))
 
 # Maps Rutgers subject numbers (3-digit zero-padded) to short course prefixes (e.g. "198" -> "CS")
 _SUBJECT_TO_PREFIX: dict[str, str] = {
@@ -88,24 +80,61 @@ _SUBJECT_TO_PREFIX: dict[str, str] = {
     "975": "TURK", "988": "WGSS", "360": "EURO", "643": "GQF",
 }
 
-def _hash_password(password: str) -> str:
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt(_BCRYPT_ROUNDS)).decode()
+_SOC_COURSE_CACHE: dict[tuple[int, str], tuple[float, list[dict]]] = {}
+_SOC_CACHE_LOCK = threading.Lock()
+_SOC_CACHE_TTL_SECONDS = 15 * 60
+_SOC_CACHE_MAX_TERMS = 8
+_SOC_TERM_CODE = {"Winter": "0", "Spring": "1", "Summer": "7", "Fall": "9"}
 
-def _verify_password(password: str, hashed: str) -> bool:
-    return bcrypt.checkpw(password.encode(), hashed.encode())
 
-def _validate_password_strength(password: str) -> str | None:
-    if len(password) < 12:
-        return "Password must be at least 12 characters long."
-    if not re.search(r"[a-z]", password):
-        return "Password must contain lowercase letters."
-    if not re.search(r"[A-Z]", password):
-        return "Password must contain uppercase letters."
-    if not re.search(r"\d", password):
-        return "Password must contain numbers."
-    if not re.search(r"[!@#$%^&*\-_=+]", password):
-        return "Password must contain special characters (!@#$%^&*-_=+)."
-    return None
+def _soc_courses_for_term(year: int, season: str) -> list[dict]:
+    """Return the official Rutgers NB undergraduate SOC payload for one term."""
+    key = (year, season)
+    now = time.monotonic()
+    with _SOC_CACHE_LOCK:
+        cached = _SOC_COURSE_CACHE.get(key)
+        if cached and now - cached[0] < _SOC_CACHE_TTL_SECONDS:
+            return cached[1]
+    response = _requests.get(
+        "https://sis.rutgers.edu/soc/api/courses.json",
+        params={"year": year, "term": _SOC_TERM_CODE[season], "campus": "NB", "level": "U"},
+        timeout=20,
+    )
+    response.raise_for_status()
+    courses = response.json()
+    with _SOC_CACHE_LOCK:
+        expired = [
+            cache_key for cache_key, (created_at, _) in _SOC_COURSE_CACHE.items()
+            if now - created_at >= _SOC_CACHE_TTL_SECONDS
+        ]
+        for cache_key in expired:
+            _SOC_COURSE_CACHE.pop(cache_key, None)
+        if len(_SOC_COURSE_CACHE) >= _SOC_CACHE_MAX_TERMS:
+            oldest = min(_SOC_COURSE_CACHE, key=lambda item: _SOC_COURSE_CACHE[item][0])
+            _SOC_COURSE_CACHE.pop(oldest, None)
+        _SOC_COURSE_CACHE[key] = (now, courses)
+    return courses
+
+
+def _soc_course_result(course: dict) -> CourseSearchResult:
+    subject = str(course.get("subject", "")).zfill(3)
+    number = str(course.get("courseNumber", "")).lstrip("0") or "0"
+    prefix = _SUBJECT_TO_PREFIX.get(subject)
+    core_tags = list(dict.fromkeys(
+        item.get("code") or item.get("coreCode")
+        for item in (course.get("coreCodes") or [])
+        if item.get("code") or item.get("coreCode")
+    ))
+    unit = str(course.get("offeringUnitCode") or "01").zfill(2)
+    raw_code = f"{unit}:{subject}:{str(course.get('courseNumber', '')).zfill(3)}"
+    display_code = f"{prefix}{number}" if prefix else raw_code
+    return CourseSearchResult(
+        code=display_code,
+        raw_code=raw_code,
+        title=course.get("expandedTitle") or course.get("title") or display_code,
+        credits=float(course.get("credits") or 0),
+        core_tags=core_tags,
+    )
 
 # Phone number encryption for sniper feature
 _PHONE_ENCRYPTION_KEY = os.getenv("PHONE_ENCRYPTION_KEY")
@@ -211,8 +240,16 @@ _LEVEL_LABEL = {
     "associate":             "AS",
 }
 
+_PROGRAM_CACHE: list = [0.0, []]
+_PROGRAM_CACHE_TTL_SECONDS = 5 * 60
+_PROGRAM_CACHE_LOCK = threading.Lock()
+
 @app.get("/programs", response_model=List[ProgramInfo])
 def list_programs() -> List[ProgramInfo]:
+    now = time.monotonic()
+    with _PROGRAM_CACHE_LOCK:
+        if _PROGRAM_CACHE[1] and now - _PROGRAM_CACHE[0] < _PROGRAM_CACHE_TTL_SECONDS:
+            return _PROGRAM_CACHE[1]
     db = SessionLocal()
     try:
         rows = (
@@ -220,7 +257,7 @@ def list_programs() -> List[ProgramInfo]:
             .order_by(models.Program.school, models.Program.major_name, models.Program.degree_level)
             .all()
         )
-        return [
+        programs = [
             ProgramInfo(
                 school=r.school,
                 degree_level=r.degree_level,
@@ -231,35 +268,98 @@ def list_programs() -> List[ProgramInfo]:
                     f" ({_LEVEL_LABEL.get(r.degree_level, r.degree_level)}, {r.school})"
                 ),
                 tracks=list((r.requirements or {}).get("tracks", {}).keys()),
+                track_labels={
+                    key: value.get("display_name", key.replace("_", " ").title())
+                    for key, value in (r.requirements or {}).get("tracks", {}).items()
+                },
+                track_dimensions=(r.requirements or {}).get("track_dimensions", []),
             )
             for r in rows
         ]
+        with _PROGRAM_CACHE_LOCK:
+            _PROGRAM_CACHE[0] = now
+            _PROGRAM_CACHE[1] = programs
+        return programs
     finally:
         db.close()
 
 @app.get("/courses", response_model=List[CourseSearchResult])
 @_limiter.limit("20/minute")
-def search_courses(request: Request, q: str = Query("", max_length=100), limit: int = Query(20, ge=1, le=100)) -> List[CourseSearchResult]:
+def search_courses(
+    request: Request,
+    q: str = Query("", max_length=100),
+    term: Optional[str] = Query(None, max_length=20),
+    limit: int = Query(20, ge=1, le=100),
+) -> List[CourseSearchResult]:
     if not q:
         return []
     if not re.match(r"^[a-zA-Z0-9\s\-:]+$", q):
         raise HTTPException(status_code=400, detail="Invalid search query")
+    season = term.split()[0].capitalize() if term else None
+    if season and season not in {"Spring", "Summer", "Fall", "Winter"}:
+        raise HTTPException(status_code=400, detail="Invalid semester")
+
+    core_index = _get_sas_core_index()
+
+    if term:
+        match = re.fullmatch(r"(Spring|Summer|Fall|Winter)\s+(\d{4})", term.strip(), re.IGNORECASE)
+        if not match:
+            raise HTTPException(status_code=400, detail="Semester must look like 'Fall 2026'")
+        season = match.group(1).capitalize()
+        year = int(match.group(2))
+        try:
+            official_courses = _soc_courses_for_term(year, season)
+        except (_requests.RequestException, ValueError):
+            raise HTTPException(status_code=502, detail="Rutgers Schedule of Classes is unavailable")
+        needle = q.strip().lower()
+        matches: list[CourseSearchResult] = []
+        seen: set[str] = set()
+        for course in official_courses:
+            result = _soc_course_result(course)
+            tag_match = any(tag.lower() == needle for tag in result.core_tags)
+            text_match = (
+                needle in result.code.lower()
+                or needle in result.title.lower()
+                or needle in (result.raw_code or "").lower()
+            )
+            if (tag_match or text_match) and result.raw_code not in seen:
+                matches.append(result)
+                seen.add(result.raw_code or result.code)
+        return sorted(matches, key=lambda course: (course.code, course.raw_code or ""))[:limit]
+
+    query_tag = next((tag for tags in core_index.values() for tag in tags if tag.lower() == q.strip().lower()), None)
+    designation_codes = [code for code, tags in core_index.items() if query_tag in tags] if query_tag else []
+
     db = SessionLocal()
     try:
-        pattern = f"{q}%"
-        rows = (
-            db.query(models.Course)
-            .filter(
+        course_query = db.query(models.Course)
+        if designation_codes:
+            course_query = course_query.filter(models.Course.code.in_(designation_codes))
+        else:
+            pattern = f"{q}%"
+            course_query = course_query.filter(
                 models.Course.code.ilike(pattern)
                 | models.Course.title.ilike(f"%{q}%")
                 | models.Course.raw_code.ilike(f"%{q}%")
             )
-            .order_by(models.Course.code)
-            .limit(limit)
-            .all()
-        )
+        season_column = {
+            "Spring": models.Course.spring_offered,
+            "Summer": models.Course.summer_offered,
+            "Fall": models.Course.fall_offered,
+        }.get(season)
+        if season_column is not None:
+            course_query = course_query.filter(season_column.is_(True))
+        elif season == "Winter":
+            return []
+        rows = course_query.order_by(models.Course.code).limit(limit).all()
         return [
-            CourseSearchResult(code=r.code, title=r.title, credits=r.credits, raw_code=r.raw_code)
+            CourseSearchResult(
+                code=r.code,
+                title=r.title,
+                credits=r.credits,
+                raw_code=r.raw_code,
+                core_tags=core_index.get(r.code, []),
+            )
             for r in rows
         ]
     finally:
@@ -297,22 +397,39 @@ async def generate_plan(
     payload: PlanRequest,
     user_id: int = Depends(_get_current_user_id),
 ) -> PlanResponse:
+    return await _generate_plan(payload, user_id)
+
+
+@app.post("/dev/plan", response_model=PlanResponse, include_in_schema=False)
+@_limiter.limit("60/minute")
+async def generate_preview_plan(request: Request, payload: PlanRequest) -> PlanResponse:
+    client_host = request.client.host if request.client else ""
+    origin = request.headers.get("origin", "")
+    loopback_hosts = {"127.0.0.1", "::1", "localhost", "testclient"}
+    local_origin = origin in {"http://localhost:3000", "http://127.0.0.1:3000", ""}
+    if client_host not in loopback_hosts or not local_origin:
+        raise HTTPException(status_code=404, detail="Not found")
+    return await _generate_plan(payload, None)
+
+
+async def _generate_plan(payload: PlanRequest, user_id: Optional[int]) -> PlanResponse:
     try:
-        loop = asyncio.get_event_loop()
+        loop = asyncio.get_running_loop()
         result = await asyncio.wait_for(
             loop.run_in_executor(None, heuristic_plan, payload),
             timeout=30.0,
         )
-        db = SessionLocal()
-        try:
-            user = db.query(models.User).filter(models.User.id == user_id).first()
-            if user:
-                user.onboarding_completed = True
-                user.planner_profile = payload.model_dump(mode="json")
-                user.last_plan = result.model_dump(mode="json")
-                db.commit()
-        finally:
-            db.close()
+        if user_id is not None:
+            db = SessionLocal()
+            try:
+                user = db.query(models.User).filter(models.User.id == user_id).first()
+                if user:
+                    user.onboarding_completed = True
+                    user.planner_profile = payload.model_dump(mode="json")
+                    user.last_plan = result.model_dump(mode="json")
+                    db.commit()
+            finally:
+                db.close()
         return result
     except asyncio.TimeoutError:
         raise HTTPException(status_code=504, detail="Plan generation timed out.")
@@ -518,54 +635,6 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
         student_name=student_name,
     )
 
-@app.post("/auth/register", response_model=Token)
-@_limiter.limit("3/minute")
-def register(request: Request, payload: UserCreate, response: Response) -> Token:
-    db = SessionLocal()
-    try:
-        strength_error = _validate_password_strength(payload.password)
-        if strength_error:
-            raise HTTPException(status_code=400, detail=strength_error)
-        if db.query(models.User).filter(models.User.email == payload.email).first():
-            raise HTTPException(status_code=400, detail="Email already registered")
-        user = models.User(email=payload.email, hashed_password=_hash_password(payload.password))
-        db.add(user)
-        db.commit()
-        db.refresh(user)
-        token = _create_token(user.id)
-        response.set_cookie(
-            key="ru_planner_token",
-            value=token,
-            httponly=True,
-            secure=True,
-            samesite="none",
-            max_age=7 * 24 * 60 * 60
-        )
-        return Token(access_token=token, token_type="bearer")
-    finally:
-        db.close()
-
-@app.post("/auth/login", response_model=Token)
-@_limiter.limit("5/minute")
-def login(request: Request, payload: UserCreate, response: Response) -> Token:
-    db = SessionLocal()
-    try:
-        user = db.query(models.User).filter(models.User.email == payload.email).first()
-        if not user or not user.hashed_password or not _verify_password(payload.password, user.hashed_password):
-            raise HTTPException(status_code=401, detail="Invalid email or password")
-        token = _create_token(user.id)
-        response.set_cookie(
-            key="ru_planner_token",
-            value=token,
-            httponly=True,
-            secure=True,
-            samesite="none",
-            max_age=7 * 24 * 60 * 60
-        )
-        return Token(access_token=token, token_type="bearer")
-    finally:
-        db.close()
-
 @app.post("/auth/google", response_model=Token)
 @_limiter.limit("5/minute")
 def google_auth(request: Request, payload: GoogleAuthRequest, response: Response) -> Token:
@@ -638,87 +707,6 @@ def logout(response: Response) -> dict:
     return {"status": "ok"}
 
 
-@app.post("/auth/forgot-password", status_code=200)
-@_limiter.limit("3/minute")
-def forgot_password(request: Request, payload: ForgotPasswordRequest):
-    import secrets
-    db = SessionLocal()
-    try:
-        user = db.query(models.User).filter(models.User.email == payload.email).first()
-        import hashlib
-        logger.info(
-            "Password reset requested for email_hash=%s from ip=%s",
-            hashlib.sha256(payload.email.lower().encode()).hexdigest()[:12],
-            request.client.host if request.client else "unknown",
-        )
-        if user:
-            token = secrets.token_urlsafe(32)
-            expires = datetime.utcnow() + timedelta(hours=1)
-            reset_token = models.PasswordResetToken(
-                user_id=user.id, token=token, expires_at=expires
-            )
-            db.add(reset_token)
-            db.commit()
-            if RESEND_API_KEY:
-                import resend as _resend
-                _resend.api_key = RESEND_API_KEY
-                reset_link = f"{FRONTEND_URL}/reset-password?token={token}"
-                _resend.Emails.send({
-                    "from": "RU Planner <noreply@ruplanner.app>",
-                    "to": [user.email],
-                    "subject": "Reset your RU Planner password",
-                    "html": f"""
-                        <div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px 24px">
-                          <img src="{FRONTEND_URL}/RUPlanner Logo.svg" alt="RU Planner" style="height:36px;margin-bottom:24px" />
-                          <h2 style="margin:0 0 8px;font-size:20px;color:#111">Reset your password</h2>
-                          <p style="margin:0 0 24px;color:#555;font-size:14px;line-height:1.6">
-                            We received a request to reset the password for your RU Planner account.
-                            Click the button below to choose a new password. This link expires in 1 hour.
-                          </p>
-                          <a href="{reset_link}" style="display:inline-block;background:#cc0033;color:#fff;text-decoration:none;padding:12px 24px;border-radius:8px;font-size:15px;font-weight:600">
-                            Reset password
-                          </a>
-                          <p style="margin:24px 0 0;color:#888;font-size:12px;line-height:1.6">
-                            If you didn't request this, you can safely ignore this email.
-                            Your password will not change.
-                          </p>
-                        </div>
-                    """,
-                })
-            logger.info("Password reset email sent for user_id=%s", user.id)
-        return {"message": "If that email is registered, a reset link has been sent."}
-    finally:
-        db.close()
-
-
-@app.post("/auth/reset-password", status_code=200)
-def reset_password(payload: ResetPasswordRequest):
-    strength_error = _validate_password_strength(payload.new_password)
-    if strength_error:
-        raise HTTPException(status_code=400, detail=strength_error)
-    db = SessionLocal()
-    try:
-        reset_token = (
-            db.query(models.PasswordResetToken)
-            .filter(
-                models.PasswordResetToken.token == payload.token,
-                models.PasswordResetToken.used == False,
-                models.PasswordResetToken.expires_at > datetime.utcnow(),
-            )
-            .first()
-        )
-        if not reset_token:
-            raise HTTPException(status_code=400, detail="Invalid or expired reset link.")
-        user = db.query(models.User).filter(models.User.id == reset_token.user_id).first()
-        user.hashed_password = _hash_password(payload.new_password)
-        reset_token.used = True
-        db.commit()
-        logger.info("Password reset completed for user_id=%s", user.id)
-        return {"message": "Password reset successfully."}
-    finally:
-        db.close()
-
-
 @app.post("/schedules")
 def save_schedule(payload: SaveScheduleRequest, user_id: int = Depends(_get_current_user_id)):
     db = SessionLocal()
@@ -764,7 +752,10 @@ def delete_schedule(schedule_id: int, user_id: int = Depends(_get_current_user_i
 _RMP_URL = "https://www.ratemyprofessors.com/graphql"
 _RMP_HOME = "https://www.ratemyprofessors.com/"
 _RMP_SCHOOL_ID = "U2Nob29sLTgyNQ=="
-_rmp_cache: dict = {}
+_rmp_cache: dict[str, tuple[float, dict | None]] = {}
+_RMP_CACHE_TTL_SECONDS = 6 * 60 * 60
+_RMP_CACHE_MAX_NAMES = 512
+_RMP_CACHE_LOCK = threading.Lock()
 _RMP_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Origin": "https://www.ratemyprofessors.com",
@@ -793,6 +784,20 @@ query NewSearchTeachersQuery($text: String!, $schoolID: ID!, $first: Int!) {
 }
 """
 
+
+def _cache_rmp(key: str, value: dict | None, created_at: float) -> None:
+    with _RMP_CACHE_LOCK:
+        expired = [
+            name for name, (cached_at, _) in _rmp_cache.items()
+            if created_at - cached_at >= _RMP_CACHE_TTL_SECONDS
+        ]
+        for name in expired:
+            _rmp_cache.pop(name, None)
+        if len(_rmp_cache) >= _RMP_CACHE_MAX_NAMES:
+            oldest = min(_rmp_cache, key=lambda name: _rmp_cache[name][0])
+            _rmp_cache.pop(oldest, None)
+        _rmp_cache[key] = (created_at, value)
+
 def _get_rmp_session() -> "_requests.Session":
     global _rmp_session
     if _rmp_session is None:
@@ -814,8 +819,11 @@ def rmp_rating(request: Request, name: str = Query(..., max_length=100)):
     else:
         query_name = name.strip().title()
     cache_key = query_name.lower()
-    if cache_key in _rmp_cache:
-        return _rmp_cache[cache_key]
+    now = time.monotonic()
+    with _RMP_CACHE_LOCK:
+        cached = _rmp_cache.get(cache_key)
+        if cached and now - cached[0] < _RMP_CACHE_TTL_SECONDS:
+            return cached[1]
     try:
         session = _get_rmp_session()
         resp = session.post(
@@ -834,7 +842,7 @@ def rmp_rating(request: Request, name: str = Query(..., max_length=100)):
             node = n
             break
     if node is None:
-        _rmp_cache[cache_key] = None
+        _cache_rmp(cache_key, None, now)
         return None
     result = {
         "name": f"{node['firstName']} {node['lastName']}",
@@ -844,7 +852,7 @@ def rmp_rating(request: Request, name: str = Query(..., max_length=100)):
         "would_take_again": node.get("wouldTakeAgainPercent"),
         "legacy_id": node.get("legacyId"),
     }
-    _rmp_cache[cache_key] = result
+    _cache_rmp(cache_key, result, now)
     return result
 
 @app.get("/soc/section-by-index")
@@ -964,10 +972,12 @@ def _require_admin(credentials: HTTPAuthorizationCredentials = Depends(_bearer))
 @app.post("/admin/ingest-courses", dependencies=[Depends(_require_admin)])
 def admin_ingest_courses():
     """Trigger an on-demand course data refresh from the Rutgers SIS API."""
+    from management.ingest_courses import current_term_specs, ingest
     from .database import SessionLocal as _SL
     specs = current_term_specs()
     for year, term in specs:
         ingest(year=year, terms=[term])
+    invalidate_catalog_cache()
     db = _SL()
     try:
         total = db.query(models.Course).count()

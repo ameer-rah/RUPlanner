@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CompletedCoursesInput from "../CompletedCoursesInput";
@@ -15,6 +15,8 @@ type ProgramInfo = {
   catalog_year: string;
   display_name: string;
   tracks: string[];
+  track_labels: Record<string, string>;
+  track_dimensions: { id: string; label: string; options: Record<string, { display_name: string }> }[];
 };
 
 type CoreCurriculumBlock = {
@@ -39,8 +41,16 @@ type ProgramSummary = {
   electives_needed: number;
   electives_completed: string[];
   electives_planned: string[];
+  elective_options: string[];
+  elective_min_300_plus: number;
+  elective_min_400_plus: number;
   science_completed: string[];
+  science_options: string[][];
   stats_completed: string[];
+  stats_options: string[];
+  science_statuses?: CourseStatus[];
+  stats_statuses?: CourseStatus[];
+  requirement_groups: { label: string; count: number; options: string[]; open_pool?: string; statuses?: CourseStatus[] }[];
 };
 
 type PlanResponse = {
@@ -57,10 +67,28 @@ type PlanResponse = {
 };
 
 const ALL_SEASONS = ["Spring", "Summer", "Fall", "Winter"];
-const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.ruplanner.com";
+const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? (process.env.NODE_ENV === "development" ? "http://localhost:8000" : "https://api.ruplanner.com");
+
+function defaultAcademicStart(now = new Date()): string {
+  const season = now.getMonth() <= 4 ? "Spring" : "Fall";
+  return `${season} ${now.getFullYear()}`;
+}
+
+function fourYearGraduation(term: string): string {
+  const [season, yearText] = term.trim().split(/\s+/);
+  const year = Number(yearText);
+  if (!Number.isInteger(year)) return "";
+  return season === "Spring" ? `Fall ${year + 3}` : `Spring ${year + 4}`;
+}
 
 function safeRemoveStorage(key: string) {
   try { localStorage.removeItem(key); } catch {}
+}
+
+function isLocalPreview(): boolean {
+  if (typeof window === "undefined") return false;
+  const hostname = window.location.hostname.toLowerCase();
+  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
 }
 
 function getAuthHeaders(): Record<string, string> {
@@ -81,6 +109,69 @@ function getSeasonBtnClass(season: string, active: boolean) {
 function getUserInitials(email: string | null): string {
   if (!email) return "?";
   return email.charAt(0).toUpperCase();
+}
+
+function courseLevel(code: string): number {
+  const match = code.match(/\d+/);
+  return match ? Math.floor(Number(match[0]) / 100) * 100 : 0;
+}
+
+function liveCourseStatus(code: string, completed: Set<string>, inProgress: Set<string>, planned: Set<string>): CourseStatus["status"] {
+  if (completed.has(code)) return "completed";
+  if (inProgress.has(code)) return "in_progress";
+  if (planned.has(code)) return "planned";
+  return "not_scheduled";
+}
+
+function evaluateProgram(prog: ProgramSummary, completed: Set<string>, inProgress: Set<string>, planned: Set<string>): ProgramSummary {
+  const covered = new Set([...completed, ...inProgress, ...planned]);
+  const electiveMatches = [...new Set((prog.elective_options ?? []).filter((code) => covered.has(code)))];
+  const electiveCompleted = electiveMatches.filter((code) => completed.has(code) || inProgress.has(code));
+  const electivePlanned = electiveMatches.filter((code) => planned.has(code) && !completed.has(code) && !inProgress.has(code));
+
+  const sciencePaths = prog.science_options ?? [];
+  const selectedSciencePath = sciencePaths.reduce<string[]>((best, path) => {
+    const bestCovered = best.filter((code) => covered.has(code)).length;
+    const pathCovered = path.filter((code) => covered.has(code)).length;
+    return pathCovered > bestCovered ? path : best;
+  }, sciencePaths[0] ?? []);
+
+  return {
+    ...prog,
+    required: prog.required.map(({ code }) => ({ code, status: liveCourseStatus(code, completed, inProgress, planned) })),
+    electives_completed: electiveCompleted,
+    electives_planned: electivePlanned,
+    science_statuses: selectedSciencePath.map((code) => ({ code, status: liveCourseStatus(code, completed, inProgress, planned) })),
+    stats_statuses: (prog.stats_options ?? []).map((code) => ({ code, status: liveCourseStatus(code, completed, inProgress, planned) })),
+    requirement_groups: (prog.requirement_groups ?? []).map((group) => ({
+      ...group,
+      statuses: group.options.map((code) => ({ code, status: liveCourseStatus(code, completed, inProgress, planned) })),
+    })),
+  };
+}
+
+function programCoverage(prog: ProgramSummary) {
+  const isCovered = (item: CourseStatus) => item.status !== "not_scheduled";
+  const requiredCovered = prog.required.filter(isCovered).length;
+  const electiveCodes = [...prog.electives_completed, ...prog.electives_planned];
+  const electiveCovered = Math.min(prog.electives_needed, electiveCodes.length);
+  const high300 = electiveCodes.filter((code) => courseLevel(code) >= 300).length;
+  const high400 = electiveCodes.filter((code) => courseLevel(code) >= 400).length;
+  const electiveLevelsMet = high300 >= (prog.elective_min_300_plus ?? 0) && high400 >= (prog.elective_min_400_plus ?? 0);
+  const science = prog.science_statuses ?? [];
+  const stats = prog.stats_statuses ?? [];
+  const scienceCovered = science.filter(isCovered).length;
+  const statsCovered = stats.length ? (stats.some(isCovered) ? 1 : 0) : 0;
+  const consumedGroupCodes = new Set<string>();
+  const groupCovered = (prog.requirement_groups ?? []).reduce((sum, group) => {
+    const matches = (group.statuses ?? []).filter((item) => isCovered(item) && !consumedGroupCodes.has(item.code));
+    matches.slice(0, group.count).forEach((item) => consumedGroupCodes.add(item.code));
+    return sum + Math.min(group.count, matches.length);
+  }, 0);
+  const groupTotal = (prog.requirement_groups ?? []).reduce((sum, group) => sum + group.count, 0);
+  const covered = requiredCovered + electiveCovered + scienceCovered + statsCovered + groupCovered;
+  const total = prog.required.length + prog.electives_needed + science.length + (stats.length ? 1 : 0) + groupTotal;
+  return { covered, total, complete: covered === total && electiveLevelsMet };
 }
 
 function UserMenu({ email, onSignOut }: { email: string | null; onSignOut: () => void }) {
@@ -141,6 +232,30 @@ function UserMenu({ email, onSignOut }: { email: string | null; onSignOut: () =>
 function blockShortTitle(title: string): string {
   // Strip leading "R# : " prefix and keep the rest
   return title.replace(/^R\d+\s*:\s*/, "");
+}
+
+function evaluateCoreBlocks(blocks: CoreCurriculumBlock[], terms: PlanTerm[]): CoreCurriculumBlock[] {
+  const plannedCourses = terms.flatMap((term) => term.courses);
+  return blocks.map((block) => {
+    if (block.total_courses == null) return block;
+    const tags = new Set([...block.title.matchAll(/\[([A-Za-z]+)\]/g)].map((match) => match[1]));
+    if (tags.delete("CC")) {
+      tags.add("CCD");
+      tags.add("CCO");
+    }
+    const validCodes = new Set([...(block.courses ?? []), ...(block.available_courses ?? [])]);
+    const satisfied = new Set(block.completed);
+    for (const course of plannedCourses) {
+      if (validCodes.has(course.code) || (tags.size > 0 && (course.core_tags ?? []).some((tag) => tags.has(tag)))) {
+        satisfied.add(course.code);
+      }
+    }
+    return {
+      ...block,
+      completed: [...satisfied],
+      needed: Math.max(0, block.total_courses - satisfied.size),
+    };
+  });
 }
 
 function CollapsiblePanel({ title, badge, defaultOpen = false, children }: {
@@ -294,18 +409,7 @@ function CoreBlockRow({ block }: { block: CoreCurriculumBlock }) {
 function CoreCurriculumPanel({ name, blocks, terms }: { name: string; blocks: CoreCurriculumBlock[]; terms: PlanTerm[] }) {
   if (!blocks.length) return null;
 
-  // Recompute block completion live using core_tags on each course in the current plan
-  const allPlanCourses = terms.flatMap((t) => t.courses);
-  const liveBlocks = blocks.map((block) => {
-    const blockTags = new Set([...block.title.matchAll(/\[([A-Za-z]+)\]/g)].map((m) => m[1]));
-    if (blockTags.size === 0 || block.total_courses == null) return block;
-    const preCompleted = new Set(block.completed);
-    const planSatisfying = allPlanCourses
-      .filter((c) => !preCompleted.has(c.code) && (c.core_tags ?? []).some((tag) => blockTags.has(tag)))
-      .map((c) => c.code);
-    const totalSatisfied = preCompleted.size + planSatisfying.length;
-    return { ...block, needed: Math.max(0, block.total_courses - totalSatisfied) };
-  });
+  const liveBlocks = evaluateCoreBlocks(blocks, terms);
 
   const doneCount = liveBlocks.filter((b) => b.needed === 0).length;
   const pct = Math.round((doneCount / liveBlocks.length) * 100);
@@ -354,11 +458,12 @@ function ReqRow({ label, items }: { label: string; items: CourseStatus[] }) {
 }
 
 function ProgramRequirementsPanel({ prog }: { prog: ProgramSummary }) {
-  const doneCount = prog.required.filter((c) => c.status === "completed" || c.status === "in_progress").length;
+  const doneCount = prog.required.filter((c) => c.status !== "not_scheduled").length;
   const totalReq = prog.required.length;
-  const elecDone = prog.electives_completed.length;
+  const elecDone = prog.electives_completed.length + prog.electives_planned.length;
   const elecNeeded = prog.electives_needed;
-  const allDone = doneCount === totalReq && elecDone >= elecNeeded;
+  const coverage = programCoverage(prog);
+  const allDone = coverage.complete;
   const badge = allDone ? "Complete" : `${doneCount}/${totalReq} req · ${elecDone}/${elecNeeded} elec`;
 
   const typeLabel = prog.type === "major" ? "Major" : prog.type === "minor" ? "Minor" : "Concentration";
@@ -376,11 +481,11 @@ function ProgramRequirementsPanel({ prog }: { prog: ProgramSummary }) {
 
       <ReqRow label="Required" items={prog.required} />
 
-      {prog.science_completed.length > 0 && (
-        <ReqRow label="Science Req" items={prog.science_completed.map((c) => ({ code: c, status: "completed" as const }))} />
+      {(prog.science_statuses ?? []).length > 0 && (
+        <ReqRow label="Science Req" items={prog.science_statuses ?? []} />
       )}
-      {prog.stats_completed.length > 0 && (
-        <ReqRow label="Stats Req" items={prog.stats_completed.map((c) => ({ code: c, status: "completed" as const }))} />
+      {(prog.stats_statuses ?? []).length > 0 && (
+        <ReqRow label="Stats Req (choose one)" items={prog.stats_statuses ?? []} />
       )}
 
       {elecNeeded > 0 && (
@@ -391,6 +496,23 @@ function ProgramRequirementsPanel({ prog }: { prog: ProgramSummary }) {
             ...prog.electives_planned.map((c) => ({ code: c, status: "planned" as const })),
           ]}
         />
+      )}
+      {(prog.requirement_groups ?? []).map((group) => (
+        <ReqRow
+          key={group.label}
+          label={`${group.label} (${group.count})`}
+          items={group.statuses ?? group.options.map((code) => ({ code, status: "not_scheduled" as const }))}
+        />
+      ))}
+      {(prog.requirement_groups ?? []).filter((group) => group.open_pool).map((group) => (
+        <div key={`${group.label}-note`} style={{ marginTop: 8, fontSize: 11, color: "var(--amber)" }}>
+          {group.label}: {group.open_pool}
+        </div>
+      ))}
+      {!allDone && elecDone >= elecNeeded && (
+        <div style={{ marginTop: 8, fontSize: 11, color: "var(--amber)" }}>
+          Check the highlighted required, science, statistics, and upper-level elective constraints before graduating.
+        </div>
       )}
     </CollapsiblePanel>
   );
@@ -403,6 +525,7 @@ type WizardProps = {
   degreeFilter: string; setDegreeFilter: (v: string) => void;
   majorPrograms: ProgramInfo[]; minorPrograms: ProgramInfo[];
   selectedMajors: string[]; setSelectedMajors: (v: string[]) => void;
+  selectedMajorTracks: Record<string, string>; setSelectedMajorTracks: (v: (prev: Record<string, string>) => Record<string, string>) => void;
   selectedMinors: string[]; setSelectedMinors: (v: string[]) => void;
   selectedMinorTracks: Record<string, string>; setSelectedMinorTracks: (v: (prev: Record<string, string>) => Record<string, string>) => void;
   startTerm: string; setStartTerm: (v: string) => void;
@@ -439,29 +562,16 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
     ? "Your plan is ready to generate"
     : "Your degree plan";
 
-  const previewProgress = [35, 42, 50, 64, 78, 100][step] ?? 35;
-  const previewNote = [
-    "Choose a degree level to set the route.",
-    "Your program determines the required stops.",
-    "The route begins with your starting term.",
-    "Credit limits reshape each semester.",
-    "Completed courses shorten the route.",
-    "Ready to build your Rutgers plan.",
-  ][step];
-  const activeTerm = Math.min(step, previewData.length - 1);
-
   return (
-    <div className="wizard-map" style={{ width: "100%", minHeight: "100%", padding: "32px 40px 48px", display: "flex", flexDirection: "column", gap: 0 }}>
-      <div className="wizard-map-header" style={{ marginBottom: 28 }}>
+    <div style={{ width: "100%", minHeight: "100%", padding: "32px 40px 48px", display: "flex", flexDirection: "column", gap: 0 }}>
+      <div style={{ marginBottom: 28 }}>
         <div style={{ fontSize: 11, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Preview</div>
         <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text)", letterSpacing: "-0.02em" }}>{label}</div>
-        <p className="wizard-map-note">{previewNote}</p>
       </div>
-      <div className="wizard-map-route" style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 14 }}>
         {previewData.map((sem) => (
           <div
             key={sem.term}
-            className={`wizard-map-term${previewData.indexOf(sem) === activeTerm ? " active" : ""}`}
             style={{
               background: "var(--surface-2)",
               border: "1.5px solid var(--border-2)",
@@ -478,7 +588,6 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
               {sem.courses.map((c) => (
                 <div
                   key={c.code}
-                  className="wizard-map-course"
                   style={{
                     fontSize: 11, padding: "4px 10px", borderRadius: 8,
                     background: "var(--surface-3)", border: "1px solid var(--border-2)",
@@ -497,15 +606,15 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
           </div>
         ))}
       </div>
-      <div className="wizard-map-progress" style={{
+      <div style={{
         marginTop: 20, padding: "14px 16px", background: "rgba(204,17,51,0.06)",
         border: "1.5px solid rgba(204,17,51,0.2)", borderRadius: 12,
       }}>
         <div style={{ fontSize: 11, color: "var(--ru-red)", fontWeight: 700, marginBottom: 3 }}>Degree progress</div>
         <div style={{ background: "var(--border-2)", borderRadius: 99, height: 4, overflow: "hidden" }}>
-          <div style={{ width: `${previewProgress}%`, height: "100%", background: "var(--ru-red)", borderRadius: 99, transition: "width 0.6s ease" }} />
+          <div style={{ width: "34%", height: "100%", background: "var(--ru-red)", borderRadius: 99, transition: "width 0.6s ease" }} />
         </div>
-        <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 5 }}>{previewProgress}% route configured</div>
+        <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 5 }}>42 / 120 credits completed</div>
       </div>
     </div>
   );
@@ -516,6 +625,7 @@ function WizardStepContent({
   degreeFilter, setDegreeFilter,
   majorPrograms, minorPrograms,
   selectedMajors, setSelectedMajors,
+  selectedMajorTracks, setSelectedMajorTracks,
   selectedMinors, setSelectedMinors,
   selectedMinorTracks, setSelectedMinorTracks,
   startTerm, setStartTerm,
@@ -524,8 +634,14 @@ function WizardStepContent({
   preferredSeasons, toggleSeason,
   completedCourses, setCompletedCourses, setInProgressCourses,
 }: Omit<WizardProps, "onStepChange" | "onSubmit" | "status">) {
+  const updateStartTerm = (next: string) => {
+    const currentAutoTarget = fourYearGraduation(startTerm);
+    const nextAutoTarget = fourYearGraduation(next);
+    if (targetGradTerm === currentAutoTarget && nextAutoTarget) setTargetGradTerm(nextAutoTarget);
+    setStartTerm(next);
+  };
   if (step === 0) return (
-    <div className="wizard-question">
+    <div>
       <p style={{ fontSize: 26, fontWeight: 700, color: "var(--text)", marginBottom: 8, letterSpacing: "-0.03em", lineHeight: 1.2 }}>
         What degree are you pursuing?
       </p>
@@ -541,7 +657,6 @@ function WizardStepContent({
             key={opt.key}
             type="button"
             onClick={() => setDegreeFilter(opt.key)}
-            className={`wizard-choice${degreeFilter === opt.key ? " selected" : ""}`}
             style={{
               width: "100%", textAlign: "left", padding: "18px 20px",
               borderRadius: 14, cursor: "pointer", fontFamily: "inherit",
@@ -571,29 +686,34 @@ function WizardStepContent({
       <div style={{ marginBottom: 20 }}>
         <label className="label" style={{ marginBottom: 8, display: "block" }}>Major(s)</label>
         <ProgramSelectInput programs={majorPrograms} value={selectedMajors} onChange={setSelectedMajors} placeholder="Search by name or school…" />
+        {selectedMajors.map((majorName) => {
+          const prog = majorPrograms.find((p) => p.display_name === majorName);
+          if (!prog?.tracks?.length) return null;
+          return (
+            <div key={majorName} style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontSize: 11, color: "var(--text-3)", flexShrink: 0 }}>{prog.major_name} track:</span>
+              <select
+                value={selectedMajorTracks[majorName] ?? ""}
+                onChange={(e) => setSelectedMajorTracks((prev) => ({ ...prev, [majorName]: e.target.value }))}
+                style={{ fontSize: 12, padding: "3px 6px", borderRadius: 6, border: "1px solid var(--border-2)", background: "var(--surface)", color: "var(--text)", flex: 1 }}
+              >
+                <option value="">Select track…</option>
+                {prog.tracks.map((track) => <option key={track} value={track}>{track.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase())}</option>)}
+              </select>
+            </div>
+          );
+        })}
       </div>
       <div>
         <label className="label" style={{ marginBottom: 8, display: "block" }}>
           Minor(s) <span className="label-optional">optional</span>
         </label>
         <ProgramSelectInput programs={minorPrograms} value={selectedMinors} onChange={setSelectedMinors} placeholder="Search minors…" />
-        {selectedMinors.map((minorName) => {
-          const prog = minorPrograms.find((p) => p.display_name === minorName);
-          if (!prog?.tracks?.length) return null;
-          return (
-            <div key={minorName} style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ fontSize: 11, color: "var(--text-3)", flexShrink: 0 }}>{prog.major_name} track:</span>
-              <select
-                value={selectedMinorTracks[minorName] ?? ""}
-                onChange={(e) => setSelectedMinorTracks((prev) => ({ ...prev, [minorName]: e.target.value }))}
-                style={{ fontSize: 12, padding: "3px 6px", borderRadius: 6, border: "1px solid var(--border-2)", background: "var(--surface)", color: "var(--text)", flex: 1 }}
-              >
-                <option value="">Select track…</option>
-                {prog.tracks.map((t) => <option key={t} value={t}>{t}</option>)}
-              </select>
-            </div>
-          );
-        })}
+        {selectedMinors.filter((minor) => selectedMinorTracks[minor]).map((minor) => (
+          <div key={minor} style={{ marginTop: 8, fontSize: 11, color: "var(--text-3)" }}>
+            Track: {selectedMinorTracks[minor].replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase())}
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -611,14 +731,14 @@ function WizardStepContent({
         {["Fall", "Spring", "Summer", "Winter"].map((s) => (
           <button key={s} type="button"
             className={`season-btn${startTerm.startsWith(s) ? ` active-${s.toLowerCase()}` : ""}`}
-            onClick={() => setStartTerm(`${s} ${startTerm.split(" ")[1] ?? "2026"}`)}
+            onClick={() => updateStartTerm(`${s} ${startTerm.split(" ")[1] ?? new Date().getFullYear()}`)}
           >{s}</button>
         ))}
         <input
           className="input start-term-year"
           value={startTerm.split(" ")[1] ?? ""}
-          onChange={(e) => setStartTerm(`${startTerm.split(" ")[0]} ${e.target.value}`)}
-          placeholder="2026" maxLength={4}
+          onChange={(e) => updateStartTerm(`${startTerm.split(" ")[0]} ${e.target.value}`)}
+          placeholder={String(new Date().getFullYear())} maxLength={4}
         />
       </div>
     </div>
@@ -634,7 +754,7 @@ function WizardStepContent({
       </p>
       <div style={{ marginBottom: 20 }}>
         <label className="label" style={{ marginBottom: 8, display: "block" }}>Target graduation</label>
-        <input className="input" value={targetGradTerm} onChange={(e) => setTargetGradTerm(e.target.value)} placeholder="e.g. Spring 2028" />
+        <input className="input" value={targetGradTerm} onChange={(e) => setTargetGradTerm(e.target.value)} placeholder={`e.g. ${fourYearGraduation(defaultAcademicStart())}`} />
       </div>
       <div style={{ marginBottom: 20 }}>
         <label className="label" style={{ marginBottom: 8, display: "block" }}>Max credits per term</label>
@@ -755,7 +875,7 @@ function FullPageWizard(props: WizardProps & { compact?: boolean }) {
       {/* Left panel */}
       <div className="wizard-left">
         {/* Step indicator */}
-        <div className="wizard-progress" style={{ marginBottom: 40 }}>
+        <div style={{ marginBottom: 40 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
             <span style={{ fontSize: 12, color: "var(--text-3)", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" }}>
               Step {step + 1} of {total}
@@ -778,10 +898,8 @@ function FullPageWizard(props: WizardProps & { compact?: boolean }) {
           </div>
         </div>
 
-        <div className="wizard-step-number" aria-hidden="true">{String(step + 1).padStart(2, "0")}</div>
-
         {/* Animated step content */}
-        <div key={step} className={`wizard-step-anim wizard-step-${step}`} style={{ flex: 1, overflowY: "auto", paddingBottom: 8 }}>
+        <div key={step} className="wizard-step-anim" style={{ flex: 1, overflowY: "auto", paddingBottom: 8 }}>
           <WizardStepContent {...props} step={step} />
         </div>
 
@@ -831,17 +949,55 @@ function FullPageWizard(props: WizardProps & { compact?: boolean }) {
   );
 }
 
+function TrackSelectionModal({ program, onSelect, onRemove }: { program: ProgramInfo; onSelect: (track: string) => void; onRemove: () => void }) {
+  const [dimensionIndex, setDimensionIndex] = useState(0);
+  const [dimensionSelections, setDimensionSelections] = useState<string[]>([]);
+  const dimension = program.track_dimensions?.[dimensionIndex];
+  const choices = dimension ? Object.keys(dimension.options) : program.tracks;
+  const choose = (choice: string) => {
+    if (!dimension) return onSelect(choice);
+    const next = [...dimensionSelections, choice];
+    if (dimensionIndex + 1 < program.track_dimensions.length) {
+      setDimensionSelections(next);
+      setDimensionIndex((value) => value + 1);
+    } else onSelect(next.join("/"));
+  };
+  return (
+    <div className="modal-overlay">
+      <div className="elective-modal" role="dialog" aria-modal="true" aria-labelledby="track-modal-title" style={{ maxWidth: 480 }}>
+        <div className="elective-modal-header">
+          <div>
+            <div id="track-modal-title" className="elective-modal-title">Choose {dimension?.label?.toLowerCase() ?? "a track"}</div>
+            <div className="elective-modal-sub">{program.major_name} requires this selection before RU Planner can build an accurate schedule.</div>
+          </div>
+        </div>
+        <div className="elective-options-list" style={{ padding: 12 }}>
+          {choices.map((track, index) => (
+            <button key={track} className="elective-option-row" onClick={() => choose(track)} autoFocus={index === 0}>
+              <div className="elective-option-code">{dimension?.options[track]?.display_name ?? program.track_labels?.[track] ?? track.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase())}</div>
+            </button>
+          ))}
+          <button className="elective-option-row" onClick={onRemove} style={{ marginTop: 8, color: "var(--ru-red)" }}>
+            Remove {program.degree_level === "minor" ? "minor" : "program"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function PlannerPage() {
   const router = useRouter();
   const [selectedMajors, setSelectedMajors] = useState<string[]>([]);
+  const [selectedMajorTracks, setSelectedMajorTracks] = useState<Record<string, string>>({});
   const [selectedMinors, setSelectedMinors] = useState<string[]>([]);
   // Maps minor display_name → chosen track (only for minors that have tracks)
   const [selectedMinorTracks, setSelectedMinorTracks] = useState<Record<string, string>>({});
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [inProgressCourses, setInProgressCourses] = useState<string[]>([]);
-  const [startTerm, setStartTerm] = useState("Fall 2026");
-  const [targetGradTerm, setTargetGradTerm] = useState("Spring 2028");
-  const [maxCredits, setMaxCredits] = useState(15);
+  const [startTerm, setStartTerm] = useState(defaultAcademicStart);
+  const [targetGradTerm, setTargetGradTerm] = useState(() => fourYearGraduation(defaultAcademicStart()));
+  const [maxCredits, setMaxCredits] = useState(18);
   const [preferredSeasons, setPreferredSeasons] = useState<string[]>(["Spring", "Fall"]);
   const [plan, setPlan] = useState<PlanResponse | null>(null);
   const [planKey, setPlanKey] = useState(0);
@@ -865,9 +1021,16 @@ export default function PlannerPage() {
     router.prefetch("/schedules");
     async function checkAuthAndLoadPrograms() {
       try {
+        const localBypass = isLocalPreview();
+        if (localBypass) {
+          setUserEmail("local-preview@ruplanner.dev");
+          const programsRes = await fetch(`${apiBase}/programs`);
+          if (programsRes.ok) setPrograms(await programsRes.json());
+          return;
+        }
         const meRes = await fetch(`${apiBase}/auth/me`, { credentials: 'include', headers: getAuthHeaders() });
         if (!meRes.ok) {
-          router.push("/?auth=signin");
+          router.push("/");
           return;
         }
         const me = await meRes.json();
@@ -888,14 +1051,21 @@ export default function PlannerPage() {
               setSelectedMinors(profile.minors ?? []);
               setCompletedCourses(profile.completed_courses ?? []);
               setInProgressCourses(profile.in_progress_courses ?? []);
-              setStartTerm(profile.start_term ?? "Fall 2026");
-              setTargetGradTerm(profile.target_grad_term ?? "Spring 2028");
-              setMaxCredits(profile.max_credits_per_term ?? 15);
+              const savedStart = profile.start_term ?? defaultAcademicStart();
+              const savedGraduation = profile.target_grad_term ?? fourYearGraduation(savedStart);
+              setStartTerm(savedStart);
+              // Migrate the old two-year default that made nearly every fresh
+              // plan appear impossible. Explicitly chosen dates are preserved.
+              const legacyTwoYearDefault = savedStart === "Fall 2026" && savedGraduation === "Spring 2028";
+              setTargetGradTerm(legacyTwoYearDefault ? fourYearGraduation(savedStart) : savedGraduation);
+              setMaxCredits(profile.max_credits_per_term ?? 18);
               setPreferredSeasons(profile.preferred_seasons ?? ["Spring", "Fall"]);
-              setPlan(lastPlan);
-              setEditedTerms(lastPlan.terms);
-              editedTermsRef.current = lastPlan.terms;
-              setPlanKey((key) => key + 1);
+              if (!legacyTwoYearDefault) {
+                setPlan(lastPlan);
+                setEditedTerms(lastPlan.terms);
+                editedTermsRef.current = lastPlan.terms;
+                setPlanKey((key) => key + 1);
+              }
             } else {
               // Accounts migrated from the old version may only have manually
               // saved schedules, so take them directly to that application view.
@@ -911,7 +1081,7 @@ export default function PlannerPage() {
           setPrograms(data);
         }
       } catch {
-        router.push("/?auth=signin");
+        router.push("/");
       }
     }
     checkAuthAndLoadPrograms();
@@ -926,6 +1096,31 @@ export default function PlannerPage() {
     (p) => p.degree_level !== "minor" && p.degree_level !== "concentration" && activeFilter.levels.has(p.degree_level)
   );
   const minorPrograms = programs.filter((p) => p.degree_level === "minor");
+  const hasTrackChoices = (program?: ProgramInfo) => Boolean(program && (program.tracks.length || program.track_dimensions?.length));
+  const pendingTrackProgram = useMemo(() => {
+    for (const selected of selectedMajors) {
+      const program = majorPrograms.find((candidate) => candidate.display_name === selected);
+      if (hasTrackChoices(program) && !selectedMajorTracks[selected]) return program;
+    }
+    for (const selected of selectedMinors) {
+      const program = minorPrograms.find((candidate) => candidate.display_name === selected);
+      if (hasTrackChoices(program) && !selectedMinorTracks[selected]) return program;
+    }
+    return null;
+  }, [selectedMajors, selectedMinors, selectedMajorTracks, selectedMinorTracks, majorPrograms, minorPrograms]);
+
+  function selectPendingTrack(track: string) {
+    if (!pendingTrackProgram) return;
+    const selected = pendingTrackProgram.display_name;
+    if (pendingTrackProgram.degree_level === "minor") setSelectedMinorTracks((previous) => ({ ...previous, [selected]: track }));
+    else setSelectedMajorTracks((previous) => ({ ...previous, [selected]: track }));
+  }
+
+  function removePendingTrackProgram() {
+    if (!pendingTrackProgram) return;
+    if (pendingTrackProgram.degree_level === "minor") setSelectedMinors((current) => current.filter((selected) => selected !== pendingTrackProgram.display_name));
+    else setSelectedMajors((current) => current.filter((selected) => selected !== pendingTrackProgram.display_name));
+  }
 
   function toggleSeason(season: string) {
     setPreferredSeasons((prev) =>
@@ -950,11 +1145,30 @@ export default function PlannerPage() {
       return;
     }
 
+    const minorMissingTrack = selectedMinors.find((minor) => {
+      const program = minorPrograms.find((candidate) => candidate.display_name === minor);
+      return hasTrackChoices(program) && !selectedMinorTracks[minor];
+    });
+    const majorMissingTrack = selectedMajors.find((major) => {
+      const program = majorPrograms.find((candidate) => candidate.display_name === major);
+      return hasTrackChoices(program) && !selectedMajorTracks[major];
+    });
+    const programMissingTrack = majorMissingTrack ?? minorMissingTrack;
+    if (programMissingTrack) {
+      setStatus(`Select a track for ${programMissingTrack.split("(")[0].trim()}.`);
+      setWizardStep(1);
+      return;
+    }
+
     setStatus("Generating plan…");
     setSaveStatus("");
     const payload = {
       degree_level: degreeFilter,
-      majors: selectedMajors,
+      majors: selectedMajors.map((major) => {
+        const track = selectedMajorTracks[major];
+        const program = majorPrograms.find((candidate) => candidate.display_name === major);
+        return track && program ? major.replace(program.major_name, `${program.major_name} — ${track}`) : major;
+      }),
       minors: selectedMinors.map((m) => {
         const track = selectedMinorTracks[m];
         const prog = minorPrograms.find((p) => p.display_name === m);
@@ -975,12 +1189,19 @@ export default function PlannerPage() {
       preferred_seasons: preferredSeasons,
     };
 
-    const res = await fetch(`${apiBase}/plan`, {
-      method: "POST",
-      headers: { "content-type": "application/json", ...getAuthHeaders() },
-      body: JSON.stringify(payload),
-      credentials: 'include',
-    });
+    let res: Response;
+    try {
+      const planEndpoint = isLocalPreview() ? "/dev/plan" : "/plan";
+      res = await fetch(`${apiBase}${planEndpoint}`, {
+        method: "POST",
+        headers: { "content-type": "application/json", ...getAuthHeaders() },
+        body: JSON.stringify(payload),
+        credentials: "include",
+      });
+    } catch {
+      setStatus("Error: Could not reach the local planner API. Make sure the backend is running on port 8000.");
+      return;
+    }
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({ detail: "Unknown error" }));
@@ -1023,7 +1244,7 @@ export default function PlannerPage() {
     if (res.status === 401) {
       safeRemoveStorage("ru_planner_token");
       safeRemoveStorage("ru_planner_email");
-      router.push("/?auth=signin");
+      router.push("/");
       return;
     }
 
@@ -1035,7 +1256,30 @@ export default function PlannerPage() {
     setSaveStatus("Schedule saved!");
   }
 
-  const totalPlanCredits = plan?.terms.reduce((s, t) => s + t.total_credits, 0) ?? 0;
+  const totalPlanCredits = editedTerms.reduce((sum, term) => sum + term.total_credits, 0);
+  const livePrograms = useMemo(() => {
+    if (!plan) return [];
+    const completed = new Set(completedCourses.map((code) => code.trim().toUpperCase()));
+    const inProgress = new Set(inProgressCourses.map((code) => code.trim().toUpperCase()));
+    const planned = new Set(editedTerms.flatMap((term) => term.courses.map((course) => course.code.trim().toUpperCase())));
+    return (plan.programs_summary ?? []).map((program) => evaluateProgram(program, completed, inProgress, planned));
+  }, [plan, completedCourses, inProgressCourses, editedTerms]);
+  const liveCoverage = useMemo(() => {
+    const programTotals = livePrograms.reduce((sum, program) => {
+      const result = programCoverage(program);
+      return { covered: sum.covered + result.covered, total: sum.total + result.total, complete: sum.complete && result.complete };
+    },
+    { covered: 0, total: 0, complete: true });
+    const coreBlocks = evaluateCoreBlocks(plan?.core_curriculum_blocks ?? [], editedTerms).filter((block) => block.total_courses != null);
+    const coreCovered = coreBlocks.reduce((sum, block) => sum + Math.min(block.total_courses ?? 0, (block.total_courses ?? 0) - block.needed), 0);
+    const coreTotal = coreBlocks.reduce((sum, block) => sum + (block.total_courses ?? 0), 0);
+    return {
+      covered: programTotals.covered + coreCovered,
+      total: programTotals.total + coreTotal,
+      complete: programTotals.complete && coreBlocks.every((block) => block.needed === 0),
+    };
+  }, [livePrograms, plan, editedTerms]);
+  const coveragePercent = liveCoverage.total > 0 ? Math.round((liveCoverage.covered / liveCoverage.total) * 100) : 0;
 
   const wizardProps: WizardProps = {
     step: wizardStep,
@@ -1045,7 +1289,12 @@ export default function PlannerPage() {
     majorPrograms,
     minorPrograms,
     selectedMajors,
-    setSelectedMajors,
+    setSelectedMajors: (next) => {
+      setSelectedMajors(next);
+      setSelectedMajorTracks((previous) => Object.fromEntries(next.filter((major) => previous[major]).map((major) => [major, previous[major]])));
+    },
+    selectedMajorTracks,
+    setSelectedMajorTracks,
     selectedMinors,
     setSelectedMinors: (next) => {
       setSelectedMinors(next);
@@ -1074,6 +1323,7 @@ export default function PlannerPage() {
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg)" }}>
+      {pendingTrackProgram && <TrackSelectionModal program={pendingTrackProgram} onSelect={selectPendingTrack} onRemove={removePendingTrackProgram} />}
       {/* ── Topbar ── */}
       <header className="topbar">
         <div style={{ display: "flex", alignItems: "center", gap: 4, marginRight: 28 }}>
@@ -1174,21 +1424,20 @@ export default function PlannerPage() {
                     <span className="stats-bar-label">total credits</span>
                   </div>
                   <div className="stats-bar-item">
-                    <span className="stats-bar-number">{plan.terms.length}</span>
+                    <span className="stats-bar-number">{editedTerms.length}</span>
                     <span className="stats-bar-label">semesters</span>
                   </div>
                   <div className="stats-bar-progress">
                     <div className="stats-bar-progress-labels">
                       <span className="stats-bar-progress-title">Degree progress</span>
                       <span className="stats-bar-progress-value">
-                        {plan.completed_credits} / {plan.total_credits} cr
-                        {plan.total_credits > 0 ? ` (${Math.round((plan.completed_credits / plan.total_credits) * 100)}%)` : ""}
+                        {liveCoverage.covered} / {liveCoverage.total} requirements ({coveragePercent}%)
                       </span>
                     </div>
                     <div className="stats-bar-progress-track">
                       <div
                         className="stats-bar-progress-fill"
-                        style={{ width: plan.total_credits > 0 ? `${Math.round((plan.completed_credits / plan.total_credits) * 100)}%` : "0%" }}
+                        style={{ width: `${coveragePercent}%` }}
                       />
                     </div>
                   </div>
@@ -1203,7 +1452,7 @@ export default function PlannerPage() {
                     )}
                   </div>
                   <div className="planner-subtitle">
-                    {plan.terms.length} semesters · {totalPlanCredits} total credits
+                    {editedTerms.length} semesters · {totalPlanCredits} total credits · {liveCoverage.complete ? "all tracked requirements covered" : "requirements still missing"}
                   </div>
                 </div>
 
@@ -1212,13 +1461,12 @@ export default function PlannerPage() {
                     <strong>No course data available.</strong> This program hasn&apos;t been published yet.
                   </div>
                 )}
-                {plan.remaining_courses.length > 0 && (
+                {!liveCoverage.complete && liveCoverage.total > 0 && (
                   <div className="plan-warning danger" style={{ marginBottom: 12 }}>
-                    <strong>Could not schedule before graduation</strong>
-                    <ul>{plan.remaining_courses.map((c) => <li key={c}>{c}</li>)}</ul>
+                    <strong>This edited plan does not yet cover every tracked program requirement.</strong>
                   </div>
                 )}
-                {(plan.programs_summary ?? []).map((prog, i) => (
+                {livePrograms.map((prog, i) => (
                   <ProgramRequirementsPanel key={i} prog={prog} />
                 ))}
 

@@ -508,7 +508,7 @@ class TestCSPlusITIWithCISMinor:
     def test_cs_iti_critical_intelligence_minor(self):
         r = api_plan(
             ["Computer Science (BS, SAS)", "Information Technology and Informatics (BA, SCI)"],
-            minors=["Critical Intelligence Studies (Minor, SAS)"],
+            minors=["Critical Intelligence Studies — technology (Minor, SAS)"],
             grad="Spring 2032",
             max_cr=18,
         )
@@ -517,7 +517,7 @@ class TestCSPlusITIWithCISMinor:
     def test_critical_intelligence_minor_courses_appear(self):
         r = api_plan(
             ["Computer Science (BS, SAS)"],
-            minors=["Critical Intelligence Studies (Minor, SAS)"],
+            minors=["Critical Intelligence Studies — technology (Minor, SAS)"],
             grad="Spring 2032",
             max_cr=18,
         )
@@ -528,7 +528,7 @@ class TestCSPlusITIWithCISMinor:
     def test_cs_iti_cis_minor_no_remaining(self):
         r = api_plan(
             ["Computer Science (BS, SAS)", "Information Technology and Informatics (BA, SCI)"],
-            minors=["Critical Intelligence Studies (Minor, SAS)"],
+            minors=["Critical Intelligence Studies — technology (Minor, SAS)"],
             grad="Spring 2032",
             max_cr=21,
         )
@@ -540,7 +540,7 @@ class TestMinorsFromVariousSchools:
     def test_data_science_minor_sas(self):
         r = api_plan(
             ["Computer Science (BS, SAS)"],
-            minors=["Data Science (Minor, SAS)"],
+            minors=["Data Science — computer_science (Minor, SAS)"],
         )
         assert r.status_code == 200
 
@@ -590,7 +590,7 @@ class TestMinorsFromVariousSchools:
     def test_two_minors_different_schools(self):
         r = api_plan(
             ["Computer Science (BS, SAS)"],
-            minors=["Data Science (Minor, SAS)", "Public Health (Minor, SPPP)"],
+            minors=["Data Science — computer_science (Minor, SAS)", "Public Health (Minor, SPPP)"],
             grad="Spring 2032",
             max_cr=18,
         )
@@ -602,7 +602,7 @@ class TestMinorsFromVariousSchools:
             minors=[
                 "Mathematics (Minor, SAS)",
                 "Statistics (Minor, SAS)",
-                "Data Science (Minor, SAS)",
+                "Data Science — computer_science (Minor, SAS)",
             ],
             grad="Spring 2032",
             max_cr=21,
@@ -728,7 +728,7 @@ class TestIntricateSameCampusDuals:
         r = api_plan(
             ["Computer Science (BS, SAS)", "Mathematics (BS, SAS)"],
             minors=[
-                "Data Science (Minor, SAS)",
+                "Data Science — computer_science (Minor, SAS)",
                 "Statistics (Minor, SAS)",
                 "Public Health (Minor, SPPP)",
             ],

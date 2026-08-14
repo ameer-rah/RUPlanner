@@ -1342,6 +1342,21 @@
         "Graduates work in golf course management, sports turf, lawn care, sod production, and landscape management.",
         "Students interested in the business side should add AGECO electives."
       ]
+    },
+    "public_garden_management_minor": {
+      "school": "SEBS",
+      "degree_level": "minor",
+      "major_name": "Public Garden Management",
+      "catalog_year": "2025-2026",
+      "required_courses": ["11:550:240", "11:776:211"],
+      "track_required": true,
+      "track_selection": {"required": true, "source_url": "https://newbrunswick-undergrad-25-26.catalogs.rutgers.edu/pages/PYNbCQvyIH5ISdB2XrrK"},
+      "tracks": {
+        "garden_design": {"display_name": "Garden Design", "required_courses": ["11:550:220", "11:550:221", "11:550:235"], "requirement_groups": [{"label": "Garden design electives (minimum 5 credits)", "count": 2, "options": ["11:550:250", "11:550:338", "11:573:445", "11:573:415"], "open_pool": "The official rule is credit-based: choose at least 5 credits. A relevant 300/400-level substitution requires program-director permission."}]},
+        "planting_materials_management": {"display_name": "Planting Materials Management", "requirement_groups": [{"label": "Planting materials courses (12 credits)", "count": 4, "options": [], "open_pool": "Choose 12 credits from 11:776:202, 11:766:210, 11:776:242, 11:776:310, 11:776:304, 11:776:391, 11:550:238, 11:550:233, 11:550:234, or 11:020:321."}]},
+        "institutional_people_skills_and_management": {"display_name": "Institutional People Skills and Management", "required_courses": ["11:607:485"], "requirement_groups": [{"label": "Management electives", "count": 3, "options": [], "open_pool": "Choose 9 credits from 11:193:200, 11:373:205 or 33:010:272 (not both), 11:550:436, 11:607:402, or 11:607:203."}]}
+      },
+      "constraints": ["The selected track requires 12 credits beyond the two foundation courses."]
     }
   }
 }

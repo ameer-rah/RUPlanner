@@ -35,6 +35,8 @@ psql "$DATABASE_URL" -v ON_ERROR_STOP=1 \
   -f management/migrations/002_canonical_course_identity.sql
 psql "$DATABASE_URL" -v ON_ERROR_STOP=1 \
   -f management/migrations/003_user_onboarding_profile.sql
+psql "$DATABASE_URL" -v ON_ERROR_STOP=1 \
+  -f management/migrations/004_query_indexes.sql
 ```
 
 Migration 002 changes the course primary key from the friendly alias (`CS111`)

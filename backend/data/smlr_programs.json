@@ -794,6 +794,49 @@
         "Contact: Hadi El-Farr or Allison Kushner for program details.",
         "Source: https://smlr.rutgers.edu/academic-programs/graduate-programs/online-professional-masters-human-resource-management-mhrm"
       ]
+    },
+    "labor_diversity_minor": {
+      "school": "SMLR", "degree_level": "minor", "major_name": "Labor Studies — Diversity in the Workplace", "catalog_year": "2025-2026", "required_courses": [],
+      "requirement_groups": [
+        {"label": "Introductory Labor Studies", "count": 1, "options": ["LER100", "LER110"]},
+        {"label": "Diversity foundation", "count": 1, "options": ["LER315", "LER316"]},
+        {"label": "Diversity specialization", "count": 3, "options": ["LER303", "LER307", "LER309", "LER315", "LER316", "LER320", "LER321", "LER335", "HRM364", "LER365", "LER366", "LER367", "LER368"]},
+        {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+      ], "constraints": ["Six courses total; a course cannot satisfy both specialization groups."], "notes": ["Source: https://smlr.rutgers.edu/node/5006"]
+    },
+    "labor_unions_minor": {
+      "school": "SMLR", "degree_level": "minor", "major_name": "Labor Studies — Labor Unions and Social Movements", "catalog_year": "2025-2026", "required_courses": [],
+      "requirement_groups": [
+        {"label": "Introductory Labor Studies", "count": 1, "options": ["LER100", "LER110"]},
+        {"label": "Specialization courses", "count": 4, "options": ["LER201", "LER202", "LER207", "LER310", "LER314", "LER319", "LER322", "LER335", "LER340", "LER350", "LER357", "LER359", "LER360"]},
+        {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+      ], "constraints": ["Six courses total."], "notes": ["Source: https://smlr.rutgers.edu/node/5006"]
+    },
+    "labor_law_minor": {
+      "school": "SMLR", "degree_level": "minor", "major_name": "Labor Studies — Law and the Workplace", "catalog_year": "2025-2026", "required_courses": [],
+      "requirement_groups": [
+        {"label": "Introductory Labor Studies", "count": 1, "options": ["LER100", "LER110"]},
+        {"label": "Law foundation", "count": 1, "options": ["LER315", "LER340"]},
+        {"label": "Law specialization", "count": 3, "options": ["LER220", "LER302", "LER312", "LER314", "LER315", "LER316", "LER320", "LER321", "LER330", "LER338", "LER340"]},
+        {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+      ], "constraints": ["Six courses total; the foundation course is additional to the three specialization courses."], "notes": ["Source: https://smlr.rutgers.edu/node/5006"]
+    },
+    "labor_management_minor": {
+      "school": "SMLR", "degree_level": "minor", "major_name": "Labor Studies — Work Organization and Management", "catalog_year": "2025-2026", "required_courses": [],
+      "requirement_groups": [
+        {"label": "Introductory Labor Studies", "count": 1, "options": ["LER100", "LER110"]},
+        {"label": "Organization foundation", "count": 1, "options": ["LER308", "LER311"]},
+        {"label": "Organization specialization", "count": 3, "options": ["LER220", "LER230", "LER308", "LER311", "LER313", "LER317", "LER318", "LER325", "LER326", "LER338", "LER345", "LER361", "LER362", "LER367", "LER368", "LER375", "LER385"]},
+        {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+      ], "constraints": ["Six courses total; a course cannot satisfy both specialization groups."], "notes": ["Source: https://smlr.rutgers.edu/node/5006"]
+    },
+    "labor_globalization_minor": {
+      "school": "SMLR", "degree_level": "minor", "major_name": "Labor Studies — Work, Globalization, and Migration", "catalog_year": "2025-2026", "required_courses": [],
+      "requirement_groups": [
+        {"label": "Introductory Labor Studies", "count": 1, "options": ["LER100", "LER110"]},
+        {"label": "Specialization courses", "count": 4, "options": ["LER301", "LER302", "LER304", "LER320", "LER321", "LER335", "LER336", "LER337", "LER355", "LER361", "LER363", "LER366"]},
+        {"label": "Additional Labor Studies course", "count": 1, "options": [], "open_pool": "Choose another approved 37:575 course at the 200 level or above."}
+      ], "constraints": ["Six courses total."], "notes": ["Source: https://smlr.rutgers.edu/node/5006"]
     }
   }
 }
