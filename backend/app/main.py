@@ -553,8 +553,16 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
                     page.extract_text(layout=True) or "" for page in document.pages
                 )
             raw_pattern = r"\d{2}\s*:\s*\d{3}\s*:\s*\d{3,4}"
-            pypdf_score = (len(re.findall(raw_pattern, pypdf_text)), len(pypdf_text))
-            plumber_score = (len(re.findall(raw_pattern, plumber_text)), len(plumber_text))
+            pypdf_score = (
+                len(extract_deterministic_rows(pypdf_text)),
+                len(re.findall(raw_pattern, pypdf_text)),
+                len(pypdf_text),
+            )
+            plumber_score = (
+                len(extract_deterministic_rows(plumber_text)),
+                len(re.findall(raw_pattern, plumber_text)),
+                len(plumber_text),
+            )
             if plumber_score > pypdf_score:
                 pdf_text = plumber_text
         except Exception as exc:
@@ -573,7 +581,10 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
     deterministic_rows = extract_deterministic_rows(pdf_text)
     ai_rows: list = []
     api_key = os.getenv("ANTHROPIC_API_KEY")
-    if api_key:
+    # Official Rutgers exports are parsed locally. Only use the optional model
+    # fallback when the deterministic parser found no meaningful course table;
+    # this keeps normal transcript processing private and fast.
+    if api_key and len(deterministic_rows) < 3:
         client = _anthropic.AsyncAnthropic(api_key=api_key)
         chunks = _split_transcript_by_term(pdf_text)
         chunk_results = await asyncio.gather(
@@ -608,7 +619,12 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
     student_name = name_match.group(1) if name_match else ""
 
     # Build summary from extracted data — no extra API call needed.
-    earned_credits = sum(c.credits for c in courses_detail if c.passed)
+    calculated_earned_credits = sum(c.credits for c in courses_detail if c.passed)
+    reported_credit_values = [
+        float(value)
+        for value in re.findall(r"DEGREE\s+CREDITS\s+EARNED:\s*(\d+(?:\.\d+)?)", pdf_text, re.IGNORECASE)
+    ]
+    earned_credits = max(reported_credit_values, default=calculated_earned_credits)
     n_passed = sum(1 for c in courses_detail if c.passed)
     n_failed = sum(1 for c in courses_detail if c.failed)
     n_transfer = sum(1 for c in courses_detail if c.is_transfer and c.passed)
@@ -617,12 +633,26 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
     if n_failed:
         parts_summary.append(f"{n_failed} failed")
     if n_transfer:
-        parts_summary.append(f"{n_transfer} transfer credits")
+        parts_summary.append(f"{n_transfer} transfer courses")
     if n_in_progress:
         parts_summary.append(f"{n_in_progress} currently in progress")
     ai_summary = f"Extracted {len(courses_detail)} total courses: {', '.join(parts_summary)}."
 
-    matched, in_progress = latest_status_codes(courses_detail, canonical=True)
+    # The planner consumes stable short catalog codes (CS111, MATH151, ...).
+    # Raw registrar codes remain available in courses_detail for auditing, but
+    # sending them as the planning payload bypasses program catalogs that do not
+    # retain raw_code metadata and causes completed classes to be rescheduled.
+    matched, in_progress = latest_status_codes(courses_detail)
+    in_progress_terms = {
+        course.rutgers_code: course.semester
+        for course in courses_detail
+        if course.is_in_progress and course.rutgers_code and course.rutgers_code in in_progress
+    }
+    in_progress_credit_hours = {
+        course.rutgers_code: course.credits
+        for course in courses_detail
+        if course.is_in_progress and course.rutgers_code and course.rutgers_code in in_progress
+    }
     inferred: dict = {}
 
     for c in courses_detail:
@@ -636,6 +666,9 @@ async def parse_transcript(request: Request, file: UploadFile = File(...)) -> Tr
         courses_detail=courses_detail,
         ai_summary=ai_summary,
         student_name=student_name,
+        earned_degree_credits=earned_credits,
+        in_progress_terms=in_progress_terms,
+        in_progress_credit_hours=in_progress_credit_hours,
     )
 
 @app.post("/auth/google", response_model=Token)

@@ -548,6 +548,9 @@ type WizardProps = {
   preferredSeasons: string[]; toggleSeason: (s: string) => void;
   completedCourses: string[]; setCompletedCourses: (v: string[]) => void;
   setInProgressCourses: (fn: (prev: string[]) => string[]) => void;
+  earnedDegreeCredits: number; setEarnedDegreeCredits: (v: number) => void;
+  setInProgressTerms: (v: Record<string, string>) => void;
+  setInProgressCreditHours: (v: Record<string, number>) => void;
   onSubmit: (e: { preventDefault(): void }) => void;
   status: string;
 };
@@ -647,6 +650,9 @@ function WizardStepContent({
   maxCredits, setMaxCredits,
   preferredSeasons, toggleSeason,
   completedCourses, setCompletedCourses, setInProgressCourses,
+  earnedDegreeCredits, setEarnedDegreeCredits,
+  setInProgressTerms,
+  setInProgressCreditHours,
 }: Omit<WizardProps, "onStepChange" | "onSubmit" | "status">) {
   const updateStartTerm = (next: string) => {
     const currentAutoTarget = fourYearGraduation(startTerm);
@@ -805,6 +811,9 @@ function WizardStepContent({
       <TranscriptUpload
         onCoursesDetected={(codes) => setCompletedCourses([...new Set([...completedCourses, ...codes])])}
         onInProgressDetected={(codes) => setInProgressCourses((prev) => [...new Set([...prev, ...codes])])}
+        onCreditsDetected={setEarnedDegreeCredits}
+        onInProgressTermsDetected={setInProgressTerms}
+        onInProgressCreditsDetected={setInProgressCreditHours}
       />
       <CompletedCoursesInput value={completedCourses} onChange={setCompletedCourses} />
     </div>
@@ -819,6 +828,7 @@ function WizardStepContent({
     { label: "Max credits / term", value: String(maxCredits) },
     { label: "Semesters", value: preferredSeasons.join(", ") || "—" },
     { label: "Completed courses", value: completedCourses.length > 0 ? `${completedCourses.length} courses` : "None added" },
+    ...(earnedDegreeCredits > 0 ? [{ label: "Earned degree credits", value: String(earnedDegreeCredits) }] : []),
   ];
   return (
     <div>
@@ -1009,6 +1019,9 @@ export default function PlannerPage() {
   const [selectedMinorTracks, setSelectedMinorTracks] = useState<Record<string, string>>({});
   const [completedCourses, setCompletedCourses] = useState<string[]>([]);
   const [inProgressCourses, setInProgressCourses] = useState<string[]>([]);
+  const [earnedDegreeCredits, setEarnedDegreeCredits] = useState(0);
+  const [inProgressTerms, setInProgressTerms] = useState<Record<string, string>>({});
+  const [inProgressCreditHours, setInProgressCreditHours] = useState<Record<string, number>>({});
   const [startTerm, setStartTerm] = useState(defaultAcademicStart);
   const [targetGradTerm, setTargetGradTerm] = useState(() => fourYearGraduation(defaultAcademicStart()));
   const [maxCredits, setMaxCredits] = useState(18);
@@ -1065,6 +1078,9 @@ export default function PlannerPage() {
               setSelectedMinors(profile.minors ?? []);
               setCompletedCourses(profile.completed_courses ?? []);
               setInProgressCourses(profile.in_progress_courses ?? []);
+              setEarnedDegreeCredits(profile.earned_degree_credits ?? 0);
+              setInProgressTerms(profile.in_progress_terms ?? {});
+              setInProgressCreditHours(profile.in_progress_credit_hours ?? {});
               const savedStart = profile.start_term ?? defaultAcademicStart();
               const savedGraduation = profile.target_grad_term ?? fourYearGraduation(savedStart);
               setStartTerm(savedStart);
@@ -1190,6 +1206,9 @@ export default function PlannerPage() {
       concentrations: [],
       completed_courses: [...new Set(completedCourses)],
       in_progress_courses: [...new Set(inProgressCourses)],
+      earned_degree_credits: earnedDegreeCredits,
+      in_progress_terms: inProgressTerms,
+      in_progress_credit_hours: inProgressCreditHours,
       start_term: startTerm.trim() || undefined,
       target_grad_term: targetGradTerm,
       max_credits_per_term: maxCredits,
@@ -1326,6 +1345,10 @@ export default function PlannerPage() {
     completedCourses,
     setCompletedCourses,
     setInProgressCourses,
+    earnedDegreeCredits,
+    setEarnedDegreeCredits,
+    setInProgressTerms,
+    setInProgressCreditHours,
     onSubmit: handleSubmit,
     status,
   };

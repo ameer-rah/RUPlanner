@@ -1246,6 +1246,22 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     completed: Set[str] = {
         raw_to_alias.get(code, code) for code in completed_input
     }
+    in_progress: Set[str] = {
+        raw_to_alias.get(code.strip().upper(), code.strip().upper())
+        for code in (request.in_progress_courses or [])
+    }
+    in_progress -= completed
+    covered: Set[str] = completed | in_progress
+    in_progress_terms: Dict[str, str] = {
+        raw_to_alias.get(code.strip().upper(), code.strip().upper()): term.strip()
+        for code, term in (request.in_progress_terms or {}).items()
+        if isinstance(code, str) and isinstance(term, str)
+    }
+    in_progress_credit_hours: Dict[str, float] = {
+        raw_to_alias.get(code.strip().upper(), code.strip().upper()): float(credits)
+        for code, credits in (request.in_progress_credit_hours or {}).items()
+        if isinstance(code, str) and isinstance(credits, (int, float)) and credits >= 0
+    }
     course_grades = {
         raw_to_alias.get(code, code): grade
         for code, grade in request.course_grades.items()
@@ -1320,7 +1336,14 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     all_referenced = list(required) + list(requirements.get("electives", {}).get("options", []))
     for group in requirements.get("requirement_groups", []):
         all_referenced.extend(group.get("options", []))
-    stubbed = _build_catalog_stubs(all_referenced, catalog)
+    # Graduate feeds sometimes list valid adviser-controlled courses before a
+    # full catalog row is available. For undergraduate plans, stub only an
+    # explicit required course—not every choice option—so a missing catalog row
+    # cannot beat a verified option (for example CS425 over CS440).
+    is_graduate = request.degree_level.strip().lower() in {"master", "doctorate"}
+    # Preserve explicit required courses for older curated undergraduate feeds,
+    # but never create fake candidates for an undergraduate choice group.
+    stubbed = _build_catalog_stubs(all_referenced if is_graduate else required, catalog)
     if stubbed:
         warnings.append(
             f"Full catalog details unavailable for {len(stubbed)} graduate course(s) "
@@ -1328,20 +1351,20 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             "Credits shown as 3 per course (standard graduate unit). Verify with the registrar."
         )
 
-    for code in _resolve_science_courses(requirements, completed, catalog):
+    for code in _resolve_science_courses(requirements, covered, catalog):
         if code not in required:
             required.append(code)
 
     for science_group in requirements.get("science_requirements", [])[1:]:
-        for code in _resolve_science_courses({"science_requirement": science_group}, completed, catalog):
+        for code in _resolve_science_courses({"science_requirement": science_group}, covered, catalog):
             if code not in required:
                 required.append(code)
 
-    stat_code = _resolve_stats_course(requirements, completed, catalog)
+    stat_code = _resolve_stats_course(requirements, covered, catalog)
     if stat_code and stat_code not in required:
         required.append(stat_code)
     for statistics_group in requirements.get("statistics_requirements", [])[1:]:
-        stat_code = _resolve_stats_course({"statistics_requirement": statistics_group}, completed, catalog)
+        stat_code = _resolve_stats_course({"statistics_requirement": statistics_group}, covered, catalog)
         if stat_code and stat_code not in required:
             required.append(stat_code)
 
@@ -1357,7 +1380,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     elective_options = [c for c in elective_options if c in catalog]
 
-    completed_elec = [c for c in elective_options if c in completed]
+    completed_elec = [c for c in elective_options if c in covered]
     completed_elec_high = [c for c in completed_elec if _get_course_level(c) >= 300]
     elective_count = max(0, elective_count - len(completed_elec))
     min_level_300_plus = max(0, min_level_300_plus - len(completed_elec_high))
@@ -1367,7 +1390,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     elective_400_plus = max(0, elective_400_plus - len(completed_elec_400))
 
     chosen_electives, elective_warnings = _select_electives(
-        elective_options, elective_count, min_level_300_plus, required, completed,
+        elective_options, elective_count, min_level_300_plus, required, covered,
         min_level_400_plus=elective_400_plus, catalog=catalog,
     )
     warnings.extend(elective_warnings)
@@ -1375,7 +1398,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     elective_set: Set[str] = set(chosen_electives)
     full_elective_pool: List[str] = [
-        c for c in elective_options if c not in completed
+        c for c in elective_options if c not in covered
     ]
 
     # Generic choose-N groups preserve track/category boundaries. Open adviser
@@ -1384,11 +1407,11 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
     for group in requirements.get("requirement_groups", []):
         options = [c for c in dict.fromkeys(group.get("options", [])) if c in catalog]
         count = int(group.get("count", 1))
-        completed_group = [c for c in options if c in completed and c not in consumed_group_courses]
+        completed_group = [c for c in options if c in covered and c not in consumed_group_courses]
         consumed_group_courses.update(completed_group[:count])
         needed = max(0, count - len(completed_group))
         chosen, group_warnings = _select_electives(
-            options, needed, 0, required, completed, catalog=catalog
+            options, needed, 0, required, covered, catalog=catalog
         )
         warnings.extend(group_warnings)
         for code in chosen:
@@ -1397,7 +1420,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 elective_set.add(code)
                 consumed_group_courses.add(code)
         for code in options:
-            if code not in completed and code not in full_elective_pool:
+            if code not in covered and code not in full_elective_pool:
                 full_elective_pool.append(code)
         if group.get("open_pool"):
             warnings.append(f"{group.get('label', 'Adviser-selected requirement')}: {group['open_pool']}")
@@ -1414,7 +1437,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             group_options = [c for c in catalog if c not in required]
         group_completed = [
             c for c in group_options
-            if c in completed and c not in consumed_completed
+            if c in covered and c not in consumed_completed
         ]
         consumed_completed.update(group_completed)
         group_count = max(0, group.get("count", 0) - len(group_completed))
@@ -1429,7 +1452,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             - len([c for c in group_completed if _get_course_level(c) >= 400]),
         )
         selected, group_warnings = _select_electives(
-            group_options, group_count, group_300, required, completed, group_400, catalog
+            group_options, group_count, group_300, required, covered, group_400, catalog
         )
         warnings.extend(group_warnings)
         for code in selected:
@@ -1437,11 +1460,11 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 required.append(code)
                 elective_set.add(code)
         for code in group_options:
-            if code not in completed and code not in full_elective_pool:
+            if code not in covered and code not in full_elective_pool:
                 full_elective_pool.append(code)
 
     for req_key in ("sci_intro_requirement", "advanced_core_requirement", "foundation_requirement"):
-        opt = _resolve_choice_requirement(requirements.get(req_key, {}), completed, catalog)
+        opt = _resolve_choice_requirement(requirements.get(req_key, {}), covered, catalog)
         if opt and opt not in required:
             required.append(opt)
 
@@ -1454,13 +1477,13 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
         pool_300 = pool_req.get("min_level_300_plus", 0)
         pool_400 = pool_req.get("min_level_400_plus", 0)
 
-        completed_pool = [c for c in pool_opts if c in completed]
+        completed_pool = [c for c in pool_opts if c in covered]
         pool_count = max(0, pool_count - len(completed_pool))
         pool_300 = max(0, pool_300 - len([c for c in completed_pool if _get_course_level(c) >= 300]))
         pool_400 = max(0, pool_400 - len([c for c in completed_pool if _get_course_level(c) >= 400]))
 
         chosen_pool, pool_warnings = _select_electives(
-            pool_opts, pool_count, pool_300, required, completed, pool_400, catalog
+            pool_opts, pool_count, pool_300, required, covered, pool_400, catalog
         )
         warnings.extend(pool_warnings)
         for c in chosen_pool:
@@ -1468,7 +1491,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 required.append(c)
                 elective_set.add(c)
         for c in pool_opts:
-            if c not in completed and c not in full_elective_pool:
+            if c not in covered and c not in full_elective_pool:
                 full_elective_pool.append(c)
 
     # For each unfulfilled core block, choose courses that add a distinct goal
@@ -1482,7 +1505,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 continue
             req_set = set(required)
             existing = [
-                code for code in required
+                code for code in [*in_progress, *required]
                 if code not in completed and tags.intersection(_core_tag_index.get(code, []))
             ]
             matched = _match_core_courses(
@@ -1491,8 +1514,8 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             candidates = sorted(
                 [c for c, ctags in _core_tag_index.items()
                  if tags.intersection(set(ctags)) and c in catalog
-                 and c not in completed and c not in req_set],
-                key=lambda c: _core_candidate_key(c, catalog, completed | req_set),
+                 and c not in covered and c not in req_set],
+                key=lambda c: _core_candidate_key(c, catalog, covered | req_set),
             )
             selected: List[str] = []
             for candidate in candidates:
@@ -1513,20 +1536,30 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 if c not in full_elective_pool:
                     full_elective_pool.append(c)
 
-    _collect_missing_prereqs(required, catalog, completed, required)
+    _collect_missing_prereqs(required, catalog, covered, required)
 
     # A bachelor's plan is not complete when the named major/core requirements
     # add up to fewer than the university's 120-credit degree minimum. Fill the
     # remaining space with real, offered catalog courses that have no hidden
     # prerequisite chain. These remain editable general electives in the UI.
     degree_elective_set: Set[str] = set()
+    catalog_completed_credits = sum(
+        float(catalog.get(code, {}).get("credits") or 0) for code in completed
+    )
+    completed_credits_count = max(catalog_completed_credits, request.earned_degree_credits)
+    in_progress_credits = sum(
+        in_progress_credit_hours.get(
+            code, float(catalog.get(code, {}).get("credits") or 0)
+        )
+        for code in in_progress - completed
+    )
+    degree_credits = completed_credits_count + in_progress_credits + sum(
+        float(catalog.get(code, {}).get("credits") or 0)
+        for code in required if code not in covered
+    )
     degree_credit_minimum = 120 if request.degree_level.strip().lower() == "bachelor" else 0
     if degree_credit_minimum:
-        counted = set(required) | completed
-        degree_credits = sum(
-            float(catalog.get(code, {}).get("credits") or 0)
-            for code in counted
-        )
+        counted = set(required) | covered
         candidates = sorted(
             (
                 code for code, course in catalog.items()
@@ -1583,16 +1616,8 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                 "for this bachelor's degree could be populated from the verified catalog."
             )
 
-    remaining = [c for c in required if c not in completed]
-
-    # Compute progress: how many required credits the student has already completed
-    completed_credits_count = sum(
-        float(catalog.get(c, {}).get("credits") or 0) for c in completed
-    )
-    total_credits_count = completed_credits_count + sum(
-        float(catalog.get(c, {}).get("credits") or 0)
-        for c in required if c not in completed
-    )
+    remaining = [c for c in required if c not in covered]
+    total_credits_count = degree_credits
 
     # Build a map of each completed course → the requirement label it satisfies
     completed_course_map: Dict[str, str] = {}
@@ -1715,8 +1740,27 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             max(4, math.ceil(unscheduled_credits / terms_left)),
         )
 
-        term_courses: List[PlannedCourse] = []
-        term_credits = 0
+        # Preserve already-registered transcript courses in their real term.
+        # They consume term capacity and remain visibly distinct from generated
+        # recommendations, while still satisfying prerequisites/requirements.
+        registered_codes = sorted(
+            code for code in in_progress
+            if in_progress_terms.get(code) == term
+        )
+        term_courses: List[PlannedCourse] = [
+            PlannedCourse(
+                code=catalog.get(code, {}).get("code", code),
+                title=catalog.get(code, {}).get("title", code),
+                credits=in_progress_credit_hours.get(
+                    code, float(catalog.get(code, {}).get("credits") or 0)
+                ),
+                prerequisites=catalog.get(code, {}).get("prerequisites", []),
+                core_tags=_core_tag_index.get(code, []),
+                is_in_progress=True,
+            )
+            for code in registered_codes
+        ]
+        term_credits = sum(course.credits for course in term_courses)
         next_queue: List[str] = []
         prior_scheduled: Set[str] = set(scheduled)
         this_term: Set[str] = set()
@@ -1736,11 +1780,13 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
             eligibility = evaluate_rule(
                 rule_for_course(course),
                 StudentRecord(
-                    completed=frozenset(completed | prior_scheduled),
+                    completed=frozenset(covered | prior_scheduled),
                     grades=course_grades,
                     in_progress=frozenset(this_term),
                     programs=frozenset(p["name"] for p in program.get("individual_programs", [])),
-                    earned_credits=sum(catalog.get(c, {}).get("credits", 0) for c in completed | prior_scheduled),
+                    earned_credits=completed_credits_count + sum(
+                        catalog.get(c, {}).get("credits", 0) for c in in_progress | prior_scheduled
+                    ),
                     class_year=request.class_year,
                 ),
             )
@@ -1794,7 +1840,7 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
                     co_eligibility = evaluate_rule(
                         rule_for_course(co),
                         StudentRecord(
-                            completed=frozenset(completed | prior_scheduled | this_term),
+                            completed=frozenset(covered | prior_scheduled | this_term),
                             grades=course_grades,
                             programs=frozenset(p["name"] for p in program.get("individual_programs", [])),
                             class_year=request.class_year,
@@ -1839,11 +1885,6 @@ def heuristic_plan(request: PlanRequest) -> PlanResponse:
 
     # Build per-program requirement summaries
     individual_programs = program.get("individual_programs", [])
-    in_progress: Set[str] = {
-        raw_to_alias.get(c.strip().upper(), c.strip().upper())
-        for c in (request.in_progress_courses or [])
-        if raw_to_alias.get(c.strip().upper(), c.strip().upper()) not in completed
-    }
     # Collect all planned course codes across the full requested timeline.
     planned_codes: Set[str] = {c.code for term in planned_terms for c in term.courses}
 

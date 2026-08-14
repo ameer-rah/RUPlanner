@@ -397,6 +397,32 @@ class TestHeuristicPlan:
         assert "CS112" not in all_codes
         assert "MATH151" not in all_codes
 
+    def test_registered_courses_keep_their_term_and_consume_capacity(self):
+        request = PlanRequest(
+            degree_level="bachelor",
+            majors=["Computer Science (BS, SAS)"],
+            minors=[],
+            completed_courses=[],
+            in_progress_courses=["CS111", "MATH151", "EXPOS101"],
+            in_progress_terms={
+                "CS111": "Fall 2026",
+                "MATH151": "Fall 2026",
+                "EXPOS101": "Fall 2026",
+            },
+            in_progress_credit_hours={"CS111": 4, "MATH151": 4, "EXPOS101": 3},
+            earned_degree_credits=90,
+            start_term="Fall 2026",
+            target_grad_term="Spring 2027",
+            max_credits_per_term=12,
+            preferred_seasons=["Fall", "Spring"],
+        )
+        response = heuristic_plan(request)
+        fall = next(term for term in response.terms if term.term == "Fall 2026")
+
+        assert fall.total_credits == 11
+        assert {course.code for course in fall.courses} == {"CS111", "MATH151", "EXPOS101"}
+        assert all(course.is_in_progress for course in fall.courses)
+
     def test_completed_elective_reduces_quota(self):
         resp = _plan(
             ["Computer Science (BS, SAS)"],

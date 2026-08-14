@@ -16,6 +16,7 @@ FAILING_GRADES = {"F", "WF", "U", "UF", "NC"}
 NON_COMPLETION_GRADES = {"W", "WD", "WN", "NR", "AB", "NG", "AU"}
 _RAW_CODE_RE = re.compile(r"^(\d{2}):(\d{3}):(\d{3,4})$")
 _TERM_RE = re.compile(r"^(Spring|Summer|Fall|Winter)\s+(\d{4})$", re.IGNORECASE)
+_TERM_HEADER_RE = re.compile(r"^(Spring|Summer|Fall|Winter)\s+(\d{4})\b", re.IGNORECASE)
 _TERM_ORDER = {"Spring": 0, "Summer": 1, "Fall": 2, "Winter": 3}
 _ROW_RE = re.compile(
     r"^\s*(?P<raw>\d{2}\s*:\s*\d{3}\s*:\s*\d{3,4})\s+"
@@ -31,6 +32,14 @@ _TRANSFER_EQUIV_RE = re.compile(
 _TRANSFER_ROW_RE = re.compile(
     r"^\s*(?P<title>.*?)\s+(?P<credits>\d+(?:\.\d+)?)\s+"
     r"(?P<grade>TR|TE|TC|T|EX)\s*$",
+    re.IGNORECASE,
+)
+_COLUMN_ROW_RE = re.compile(
+    r"^\s*(?P<title>.*?)\s+(?P<school>\d{2})\s+(?P<dept>\d{3})\s+"
+    r"(?P<course>\d{3,4})\s+(?P<tail>.*?)\s*$"
+)
+_TRANSFER_COLUMN_RE = re.compile(
+    r"^\s*(?P<title>.*?)\s+TR\s+T\d{2}\s+[A-Z]+\s+(?P<credits>\d+\.\d+)\s*$",
     re.IGNORECASE,
 )
 
@@ -50,10 +59,11 @@ def extract_deterministic_rows(text: str) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for line in text.splitlines():
         stripped = line.strip()
-        term = _TERM_RE.fullmatch(stripped)
+        term = _TERM_HEADER_RE.match(stripped)
         if term:
             semester = f"{term.group(1).capitalize()} {term.group(2)}"
-            is_transfer = False
+            if "SCHOOL OF" in stripped.upper():
+                is_transfer = False
             continue
         if re.search(r"\bTRANSFER\s+(?:CREDIT|WORK|COURSES?)\b", stripped, re.IGNORECASE):
             semester = "Transfer"
@@ -64,14 +74,51 @@ def extract_deterministic_rows(text: str) -> list[dict[str, Any]]:
             or _TRANSFER_EQUIV_RE.fullmatch(line)
             or (_TRANSFER_ROW_RE.fullmatch(line) if is_transfer else None)
         )
-        if not match:
+        if match:
+            grade = match.group("grade") or ""
+            rows.append({
+                "title_raw": match.group("title").strip(),
+                "raw_code": normalize_raw_code(match.groupdict().get("raw")),
+                "grade": grade or ("TR" if is_transfer else ""),
+                "semester": semester,
+                "credits": float(match.group("credits")),
+                "is_transfer": is_transfer,
+            })
             continue
+
+        transfer_match = _TRANSFER_COLUMN_RE.fullmatch(line) if is_transfer else None
+        if transfer_match:
+            rows.append({
+                "title_raw": transfer_match.group("title").strip(),
+                "raw_code": None,
+                "grade": "TR",
+                "semester": semester,
+                "credits": float(transfer_match.group("credits")),
+                "is_transfer": True,
+            })
+            continue
+
+        # Official Rutgers PDFs commonly print the three code columns without
+        # colons, followed by optional section/repeat/grade columns.
+        column_match = _COLUMN_ROW_RE.fullmatch(line)
+        if not column_match:
+            continue
+        tail_tokens = column_match.group("tail").split()
+        credit_index = next(
+            (index for index, token in enumerate(tail_tokens) if re.fullmatch(r"\d+\.\d+", token)),
+            None,
+        )
+        if credit_index is None:
+            continue
+        after_credits = [token.upper() for token in tail_tokens[credit_index + 1:]]
+        valid_grades = PASSING_GRADES | FAILING_GRADES | NON_COMPLETION_GRADES
+        grade = next((token for token in reversed(after_credits) if token in valid_grades), "")
         rows.append({
-            "title_raw": match.group("title").strip(),
-            "raw_code": normalize_raw_code(match.groupdict().get("raw")),
-            "grade": match.group("grade") or "",
+            "title_raw": column_match.group("title").strip(),
+            "raw_code": f"{column_match.group('school')}:{column_match.group('dept')}:{column_match.group('course')}",
+            "grade": grade or ("TR" if is_transfer else ""),
             "semester": semester,
-            "credits": float(match.group("credits")),
+            "credits": float(tail_tokens[credit_index]),
             "is_transfer": is_transfer,
         })
     return rows

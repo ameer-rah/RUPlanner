@@ -102,3 +102,24 @@ def test_fixture_corpus_contains_no_real_identifiers():
         case = load_case(case_name)
         assert "synthetic" in case["privacy"].lower()
         assert forbidden_keys.isdisjoint(case)
+
+
+def test_official_fixed_column_rows_and_registered_terms_are_parsed_locally():
+    text = """
+TRANSFER COURSES
+Fall 2023
+ FRESHMAN COMPOSITION                 01 355 101       3.0
+ GENERAL HUMANITIES                   TR T01 EC         3.0
+Fall 2026 SCHOOL OF ARTS AND SCIENCES
+ DESIGN AND ANALYSIS OF ALGORITHMS    01 198 344 01    4.0
+Spring 2027 SCHOOL OF ARTS AND SCIENCES
+ INTRODUCTION TO ARTIFICIAL INTELLIGENCE 01 198 440 01 4.0 A
+"""
+    rows = extract_deterministic_rows(text)
+
+    assert [(row["raw_code"], row["grade"], row["semester"]) for row in rows] == [
+        ("01:355:101", "TR", "Fall 2023"),
+        (None, "TR", "Fall 2023"),
+        ("01:198:344", "", "Fall 2026"),
+        ("01:198:440", "A", "Spring 2027"),
+    ]

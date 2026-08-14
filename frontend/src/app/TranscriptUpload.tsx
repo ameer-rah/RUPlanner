@@ -22,11 +22,17 @@ type TranscriptResult = {
   courses_detail: CourseDetail[];
   ai_summary: string;
   student_name: string;
+  earned_degree_credits: number;
+  in_progress_terms: Record<string, string>;
+  in_progress_credit_hours: Record<string, number>;
 };
 
 type Props = {
   onCoursesDetected: (codes: string[]) => void;
   onInProgressDetected?: (codes: string[]) => void;
+  onCreditsDetected?: (credits: number) => void;
+  onInProgressTermsDetected?: (terms: Record<string, string>) => void;
+  onInProgressCreditsDetected?: (credits: Record<string, number>) => void;
 };
 
 const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
@@ -67,7 +73,7 @@ function StatusBadge({ course }: { course: CourseDetail }) {
   return null;
 }
 
-export default function TranscriptUpload({ onCoursesDetected, onInProgressDetected }: Props) {
+export default function TranscriptUpload({ onCoursesDetected, onInProgressDetected, onCreditsDetected, onInProgressTermsDetected, onInProgressCreditsDetected }: Props) {
   const [phase, setPhase] = useState<"idle" | "analyzing" | "done" | "error">("idle");
   const [progress, setProgress] = useState(0);
   const [showResults, setShowResults] = useState(false);
@@ -308,6 +314,9 @@ export default function TranscriptUpload({ onCoursesDetected, onInProgressDetect
               if (result.in_progress?.length && onInProgressDetected) {
                 onInProgressDetected(result.in_progress);
               }
+              onCreditsDetected?.(result.earned_degree_credits);
+              onInProgressTermsDetected?.(result.in_progress_terms ?? {});
+              onInProgressCreditsDetected?.(result.in_progress_credit_hours ?? {});
               setApplied(true);
             }}
             style={{

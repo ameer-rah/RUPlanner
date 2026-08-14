@@ -24,6 +24,14 @@ class PlanRequest(BaseModel):
     concentrations: Annotated[List[str], Field(default=[], max_length=5, description="Optional concentration programs to layer on top of the major.")]
     completed_courses: Annotated[List[str], Field(max_length=200)]
     in_progress_courses: Annotated[List[str], Field(default=[], max_length=100)]
+    in_progress_terms: Dict[str, str] = Field(default_factory=dict)
+    in_progress_credit_hours: Dict[str, float] = Field(default_factory=dict)
+    earned_degree_credits: float = Field(
+        default=0,
+        ge=0,
+        le=300,
+        description="Registrar-reported earned degree credits, including unmatched transfer credit.",
+    )
     course_grades: Dict[str, str] = Field(default_factory=dict)
     class_year: Optional[int] = Field(default=None, ge=1, le=10)
 
@@ -96,6 +104,7 @@ class PlannedCourse(BaseModel):
     prerequisites: List[str] = []
     elective_options: List[ElectiveOption] = []
     core_tags: List[str] = []
+    is_in_progress: bool = False
 
 
 class TermPlan(BaseModel):
@@ -137,6 +146,9 @@ class TranscriptResult(BaseModel):
     courses_detail: List["CourseDetail"] = []
     ai_summary: str = ""
     student_name: str = ""
+    earned_degree_credits: float = 0
+    in_progress_terms: Dict[str, str] = Field(default_factory=dict)
+    in_progress_credit_hours: Dict[str, float] = Field(default_factory=dict)
 
 
 class CourseStatus(BaseModel):
