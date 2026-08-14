@@ -1045,7 +1045,7 @@ export default function PlannerPage() {
             const saved = await profileRes.json();
             const profile = saved.planner_profile;
             const lastPlan = saved.last_plan as PlanResponse | null;
-            if (profile && lastPlan) {
+            if (profile) {
               setDegreeFilter(profile.degree_level ?? "bachelor");
               setSelectedMajors(profile.majors ?? []);
               setSelectedMinors(profile.minors ?? []);
@@ -1060,17 +1060,12 @@ export default function PlannerPage() {
               setTargetGradTerm(legacyTwoYearDefault ? fourYearGraduation(savedStart) : savedGraduation);
               setMaxCredits(profile.max_credits_per_term ?? 18);
               setPreferredSeasons(profile.preferred_seasons ?? ["Spring", "Fall"]);
-              if (!legacyTwoYearDefault) {
+              if (lastPlan && !legacyTwoYearDefault) {
                 setPlan(lastPlan);
                 setEditedTerms(lastPlan.terms);
                 editedTermsRef.current = lastPlan.terms;
                 setPlanKey((key) => key + 1);
               }
-            } else {
-              // Accounts migrated from the old version may only have manually
-              // saved schedules, so take them directly to that application view.
-              router.push("/schedules");
-              return;
             }
           }
         }
