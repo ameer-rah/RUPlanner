@@ -312,8 +312,9 @@ def search_courses(
         year = int(match.group(2))
         try:
             official_courses = _soc_courses_for_term(year, season)
-        except (_requests.RequestException, ValueError):
-            raise HTTPException(status_code=502, detail="Rutgers Schedule of Classes is unavailable")
+        except (_requests.RequestException, ValueError) as exc:
+            logger.info("SOC unavailable for %s; using catalog fallback: %s", term, exc)
+            official_courses = []
         needle = q.strip().lower()
         matches: list[CourseSearchResult] = []
         seen: set[str] = set()
@@ -328,7 +329,11 @@ def search_courses(
             if (tag_match or text_match) and result.raw_code not in seen:
                 matches.append(result)
                 seen.add(result.raw_code or result.code)
-        return sorted(matches, key=lambda course: (course.code, course.raw_code or ""))[:limit]
+        if official_courses:
+            return sorted(matches, key=lambda course: (course.code, course.raw_code or ""))[:limit]
+        # Future schedules are commonly unpublished. Fall through to the
+        # verified catalog and historical season flags instead of making every
+        # future semester appear unable to accept courses.
 
     query_tag = next((tag for tags in core_index.values() for tag in tags if tag.lower() == q.strip().lower()), None)
     designation_codes = [code for code, tags in core_index.items() if query_tag in tags] if query_tag else []
@@ -352,8 +357,6 @@ def search_courses(
         }.get(season)
         if season_column is not None:
             course_query = course_query.filter(season_column.is_(True))
-        elif season == "Winter":
-            return []
         rows = course_query.order_by(models.Course.code).limit(limit).all()
         return [
             CourseSearchResult(

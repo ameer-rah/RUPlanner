@@ -84,6 +84,23 @@ class TestSearchCourses:
         assert res.status_code == 200
         assert len(res.json()) <= 3
 
+    def test_unpublished_future_term_falls_back_to_verified_catalog(self, monkeypatch):
+        from app import models
+        from app.database import SessionLocal
+
+        monkeypatch.setattr("app.main._soc_courses_for_term", lambda _year, _season: [])
+        with SessionLocal() as db:
+            db.merge(models.Course(
+                raw_code="01:198:999", code="CS999", title="Future Systems",
+                credits=3, subject_code="198", course_number="999",
+                spring_offered=True, summer_offered=False, fall_offered=True,
+            ))
+            db.commit()
+        res = client.get("/courses?q=CS999&term=Spring%202031")
+
+        assert res.status_code == 200
+        assert any(course["code"] == "CS999" for course in res.json())
+
 
 def _base_payload(**overrides):
     payload = {

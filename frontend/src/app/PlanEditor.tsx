@@ -221,7 +221,7 @@ function AddCourseModal({
         <div className="elective-modal-header">
           <div>
             <div className="elective-modal-title">Add a course</div>
-            <div className="elective-modal-sub">Official Rutgers offerings for the semester you choose</div>
+            <div className="elective-modal-sub">Official offerings when published; verified catalog options for future terms</div>
           </div>
           <button className="elective-modal-close" onClick={onClose}>✕</button>
         </div>
@@ -270,7 +270,7 @@ function AddCourseModal({
             <div className="add-course-results" style={{ marginTop: 6 }}>
               {loading && <div className="add-course-result-loading">Searching…</div>}
               {!loading && results.length === 0 && (
-                <div className="add-course-result-loading">No matching courses are listed for {terms[selectedTermIdx!]?.term}.</div>
+                <div className="add-course-result-loading">No matching course was found for {terms[selectedTermIdx!]?.term}. Try the full Rutgers code or course title.</div>
               )}
               {results.map((c) => (
                 <button
