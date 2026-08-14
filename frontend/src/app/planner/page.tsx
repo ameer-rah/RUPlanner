@@ -478,7 +478,18 @@ function ProgramRequirementsPanel({ prog }: { prog: ProgramSummary }) {
   const elecNeeded = prog.electives_needed;
   const coverage = programCoverage(prog);
   const allDone = coverage.complete;
-  const badge = allDone ? "Complete" : `${doneCount}/${totalReq} req · ${elecDone}/${elecNeeded} elec`;
+  const groupDone = (prog.requirement_groups ?? []).reduce(
+    (sum, group) => sum + Math.min(group.count, (group.statuses ?? []).filter((item) => item.status !== "not_scheduled").length),
+    0,
+  );
+  const groupNeeded = (prog.requirement_groups ?? []).reduce((sum, group) => sum + group.count, 0);
+  const badge = allDone
+    ? "Complete"
+    : [
+        `${doneCount}/${totalReq} req`,
+        ...(elecNeeded ? [`${elecDone}/${elecNeeded} elec`] : []),
+        ...(groupNeeded ? [`${groupDone}/${groupNeeded} track`] : []),
+      ].join(" · ");
 
   const typeLabel = prog.type === "major" ? "Major" : prog.type === "minor" ? "Minor" : "Concentration";
 
@@ -547,7 +558,7 @@ type WizardProps = {
   maxCredits: number; setMaxCredits: (v: number) => void;
   preferredSeasons: string[]; toggleSeason: (s: string) => void;
   completedCourses: string[]; setCompletedCourses: (v: string[]) => void;
-  setInProgressCourses: (fn: (prev: string[]) => string[]) => void;
+  setInProgressCourses: React.Dispatch<React.SetStateAction<string[]>>;
   earnedDegreeCredits: number; setEarnedDegreeCredits: (v: number) => void;
   setInProgressTerms: (v: Record<string, string>) => void;
   setInProgressCreditHours: (v: Record<string, number>) => void;
@@ -809,8 +820,11 @@ function WizardStepContent({
         Upload your transcript or add courses manually. You can skip this step.
       </p>
       <TranscriptUpload
-        onCoursesDetected={(codes) => setCompletedCourses([...new Set([...completedCourses, ...codes])])}
-        onInProgressDetected={(codes) => setInProgressCourses((prev) => [...new Set([...prev, ...codes])])}
+        // A transcript is an authoritative snapshot. Replacing stale values is
+        // essential: merging with a previously parsed profile made old failed
+        // and in-progress attempts linger as completed courses.
+        onCoursesDetected={(codes) => setCompletedCourses([...new Set(codes)])}
+        onInProgressDetected={(codes) => setInProgressCourses([...new Set(codes)])}
         onCreditsDetected={setEarnedDegreeCredits}
         onInProgressTermsDetected={setInProgressTerms}
         onInProgressCreditsDetected={setInProgressCreditHours}
@@ -1484,7 +1498,7 @@ export default function PlannerPage() {
                     )}
                   </div>
                   <div className="planner-subtitle">
-                    {editedTerms.length} semesters · {totalPlanCredits} total credits · {liveCoverage.complete ? "all tracked requirements covered" : "requirements still missing"}
+                    {editedTerms.length} semesters · {totalPlanCredits} scheduled credits · {plan.total_credits} degree credits · {liveCoverage.complete ? "all tracked requirements covered" : "requirements still missing"}
                   </div>
                 </div>
 
