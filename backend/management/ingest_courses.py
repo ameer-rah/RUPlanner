@@ -2,7 +2,7 @@
 """
 Rutgers SIS course ingestion script.
 
-Pulls every undergraduate course offered at New Brunswick from the
+Pulls the New Brunswick undergraduate and graduate schedule from the
 Rutgers Schedule of Classes API and upserts it into the local database.
 
 Usage (run from backend/):
@@ -11,6 +11,10 @@ Usage (run from backend/):
     python -m management.ingest_courses --year 2026 --terms fall spring
 """
 import argparse
+from datetime import date, datetime
+import logging
+import math
+import re
 import sys
 from pathlib import Path
 
@@ -21,19 +25,27 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 
 import requests
+from sqlalchemy import delete, text
+from sqlalchemy.dialects.postgresql import insert as pg_insert
+from sqlalchemy.dialects.sqlite import insert as sqlite_insert
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
-from app.database import engine, SessionLocal, Base
-from app.models import Course
+from app.database import SessionLocal
+from app.models import Course, CourseImport, CourseOffering, utc_now
 
 # ---------------------------------------------------------------------------
 # Rutgers Schedule of Classes API
-# Term codes: 1=Spring, 7=Summer, 9=Fall
+# Term codes: 0=Winter, 1=Spring, 7=Summer, 9=Fall
 # ---------------------------------------------------------------------------
 SIS_BASE = "https://sis.rutgers.edu/soc/api/courses.json"
 CAMPUS = "NB"
+LEVELS = ("U", "G")
+COURSE_CODE = re.compile(r"[0-9]{2}:[A-Z0-9]{3}:[A-Z0-9]{3}")
+logger = logging.getLogger(__name__)
 
 TERM_CODES = {
+    "winter": "0",
     "spring": "1",
     "summer": "7",
     "fall":   "9",
@@ -233,62 +245,44 @@ _UNIT_SUBJECT_OVERRIDE: dict[str, dict[str, str]] = {
 }
 
 
-def current_terms() -> tuple[int, list[str]]:
-    """Return (year, [term_names]) for the current academic period.
-
-    Logic:
-      Jan–May  → Spring of this calendar year
-      Jun–Jul  → Summer of this calendar year
-      Aug–Dec  → Fall of this calendar year + pre-load next Spring
-    """
-    from datetime import date
-    today = date.today()
-    month = today.month
+def current_term_specs(today: date | None = None) -> list[tuple[int, str]]:
+    """Refresh the active term, its predecessor, and the next two candidates."""
+    today = today or date.today()
     year = today.year
-    if month <= 5:
-        return year, ["spring"]
-    elif month <= 7:
-        return year, ["summer"]
-    else:
-        return year, ["fall"]
+    if today.month <= 5:
+        return [(year, "winter"), (year, "spring"), (year, "summer"), (year, "fall")]
+    if today.month <= 7:
+        return [(year, "spring"), (year, "summer"), (year, "fall"), (year + 1, "winter")]
+    return [(year, "summer"), (year, "fall"), (year + 1, "winter"), (year + 1, "spring")]
 
 
-def current_term_specs() -> list[tuple[int, str]]:
-    """Return exact calendar-year/term pairs to refresh.
-
-    Rutgers SIS identifies Spring by its calendar year. During Fall, the next
-    Spring therefore must use ``year + 1`` rather than the Fall year.
-    """
-    year, terms = current_terms()
-    specs = [(year, term) for term in terms]
-    from datetime import date
-    if date.today().month >= 8:
-        specs.append((year + 1, "spring"))
-    return specs
-
-
-def fetch_term(year: int, term_name: str, level: str = "U") -> list[dict]:
-    """Fetch one term's course catalog while keeping transient failures nonfatal.
-
-    Args:
-        year: Calendar year used by Rutgers SIS.
-        term_name: Human-readable term key from ``TERM_CODES``.
-        level: SIS level code, normally undergraduate or graduate.
-
-    Returns:
-        Raw SIS course objects, or an empty list when the request fails.
-    """
-    code = TERM_CODES[term_name]
-    params = {"year": year, "term": code, "campus": CAMPUS, "level": level}
-    try:
-        resp = requests.get(SIS_BASE, params=params, timeout=30)
-        resp.raise_for_status()
-        courses = resp.json()
-        print(f"  {term_name.capitalize()} {year}: {len(courses)} courses returned by API")
-        return courses
-    except requests.RequestException as exc:
-        print(f"  Warning: could not fetch {term_name} {year}: {exc}")
-        return []
+def fetch_term(year: int, term_name: str) -> list[dict]:
+    """Fetch and validate the entire New Brunswick response before writing it."""
+    response = requests.get(
+        SIS_BASE,
+        params={"year": year, "term": TERM_CODES[term_name], "campus": CAMPUS},
+        timeout=30,
+    )
+    response.raise_for_status()
+    courses = response.json()
+    if not isinstance(courses, list):
+        raise ValueError("Expected Rutgers to return a list of courses")
+    for course in courses:
+        if not isinstance(course, dict):
+            raise ValueError("Unexpected Rutgers course record")
+        raw_code = course.get("courseString")
+        title = course.get("title")
+        if (
+            not isinstance(raw_code, str)
+            or not COURSE_CODE.fullmatch(raw_code)
+            or not isinstance(title, str)
+            or not title.strip()
+            or len(title.strip()) > 255
+            or course.get("level") not in LEVELS
+            or course.get("mainCampus") != CAMPUS
+        ):
+            raise ValueError(f"Invalid New Brunswick course record: {raw_code!r}")
+    return courses
 
 
 def parse_credits(raw_course: dict) -> float:
@@ -305,176 +299,151 @@ def parse_credits(raw_course: dict) -> float:
         if val is not None:
             try:
                 # Handle ranges like "3-4" — take the lower bound.
-                return float(str(val).split("-")[0].strip())
+                credits = float(str(val).split("-")[0].strip())
+                if math.isfinite(credits) and credits >= 0:
+                    return credits
             except (ValueError, AttributeError):
                 continue
     return 0.0  # unknown; never invent credits
 
 
-def upsert_courses(db: Session, raw_courses: list[dict], term_name: str) -> int:
-    """Canonicalize and atomically upsert one term's SIS course objects.
-
-    Args:
-        db: Open SQLAlchemy session that owns the transaction.
-        raw_courses: Course objects returned by SIS.
-        term_name: Term whose offered flag should be preserved.
-
-    Returns:
-        Number of rows affected by the database upsert.
-    """
-    from sqlalchemy.dialects.postgresql import insert as pg_insert
-
-    is_spring = term_name == "spring"
-    is_summer = term_name == "summer"
-    is_fall   = term_name == "fall"
-
-    # Deduplicate within this batch first (API returns one entry per section).
-    seen_this_batch: dict[str, dict] = {}
+def normalize_courses(raw_courses: list[dict], term_name: str) -> dict[str, dict]:
+    """Use Rutgers identity for every course, including unfamiliar subjects."""
+    rows: dict[str, dict] = {}
     for raw in raw_courses:
-        subject = raw.get("subject", "")
-        offering_unit = raw.get("offeringUnitCode", "")
+        raw_code = raw["courseString"]
+        offering_unit, subject, number_raw = raw_code.split(":")
         unit_overrides = _UNIT_SUBJECT_OVERRIDE.get(offering_unit, {})
         prefix = unit_overrides.get(subject) or SUBJECT_TO_PREFIX.get(subject)
-        if not prefix:
-            continue
-
-        number_raw = raw.get("courseNumber", "")
         number = number_raw.lstrip("0") or number_raw
-        code = f"{prefix}{number}"
-        title = (raw.get("title") or "").strip()
-        if not code or not title:
-            continue
+        rows.setdefault(raw_code, {
+            "code": f"{prefix}{number}" if prefix else raw_code,
+            "title": raw["title"].strip(),
+            "credits": parse_credits(raw),
+            "subject_code": subject,
+            "course_number": number_raw,
+            "offering_unit_code": offering_unit,
+            "raw_code": raw_code,
+            "spring_offered": term_name == "spring",
+            "summer_offered": term_name == "summer",
+            "fall_offered": term_name == "fall",
+        })
+    return rows
 
-        raw_code = f"{offering_unit}:{subject}:{number_raw}"
 
-        if raw_code not in seen_this_batch:
-            seen_this_batch[raw_code] = {
-                "code": code,
-                "title": title,
-                "credits": parse_credits(raw),
-                "subject_code": subject,
-                "course_number": number_raw,
-                "offering_unit_code": offering_unit,
-                "raw_code": raw_code,
-                "spring_offered": is_spring,
-                "summer_offered": is_summer,
-                "fall_offered": is_fall,
+def publish_snapshot(
+    db: Session, year: int, term: str, level: str, courses: dict[str, dict], fetched_at: datetime,
+    term_has_courses: bool,
+) -> str:
+    """Publish course metadata and term membership together in one transaction."""
+    postgres = db.get_bind().dialect.name == "postgresql"
+    if postgres:
+        # Serialize worker and on-demand writers, including the first refresh.
+        db.execute(text("SELECT pg_advisory_xact_lock(82750621)"))
+    key = (year, term, level)
+    previous = db.get(CourseImport, key)
+    if previous and previous.synced_at > fetched_at:
+        return "superseded"
+    if not term_has_courses:
+        if previous:
+            raise ValueError("Unexpected empty feed for a previously published term")
+        return "unpublished"
+    if previous and len(courses) < previous.course_count * 0.75:
+        raise ValueError(f"Course count dropped from {previous.course_count} to {len(courses)}")
+
+    insert = pg_insert if postgres else sqlite_insert
+    rows = [courses[code] for code in sorted(courses)]
+    for offset in range(0, len(rows), 500):
+        batch = rows[offset:offset + 500]
+        statement = insert(Course).values(batch)
+        db.execute(statement.on_conflict_do_update(
+            index_elements=["raw_code"],
+            set_={
+                "title": statement.excluded.title,
+                "credits": statement.excluded.credits,
+                "spring_offered": Course.spring_offered | statement.excluded.spring_offered,
+                "summer_offered": Course.summer_offered | statement.excluded.summer_offered,
+                "fall_offered": Course.fall_offered | statement.excluded.fall_offered,
+            },
+        ))
+
+    db.execute(delete(CourseOffering).where(
+        CourseOffering.year == year, CourseOffering.term == term, CourseOffering.level == level
+    ))
+    if courses:
+        db.execute(insert(CourseOffering), [
+            {"year": year, "term": term, "level": level, "raw_code": code} for code in courses
+        ])
+    db.merge(CourseImport(year=year, term=term, level=level, course_count=len(courses), synced_at=fetched_at))
+    return "published"
+
+
+def ingest(
+    year: int, terms: list[str], level: str | None = None, verify: bool = False, dry_run: bool = False
+) -> list[dict]:
+    """Refresh each New Brunswick term and level, retaining the last good data on failure."""
+    levels = (level,) if level is not None else LEVELS
+    results = []
+    for term in terms:
+        fetched_at = utc_now()
+        try:
+            feed = fetch_term(year, term)
+            error = None
+        except (requests.RequestException, ValueError) as exc:
+            feed = []
+            error = str(exc)
+
+        for scope_level in levels:
+            courses = normalize_courses([row for row in feed if row["level"] == scope_level], term)
+            scope = {
+                "campus": CAMPUS, "year": year, "term": term, "level": scope_level,
+                "course_count": len(courses),
+                "unmapped_count": sum(code == course["code"] for code, course in courses.items()),
             }
-
-    if not seen_this_batch:
-        return 0
-
-    rows = list(seen_this_batch.values())
-
-    # Use PostgreSQL INSERT ... ON CONFLICT DO UPDATE so concurrent runs are safe.
-    stmt = pg_insert(Course.__table__).values(rows)
-    stmt = stmt.on_conflict_do_update(
-        index_elements=["raw_code"],
-        set_={
-            "title":              stmt.excluded.title,
-            "credits":            stmt.excluded.credits,
-            "offering_unit_code": stmt.excluded.offering_unit_code,
-            "raw_code":           stmt.excluded.raw_code,
-            # OR the existing flags so a course keeps all terms seen across runs.
-            "spring_offered": Course.__table__.c.spring_offered | stmt.excluded.spring_offered,
-            "summer_offered": Course.__table__.c.summer_offered | stmt.excluded.summer_offered,
-            "fall_offered":   Course.__table__.c.fall_offered   | stmt.excluded.fall_offered,
-        },
-    )
-    result = db.execute(stmt)
-    # rowcount on upsert reflects all affected rows; approximate new rows as
-    # inserts only (exact count not available without returning clause).
-    return result.rowcount
-
-
-def ingest(year: int, terms: list[str], level: str = "U", verify: bool = False) -> None:
-    """Fetch requested terms, upsert their courses, and report database totals.
-
-    Args:
-        year: Calendar year to request from SIS.
-        terms: Term names to ingest.
-        level: SIS course-level filter.
-        verify: Whether to report mapped subjects with no API results.
-    """
-    # Ensure tables exist (adds new columns on first run after schema change).
-    Base.metadata.create_all(bind=engine)
-
-    db: Session = SessionLocal()
-    total = 0
-    subject_counts: dict[str, int] = {}
-    try:
-        for term_name in terms:
-            raw_courses = fetch_term(year, term_name, level=level)
-            if not raw_courses:
-                continue
-            # Track per-subject counts for --verify
-            for raw in raw_courses:
-                s = raw.get("subject", "unknown")
-                subject_counts[s] = subject_counts.get(s, 0) + 1
-            count = upsert_courses(db, raw_courses, term_name)
-            db.commit()
-            total += count
-            print(f"  → {count} new courses written for {term_name.capitalize()} {year}")
-    finally:
-        db.close()
-
-    db2: Session = SessionLocal()
-    try:
-        total_in_db = db2.query(Course).count()
-    finally:
-        db2.close()
-
-    print(f"\nDone. {total} new courses added this run. {total_in_db} total courses in DB.")
-
-    if verify:
-        print("\n--- Subject code verification ---")
-        print("Subjects in SUBJECT_TO_PREFIX with 0 API hits (possible wrong code):")
-        all_mapped = set(SUBJECT_TO_PREFIX.keys())
-        for unit_overrides in _UNIT_SUBJECT_OVERRIDE.values():
-            all_mapped.update(unit_overrides.keys())
-        missing = sorted(s for s in all_mapped if subject_counts.get(s, 0) == 0)
-        if missing:
-            for s in missing:
-                prefix = SUBJECT_TO_PREFIX.get(s, "(unit override only)")
-                print(f"  subject={s} prefix={prefix} — 0 API courses found")
-        else:
-            print("  All subject codes returned at least one course.")
-        print("--- End verification ---")
+            try:
+                if error:
+                    raise ValueError(error)
+                if dry_run:
+                    scope["status"] = "preview" if feed else "unpublished"
+                else:
+                    with SessionLocal.begin() as db:
+                        scope["status"] = publish_snapshot(
+                            db, year, term, scope_level, courses, fetched_at, term_has_courses=bool(feed)
+                        )
+            except (ValueError, SQLAlchemyError) as exc:
+                scope.update(status="failed", error=str(exc))
+            results.append(scope)
+            log = logger.warning if scope["status"] == "failed" else logger.info
+            log("New Brunswick course refresh %s", scope)
+            if verify:
+                logger.info("Subjects with no search alias in this feed: %s", sorted({
+                    row["subject_code"] for code, row in courses.items() if code == row["code"]
+                }))
+    return results
 
 
 def main() -> None:
-    """Parse command-line options and run the course ingestion workflow."""
-    parser = argparse.ArgumentParser(
-        description="Ingest Rutgers SIS course data into the local database."
-    )
-    parser.add_argument(
-        "--year",
-        type=int,
-        default=2026,
-        help="Academic year to fetch (default: 2026)",
-    )
-    parser.add_argument(
-        "--terms",
-        nargs="+",
-        choices=["spring", "summer", "fall"],
-        default=["spring", "summer", "fall"],
-        help="Which terms to fetch (default: all three)",
-    )
-    parser.add_argument(
-        "--level",
-        choices=["U", "G"],
-        default="U",
-        help="Course level: U=Undergraduate (default), G=Graduate",
-    )
-    parser.add_argument(
-        "--verify",
-        action="store_true",
-        help="After ingestion, print subject codes that returned 0 API courses",
-    )
+    """Run a read-only inventory, a manual backfill, or the regular refresh."""
+    parser = argparse.ArgumentParser(description="Refresh courses from Rutgers New Brunswick.")
+    parser.add_argument("--year", type=int, help="Calendar year to backfill")
+    parser.add_argument("--terms", nargs="+", choices=TERM_CODES)
+    parser.add_argument("--level", choices=LEVELS, help="Refresh just one level (default: both)")
+    parser.add_argument("--verify", action="store_true", help="Report unfamiliar subject codes")
+    parser.add_argument("--dry-run", action="store_true", help="Inventory Rutgers records without database access")
     args = parser.parse_args()
-
-    print(f"Ingesting courses for {args.year}: {', '.join(args.terms)} (level={args.level})")
-    ingest(year=args.year, terms=args.terms, level=args.level, verify=args.verify)
+    if args.terms and args.year is None:
+        parser.error("--terms requires --year")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
+    specs = current_term_specs() if args.year is None else [
+        (args.year, term) for term in (args.terms or TERM_CODES)
+    ]
+    results = [
+        result
+        for year, term in specs
+        for result in ingest(year, [term], level=args.level, verify=args.verify, dry_run=args.dry_run)
+    ]
+    if any(result["status"] == "failed" for result in results):
+        sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -66,6 +66,12 @@ type PlanResponse = {
   core_curriculum_blocks: CoreCurriculumBlock[];
   completed_course_map?: Record<string, string>;
   programs_summary?: ProgramSummary[];
+  audit?: {
+    status: "incomplete" | "needs_review" | "requirements_met";
+    catalog_year: string | null;
+    gaps: string[];
+    review_items: string[];
+  };
 };
 
 const ALL_SEASONS = ["Spring", "Summer", "Fall", "Winter"];
@@ -546,6 +552,9 @@ function ProgramRequirementsPanel({ prog }: { prog: ProgramSummary }) {
 const WIZARD_STEPS = ["Degree", "Program", "Start", "Schedule", "Transcript", "Generate"];
 
 type WizardProps = {
+  catalogYear: string;
+  setCatalogYear: (year: string) => void;
+  catalogYears: string[];
   step: number; onStepChange: (s: number) => void;
   degreeFilter: string; setDegreeFilter: (v: string) => void;
   majorPrograms: ProgramInfo[]; minorPrograms: ProgramInfo[];
@@ -650,6 +659,7 @@ function WizardPreviewPanel({ step, degreeFilter, selectedMajors }: { step: numb
 
 function WizardStepContent({
   step = 0,
+  catalogYear, setCatalogYear, catalogYears,
   degreeFilter, setDegreeFilter,
   majorPrograms, minorPrograms,
   selectedMajors, setSelectedMajors,
@@ -784,6 +794,15 @@ function WizardStepContent({
         Set your target graduation date and schedule preferences.
       </p>
       <div style={{ marginBottom: 20 }}>
+        <label className="label" htmlFor="planner-catalog-year" style={{ marginBottom: 8, display: "block" }}>Catalog year</label>
+        <select id="planner-catalog-year" className="input" value={catalogYear} onChange={(e) => setCatalogYear(e.target.value)}>
+          <option value="">I’m not sure</option>
+          {catalogYear && !catalogYears.includes(catalogYear) && <option value={catalogYear}>{catalogYear} (previous selection)</option>}
+          {catalogYears.map((year) => <option key={year} value={year}>{year}</option>)}
+        </select>
+        <p style={{ color: "var(--text-3)", fontSize: 12, margin: "8px 0 16px" }}>
+          Confirm your applicable year in <a href="https://nbdn.rutgers.edu/students/using-degree-navigator" target="_blank" rel="noreferrer">Degree Navigator</a>.
+        </p>
         <label className="label" style={{ marginBottom: 8, display: "block" }}>Target graduation</label>
         <input className="input" value={targetGradTerm} onChange={(e) => setTargetGradTerm(e.target.value)} placeholder={`e.g. ${fourYearGraduation(defaultAcademicStart())}`} />
       </div>
@@ -1036,6 +1055,7 @@ export default function PlannerPage() {
   const [earnedDegreeCredits, setEarnedDegreeCredits] = useState(0);
   const [inProgressTerms, setInProgressTerms] = useState<Record<string, string>>({});
   const [inProgressCreditHours, setInProgressCreditHours] = useState<Record<string, number>>({});
+  const [catalogYear, setCatalogYear] = useState("");
   const [startTerm, setStartTerm] = useState(defaultAcademicStart);
   const [targetGradTerm, setTargetGradTerm] = useState(() => fourYearGraduation(defaultAcademicStart()));
   const [maxCredits, setMaxCredits] = useState(18);
@@ -1097,6 +1117,7 @@ export default function PlannerPage() {
               setInProgressCreditHours(profile.in_progress_credit_hours ?? {});
               const savedStart = profile.start_term ?? defaultAcademicStart();
               const savedGraduation = profile.target_grad_term ?? fourYearGraduation(savedStart);
+              setCatalogYear(profile.catalog_year ?? "");
               setStartTerm(savedStart);
               // Migrate the old two-year default that made nearly every fresh
               // plan appear impossible. Explicitly chosen dates are preserved.
@@ -1131,10 +1152,25 @@ export default function PlannerPage() {
     { key: "master",   label: "Master's",   levels: new Set(["master","master_ms","master_ma","master_mat","master_meng"]) },
   ];
   const activeFilter = DEGREE_FILTERS.find((f) => f.key === degreeFilter)!;
-  const majorPrograms = programs.filter(
+  const selectedPrograms = [...selectedMajors, ...selectedMinors];
+  const catalogYears = [...new Set(programs.map((program) => program.catalog_year))]
+    .filter((year) => selectedPrograms.every((name) =>
+      programs.some((program) => program.display_name === name && program.catalog_year === year)
+    ))
+    .sort()
+    .reverse();
+  const programsByName = new Map<string, ProgramInfo>();
+  for (const program of programs) {
+    const current = programsByName.get(program.display_name);
+    if (!current || program.catalog_year === (catalogYear || "2025-2026")) {
+      programsByName.set(program.display_name, program);
+    }
+  }
+  const distinctPrograms = [...programsByName.values()];
+  const majorPrograms = distinctPrograms.filter(
     (p) => p.degree_level !== "minor" && p.degree_level !== "concentration" && activeFilter.levels.has(p.degree_level)
   );
-  const minorPrograms = programs.filter((p) => p.degree_level === "minor");
+  const minorPrograms = distinctPrograms.filter((p) => p.degree_level === "minor");
   const hasTrackChoices = (program?: ProgramInfo) => Boolean(program && (program.tracks.length || program.track_dimensions?.length));
   const pendingTrackProgram = useMemo(() => {
     for (const selected of selectedMajors) {
@@ -1203,6 +1239,7 @@ export default function PlannerPage() {
     setSaveStatus("");
     const payload = {
       degree_level: degreeFilter,
+      catalog_year: catalogYear || undefined,
       majors: selectedMajors.map((major) => {
         const track = selectedMajorTracks[major];
         const program = majorPrograms.find((candidate) => candidate.display_name === major);
@@ -1298,6 +1335,7 @@ export default function PlannerPage() {
     setSaveStatus("Schedule saved!");
   }
 
+  const planEdited = Boolean(plan && JSON.stringify(editedTerms) !== JSON.stringify(plan.terms));
   const totalPlanCredits = editedTerms.reduce((sum, term) => sum + term.total_credits, 0);
   const livePrograms = useMemo(() => {
     if (!plan) return [];
@@ -1348,6 +1386,9 @@ export default function PlannerPage() {
     },
     selectedMinorTracks,
     setSelectedMinorTracks,
+    catalogYear,
+    setCatalogYear,
+    catalogYears,
     startTerm,
     setStartTerm,
     targetGradTerm,
@@ -1475,7 +1516,7 @@ export default function PlannerPage() {
                   </div>
                   <div className="stats-bar-progress">
                     <div className="stats-bar-progress-labels">
-                      <span className="stats-bar-progress-title">Degree progress</span>
+                      <span className="stats-bar-progress-title">Tracked requirements</span>
                       <span className="stats-bar-progress-value">
                         {liveCoverage.covered} / {liveCoverage.total} requirements ({coveragePercent}%)
                       </span>
@@ -1493,16 +1534,29 @@ export default function PlannerPage() {
                 <div className="planner-header">
                   <div className="planner-title">
                     {selectedMajors[0] ?? "My Plan"}
-                    {plan.completion_term && (
+                    {plan.completion_term && plan.audit?.status === "requirements_met" && !planEdited && (
                       <span className="planner-title-grad">— {plan.completion_term}</span>
                     )}
                   </div>
                   <div className="planner-subtitle">
-                    {editedTerms.length} semesters · {totalPlanCredits} scheduled credits · {plan.total_credits} degree credits · {liveCoverage.complete ? "all tracked requirements covered" : "requirements still missing"}
+                    {editedTerms.length} semesters · {totalPlanCredits} scheduled credits · {plan.total_credits} degree credits
                   </div>
                 </div>
 
-                {plan.terms.length === 0 && plan.remaining_courses.length === 0 && (
+                <div className="plan-warning" style={{ marginBottom: 12 }}>
+                  <strong>{planEdited ? "Edited plan needs review" : plan.audit?.status === "requirements_met" ? "All modeled requirements are covered" : plan.audit?.status === "incomplete" ? "Plan is incomplete" : "Draft plan needs review"}</strong>
+                  {plan.audit?.catalog_year && <div>Catalog year {plan.audit.catalog_year}</div>}
+                  {planEdited ? (
+                    <div>Requirement checks and course reasons refer to the original generated plan.</div>
+                  ) : plan.audit ? (
+                    (plan.audit.gaps.length > 0 || plan.audit.review_items?.length > 0) && (
+                      <ul>{[...plan.audit.gaps, ...(plan.audit.review_items ?? [])].map((item, index) => <li key={index}>{item}</li>)}</ul>
+                    )
+                  ) : (
+                    <div>Generate a new plan to see requirement checks.</div>
+                  )}
+                </div>
+                {!plan.audit && plan.terms.length === 0 && plan.remaining_courses.length === 0 && (
                   <div className="plan-warning" style={{ marginBottom: 12 }}>
                     <strong>No course data available.</strong> This program hasn&apos;t been published yet.
                   </div>

@@ -101,6 +101,24 @@ class TestSearchCourses:
         assert res.status_code == 200
         assert any(course["code"] == "CS999" for course in res.json())
 
+    def test_published_term_uses_snapshot_when_rutgers_is_unavailable(self, monkeypatch):
+        from app.database import SessionLocal
+        from app.models import Course
+        from management.ingest_courses import normalize_courses, publish_snapshot, utc_now
+
+        monkeypatch.setattr("app.main._soc_courses_for_term", lambda _year, _season: [])
+        with SessionLocal.begin() as db:
+            db.merge(Course(raw_code="01:995:100", code="ONLYHISTORICAL", title="Snapshot Course Old", credits=3,
+                            spring_offered=True, summer_offered=False, fall_offered=False))
+            for code, level in [("01:995:101", "U"), ("16:995:501", "G")]:
+                rows = normalize_courses([{"courseString": code, "title": "Snapshot Course Current"}], "spring")
+                publish_snapshot(db, 2032, "spring", level, rows, utc_now(), term_has_courses=True)
+
+        response = client.get("/courses?q=Snapshot%20Course&term=Spring%202032")
+
+        assert response.status_code == 200
+        assert {course["raw_code"] for course in response.json()} == {"01:995:101", "16:995:501"}
+
 
 def _base_payload(**overrides):
     payload = {

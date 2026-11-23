@@ -10,9 +10,49 @@ from app.core.planner import (
     _apply_track,
     _core_candidate_key,
     _match_core_courses,
+    _match_elective_slots,
     heuristic_plan,
 )
 from app.schemas import PlanRequest
+
+
+@pytest.mark.parametrize(("start", "retired"), [
+    ("Spring 2027", {"CS111"}),
+    ("Fall 2027", {"CS111", "CS112"}),
+])
+def test_cs_plan_leaves_retired_required_courses_unresolved(start, retired):
+    response = heuristic_plan(PlanRequest(
+        degree_level="bachelor",
+        majors=["Computer Science (BS, SAS)"],
+        minors=[],
+        completed_courses=[],
+        catalog_year="2025-2026",
+        start_term=start,
+        target_grad_term="Spring 2030",
+        max_credits_per_term=18,
+        preferred_seasons=["Spring", "Fall"],
+    ))
+
+    scheduled = {course.code for term in response.terms for course in term.courses}
+    assert retired.isdisjoint(scheduled)
+    assert retired <= set(response.remaining_courses)
+    assert response.audit.status == "incomplete"
+    assert any("transition" in item for item in response.audit.review_items)
+    for code in retired:
+        assert any(f"Rutgers retired {code}" in warning for warning in response.warnings)
+
+
+def test_elective_matching_assigns_distinct_courses_to_overlapping_slots():
+    slots = [
+        ("Flexible group", {"CS314", "CS323"}),
+        ("Constrained group", {"CS314"}),
+    ]
+
+    assert _match_elective_slots(slots, {"CS314": 10, "CS323": 10}) == {
+        0: "CS323",
+        1: "CS314",
+    }
+    assert len(_match_elective_slots(slots, {"CS314": 10})) == 1
 
 
 class TestTermIndex:

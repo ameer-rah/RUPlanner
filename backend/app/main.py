@@ -84,24 +84,17 @@ _SOC_COURSE_CACHE: dict[tuple[int, str], tuple[float, list[dict]]] = {}
 _SOC_CACHE_LOCK = threading.Lock()
 _SOC_CACHE_TTL_SECONDS = 15 * 60
 _SOC_CACHE_MAX_TERMS = 8
-_SOC_TERM_CODE = {"Winter": "0", "Spring": "1", "Summer": "7", "Fall": "9"}
-
-
 def _soc_courses_for_term(year: int, season: str) -> list[dict]:
-    """Return the official Rutgers NB undergraduate SOC payload for one term."""
+    """Return the official New Brunswick Schedule of Classes for one term."""
+    from management.ingest_courses import fetch_term
+
     key = (year, season)
     now = time.monotonic()
     with _SOC_CACHE_LOCK:
         cached = _SOC_COURSE_CACHE.get(key)
         if cached and now - cached[0] < _SOC_CACHE_TTL_SECONDS:
             return cached[1]
-    response = _requests.get(
-        "https://sis.rutgers.edu/soc/api/courses.json",
-        params={"year": year, "term": _SOC_TERM_CODE[season], "campus": "NB", "level": "U"},
-        timeout=20,
-    )
-    response.raise_for_status()
-    courses = response.json()
+    courses = fetch_term(year, season.lower())
     with _SOC_CACHE_LOCK:
         expired = [
             cache_key for cache_key, (created_at, _) in _SOC_COURSE_CACHE.items()
@@ -323,9 +316,7 @@ def search_courses(
         return []
     if not re.match(r"^[a-zA-Z0-9\s\-:]+$", q):
         raise HTTPException(status_code=400, detail="Invalid search query")
-    season = term.split()[0].capitalize() if term else None
-    if season and season not in {"Spring", "Summer", "Fall", "Winter"}:
-        raise HTTPException(status_code=400, detail="Invalid semester")
+    season = None
 
     core_index = _get_sas_core_index()
 
@@ -366,6 +357,13 @@ def search_courses(
     db = SessionLocal()
     try:
         course_query = db.query(models.Course)
+        has_term_snapshot = False
+        if term:
+            snapshots = db.query(models.CourseImport.level).filter_by(year=year, term=season.lower()).all()
+            has_term_snapshot = {level for (level,) in snapshots} == {"U", "G"}
+            if has_term_snapshot:
+                offerings = db.query(models.CourseOffering.raw_code).filter_by(year=year, term=season.lower())
+                course_query = course_query.filter(models.Course.raw_code.in_(offerings))
         if designation_codes:
             course_query = course_query.filter(models.Course.code.in_(designation_codes))
         else:
@@ -380,7 +378,7 @@ def search_courses(
             "Summer": models.Course.summer_offered,
             "Fall": models.Course.fall_offered,
         }.get(season)
-        if season_column is not None:
+        if season_column is not None and not has_term_snapshot:
             course_query = course_query.filter(season_column.is_(True))
         rows = course_query.order_by(models.Course.code).limit(limit).all()
         return [
@@ -1081,15 +1079,18 @@ def admin_ingest_courses():
     from management.ingest_courses import current_term_specs, ingest
     from .database import SessionLocal as _SL
     specs = current_term_specs()
-    for year, term in specs:
-        ingest(year=year, terms=[term])
+    results = [result for year, term in specs for result in ingest(year=year, terms=[term])]
     invalidate_catalog_cache()
     db = _SL()
     try:
         total = db.query(models.Course).count()
     finally:
         db.close()
-    return {"terms": [{"year": year, "term": term} for year, term in specs], "total_in_db": total}
+    return {
+        "terms": [{"year": year, "term": term} for year, term in specs],
+        "total_in_db": total,
+        "scopes": results,
+    }
 
 
 def _snipe_to_out(s: models.Snipe) -> SnipeOut:

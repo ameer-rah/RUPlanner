@@ -19,6 +19,7 @@ export type PlannedCourse = {
   prerequisites: string[];
   elective_options: ElectiveOption[];
   core_tags?: string[];
+  reasons?: string[];
 };
 
 export type PlanTerm = {
@@ -635,6 +636,9 @@ export default function PlanEditor({ initialTerms, completedCourses, onTermsChan
                     <div className="plan-course-meta">
                       {course.title} · {course.credits} cr
                     </div>
+                    {course.reasons?.map((reason) => (
+                      <div key={reason} className="plan-course-meta">{reason}</div>
+                    ))}
                     {course.core_tags && course.core_tags.length > 0 && (
                       <div className="plan-course-tags">
                         {course.core_tags.map((tag) => (

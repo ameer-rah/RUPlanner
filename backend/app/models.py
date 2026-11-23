@@ -32,6 +32,27 @@ class Course(Base):
     offering_unit_code: Mapped[str | None] = mapped_column(String(4), nullable=True)
 
 
+class CourseImport(Base):
+    """Last successful Schedule of Classes snapshot for a New Brunswick term."""
+    __tablename__ = "course_imports"
+
+    year: Mapped[int] = mapped_column(Integer, primary_key=True)
+    term: Mapped[str] = mapped_column(String(8), primary_key=True)
+    level: Mapped[str] = mapped_column(String(1), primary_key=True)
+    course_count: Mapped[int] = mapped_column(Integer)
+    synced_at: Mapped[datetime] = mapped_column(DateTime)
+
+
+class CourseOffering(Base):
+    """Course membership in a published New Brunswick term snapshot."""
+    __tablename__ = "course_offerings"
+
+    year: Mapped[int] = mapped_column(Integer, primary_key=True)
+    term: Mapped[str] = mapped_column(String(8), primary_key=True)
+    level: Mapped[str] = mapped_column(String(1), primary_key=True)
+    raw_code: Mapped[str] = mapped_column(ForeignKey("courses.raw_code"), primary_key=True)
+
+
 class Program(Base):
     """Versioned degree program and its JSON requirement definition."""
     __tablename__ = "programs"

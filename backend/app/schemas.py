@@ -22,6 +22,10 @@ class ElectiveOption(BaseModel):
 class PlanRequest(BaseModel):
     """Validate the academic profile and constraints used to build a plan."""
     degree_level: str = Field("bachelor", description="Associate, Bachelor, or Master")
+    catalog_year: Optional[str] = Field(
+        default=None, pattern=r"^[0-9]{4}-[0-9]{4}$",
+        description="Applicable Rutgers catalog year, confirmed against the student's audit.",
+    )
     majors: Annotated[List[str], Field(max_length=5)]
     minors: Annotated[List[str], Field(max_length=5)]
     concentrations: Annotated[List[str], Field(default=[], max_length=5, description="Optional concentration programs to layer on top of the major.")]
@@ -164,6 +168,7 @@ class PlannedCourse(BaseModel):
     elective_options: List[ElectiveOption] = []
     core_tags: List[str] = []
     is_in_progress: bool = False
+    reasons: List[str] = Field(default_factory=list)
 
 
 class TermPlan(BaseModel):
@@ -238,6 +243,15 @@ class ProgramSummary(BaseModel):
     requirement_groups: List[Dict] = []
 
 
+class PlanAudit(BaseModel):
+    """Check a generated plan against the requirement rules modeled by RUPlanner."""
+
+    status: str = "needs_review"
+    catalog_year: Optional[str] = None
+    gaps: List[str] = Field(default_factory=list)
+    review_items: List[str] = Field(default_factory=list)
+
+
 class PlanResponse(BaseModel):
     """Represent a generated multi-term plan and its completion metadata."""
     terms: List[TermPlan]
@@ -250,6 +264,7 @@ class PlanResponse(BaseModel):
     core_curriculum_blocks: List[CoreCurriculumBlock] = []
     completed_course_map: Dict[str, str] = {}  # {course_code: requirement_label}
     programs_summary: List["ProgramSummary"] = []
+    audit: PlanAudit = Field(default_factory=PlanAudit)
 
 
 class ProgramInfo(BaseModel):
