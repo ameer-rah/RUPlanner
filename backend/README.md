@@ -34,6 +34,13 @@ For a backfill, point the CLI at the intended database and omit `--dry-run`.
 A failed or empty response keeps the last stored offerings for that term.
 Check scope outcomes and counts in the worker logs after deployment.
 
+Production runs course ingestion as the `ruplanner-course-refresh` Cloud Run
+job in `us-east1`. Cloud Scheduler starts it daily at 4 a.m. Eastern. The job
+runs `python -m management.ingest_courses` directly. When releasing an importer
+change, update both the API service and the job to the tested image digest.
+The standalone worker remains available for environments that also run
+snipe polling.
+
 ## Database migrations
 
 On an existing database, apply only pending migrations in numeric order before
