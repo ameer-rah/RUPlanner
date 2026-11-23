@@ -28,7 +28,7 @@ import requests
 from sqlalchemy import delete, text
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
-from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.exc import DBAPIError, SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
@@ -410,7 +410,13 @@ def ingest(
                         scope["status"] = publish_snapshot(
                             db, year, term, scope_level, courses, fetched_at, term_has_courses=bool(feed)
                         )
-            except (ValueError, SQLAlchemyError) as exc:
+            except DBAPIError as exc:
+                code = getattr(exc.orig, "pgcode", None)
+                error_code = f" (SQLSTATE {code})" if code else ""
+                scope.update(status="failed", error=f"Database write failed{error_code}")
+            except SQLAlchemyError:
+                scope.update(status="failed", error="Database write failed")
+            except ValueError as exc:
                 scope.update(status="failed", error=str(exc))
             results.append(scope)
             log = logger.warning if scope["status"] == "failed" else logger.info
